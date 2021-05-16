@@ -1,4 +1,24 @@
 """package holding decorators"""
+from .helpers import ic
+
+try:
+    import psutil
+except ImportError:
+    ic("psutil is not available")
+else:
+
+    def timing_psutil(func):
+        """decorator which measures execution times with the help of psutil"""
+        save = func.__name__
+
+        def wrapped(*args, **kwargs):
+            before = psutil.Process().cpu_times()
+            retval = func(*args, **kwargs)
+            after = psutil.Process().cpu_times()
+            print(save, after - before, sum(after - before))
+            return retval
+
+        return wrapped
 
 
 class LazyProperty(property):
