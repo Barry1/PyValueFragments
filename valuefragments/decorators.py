@@ -1,5 +1,5 @@
 """module holding decorators"""
-from .helpers import ic
+from .helpers import ic  # pylint: disable=E0402
 
 try:
     import psutil
@@ -22,7 +22,18 @@ else:
 
 
 class LazyProperty(property):
-    """decorator for properties, which will be only evaluated if needed"""
+    """
+    decorator for properties, which will be only evaluated if needed
+
+    implementation based on ideas given in
+    <https://stevenloria.com/lazy-properties>
+    """
+
+    # archived under <https://archive.is/8yiRH> and
+    # <https://web.archive.org/web/20210514102257/https://stevenloria.com/lazy-properties/>
+    # having a look at <https://www.programiz.com/python-programming/property>
+    # might also help. Further interesting is
+    # <https://stackoverflow.com/questions/7151890#answer-7152065>
 
     def __init__(self, getterfunction):
         attr_name = "_lazy_" + getterfunction.__name__
