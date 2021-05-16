@@ -3,16 +3,26 @@
 
 pyobjs:= *.py valuefragments/*.py
 default:
-	@echo ===================================================================
-	-autopep8 --in-place --jobs 0 --recursive $(pyobjs)
-	@echo ===================================================================
-	-isort * $(pyobjs)
-	@echo ===================================================================
-	-black --target-version py37 $(pyobjs)
-	@echo ===================================================================
-	-pylama
-	@echo ===================================================================
-	-pylint $(pyobjs)
+	@echo -n "=========="
+	@echo -n "autopep8"
+	@echo "=========="
+	@autopep8 --in-place --jobs 0 --recursive $(pyobjs)
+	@echo -n "=========="
+	@echo -n "isort"
+	@echo "=========="
+	@isort * $(pyobjs)
+	@echo -n "=========="
+	@echo -n "black"
+	@echo "=========="
+	@black --target-version py37 $(pyobjs)
+	@echo -n "=========="
+	@echo -n "pylama"
+	@echo "=========="
+	@pylama
+	@echo -n "=========="
+	@echo -n "pylint"
+	@echo "=========="
+	@pylint $(pyobjs)
 
 build: buildprep
 	python3 - m build
