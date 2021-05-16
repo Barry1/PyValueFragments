@@ -24,7 +24,7 @@ else:
 try:
     import time
 except ImportError:
-    ic("psutil is not available")
+    ic("time is not available")
 else:
 
     def timing_thread_time(func):
