@@ -1,4 +1,4 @@
-"""package holding decorators"""
+"""module holding decorators"""
 from .helpers import ic
 
 try:

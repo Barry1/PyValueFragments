@@ -1,4 +1,13 @@
 """helper functions and code snippets which are not decorators"""
+
+
+def ic(*a):  # pylint: disable=invalid-name
+    """Just in case package icecream is not available: For logging purpuses."""
+    if not a:
+        return None
+    return a[0] if len(a) == 1 else a
+
+
 if __debug__:
     try:
         from icecream import ic  # type: ignore[import,no-redef] # noqa: F811,W0404
