@@ -21,6 +21,39 @@ else:
         return wrapped
 
 
+try:
+    import time
+except ImportError:
+    ic("psutil is not available")
+else:
+
+    def timing_thread_time(func):
+        """decorator which measures execution times with the help of psutil"""
+        save = func.__name__
+
+        def wrapped(*args, **kwargs):
+            before = time.thread_time()
+            retval = func(*args, **kwargs)
+            after = time.thread_time()
+            print(save, after - before)
+            return retval
+
+        return wrapped
+
+    def timing_process_time(func):
+        """decorator which measures execution times with the help of psutil"""
+        save = func.__name__
+
+        def wrapped(*args, **kwargs):
+            before = time.process_time()
+            retval = func(*args, **kwargs)
+            after = time.process_time()
+            print(save, after - before)
+            return retval
+
+        return wrapped
+
+
 class LazyProperty(property):
     """
     decorator for properties, which will be only evaluated if needed
