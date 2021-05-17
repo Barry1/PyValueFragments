@@ -7,24 +7,9 @@ try:
     import resource
 except ImportError:
     ic("resource is not available")
-
-    def timing_plainpy(func):
-        """decorator which measures execution times by time"""
-        save = func.__name__
-
-        def wrapped(*args, **kwargs):
-            before = time.process_time()
-            retval = func(*args, **kwargs)
-            after = time.process_time()
-            print(save, after - before)
-            return retval
-
-        return wrapped
-
-
 else:
 
-    def timing_plainpy(func):
+    def timing_resource(func):
         """decorator which measures execution times by resource"""
         save = func.__name__
 
@@ -45,7 +30,7 @@ except ImportError:
 else:
 
     def timing_psutil(func):
-        """decorator which measures execution times with the help of psutil"""
+        """decorator which measures execution times by psutil"""
         save = func.__name__
 
         def wrapped(*args, **kwargs):
@@ -59,7 +44,7 @@ else:
 
 
 def timing_thread_time(func):
-    """decorator which measures execution times with the help of psutil"""
+    """decorator which measures execution times by time"""
     save = func.__name__
 
     def wrapped(*args, **kwargs):
@@ -73,7 +58,7 @@ def timing_thread_time(func):
 
 
 def timing_process_time(func):
-    """decorator which measures execution times with the help of psutil"""
+    """decorator which measures execution times by time"""
     save = func.__name__
 
     def wrapped(*args, **kwargs):
