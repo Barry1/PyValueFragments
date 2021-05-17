@@ -1,5 +1,42 @@
 """module holding decorators"""
+import time
+
 from .helpers import ic  # pylint: disable=E0402
+
+try:
+    import resource
+except ImportError:
+    ic("resource is not available")
+
+    def timing_plainpy(func):
+        """decorator which measures execution times by time"""
+        save = func.__name__
+
+        def wrapped(*args, **kwargs):
+            before = time.process_time()
+            retval = func(*args, **kwargs)
+            after = time.process_time()
+            print(save, after - before)
+            return retval
+
+        return wrapped
+
+
+else:
+
+    def timing_plainpy(func):
+        """decorator which measures execution times by resource"""
+        save = func.__name__
+
+        def wrapped(*args, **kwargs):
+            before = resource.getrusage(resource.RUSAGE_SELF)[:2]
+            retval = func(*args, **kwargs)
+            after = resource.getrusage(resource.RUSAGE_SELF)[:2]
+            print(save, sum(after) - sum(before))
+            return retval
+
+        return wrapped
+
 
 try:
     import psutil
@@ -21,37 +58,32 @@ else:
         return wrapped
 
 
-try:
-    import time
-except ImportError:
-    ic("time is not available")
-else:
+def timing_thread_time(func):
+    """decorator which measures execution times with the help of psutil"""
+    save = func.__name__
 
-    def timing_thread_time(func):
-        """decorator which measures execution times with the help of psutil"""
-        save = func.__name__
+    def wrapped(*args, **kwargs):
+        before = time.thread_time()
+        retval = func(*args, **kwargs)
+        after = time.thread_time()
+        print(save, after - before)
+        return retval
 
-        def wrapped(*args, **kwargs):
-            before = time.thread_time()
-            retval = func(*args, **kwargs)
-            after = time.thread_time()
-            print(save, after - before)
-            return retval
+    return wrapped
 
-        return wrapped
 
-    def timing_process_time(func):
-        """decorator which measures execution times with the help of psutil"""
-        save = func.__name__
+def timing_process_time(func):
+    """decorator which measures execution times with the help of psutil"""
+    save = func.__name__
 
-        def wrapped(*args, **kwargs):
-            before = time.process_time()
-            retval = func(*args, **kwargs)
-            after = time.process_time()
-            print(save, after - before)
-            return retval
+    def wrapped(*args, **kwargs):
+        before = time.process_time()
+        retval = func(*args, **kwargs)
+        after = time.process_time()
+        print(save, after - before)
+        return retval
 
-        return wrapped
+    return wrapped
 
 
 class LazyProperty(property):
