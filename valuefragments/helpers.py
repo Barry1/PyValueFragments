@@ -16,6 +16,26 @@ if __debug__:
     else:
         ic.configureOutput(includeContext=True)  # type: ignore[attr-defined]
 try:
+    import psutil
+except ImportError:
+    ic("psutil is not available")
+else:
+
+    def backgroundme() -> None:
+        if psutil.WINDOWS:
+            try:
+                # Details <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
+                psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
+            except OSError as theerr:
+                if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
+                    ic("Prozess was already in background mode.")
+                else:
+                    print(theerr)
+        else:
+            psutil.Process().nice(19)
+
+
+try:
     import hashlib
 except ImportError:
     ic("hashlib is not available")
