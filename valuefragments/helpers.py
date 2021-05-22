@@ -22,6 +22,7 @@ except ImportError:
 else:
 
     def backgroundme() -> None:
+        """give this process background priority"""
         if psutil.WINDOWS:
             try:
                 # Details <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
