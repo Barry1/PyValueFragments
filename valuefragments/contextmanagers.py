@@ -27,7 +27,7 @@ class TimingCM:
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        self.start_wall = time.monotonic()  # perf_counter()
+        self.end_wall = time.monotonic()  # perf_counter()
         self.end_process = time.process_time()
         self.end_thread = time.thread_time()
         print(
