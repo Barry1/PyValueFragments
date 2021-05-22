@@ -9,3 +9,4 @@ from .helpers import hashfile  # noqa: [W0611] # pylint: disable=E0401
 from .helpers import ic  # noqa: [W0611] # pylint: disable=E0401
 from .helpers import loadonecore  # noqa: [W0611] # pylint: disable=E0401
 from .helpers import loadallcores  # noqa: [W0611] # pylint: disable=E0401
+from .contextmanagers import TimingCM  # noqa: [W0611] # pylint: disable=E0401
