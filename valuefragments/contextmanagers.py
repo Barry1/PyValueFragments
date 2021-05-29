@@ -3,7 +3,6 @@
 
 import time
 
-
 from .helpers import ic  # pylint: disable=E0402
 
 
