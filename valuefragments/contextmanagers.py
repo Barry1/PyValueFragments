@@ -7,7 +7,13 @@ from .helpers import ic  # pylint: disable=E0402
 
 
 class TimingCM:
-    """use this as a context manager for getting timing details"""
+    """
+    use this as a context manager for getting timing details
+
+    at the moment it is need to be instatiated with paranthesis as in
+    with TimingCM():
+    hopefully I can remove that for further simplification
+    """
 
     # https://book.pythontips.com/en/latest/context_managers.html#implementing-a-context-manager-as-a-class
     def __init__(self):
