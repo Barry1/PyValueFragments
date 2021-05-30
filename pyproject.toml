@@ -1,3 +1,22 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38']
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+
+[tool.towncrier]
+
+[tool.darker]
+revision = "main"
+diff = true
+check = true
+isort = true
+lint = [
+    "pylint","mypy","flake8"
+]
+log_level = "INFO"
