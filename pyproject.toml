@@ -39,3 +39,9 @@ lint = [
 ]
 log_level = "INFO"
 
+
+# disable = "R0801"
+[tool.pylint.MASTER]
+jobs = 0
+[tool.pylint."MESSAGES CONTROL"]
+disable = "duplicate-code"
