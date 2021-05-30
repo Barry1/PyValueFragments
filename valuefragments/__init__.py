@@ -1,4 +1,4 @@
-"""identifier file for package and building namespace"""
+"""Identifier file for package and building namespace."""
 from .contextmanagers import TimingCM  # noqa: [W0611] # pylint: disable=E0401
 from .decorators import LazyProperty  # noqa: [W0611] # pylint: disable=E0401
 from .decorators import timing_process_time  # noqa: [W0611] # pylint: disable=E0401
