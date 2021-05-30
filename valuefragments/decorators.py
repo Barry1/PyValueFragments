@@ -24,7 +24,7 @@ else:
 
 
 try:
-    import psutil
+    import psutil  # type: ignore[import]
 except ImportError:
     ic("psutil is not available")
 else:

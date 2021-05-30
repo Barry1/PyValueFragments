@@ -16,7 +16,7 @@ if __debug__:
     else:
         ic.configureOutput(includeContext=True)  # type: ignore[attr-defined]
 try:
-    import psutil
+    import psutil  # type: ignore[import]
 except ImportError:
     ic("psutil is not available")
 else:
@@ -43,7 +43,7 @@ except ImportError:
 else:
 
     def hashfile(filename: str, chunklen: int = 128 * 2 ** 12) -> str:
-        """Return md5 hash for file."""
+        """Returning md5 hash for file."""
         with open(filename, "rb") as thefile:
             file_hash = hashlib.md5()
             chunk = thefile.read(chunklen)
@@ -70,5 +70,5 @@ else:
         )
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
-        """Just a helper function to generate load on all cores."""
+        """just a helper function to generate load on all cores."""
         cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
