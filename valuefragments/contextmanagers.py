@@ -1,4 +1,4 @@
-"""module holding context managers"""
+"""Module holding context managers."""
 
 
 import time
@@ -8,7 +8,7 @@ from .helpers import ic  # pylint: disable=E0402
 
 class TimingCM:
     """
-    use this as a context manager for getting timing details
+    Use this as a context manager for getting timing details.
 
     at the moment it is need to be instatiated with paranthesis as in
     with TimingCM():
@@ -17,6 +17,7 @@ class TimingCM:
 
     # https://book.pythontips.com/en/latest/context_managers.html#implementing-a-context-manager-as-a-class
     def __init__(self):
+        """Prepare (type) variables."""
         self.end_process: float
         self.end_thread: float
         self.end_wall: float
@@ -26,12 +27,14 @@ class TimingCM:
         ic("Prepared to run with Timing")
 
     def __enter__(self):
+        """Save startup timing information."""
         self.start_wall = time.monotonic()  # perf_counter()
         self.start_process = time.process_time()
         self.start_thread = time.thread_time()
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        """Retrieve end timing informationc and print."""
         self.end_wall = time.monotonic()  # perf_counter()
         self.end_process = time.process_time()
         self.end_thread = time.thread_time()
