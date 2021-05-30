@@ -17,6 +17,13 @@ diff = true
 check = true
 isort = true
 lint = [
-    "pylint","mypy","flake8"
+    "pylint",
+    "mypy",
+    "flake8"
 ]
 log_level = "INFO"
+
+[tool.isort]
+# https://pycqa.github.io/isort/docs/configuration/options
+py_version = 37
+color_output = true
