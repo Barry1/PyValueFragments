@@ -6,23 +6,27 @@ default:
 	@echo -n "=========="
 	@echo -n "autopep8"
 	@echo "=========="
-	@autopep8 --in-place --jobs 0 --recursive $(pyobjs)
+	autopep8 $(pyobjs)
 	@echo -n "=========="
 	@echo -n "isort"
 	@echo "=========="
-	@isort * $(pyobjs)
+	isort $(pyobjs)
 	@echo -n "=========="
 	@echo -n "black"
 	@echo "=========="
-	@black --target-version py37 $(pyobjs)
+	black $(pyobjs)
 	@echo -n "=========="
 	@echo -n "pylama"
 	@echo "=========="
-	@pylama
+	pylama
 	@echo -n "=========="
 	@echo -n "pylint"
 	@echo "=========="
-	@pylint $(pyobjs)
+	pylint $(pyobjs)
+	@echo -n "=========="
+	@echo -n "pydocstyle"
+	@echo "=========="
+	pydocstyle $(pyobjs)
 
 build: buildprep
 	python3 -m build
