@@ -1,8 +1,8 @@
-"""helper functions and code snippets which are not decorators"""
+"""helper functions and code snippets which are not decorators."""
 
 
 def ic(*a):  # pylint: disable=invalid-name
-    """Just in case package icecream is not available: For logging purpuses."""
+    """Just in case package icecream is not available: For logging purposes."""
     if not a:
         return None
     return a[0] if len(a) == 1 else a
@@ -22,7 +22,7 @@ except ImportError:
 else:
 
     def backgroundme() -> None:
-        """give this process background priority"""
+        """Give this process background priority."""
         if psutil.WINDOWS:
             try:
                 # Details <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
@@ -43,7 +43,7 @@ except ImportError:
 else:
 
     def hashfile(filename: str, chunklen: int = 128 * 2 ** 12) -> str:
-        """returning md5 hash for file"""
+        """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             file_hash = hashlib.md5()
             chunk = thefile.read(chunklen)
@@ -62,7 +62,7 @@ else:
     def loadonecore(
         loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
     ) -> None:
-        """just a helper function to generate load on one given core"""
+        """Just a helper function to generate load on one given core."""
         cpu_load_generator.load_single_core(
             core_num=loadedcore,
             duration_s=loadduration,
@@ -70,5 +70,5 @@ else:
         )
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
-        """just a helper function to generate load on all cores"""
+        """Just a helper function to generate load on all cores."""
         cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
