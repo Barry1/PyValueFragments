@@ -1,4 +1,5 @@
-# Learn more at https://github.com/carlosperate/awesome-pyproject
+# Learn more at <https://github.com/carlosperate/awesome-pyproject>
+# Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
