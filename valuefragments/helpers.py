@@ -43,7 +43,7 @@ except ImportError:
 else:
 
     def hashfile(filename: str, chunklen: int = 128 * 2 ** 12) -> str:
-        """Returning md5 hash for file."""
+        """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             file_hash = hashlib.md5()
             chunk = thefile.read(chunklen)
@@ -70,5 +70,5 @@ else:
         )
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
-        """just a helper function to generate load on all cores."""
+        """Just a helper function to generate load on all cores."""
         cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
