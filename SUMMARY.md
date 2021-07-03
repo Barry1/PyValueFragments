@@ -1,4 +1,3 @@
 # Table of contents
 
-* [PyValueFragments](README.md)
-
+- [PyValueFragments](README.md)
