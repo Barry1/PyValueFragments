@@ -1,8 +1,8 @@
 # commented out because part of python distribution
 #hashlib
+#resource
 #time
 cpu_load_generator
 icecream
 psutil
 pytest
-resource
