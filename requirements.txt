@@ -4,4 +4,5 @@
 cpu_load_generator
 icecream
 psutil
+pytest
 resource
