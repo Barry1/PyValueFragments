@@ -13,15 +13,16 @@ jobs = 0
 
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
-line-length = 88
-target-version = ['py37', 'py38']
+#line-length = 88
+target-version = ['py37', 'py38', 'py39']
+color = true
+safe = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
 py_version = 37
 color_output = true
 profile = "black"
-
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -33,16 +34,12 @@ revision = "main"
 diff = true
 check = true
 isort = true
-lint = [
-    "pylint",
-    "mypy",
-    "flake8"
-]
+lint = ["pylint", "mypy", "flake8"]
 log_level = "INFO"
-
 
 # disable = "R0801"
 [tool.pylint.MASTER]
 jobs = 0
+
 [tool.pylint."MESSAGES CONTROL"]
 disable = "duplicate-code"
