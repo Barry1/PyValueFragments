@@ -99,7 +99,7 @@ class LazyProperty(property):
         self,
         getterfunction: Callable[
             [InstanceObjectType], GetResultType
-        ],  #  type: ignore[reportInvalidTypeVarUse]
+        ],  # type: ignore[reportInvalidTypeVarUse]
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name = "_lazy_" + getterfunction.__name__
