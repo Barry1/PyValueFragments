@@ -4,9 +4,11 @@ import time
 # typing with the help of <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Any, Callable, TypeVar, cast
 
+FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
+GetResultType = TypeVar("GetResultType")
+InstanceObjectType = TypeVar("InstanceObjectType")
 from .helpers import ic  # pylint: disable=E0402
 
-FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 try:
     import resource
 except ImportError:
@@ -92,12 +94,13 @@ class LazyProperty(property):
     # having a look at <https://www.programiz.com/python-programming/property>
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
-
-    def __init__(self, getterfunction):
+    def __init__(
+        self, getterfunction: Callable[[InstanceObjectType], GetResultType]
+    ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name = "_lazy_" + getterfunction.__name__
 
-        def _lazy_getterfunction(instanceobj):
+        def _lazy_getterfunction(instanceobj: InstanceObjectType) -> GetResultType:
             """Check if value present, if not calculate"""
             if not hasattr(instanceobj, attr_name):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
