@@ -52,6 +52,10 @@ else:
                 chunk = thefile.read(chunklen)
         return file_hash.hexdigest()
 
+    def test_hashfile() -> None:
+        """pytest routine - md5sum of empty file"""
+        assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
+
 
 try:
     import cpu_load_generator  # type: ignore[import]
