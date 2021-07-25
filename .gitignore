@@ -1,2 +1,3 @@
 *.pyc
 interrogate_badge.svg
+parallel.pre-commit.log
