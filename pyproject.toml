@@ -22,7 +22,7 @@ safe = true
 [tool.interrogate]
 color = true
 generate_badge = "."
-verbose = true
+verbose = 2
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
