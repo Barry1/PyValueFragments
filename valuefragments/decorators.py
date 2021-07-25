@@ -4,10 +4,11 @@ import time
 # typing with the help of <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Any, Callable, TypeVar, cast
 
+from .helpers import ic  # pylint: disable=E0402
+
 FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 GetResultType = TypeVar("GetResultType")
 InstanceObjectType = TypeVar("InstanceObjectType")
-from .helpers import ic  # pylint: disable=E0402
 
 try:
     import resource
