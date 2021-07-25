@@ -21,7 +21,7 @@ else:
         save = func.__name__
 
         def wrapped(*args, **kwargs):
-            """this is the new implementation"""
+            """This is the new implementation."""
             before = resource.getrusage(resource.RUSAGE_SELF)[:2]
             retval = func(*args, **kwargs)
             after = resource.getrusage(resource.RUSAGE_SELF)[:2]
@@ -42,7 +42,7 @@ else:
         save = func.__name__
 
         def wrapped(*args, **kwargs):
-            """this is the new implementation"""
+            """This is the new implementation."""
             before = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
             after = psutil.Process().cpu_times()
@@ -57,7 +57,7 @@ def timing_thread_time(func: FunctionTypeVar) -> FunctionTypeVar:
     save = func.__name__
 
     def wrapped(*args, **kwargs):
-        """this is the new implementation"""
+        """This is the new implementation."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
         after = time.thread_time()
@@ -72,7 +72,7 @@ def timing_process_time(func: FunctionTypeVar) -> FunctionTypeVar:
     save = func.__name__
 
     def wrapped(*args, **kwargs):
-        """this is the new implementation"""
+        """This is the new implementation."""
         before = time.process_time()
         retval = func(*args, **kwargs)
         after = time.process_time()
