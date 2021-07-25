@@ -1,15 +1,19 @@
 """module holding decorators."""
 import time
 
+# typing with the help of <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
+from typing import Any, Callable, TypeVar, cast
+
 from .helpers import ic  # pylint: disable=E0402
 
+FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 try:
     import resource
 except ImportError:
     ic("resource is not available")
 else:
 
-    def timing_resource(func):
+    def timing_resource(func: FunctionTypeVar) -> FunctionTypeVar:
         """Measure execution times by resource."""
         save = func.__name__
 
@@ -21,7 +25,7 @@ else:
             print(save, sum(after) - sum(before))
             return retval
 
-        return wrapped
+        return cast(FunctionTypeVar, wrapped)
 
 
 try:
@@ -30,7 +34,7 @@ except ImportError:
     ic("psutil is not available")
 else:
 
-    def timing_psutil(func):
+    def timing_psutil(func: FunctionTypeVar) -> FunctionTypeVar:
         """Measures execution times by psutil."""
         save = func.__name__
 
@@ -42,10 +46,10 @@ else:
             print(save, after - before, sum(after - before))
             return retval
 
-        return wrapped
+        return cast(FunctionTypeVar, wrapped)
 
 
-def timing_thread_time(func):
+def timing_thread_time(func: FunctionTypeVar) -> FunctionTypeVar:
     """Measures execution times by time (thread)."""
     save = func.__name__
 
@@ -57,10 +61,10 @@ def timing_thread_time(func):
         print(save, after - before)
         return retval
 
-    return wrapped
+    return cast(FunctionTypeVar, wrapped)
 
 
-def timing_process_time(func):
+def timing_process_time(func: FunctionTypeVar) -> FunctionTypeVar:
     """Measures execution times by time (process)."""
     save = func.__name__
 
@@ -72,7 +76,7 @@ def timing_process_time(func):
         print(save, after - before)
         return retval
 
-    return wrapped
+    return cast(FunctionTypeVar, wrapped)
 
 
 class LazyProperty(property):
