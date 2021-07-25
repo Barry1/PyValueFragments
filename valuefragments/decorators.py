@@ -96,7 +96,10 @@ class LazyProperty(property):
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
-        self, getterfunction: Callable[[InstanceObjectType], GetResultType]
+        self,
+        getterfunction: Callable[
+            [InstanceObjectType], GetResultType
+        ],  #  type: ignore[reportInvalidTypeVarUse]
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name = "_lazy_" + getterfunction.__name__
