@@ -18,6 +18,12 @@ target-version = ['py37', 'py38', 'py39']
 color = true
 safe = true
 
+#
+[tool.interrogate]
+color = true
+generate_badge = "."
+verbose = true
+
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
 py_version = 37
