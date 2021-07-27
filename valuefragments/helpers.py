@@ -1,7 +1,10 @@
 """helper functions and code snippets which are not decorators."""
 
 
-def ic(*a):  # pylint: disable=invalid-name
+from typing import Any, Tuple, Union
+
+
+def ic(*a: Any) -> Union[Any, Tuple[Any], None]:  # pylint: disable=invalid-name
     """Just in case package icecream is not available: For logging purposes."""
     if not a:
         return None
