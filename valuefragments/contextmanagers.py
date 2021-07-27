@@ -1,5 +1,9 @@
 """Module holding context managers."""
+from __future__ import annotations
+
 import time
+from types import TracebackType
+from typing import Optional, Type
 
 from .helpers import ic  # pylint: disable=E0402
 
@@ -15,7 +19,7 @@ class TimingCM:
 
     # https://book.pythontips.com/en/latest/context_managers.html#implementing-a-context-manager-as-a-class
     # https://www.python.org/dev/peps/pep-0484/ Type hints
-    def __init__(self) -> None:
+    def __init__(self: TimingCM) -> None:
         """Prepare (type) variables."""
         self.end_process: float
         self.end_thread: float
@@ -25,14 +29,19 @@ class TimingCM:
         self.start_wall: float
         ic("Prepared to run with Timing")
 
-    def __enter__(self):
+    def __enter__(self: TimingCM) -> TimingCM:
         """Save startup timing information."""
         self.start_wall = time.monotonic()  # perf_counter()
         self.start_process = time.process_time()
         self.start_thread = time.thread_time()
         return self
 
-    def __exit__(self, exc_type, exc_value, exc_traceback) -> None:
+    def __exit__(
+        self: TimingCM,
+        exc_type: Optional[Type[BaseException]],
+        exc_value: Optional[BaseException],
+        exc_traceback: Optional[TracebackType],
+    ) -> None:
         """Retrieve end timing informationc and print."""
         self.end_wall = time.monotonic()  # perf_counter()
         self.end_process = time.process_time()
