@@ -56,7 +56,7 @@ else:
         return file_hash.hexdigest()
 
     def test_hashfile() -> None:
-        """pytest routine - md5sum of empty file"""
+        """Pytest routine - md5sum of empty file."""
         assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
 
 

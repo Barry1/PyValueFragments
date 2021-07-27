@@ -5,7 +5,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Any, Callable, TypeVar  # , cast
+from typing import Any, Callable, TypeVar, cast
 
 from typing_extensions import ParamSpec
 
@@ -30,7 +30,7 @@ else:
 
         # type: ignore[name-defined]
         def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
-            """This is the new implementation."""
+            """Run with timing."""
             before = resource.getrusage(resource.RUSAGE_SELF)[:2]
             retval = func(*args, **kwargs)
             after = resource.getrusage(resource.RUSAGE_SELF)[:2]
@@ -54,7 +54,7 @@ else:
 
         # type: ignore[name-defined]
         def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
-            """This is the new implementation."""
+            """Run with timing."""
             before = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
             after = psutil.Process().cpu_times()
@@ -72,7 +72,7 @@ def timing_thread_time(
 
     # type: ignore[name-defined]
     def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
-        """This is the new implementation."""
+        """Run with timing."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
         after = time.thread_time()
@@ -90,7 +90,7 @@ def timing_process_time(
 
     # type: ignore[name-defined]
     def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
-        """This is the new implementation."""
+        """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
         after = time.process_time()
@@ -108,21 +108,24 @@ class LazyProperty(property):
     <https://stevenloria.com/lazy-properties>
     """
 
+    # <https://towardsdatascience.com/2807ef52d273> = <https://archive.is/GfSvY>
     # archived under <https://archive.is/8yiRH> and
     # <https://web.archive.org/web/20210514102257/https://stevenloria.com/lazy-properties/>
     # having a look at <https://www.programiz.com/python-programming/property>
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
+
     def __init__(
-        self, getterfunction: Callable[[InstanceObjectType], ResultType]
+        self,
+        getterfunction: Callable[[InstanceObjectType], ResultType],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name = "_lazy_" + getterfunction.__name__
 
         def _lazy_getterfunction(instanceobj: InstanceObjectType) -> ResultType:
-            """Check if value present, if not calculate"""
+            """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
-            return getattr(instanceobj, attr_name)  # type: ignore[no-any-return]
+            return cast(ResultType, getattr(instanceobj, attr_name))
 
         super().__init__(_lazy_getterfunction)
