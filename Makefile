@@ -27,6 +27,10 @@ default:
 	@echo -n "pydocstyle"
 	@echo "=========="
 	pydocstyle $(pyobjs)
+	@echo -n "=========="
+	@echo -n "pylama"
+	@echo "=========="
+	pylama .
 
 build: buildprep
 	python3 -m build
