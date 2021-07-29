@@ -29,7 +29,7 @@ else:
         save = func.__name__
 
         # type: ignore[name-defined]
-        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
+        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
             """Run with timing."""
             before = resource.getrusage(resource.RUSAGE_SELF)[:2]
             retval = func(*args, **kwargs)
@@ -53,7 +53,7 @@ else:
         save = func.__name__
 
         # type: ignore[name-defined]
-        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
+        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
             """Run with timing."""
             before = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
@@ -71,7 +71,7 @@ def timing_thread_time(
     save = func.__name__
 
     # type: ignore[name-defined]
-    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
+    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
         """Run with timing."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
@@ -89,7 +89,7 @@ def timing_process_time(
     save = func.__name__
 
     # type: ignore[name-defined]
-    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:
+    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
         """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
