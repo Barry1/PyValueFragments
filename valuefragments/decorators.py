@@ -28,8 +28,10 @@ else:
         """Measure execution times by resource."""
         save = func.__name__
 
-        # type: ignore[name-defined]
-        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
+        def wrapped(
+            *args: ParamType.args,  # type: ignore[name-defined]
+            **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+        ) -> ResultType:
             """Run with timing."""
             before = resource.getrusage(resource.RUSAGE_SELF)[:2]
             retval = func(*args, **kwargs)
@@ -52,8 +54,10 @@ else:
         """Measures execution times by psutil."""
         save = func.__name__
 
-        # type: ignore[name-defined]
-        def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
+        def wrapped(
+            *args: ParamType.args,  # type: ignore[name-defined]
+            **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+        ) -> ResultType:
             """Run with timing."""
             before = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
@@ -70,8 +74,10 @@ def timing_thread_time(
     """Measures execution times by time (thread)."""
     save = func.__name__
 
-    # type: ignore[name-defined]
-    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
+    def wrapped(
+        *args: ParamType.args,  # type: ignore[name-defined]
+        **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+    ) -> ResultType:
         """Run with timing."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
@@ -88,8 +94,9 @@ def timing_process_time(
     """Measures execution times by time (process)."""
     save = func.__name__
 
-    # type: ignore[name-defined]
-    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultType:  # type: ignore[name-defined]
+    def wrapped(
+        *args: ParamType.args, **kwargs: ParamType.kwargs  # type: ignore[name-defined]
+    ) -> ResultType:
         """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
