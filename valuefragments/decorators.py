@@ -5,7 +5,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Any, Callable, TypeVar, cast
+from typing import Callable, TypeVar, cast
 
 from typing_extensions import ParamSpec
 
@@ -13,7 +13,7 @@ from .helpers import ic  # pylint: disable=E0402
 
 ParamType = ParamSpec("ParamType")
 ResultType = TypeVar("ResultType")
-FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
+# FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 InstanceObjectType = TypeVar("InstanceObjectType")
 
 try:
