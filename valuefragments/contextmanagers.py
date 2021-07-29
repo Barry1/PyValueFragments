@@ -19,14 +19,17 @@ class TimingCM:
 
     # https://book.pythontips.com/en/latest/context_managers.html#implementing-a-context-manager-as-a-class
     # https://www.python.org/dev/peps/pep-0484/ Type hints
+    # Instance variables should be type hinted here not in __init__ by
+    # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
+    start_process: float
+    end_process: float
+    start_thread: float
+    end_thread: float
+    start_wall: float
+    end_wall: float
+
     def __init__(self: TimingCM) -> None:
         """Prepare (type) variables."""
-        self.end_process: float
-        self.end_thread: float
-        self.end_wall: float
-        self.start_process: float
-        self.start_thread: float
-        self.start_wall: float
         ic("Prepared to run with Timing")
 
     def __enter__(self: TimingCM) -> TimingCM:
