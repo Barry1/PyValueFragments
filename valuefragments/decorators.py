@@ -26,7 +26,7 @@ else:
         func: Callable[ParamType, ResultType]  # type: ignore[misc]
     ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
         """Measure execution times by resource."""
-        save = func.__name__
+        save: str = func.__name__
 
         def wrapped(
             *args: ParamType.args,  # type: ignore[name-defined]
@@ -52,7 +52,7 @@ else:
         func: Callable[ParamType, ResultType]  # type: ignore[misc]
     ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
         """Measures execution times by psutil."""
-        save = func.__name__
+        save: str = func.__name__
 
         def wrapped(
             *args: ParamType.args,  # type: ignore[name-defined]
@@ -72,7 +72,7 @@ def timing_thread_time(
     func: Callable[ParamType, ResultType]  # type: ignore[misc]
 ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
     """Measures execution times by time (thread)."""
-    save = func.__name__
+    save: str = func.__name__
 
     def wrapped(
         *args: ParamType.args,  # type: ignore[name-defined]
@@ -92,7 +92,7 @@ def timing_process_time(
     func: Callable[ParamType, ResultType]  # type: ignore[misc]
 ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
     """Measures execution times by time (process)."""
-    save = func.__name__
+    save: str = func.__name__
 
     def wrapped(
         *args: ParamType.args, **kwargs: ParamType.kwargs  # type: ignore[name-defined]
@@ -129,7 +129,7 @@ class LazyProperty(property):
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
-        attr_name = "_lazy_" + getterfunction.__name__
+        attr_name: str = "_lazy_" + getterfunction.__name__
 
         def _lazy_getterfunction(instanceobj: InstanceObjectType) -> ResultType:
             """Check if value present, if not calculate."""
