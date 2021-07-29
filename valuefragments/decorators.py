@@ -126,7 +126,7 @@ class LazyProperty(property):
         self,
         getterfunction: Callable[
             [InstanceObjectType], ResultType  # type: ignore[invalid-type-var-use]
-        ],  # type: ignore[invalid-type-var-use]
+        ],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name = "_lazy_" + getterfunction.__name__
