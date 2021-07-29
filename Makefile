@@ -1,5 +1,5 @@
 
-.PHONY = default build buildprep install
+.PHONY = default build buildprep install pyre
 
 pyobjs:= *.py valuefragments/*.py
 default:
@@ -41,3 +41,11 @@ buildprep:
 
 install:
 	sudo python3 -m pip install --upgrade --user --editable .
+
+pyre: $(pyobjs) .watchmanconfig .pyre_configuration
+#	pyre init #only once
+#Run Pysa, the inter-procedural static analysis tool.
+# Crashes the mem
+#	pyre analyze
+#Runs a one-time type check of a Python project.
+	pyre check
