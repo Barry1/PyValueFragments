@@ -1,1 +1,6 @@
-{"source_directories": ["."], "taint_models_path": "/usr/local/lib"}
+{
+    "source_directories": ["."],
+    "workers": 4,
+    "strict": true,
+    "taint_models_path": "/usr/local/lib",
+}
