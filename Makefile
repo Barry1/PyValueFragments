@@ -4,7 +4,7 @@ MAKEFLAGS += --jobs --max-load=3 --output-sync
 
 pyobjs:= $(shell tree -if | egrep .pyi?$$)
 
-default:
+default: pyright
 	@echo -n "=========="
 	@echo -n "autopep8"
 	@echo "=========="
@@ -33,6 +33,11 @@ default:
 	@echo -n "pylama"
 	@echo "=========="
 	pylama .
+
+pyright: export NODE_OPTIONS = --experimental-worker
+pyright: 
+	pyright --dependencies --stats --verbose $(pyobjs)
+	pyright --verifytypes valuefragments
 
 build: buildprep
 	python3 -m build
