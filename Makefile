@@ -44,7 +44,7 @@ buildprep:
 install:
 	sudo python3 -m pip install --upgrade --user --editable .
 
-pyre: $(pyobjs) pyreinfer pyreanalyse pyrecheck .watchmanconfig .pyre_configuration
+pyre: $(pyobjs) pyreinfer pyrecheck .watchmanconfig .pyre_configuration
 #	pyre init #only once
 
 pyreinfer:
@@ -53,8 +53,8 @@ pyreinfer:
 
 pyreanalyse:
 # Run Pysa, the inter-procedural static analysis tool.
-	mkdir -p ./pyreanalysis
-	pyre analyze --save-results-to=./pyreanalysis --use-cache
+	mkdir -p pyreanalysis
+	pyre analyze --save-results-to pyreanalysis --use-cache
 
 pyrecheck:
 	pyre check
