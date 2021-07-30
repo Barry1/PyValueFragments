@@ -53,6 +53,7 @@ pyreinfer:
 
 pyreanalyse:
 # Run Pysa, the inter-procedural static analysis tool.
+	mkdir -p ./pyreanalysis
 	pyre analyze --save-results-to=./pyreanalysis --use-cache
 
 pyrecheck:
