@@ -2,7 +2,7 @@
 
 MAKEFLAGS += --jobs --max-load=3 --output-sync
 
-pyobjs:= *.py valuefragments/*.py
+pyobjs:= $(shell tree -if | grep ".py[i]*$$")
 
 default:
 	@echo -n "=========="
