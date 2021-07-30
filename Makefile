@@ -2,7 +2,7 @@
 
 MAKEFLAGS += --jobs --max-load=3 --output-sync
 
-pyobjs:= $(shell tree -if | grep ".py[i]*$$")
+pyobjs:= $(shell tree -if | egrep .pyi?$$)
 
 default:
 	@echo -n "=========="
