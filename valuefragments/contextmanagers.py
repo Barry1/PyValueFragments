@@ -21,22 +21,29 @@ class TimingCM:
     # https://www.python.org/dev/peps/pep-0484/ Type hints
     # Instance variables should be type hinted here not in __init__ by
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
-    start_process: float
-    end_process: float
-    start_thread: float
-    end_thread: float
-    start_wall: float
-    end_wall: float
+    # pseudo private intance variables with single underscore
+    _start_process: float
+    _end_process: float
+    _start_thread: float
+    _end_thread: float
+    _start_wall: float
+    _end_wall: float
 
     def __init__(self: TimingCM) -> None:
         """Prepare (type) variables."""
+        # self._start_process = 0
+        # self._end_process = 0
+        # self._start_thread = 0
+        # self._end_thread = 0
+        # self._start_wall = 0
+        # self._end_wall = 0
         ic("Prepared to run with Timing")
 
     def __enter__(self: TimingCM) -> TimingCM:
         """Save startup timing information."""
-        self.start_wall = time.monotonic()  # perf_counter()
-        self.start_process = time.process_time()
-        self.start_thread = time.thread_time()
+        self._start_wall = time.monotonic()  # perf_counter()
+        self._start_process = time.process_time()
+        self._start_thread = time.thread_time()
         return self
 
     def __exit__(
@@ -46,11 +53,11 @@ class TimingCM:
         exc_traceback: Optional[TracebackType],
     ) -> None:
         """Retrieve end timing informationc and print."""
-        self.end_wall = time.monotonic()  # perf_counter()
-        self.end_process = time.process_time()
-        self.end_thread = time.thread_time()
+        self._end_wall = time.monotonic()  # perf_counter()
+        self._end_process = time.process_time()
+        self._end_thread = time.thread_time()
         print(
-            f"computed {self.end_process-self.start_process} process seconds",
-            f"computed {self.end_thread-self.start_thread} thread seconds",
-            f"within {self.end_wall-self.start_wall} wall seconds",
+            f"computed {self._end_process-self._start_process} process seconds",
+            f"computed {self._end_thread-self._start_thread} thread seconds",
+            f"within {self._end_wall-self._start_wall} wall seconds",
         )
