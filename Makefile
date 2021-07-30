@@ -1,7 +1,9 @@
+.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer
 
-.PHONY = default build buildprep install pyre
+MAKEFLAGS += --jobs --max-load=3 --output-sync
 
 pyobjs:= *.py valuefragments/*.py
+
 default:
 	@echo -n "=========="
 	@echo -n "autopep8"
@@ -42,10 +44,16 @@ buildprep:
 install:
 	sudo python3 -m pip install --upgrade --user --editable .
 
-pyre: $(pyobjs) .watchmanconfig .pyre_configuration
+pyre: $(pyobjs) pyreinfer pyreanalyse pyrecheck .watchmanconfig .pyre_configuration
 #	pyre init #only once
-#Run Pysa, the inter-procedural static analysis tool.
-# Crashes the mem
-#	pyre analyze
-#Runs a one-time type check of a Python project.
+
+pyreinfer:
+# Try adding type annotations to untyped codebase.
+	pyre infer --print-only --debug-infer
+
+pyreanalyse:
+# Run Pysa, the inter-procedural static analysis tool.
+	pyre analyze --save-results-to=./pyreanalysis --use-cache
+
+pyrecheck:
 	pyre check
