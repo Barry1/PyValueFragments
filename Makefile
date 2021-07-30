@@ -1,43 +1,36 @@
 .PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer
 
-MAKEFLAGS += --jobs --max-load=3 --output-sync
+MAKEFLAGS += --jobs --max-load=3 --output-sync=target
 
 pyobjs:= $(shell tree -if | egrep .pyi?$$)
 
-default: pyright
-	@echo -n "=========="
-	@echo -n "autopep8"
-	@echo "=========="
+default: formatters pylint pydocstyle pylama pyright
+
+formatters:
+	@echo "==========" "autopep8" "=========="
 	autopep8 $(pyobjs)
-	@echo -n "=========="
-	@echo -n "isort"
-	@echo "=========="
+	@echo "==========" "isort" "=========="
 	isort $(pyobjs)
-	@echo -n "=========="
-	@echo -n "black"
-	@echo "=========="
+	@echo "==========" "black" "=========="
 	black $(pyobjs)
-	@echo -n "=========="
-	@echo -n "pylama"
-	@echo "=========="
-	pylama
-	@echo -n "=========="
-	@echo -n "pylint"
-	@echo "=========="
+
+pylint:
+	@echo "==========" "$@" "=========="
 	pylint $(pyobjs)
-	@echo -n "=========="
-	@echo -n "pydocstyle"
-	@echo "=========="
+
+pydocstyle:
+	@echo "==========" "$@" "=========="
 	pydocstyle $(pyobjs)
-	@echo -n "=========="
-	@echo -n "pylama"
-	@echo "=========="
-	pylama .
 
 pyright: export NODE_OPTIONS = --experimental-worker
-pyright: 
-	pyright --dependencies --stats --verbose $(pyobjs)
-	pyright --verifytypes valuefragments
+pyright:
+	@echo "==========" "$@" "=========="
+	-pyright --dependencies --stats --verbose $(pyobjs)
+	-pyright --verifytypes valuefragments
+
+pylama:
+	@echo "==========" "$@" "=========="
+	pylama .
 
 build: buildprep
 	python3 -m build
