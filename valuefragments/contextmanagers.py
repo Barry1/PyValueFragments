@@ -8,7 +8,7 @@ from typing import Optional, Type
 from .helpers import ic  # pylint: disable=E0402
 
 
-class TimingCM:
+class TimingCM:  # pyre-ignore[13]
     """
     Use this as a context manager for getting timing details.
 
@@ -22,6 +22,7 @@ class TimingCM:
     # Instance variables should be type hinted here not in __init__ by
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
     # pseudo private intance variables with single underscore
+    # https://adamj.eu/tech/2021/07/04/python-type-hints-how-to-type-a-context-manager/
     _start_process: float
     _end_process: float
     _start_thread: float
@@ -31,20 +32,21 @@ class TimingCM:
 
     def __init__(self: TimingCM) -> None:
         """Prepare (type) variables."""
-        # self._start_process = 0
-        # self._end_process = 0
-        # self._start_thread = 0
-        # self._end_thread = 0
-        # self._start_wall = 0
-        # self._end_wall = 0
-        ic("Prepared to run with Timing")
+        # self._start_process:float# = 0
+        # self._end_process:float# = 0
+        # self._start_thread:float# = 0
+        # self._end_thread:float# = 0
+        # self._start_wall:float# = 0
+        # self._end_wall:float# = 0
+        ic("Prepared to run with Timing -> __init__")
 
-    def __enter__(self: TimingCM) -> TimingCM:
+    def __enter__(self: TimingCM) -> None:  # -> TimingCM
         """Save startup timing information."""
         self._start_wall = time.monotonic()  # perf_counter()
         self._start_process = time.process_time()
         self._start_thread = time.thread_time()
-        return self
+        ic("Prepared to run with Timing -> __enter__")
+        # return self
 
     def __exit__(
         self: TimingCM,
@@ -61,3 +63,4 @@ class TimingCM:
             f"computed {self._end_thread-self._start_thread} thread seconds",
             f"within {self._end_wall-self._start_wall} wall seconds",
         )
+        ic("Ended to run with Timing -> __exit__")
