@@ -3,3 +3,4 @@ interrogate_badge.svg
 parallel.pre-commit*.log
 .pyre
 valuefragments.egg-info/
+typings/
