@@ -3,6 +3,8 @@ from typing import Tuple, TypeVar, Union
 
 FirstElementType = TypeVar("FirstElementType")
 # def ic(*a: List) -> Union[Any, Tuple[Any], None]:  # pylint: disable=invalid-name
+
+
 def ic(
     *a: FirstElementType,
 ) -> Union[
