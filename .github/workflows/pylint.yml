@@ -19,4 +19,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint `tree -if|egrep \.pyi?$`
+        pylint `tree valuefragments -if|egrep \.pyi?$`
