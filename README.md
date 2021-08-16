@@ -20,7 +20,7 @@ For live playing around with my first steps, you might try one of the following 
 For easy testing, I'll recommend doing an [`editable`](https://pip.pypa.io/en/stable/cli/pip_install/#install-editable) install via
 
 ```bash
-sudo python3 - m pip install --upgrade --user --editable .
+python3 - m pip install --upgrade --user --editable .
 ```
 
 or `make install`.
