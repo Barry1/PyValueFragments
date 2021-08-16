@@ -1,15 +1,15 @@
 """helper functions and code snippets which are not decorators."""
-from typing import Tuple, TypeVar, Union
+from typing import TypeVar, Union
 
 FirstElementType = TypeVar("FirstElementType")
-# def ic(*a: List) -> Union[Any, Tuple[Any], None]:  # pylint: disable=invalid-name
 
 
 def ic(
     *a: FirstElementType,
 ) -> Union[
-    FirstElementType, Tuple[FirstElementType, ...], None
+    FirstElementType, tuple[FirstElementType, ...], None
 ]:  # pylint: disable=invalid-name
+    # def ic(*a: List) -> Union[Any, Tuple[Any], None]:  # pylint: disable=invalid-name
     """Just in case package icecream is not available: For logging purposes."""
     if not a:
         return None
