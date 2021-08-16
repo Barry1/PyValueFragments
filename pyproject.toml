@@ -56,12 +56,26 @@ authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-cpu-load-generator = {version = "^1.2.0", optional = true}
-hashlib = {version = "^20081119", optional = true}
-icecream = {version = "^2.1.1", optional = true}
-psutil = {version = "^5.8.0", optional = true}
+cpu-load-generator = {version = "*", optional = true}
+hashlib = {version = "*", optional = true}
+icecream = {version = "*", optional = true}
+psutil = {version = "*", optional = true}
 
 [tool.poetry.dev-dependencies]
+pylama = "*"
+pyre-check = "*"
+pydocstyle = "*"
+isort = "*"
+black = "*"
+pylint = "*"
+pyright = "*"
+mypy = "*"
+radon = "*"
+pyflakes = "*"
+pycodestyle = "*"
+pep257 = "*"
+pep8 = "*"
+mccabe = "*"
 
 [pylama.pep8]
 max_line_length = 88
