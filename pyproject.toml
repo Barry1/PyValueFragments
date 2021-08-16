@@ -43,7 +43,7 @@ show_error_context = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
-py_version = 37
+py_version = 39
 color_output = true
 profile = "black"
 skip = "venv"
@@ -55,7 +55,7 @@ description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9"
 cpu-load-generator = {version = "*", optional = true}
 hashlib = {version = "*", optional = true}
 icecream = {version = "*", optional = true}
