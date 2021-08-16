@@ -1,1 +1,87 @@
-/mnt/c/Users/der_b/Dokumente/GitHub/Barry1/pyproject.toml
+# Learn more at <https://github.com/carlosperate/awesome-pyproject>
+# Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# https://github.com/hhatto/autopep8/blob/master/README.rst#pyproject-toml
+[tool.autopep8]
+max_line_length = 88
+in-place = true
+recursive = true
+jobs = 0
+
+# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
+[tool.black]
+#line-length = 88
+target-version = ['py39'] #'py37', 'py38',
+color = true
+safe = true
+#force-exlude = ".*/venv/.*"
+
+[tool.darker]
+revision = "main"
+diff = true
+check = true
+isort = true
+lint = ["pylint", "mypy", "flake8"]
+log_level = "INFO"
+
+[tool.flake8]
+max-line-length = 88
+
+# https://interrogate.readthedocs.io/en/latest/#configuration
+[tool.interrogate]
+color = true
+generate_badge = "."
+verbose = 2
+
+[tool.mypy]
+strict = true
+show_error_codes = true
+show_error_context = true
+
+[tool.isort]
+# https://pycqa.github.io/isort/docs/configuration/options
+py_version = 37
+color_output = true
+profile = "black"
+skip = "venv"
+
+[tool.poetry]
+name = "pyintlab"
+version = "0.0.1"
+description = "Testing installation of Package"
+authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cpu-load-generator = {version = "^1.2.0", optional = true}
+hashlib = {version = "^20081119", optional = true}
+icecream = {version = "^2.1.1", optional = true}
+psutil = {version = "^5.8.0", optional = true}
+
+[tool.poetry.dev-dependencies]
+
+[pylama.pep8]
+max_line_length = 88
+
+[tool.pylint.MASTER]
+jobs = 0
+output-format = "colorized"
+include-naming-hint = "y"
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+typeCheckingMode = "strict"
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = "duplicate-code"
+
+[tool.pytest.ini_options]
+minversion = "6.2"
+addopts = ["--verbose"]
+
+[tool.towncrier]
