@@ -56,3 +56,6 @@ pyreanalyse:
 
 pyrecheck:
 	pyre check
+
+requirements.txt:
+	poetry export --without-hashes --dev

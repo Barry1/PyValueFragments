@@ -76,6 +76,7 @@ pycodestyle = "*"
 pep257 = "*"
 pep8 = "*"
 mccabe = "*"
+typing-extensions = "^3.10.0"
 
 [pylama.pep8]
 max_line_length = 88
