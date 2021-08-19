@@ -1,5 +1,5 @@
 """Test functions for helpers module."""
-from valuefragments.helpers import hashfile
+from .helpers import hashfile
 
 
 def test_hashfile() -> None:
