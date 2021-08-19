@@ -58,4 +58,4 @@ pyrecheck:
 	pyre check
 
 requirements.txt:
-	poetry export --without-hashes --dev
+	poetry export --without-hashes --dev --output $@
