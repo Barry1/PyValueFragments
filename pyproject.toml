@@ -49,7 +49,7 @@ profile = "black"
 skip = "venv"
 
 [tool.poetry]
-name = "pyintlab"
+name = "valuefragments"
 version = "0.0.1"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
