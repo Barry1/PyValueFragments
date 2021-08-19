@@ -57,5 +57,5 @@ pyreanalyse:
 pyrecheck:
 	pyre check
 
-requirements.txt:
+requirements.txt: poetry.lock
 	poetry export --without-hashes --dev --output $@
