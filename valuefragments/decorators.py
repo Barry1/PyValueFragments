@@ -1,16 +1,20 @@
 """module holding decorators."""
 from __future__ import annotations
 
+import sys
 import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Callable, TypeVar, cast
 
-from typing_extensions import ParamSpec
-
 from .helpers import ic  # pylint: disable=E0402
 
+# https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
+if sys.version_info < (3, 10):
+    from typing_extensions import ParamSpec
+else:
+    from typing import ParamSpec  # pylint: disable=E0611
 ParamType = ParamSpec("ParamType")
 ResultType = TypeVar("ResultType")
 # FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
