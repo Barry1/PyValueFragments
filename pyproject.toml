@@ -60,6 +60,7 @@ cpu-load-generator = {version = "*", optional = true}
 hashlib = {version = "*", optional = true}
 icecream = {version = "*", optional = true}
 psutil = {version = "*", optional = true}
+typing-extensions = "*"
 
 [tool.poetry.dev-dependencies]
 pylama = "*"
@@ -76,7 +77,6 @@ pycodestyle = "*"
 pep257 = "*"
 pep8 = "*"
 mccabe = "*"
-typing-extensions = "*"
 pytest = "*"
 [pylama.pep8]
 max_line_length = 88
