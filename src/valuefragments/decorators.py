@@ -6,7 +6,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, TypeVar, cast
+from typing import Callable, NamedTuple, TypeVar, cast
 
 from .helpers import ic  # pylint: disable=E0402
 
@@ -47,7 +47,7 @@ else:
 
 
 try:
-    import psutil  # type: ignore[import]
+    import psutil
 except ImportError:
     ic("psutil is not available")
 else:
@@ -63,10 +63,11 @@ else:
             **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
         ) -> ResultType:
             """Run with timing."""
-            before = psutil.Process().cpu_times()
+            before: NamedTuple = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
-            after = psutil.Process().cpu_times()
-            print(save, after - before, sum(after - before))
+            after: NamedTuple = psutil.Process().cpu_times()
+            delta = [end - start for start, end in zip(before, after)]
+            print(save, delta, sum(delta))
             return retval  # type: ignore[no-any-return]
 
         return wrapped  # cast(FunctionTypeVar, wrapped)

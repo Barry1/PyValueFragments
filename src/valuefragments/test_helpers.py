@@ -1,5 +1,8 @@
+#!/usr/bin/env pytest
 """Test functions for helpers module."""
-from .helpers import hashfile
+from .helpers import hashfile  # pylint: disable=E0402
+
+# from helpers import hashfile  # pylint: disable=E0402
 
 
 def test_hashfile() -> None:

@@ -1,30 +1,27 @@
 """helper functions and code snippets which are not decorators."""
+from importlib.util import find_spec
 from typing import TypeVar, Union
 
 FirstElementType = TypeVar("FirstElementType")
+if __debug__ and find_spec("icecream"):
+    from icecream import ic
+else:
+
+    def ic(
+        *a: FirstElementType,
+    ) -> Union[
+        FirstElementType, tuple[FirstElementType, ...], None
+    ]:  # pylint: disable=invalid-name
+        """Just in case package icecream is not available: For logging purposes."""
+        if not a:
+            return None
+        return a[0] if len(a) == 1 else a
 
 
-def ic(
-    *a: FirstElementType,
-) -> Union[
-    FirstElementType, tuple[FirstElementType, ...], None
-]:  # pylint: disable=invalid-name
-    # def ic(*a: List) -> Union[Any, Tuple[Any], None]:  # pylint: disable=invalid-name
-    """Just in case package icecream is not available: For logging purposes."""
-    if not a:
-        return None
-    return a[0] if len(a) == 1 else a
+__all__ = ["ic"]
 
-
-if __debug__:
-    try:
-        from icecream import ic  # type: ignore[import,no-redef] # noqa: F811,W0404
-    except ImportError:
-        pass  # Fallback to default
-    else:
-        ic.configureOutput(includeContext=True)  # type: ignore[attr-defined]
 try:
-    import psutil  # type: ignore[import]
+    import psutil
 except ImportError:
     ic("psutil is not available")
 else:
@@ -43,6 +40,8 @@ else:
         else:
             psutil.Process().nice(19)
 
+    __all__.append("backgroundme")
+
 
 try:
     import hashlib
@@ -60,9 +59,11 @@ else:
                 chunk = thefile.read(chunklen)
         return file_hash.hexdigest()
 
+    __all__.append("hashfile")
+
 
 try:
-    import cpu_load_generator  # type: ignore[import]
+    import cpu_load_generator
 except ImportError:
     pass
 else:
@@ -77,6 +78,10 @@ else:
             target_load=theload,
         )
 
+    __all__.append("loadonecore")
+
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
         cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
+
+    __all__.append("loadallcores")

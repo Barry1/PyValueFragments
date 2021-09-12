@@ -42,6 +42,7 @@ verbose = 2
 strict = true
 show_error_codes = true
 show_error_context = true
+pretty = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
@@ -102,3 +103,11 @@ minversion = "6.2"
 addopts = ["--verbose"]
 
 [tool.towncrier]
+#https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
+[[tool.mypy.overrides]]
+module = [
+    "psutil",
+    "icecream",
+    "cpu_load_generator"
+]
+ignore_missing_imports = true

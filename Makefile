@@ -27,6 +27,7 @@ pyright:
 	@echo "==========" "$@" "=========="
 	-pyright --dependencies --stats --verbose $(pyobjs)
 	-pyright --verifytypes valuefragments
+	-pyright --createstub valuefragments
 
 pylama:
 	@echo "==========" "$@" "=========="
