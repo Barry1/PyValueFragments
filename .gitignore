@@ -4,3 +4,5 @@ parallel.pre-commit*.log
 .pyre
 valuefragments.egg-info/
 typings/
+*.out
+dist/
