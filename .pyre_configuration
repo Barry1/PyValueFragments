@@ -1,6 +1,6 @@
 {
     "source_directories": [
-        "."
+        "src"
     ],
     "strict": true,
     "taint_models_path": "/usr/local/lib",
