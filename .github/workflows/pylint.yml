@@ -18,4 +18,4 @@ jobs:
           pip install pylint typing-extensions
       - name: Analysing the code with pylint
         run: |
-          pylint `tree valuefragments -if|egrep \.pyi?$`
+          pylint `find src -regex .*.pyi?`
