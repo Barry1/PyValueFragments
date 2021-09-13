@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pylint typing-extensions
+          pip install pylint typing-extensions icecream
       - name: Analysing the code with pylint
         run: |
           pylint `find src -regex .*.pyi?`
