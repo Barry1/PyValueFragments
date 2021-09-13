@@ -130,7 +130,7 @@ dev = ["pytest (>=6.2.3)", "ipython", "mypy (>=0.710)", "hypothesis", "portray",
 
 [[package]]
 name = "executing"
-version = "0.8.0"
+version = "0.8.1"
 description = "Get the currently executing AST node of a frame, and other information"
 category = "main"
 optional = true
@@ -667,8 +667,8 @@ dataclasses-json = [
     {file = "dataclasses_json-0.5.5-py3-none-any.whl", hash = "sha256:68e0851451962fa9019958b99af316a0469c371ecfe45c937a4e2f4c43c0ff63"},
 ]
 executing = [
-    {file = "executing-0.8.0-py2.py3-none-any.whl", hash = "sha256:7ef8637519b0c01b69c4a1785a0d13dcc2cf9f0d078804268887edad2b4f26d1"},
-    {file = "executing-0.8.0.tar.gz", hash = "sha256:77ed91874d321338865ea2bf7337636a5de8e9a7f8323527d29c4fad2a1b48f7"},
+    {file = "executing-0.8.1-py2.py3-none-any.whl", hash = "sha256:cfaa61564eff6e7a3afda98ea0ba7c646171d9e325203a159bf29a3c2438c129"},
+    {file = "executing-0.8.1.tar.gz", hash = "sha256:f3dd49578371a633bd1ff5ca0af4afad65e6d549a06eb35ef20df198eced58ef"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
