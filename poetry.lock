@@ -466,7 +466,7 @@ typing-extensions = "*"
 
 [[package]]
 name = "pyre-extensions"
-version = "0.0.21"
+version = "0.0.22"
 description = "Type system extensions for use with the pyre type checker"
 category = "dev"
 optional = false
@@ -857,8 +857,8 @@ pyre-check = [
     {file = "pyre_check-0.9.4-py3-none-manylinux1_x86_64.whl", hash = "sha256:dae90d83db704b36f595e2ecbf869224dea9969d03b1dcc6a96a5a76913c617e"},
 ]
 pyre-extensions = [
-    {file = "pyre-extensions-0.0.21.tar.gz", hash = "sha256:585f630fc4e36019551c2ac50805d8d777d739b2d7f5bfe30d9b4daa0c95e66d"},
-    {file = "pyre_extensions-0.0.21-py3-none-any.whl", hash = "sha256:75877e688141c9167d00d2b7e2807a8127a1ab9d758ae5de0026c032ed35523b"},
+    {file = "pyre-extensions-0.0.22.tar.gz", hash = "sha256:202ec79bbeee6a8d09ebeaa987a4014d52470a16ec57624bbe97258285970c77"},
+    {file = "pyre_extensions-0.0.22-py3-none-any.whl", hash = "sha256:5c72ad466626c4fb5dd5d899770ce6446019804f49f4a3dfcf5549eb72d154a2"},
 ]
 pyright = [
     {file = "pyright-0.0.9-py3-none-any.whl", hash = "sha256:e2668730cddf580e696d4a11946e740e2f5647df1eb45f7c55b7029376eac5a1"},
