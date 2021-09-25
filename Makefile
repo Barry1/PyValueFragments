@@ -4,7 +4,10 @@ MAKEFLAGS += --jobs --max-load=3 --output-sync=target
 
 pyobjs:= $(shell tree -if | egrep .pyi?$$)
 
-default: formatters pylint pydocstyle pylama pyright
+default: formatters pylint pydocstyle pylama pyright checkminver
+
+checkminver:
+	poetry run vermin -v --backport typing src
 
 formatters:
 	@echo "==========" "autopep8" "=========="
