@@ -82,6 +82,7 @@ pep8 = "*"
 mccabe = "*"
 pytest = "*"
 vermin = "*"
+build = "*"
 
 [pylama.pep8]
 max_line_length = 88

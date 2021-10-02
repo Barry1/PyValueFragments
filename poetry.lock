@@ -85,6 +85,27 @@ python2 = ["typed-ast (>=1.4.2)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
+name = "build"
+version = "0.7.0"
+description = "A simple, correct PEP517 package builder"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = {version = "*", markers = "os_name == \"nt\""}
+importlib-metadata = {version = ">=0.22", markers = "python_version < \"3.8\""}
+packaging = ">=19.0"
+pep517 = ">=0.9.1"
+tomli = ">=1.0.0"
+
+[package.extras]
+docs = ["furo (>=2020.11.19b18)", "sphinx (>=3.0,<4.0)", "sphinx-argparse-cli (>=1.5)", "sphinx-autodoc-typehints (>=1.10)"]
+test = ["filelock (>=3)", "pytest (>=6.2.4)", "pytest-cov (>=2)", "pytest-mock (>=2)", "pytest-rerunfailures (>=9.1)", "pytest-xdist (>=1.34)", "setuptools (>=42.0.0)", "toml (>=0.10.0)", "wheel (>=0.36.0)"]
+typing = ["importlib-metadata (>=4.6.4)", "mypy (==0.910)", "typing-extensions (>=3.7.4.3)"]
+virtualenv = ["virtualenv (>=20.0.35)"]
+
+[[package]]
 name = "click"
 version = "8.0.1"
 description = "Composable command line interface toolkit"
@@ -339,6 +360,19 @@ description = "Python docstring style checker"
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "pep517"
+version = "0.11.0"
+description = "Wrappers to build Python packages using PEP 517 hooks"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+importlib_metadata = {version = "*", markers = "python_version < \"3.8\""}
+tomli = {version = "*", markers = "python_version >= \"3.6\""}
+zipp = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "pep8"
@@ -650,7 +684,7 @@ typing-extensions = ">=3.7.4"
 name = "vermin"
 version = "1.2.2"
 description = "Concurrently detect the minimum Python versions needed to run code"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7"
 
@@ -677,7 +711,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7"
-content-hash = "b9538410bd29f51e9b4d41c9dfdf83137b6568f27d05a8d396b3d89017d24617"
+content-hash = "149b0284810805e8b5ca9140628a5ed2c7162c7f51c8e8e849cb58a31f26bc57"
 
 [metadata.files]
 astroid = [
@@ -703,6 +737,10 @@ attrs = [
 black = [
     {file = "black-21.9b0-py3-none-any.whl", hash = "sha256:380f1b5da05e5a1429225676655dddb96f5ae8c75bdf91e53d798871b902a115"},
     {file = "black-21.9b0.tar.gz", hash = "sha256:7de4cfc7eb6b710de325712d40125689101d21d25283eed7e9998722cf10eb91"},
+]
+build = [
+    {file = "build-0.7.0-py3-none-any.whl", hash = "sha256:21b7ebbd1b22499c4dac536abc7606696ea4d909fd755e00f09f3c0f2c05e3c8"},
+    {file = "build-0.7.0.tar.gz", hash = "sha256:1aaadcd69338252ade4f7ec1265e1a19184bf916d84c9b7df095f423948cb89f"},
 ]
 click = [
     {file = "click-8.0.1-py3-none-any.whl", hash = "sha256:fba402a4a47334742d782209a7c79bc448911afe1149d07bdabdf480b3e2f4b6"},
@@ -834,6 +872,10 @@ pathspec = [
 pep257 = [
     {file = "pep257-0.7.0-py2.py3-none-any.whl", hash = "sha256:d26cd2a4f572e0592f6967277136f581f924a4fe2aa38dcb7d4e532232689e80"},
     {file = "pep257-0.7.0.tar.gz", hash = "sha256:f3d67547f5617a9cfeb4b8097ed94a954888315defaf6e9b518ff1719363bf03"},
+]
+pep517 = [
+    {file = "pep517-0.11.0-py2.py3-none-any.whl", hash = "sha256:3fa6b85b9def7ba4de99fb7f96fe3f02e2d630df8aa2720a5cf3b183f087a738"},
+    {file = "pep517-0.11.0.tar.gz", hash = "sha256:e1ba5dffa3a131387979a68ff3e391ac7d645be409216b961bc2efe6468ab0b2"},
 ]
 pep8 = [
     {file = "pep8-1.7.1-py2.py3-none-any.whl", hash = "sha256:b22cfae5db09833bb9bd7c8463b53e1a9c9b39f12e304a8d0bba729c501827ee"},

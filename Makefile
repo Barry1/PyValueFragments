@@ -13,37 +13,32 @@ checkminver:
 
 formatters:
 	@echo "==========" "autopep8" "=========="
-	autopep8 $(pyobjs)
+	poetry run autopep8 $(pyobjs)
 	@echo "==========" "isort" "=========="
-	isort $(pyobjs)
+	poetry run isort $(pyobjs)
 	@echo "==========" "black" "=========="
-	black $(pyobjs)
+	poetry run black $(pyobjs)
 
 pylint:
 	@echo "==========" "$@" "=========="
-	pylint $(pyobjs)
+	poetry run pylint $(pyobjs)
 
 pydocstyle:
 	@echo "==========" "$@" "=========="
-	pydocstyle $(pyobjs)
+	poetry run pydocstyle $(pyobjs)
 
 pyright: export NODE_OPTIONS = --experimental-worker
 pyright:
 	@echo "==========" "$@" "=========="
 	-pyright --dependencies --stats --verbose $(pyobjs)
 	-pyright --verifytypes valuefragments
-	-pyright --createstub valuefragments
+
+./typings/src/valuefragments/contextmanagers.pyi ./typings/src/valuefragments/decorators.pyi ./typings/src/valuefragments/helpers.pyi ./typings/src/valuefragments/test_helpers.pyi ./typings/src/valuefragments/__init__.pyi: src/valuefragments/contextmanagers.py src/valuefragments/decorators.py src/valuefragments/helpers.py src/valuefragments/test_helpers.py src/valuefragments/__init__.py
+	-poetry run pyright --createstub src/valuefragments
 
 pylama:
 	@echo "==========" "$@" "=========="
-	pylama .
-
-build: buildprep
-	python3 -m build
-
-buildprep:
-	@sudo apt-get install --assume-yes python3-venv
-	@python3 -m pip install --user --upgrade build
+	poetry run pylama .
 
 install:
 	sudo python3 -m pip install --upgrade --user --editable .
@@ -58,10 +53,10 @@ pyreinfer:
 pyreanalyse:
 # Run Pysa, the inter-procedural static analysis tool.
 	mkdir -p pyreanalysis
-	pyre analyze --save-results-to pyreanalysis --use-cache
+	poetry run pyre analyze --save-results-to pyreanalysis --use-cache
 
 pyrecheck:
-	pyre check
+	poetry run pyre check
 
 requirements.txt: poetry.lock
 	poetry export --without-hashes --dev --output $@
