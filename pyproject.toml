@@ -19,8 +19,8 @@ jobs = 0
 target-version = ['py39'] #'py37', 'py38',
 color = true
 safe = true
-#force-exlude = ".*/venv/.*"
 
+#force-exlude = ".*/venv/.*"
 [tool.darker]
 revision = "main"
 diff = true
@@ -59,12 +59,11 @@ authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
 python = ">=3.7"
-cpu-load-generator = {version = "*", optional = true}
-hashlib = {version = "*", optional = true}
-icecream = {version = "*", optional = true}
-psutil = {version = "*", optional = true}
+cpu-load-generator = { version = "*", optional = true }
+hashlib = { version = "*", optional = true }
+icecream = { version = "*", optional = true }
+psutil = { version = "*", optional = true }
 typing-extensions = "*"
-vermin = "*"
 
 [tool.poetry.dev-dependencies]
 pylama = "*"
@@ -82,6 +81,8 @@ pep257 = "*"
 pep8 = "*"
 mccabe = "*"
 pytest = "*"
+vermin = "*"
+
 [pylama.pep8]
 max_line_length = 88
 
@@ -104,11 +105,8 @@ minversion = "6.2"
 addopts = ["--verbose"]
 
 [tool.towncrier]
+
 #https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 [[tool.mypy.overrides]]
-module = [
-    "psutil",
-    "icecream",
-    "cpu_load_generator"
-]
+module = ["psutil", "icecream", "cpu_load_generator"]
 ignore_missing_imports = true
