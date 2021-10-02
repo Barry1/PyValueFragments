@@ -1,8 +1,10 @@
+
 .PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer
 
 MAKEFLAGS += --jobs --max-load=3 --output-sync=target
 
-pyobjs:= $(shell tree -if | egrep .pyi?$$)
+#pyobjs:= $(shell tree -if | egrep .pyi?$$)
+pyobjs:= $(shell find src -regex .*pyi?$$)
 
 default: formatters pylint pydocstyle pylama pyright checkminver
 
