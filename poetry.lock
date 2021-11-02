@@ -536,7 +536,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "0.0.10"
+version = "0.0.11"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
@@ -547,8 +547,8 @@ nodeenv = ">=1.6.0"
 typing-extensions = {version = ">=3.7", markers = "python_version < \"3.8\""}
 
 [package.extras]
-all = ["wheel", "twine (>=3.4.1)"]
-dev = ["wheel", "twine (>=3.4.1)"]
+all = ["twine (>=3.4.1)"]
+dev = ["twine (>=3.4.1)"]
 
 [[package]]
 name = "pytest"
@@ -961,8 +961,8 @@ pyre-extensions = [
     {file = "pyre_extensions-0.0.22-py3-none-any.whl", hash = "sha256:5c72ad466626c4fb5dd5d899770ce6446019804f49f4a3dfcf5549eb72d154a2"},
 ]
 pyright = [
-    {file = "pyright-0.0.10-py3-none-any.whl", hash = "sha256:44d033c63e3afef59c4b43ef7c6e35c9c9abaa7c787cb4692f4ff620ca4a130b"},
-    {file = "pyright-0.0.10.tar.gz", hash = "sha256:c3c8303442ddd39003100dcc892542b1a7f38fcbb131360784a9b1ea6f8ddccf"},
+    {file = "pyright-0.0.11-py3-none-any.whl", hash = "sha256:3cc4f34e072bdae790a380fef28520f00982e116b5c298c51b948c7e7ac96d8d"},
+    {file = "pyright-0.0.11.tar.gz", hash = "sha256:65f35251498f2ca02e9be763bee7fcbb1f5d4d02ee4ab140e1e27dd6a95984f8"},
 ]
 pytest = [
     {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},
