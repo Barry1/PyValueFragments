@@ -58,7 +58,7 @@ description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">=3.10"
 cpu-load-generator = { version = "*", optional = true }
 hashlib = { version = "*", optional = true }
 icecream = { version = "*", optional = true }
@@ -75,6 +75,7 @@ pylint = "*"
 pyright = "*"
 mypy = "*"
 radon = "*"
+toml = "*"
 pyflakes = "*"
 pycodestyle = "*"
 pep257 = "*"
