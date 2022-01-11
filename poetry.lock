@@ -450,7 +450,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pylama"
-version = "8.3.6"
+version = "8.3.7"
 description = "Code audit tool for python"
 category = "dev"
 optional = false
@@ -500,7 +500,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pyre-check"
-version = "0.9.9"
+version = "0.9.10"
 description = "A performant type checker for Python"
 category = "dev"
 optional = false
@@ -945,8 +945,8 @@ pygments = [
     {file = "Pygments-2.11.2.tar.gz", hash = "sha256:4e426f72023d88d03b2fa258de560726ce890ff3b630f88c21cbb8b2503b8c6a"},
 ]
 pylama = [
-    {file = "pylama-8.3.6-py3-none-any.whl", hash = "sha256:7e1f533d345e1a353ecb06bfde8eddee1601396f77e0896ad5068a03c2b1524a"},
-    {file = "pylama-8.3.6.tar.gz", hash = "sha256:c8465cf992efb772026bbe9a435ce90f2890f627cc43992500395490dc400fb1"},
+    {file = "pylama-8.3.7-py3-none-any.whl", hash = "sha256:ca47a1d341ede3aafbe117dc69f9e573cd1b749b2bacf5ac99d8daf6657001ec"},
+    {file = "pylama-8.3.7.tar.gz", hash = "sha256:d6b48087c810db3be5267d44ac0e1998a8c015c5d3eee0524fec90fbfaf8ad26"},
 ]
 pylint = [
     {file = "pylint-2.12.2-py3-none-any.whl", hash = "sha256:daabda3f7ed9d1c60f52d563b1b854632fd90035bcf01443e234d3dc794e3b74"},
@@ -957,9 +957,9 @@ pyparsing = [
     {file = "pyparsing-3.0.6.tar.gz", hash = "sha256:d9bdec0013ef1eb5a84ab39a3b3868911598afa494f5faa038647101504e2b81"},
 ]
 pyre-check = [
-    {file = "pyre-check-0.9.9.tar.gz", hash = "sha256:a8245ed9a5a4fa21ee3e576aa4e8194d033cc13d0f5ccd84492fbfc68089f848"},
-    {file = "pyre_check-0.9.9-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:3c99943fde9eaac9c3beed329a6c34f9db87de3f611cc5cf5997fcfd51d160d8"},
-    {file = "pyre_check-0.9.9-py3-none-manylinux1_x86_64.whl", hash = "sha256:809717c2134b814f05128e3c6c06dd88cd8cdb5a6e4304d10ccf9813bc7bbf0a"},
+    {file = "pyre-check-0.9.10.tar.gz", hash = "sha256:d3a5e66fc6e7fa998fcf2c74dbe92746bb6907aaaccfa9e1c88ab591b2c85684"},
+    {file = "pyre_check-0.9.10-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:fb127422a07c86240367739bde704b8da3144b0d3fbd68af937fee445c040f33"},
+    {file = "pyre_check-0.9.10-py3-none-manylinux1_x86_64.whl", hash = "sha256:472e53fbb4e463ecd1e3e6c9c0d25ad0d99a3d596a643f11c6070745a36fac81"},
 ]
 pyre-extensions = [
     {file = "pyre-extensions-0.0.27.tar.gz", hash = "sha256:767607736d5d2da4db3377e016746776a195987fb3c61c7b38b442160e67771f"},
