@@ -1,4 +1,4 @@
-.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer
+.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer pytype
 #should max-load be num-cpus?
 MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #https://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html
@@ -61,3 +61,6 @@ pyrecheck:
 
 requirements.txt: poetry.lock
 	poetry export --without-hashes --dev --output $@
+
+pytype:
+	poetry run pytypy $(pyobjs)
