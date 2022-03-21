@@ -127,7 +127,7 @@ psutil = "*"
 
 [[package]]
 name = "dataclasses-json"
-version = "0.5.6"
+version = "0.5.7"
 description = "Easily serialize dataclasses to and from JSON"
 category = "dev"
 optional = false
@@ -767,8 +767,8 @@ cpu-load-generator = [
     {file = "cpu_load_generator-1.2.0-py3-none-any.whl", hash = "sha256:e4c64b9eb8ae1044ac3c775541600a9d07c31a146395c89d8c313194a460cca1"},
 ]
 dataclasses-json = [
-    {file = "dataclasses-json-0.5.6.tar.gz", hash = "sha256:1f60be3405dee30b86ffbf6a436db8ba5efaeeb676bfda358e516a97aa7dfce4"},
-    {file = "dataclasses_json-0.5.6-py3-none-any.whl", hash = "sha256:1d7f3a284a49d350ddbabde0e7d0c5ffa34a144aaf1bcb5b9f2c87673ff0c76e"},
+    {file = "dataclasses-json-0.5.7.tar.gz", hash = "sha256:c2c11bc8214fbf709ffc369d11446ff6945254a7f09128154a7620613d8fda90"},
+    {file = "dataclasses_json-0.5.7-py3-none-any.whl", hash = "sha256:bc285b5f892094c3a53d558858a88553dd6a61a11ab1a8128a0e554385dcc5dd"},
 ]
 executing = [
     {file = "executing-0.8.3-py2.py3-none-any.whl", hash = "sha256:d1eef132db1b83649a3905ca6dd8897f71ac6f8cac79a7e58a1a09cf137546c9"},
