@@ -7,11 +7,9 @@ if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
 
-    def ic(
+    def ic(  # pylint: disable=invalid-name
         *a: FirstElementT,
-    ) -> Union[
-        FirstElementT, tuple[FirstElementT, ...], None
-    ]:  # pylint: disable=invalid-name
+    ) -> Union[FirstElementT, tuple[FirstElementT, ...], None]:
         """Just in case package icecream is not available: For logging purposes."""
         if not a:
             return None
