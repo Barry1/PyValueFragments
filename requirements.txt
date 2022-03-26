@@ -39,7 +39,7 @@ pytest==6.2.4; python_version >= "3.6"
 pywatchman==1.4.1; python_version >= "3.6"
 pyyaml==5.4.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6"
 radon==5.1.0
-regex==2021.8.3; python_full_version >= "3.6.2"
+regex==2022.3.15; python_full_version >= "3.6.2"
 six==1.16.0; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.5"
 snowballstemmer==2.1.0; python_version >= "3.6"
 stringcase==1.2.0; python_version >= "3.6"
