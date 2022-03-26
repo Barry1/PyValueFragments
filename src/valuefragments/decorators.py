@@ -20,6 +20,8 @@ ResultType = TypeVar("ResultType")
 # FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 InstanceObjectType = TypeVar("InstanceObjectType")
 
+# Good info for timinig measurement <https://stackoverflow.com/a/62115793>
+
 try:
     import resource
 except ImportError:

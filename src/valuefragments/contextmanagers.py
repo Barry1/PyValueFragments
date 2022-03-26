@@ -60,7 +60,8 @@ class TimingCM:  # pyre-ignore[13]
         self._end_thread = time.thread_time()
         print(
             f"computed {self._end_process-self._start_process} process seconds",
-            f"computed {self._end_thread-self._start_thread} thread seconds",
+            f"and {self._end_thread-self._start_thread} thread seconds",
             f"within {self._end_wall-self._start_wall} wall seconds",
+            f"resulting in {100*(self._end_process-self._start_process)/(self._end_wall-self._start_wall)} % CPU-load.",
         )
         ic("Ended to run with Timing -> __exit__")
