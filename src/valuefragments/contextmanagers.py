@@ -23,28 +23,22 @@ class TimingCM:  # pyre-ignore[13]
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
     # pseudo private intance variables with single underscore
     # https://adamj.eu/tech/2021/07/04/python-type-hints-how-to-type-a-context-manager/
-    _start_process: float
-    _end_process: float
-    _start_thread: float
-    _end_thread: float
-    _start_wall: float
-    _end_wall: float
+    _process: float
+    _thread: float
+    _wall: float
 
     def __init__(self: TimingCM) -> None:
         """Prepare (type) variables."""
-        # self._start_process:float# = 0
-        # self._end_process:float# = 0
-        # self._start_thread:float# = 0
-        # self._end_thread:float# = 0
-        # self._start_wall:float# = 0
-        # self._end_wall:float# = 0
+        # self._process:float# = 0
+        # self._thread:float# = 0
+        # self._wall:float# = 0
         ic("Prepared to run with Timing -> __init__")
 
     def __enter__(self: TimingCM) -> None:  # -> TimingCM
         """Save startup timing information."""
-        self._start_wall = time.monotonic()  # perf_counter()
-        self._start_process = time.process_time()
-        self._start_thread = time.thread_time()
+        self._wall = -time.monotonic()
+        self._process = -time.process_time()
+        self._thread = -time.thread_time()
         ic("Prepared to run with Timing -> __enter__")
         # return self
 
@@ -55,13 +49,13 @@ class TimingCM:  # pyre-ignore[13]
         exc_traceback: Optional[TracebackType],
     ) -> None:
         """Retrieve end timing informationc and print."""
-        self._end_wall = time.monotonic()  # perf_counter()
-        self._end_process = time.process_time()
-        self._end_thread = time.thread_time()
+        self._wall += time.monotonic()
+        self._process += time.process_time()
+        self._thread += time.thread_time()
         print(
-            f"computed {self._end_process-self._start_process} process seconds",
-            f"and {self._end_thread-self._start_thread} thread seconds",
-            f"within {self._end_wall-self._start_wall} wall seconds",
-            f"resulting in {100*(self._end_process-self._start_process)/(self._end_wall-self._start_wall)} % CPU-load.",
+            f"computed {self._process} process seconds",
+            f"and {self._thread} thread seconds",
+            f"within {self._wall} wall seconds",
+            f"resulting in {100*(self._process)/(self._wall)} % CPU-load.",
         )
         ic("Ended to run with Timing -> __exit__")
