@@ -53,7 +53,7 @@ skip = "venv"
 
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.1"
+version = "0.1.2"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
