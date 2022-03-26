@@ -119,7 +119,7 @@ name = "cpu-load-generator"
 version = "1.2.0"
 description = "CPU load generator"
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [package.dependencies]
@@ -719,7 +719,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10"
-content-hash = "ae3020a97a6d7f69178c04b70e24a95f417c71fc3190cf3df4bcfc5a01325c0b"
+content-hash = "27b50b36d3c972f97eaf0dfab55399c78810607a155be372a4777cd546fe47c4"
 
 [metadata.files]
 astroid = [

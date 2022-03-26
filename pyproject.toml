@@ -16,7 +16,7 @@ jobs = 0
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
 #line-length = 88
-target-version = ['py39'] #'py37', 'py38',
+target-version = ['py310'] #'py37', 'py38',
 color = true
 safe = true
 
@@ -46,7 +46,7 @@ pretty = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
-py_version = 39
+py_version = 310
 color_output = true
 profile = "black"
 skip = "venv"
@@ -85,6 +85,7 @@ pytest = "*"
 vermin = "*"
 build = "*"
 icecream = "^2.1.2"
+cpu-load-generator = "^1.2.0"
 
 [pylama.pep8]
 max_line_length = 88
