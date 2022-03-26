@@ -2,15 +2,15 @@
 from importlib.util import find_spec
 from typing import TypeVar, Union
 
-FirstElementType = TypeVar("FirstElementType")
+FirstElementT = TypeVar("FirstElementT")
 if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
 
     def ic(
-        *a: FirstElementType,
+        *a: FirstElementT,
     ) -> Union[
-        FirstElementType, tuple[FirstElementType, ...], None
+        FirstElementT, tuple[FirstElementT, ...], None
     ]:  # pylint: disable=invalid-name
         """Just in case package icecream is not available: For logging purposes."""
         if not a:

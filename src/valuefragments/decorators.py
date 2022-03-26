@@ -16,9 +16,9 @@ if sys.version_info < (3, 10):
 else:
     from typing import ParamSpec  # pylint: disable=E0611
 ParamType = ParamSpec("ParamType")
-ResultType = TypeVar("ResultType")
+ResultT = TypeVar("ResultT")
 # FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
-InstanceObjectType = TypeVar("InstanceObjectType")
+InstanceObjectT = TypeVar("InstanceObjectT")
 
 # Good info for timinig measurement <https://stackoverflow.com/a/62115793>
 
@@ -29,15 +29,15 @@ except ImportError:
 else:
 
     def timing_resource(
-        func: Callable[ParamType, ResultType]  # type: ignore[misc]
-    ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
+        func: Callable[ParamType, ResultT]  # type: ignore[misc]
+    ) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
         """Measure execution times by resource."""
         save: str = func.__name__
 
         def wrapped(
             *args: ParamType.args,  # type: ignore[name-defined]
             **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
-        ) -> ResultType:
+        ) -> ResultT:
             """Run with timing."""
             before = resource.getrusage(resource.RUSAGE_SELF)[:2]
             retval = func(*args, **kwargs)
@@ -55,15 +55,15 @@ except ImportError:
 else:
 
     def timing_psutil(
-        func: Callable[ParamType, ResultType]  # type: ignore[misc]
-    ) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
+        func: Callable[ParamType, ResultT]  # type: ignore[misc]
+    ) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
         """Measures execution times by psutil."""
         save: str = func.__name__
 
         def wrapped(
             *args: ParamType.args,  # type: ignore[name-defined]
             **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
-        ) -> ResultType:
+        ) -> ResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
             retval = func(*args, **kwargs)
@@ -76,15 +76,15 @@ else:
 
 
 def timing_thread_time(
-    func: Callable[ParamType, ResultType]  # type: ignore[misc]
-) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
+    func: Callable[ParamType, ResultT]  # type: ignore[misc]
+) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
     """Measures execution times by time (thread)."""
     save: str = func.__name__
 
     def wrapped(
         *args: ParamType.args,  # type: ignore[name-defined]
         **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
-    ) -> ResultType:
+    ) -> ResultT:
         """Run with timing."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
@@ -96,14 +96,14 @@ def timing_thread_time(
 
 
 def timing_process_time(
-    func: Callable[ParamType, ResultType]  # type: ignore[misc]
-) -> Callable[ParamType, ResultType]:  # type: ignore[misc]
+    func: Callable[ParamType, ResultT]  # type: ignore[misc]
+) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
     """Measures execution times by time (process)."""
     save: str = func.__name__
 
     def wrapped(
         *args: ParamType.args, **kwargs: ParamType.kwargs  # type: ignore[name-defined]
-    ) -> ResultType:
+    ) -> ResultT:
         """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
@@ -132,16 +132,16 @@ class LazyProperty(property):
     def __init__(
         self,
         getterfunction: Callable[
-            [InstanceObjectType], ResultType  # type: ignore[invalid-type-var-use]
+            [InstanceObjectT], ResultT  # type: ignore[invalid-type-var-use]
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = "_lazy_" + getterfunction.__name__
 
-        def _lazy_getterfunction(instanceobj: InstanceObjectType) -> ResultType:
+        def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
             """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
-            return cast(ResultType, getattr(instanceobj, attr_name))
+            return cast(ResultT, getattr(instanceobj, attr_name))
 
         super().__init__(_lazy_getterfunction)
