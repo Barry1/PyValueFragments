@@ -53,10 +53,8 @@ else:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             file_hash = hashlib.md5()  # nosec
-            chunk = thefile.read(chunklen)
-            while chunk:
+            while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
-                chunk = thefile.read(chunklen)
         return file_hash.hexdigest()
 
     __all__.append("hashfile")
