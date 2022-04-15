@@ -65,6 +65,9 @@ icecream = { version = "*", optional = true }
 psutil = { version = "*", optional = true }
 typing-extensions = "*"
 
+[tool.poetry.group.dev.dependencies]
+pyre-check = "^0.9.10"
+
 [tool.poetry.dev-dependencies]
 pylama = "*"
 pyre-check = "*"

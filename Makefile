@@ -45,17 +45,17 @@ install:
 	sudo python3 -m pip install --upgrade --user --editable .
 
 pyre: $(pyobjs) pyreinfer pyrecheck .watchmanconfig .pyre_configuration
-#	pyre init #only once
+	poetry run pyre init #only once
 
 pyreinfer:
 # Try adding type annotations to untyped codebase.
-	pyre infer --print-only --debug-infer
+	poetry run pyre infer --print-only --debug-infer
 
 pyreanalyse:
 # Run Pysa, the inter-procedural static analysis tool.
 	mkdir -p pyreanalysis
-	poetry run pyre analyze --save-results-to pyreanalysis --use-cache
-
+	poetry run pyre analyze --save-results-to pyreanalysis
+	
 pyrecheck:
 	poetry run pyre check
 
