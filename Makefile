@@ -63,4 +63,4 @@ requirements.txt: poetry.lock
 	poetry export --without-hashes --dev --output $@
 
 pytype:
-	poetry run pytypy $(pyobjs)
+	poetry run pytype $(pyobjs)
