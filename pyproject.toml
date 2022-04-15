@@ -58,7 +58,7 @@ description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = "^3.10"
 cpu-load-generator = { version = "*", optional = true }
 hashlib = { version = "*", optional = true }
 icecream = { version = "*", optional = true }
@@ -66,26 +66,27 @@ psutil = { version = "*", optional = true }
 typing-extensions = "*"
 
 [tool.poetry.dev-dependencies]
-pylama = "*"
-pyre-check = "^0.9.10"
-pydocstyle = "*"
-isort = "*"
+autopep8 = "^1.6.0"
 black = "*"
-pylint = "*"
-pyright = "*"
-mypy = "*"
-radon = "*"
-toml = "*"
-pyflakes = "*"
-pycodestyle = "*"
-pep257 = "*"
-pep8 = "*"
-mccabe = "*"
-pytest = "*"
-vermin = "*"
 build = "*"
-icecream = "^2.1.2"
 cpu-load-generator = "^1.2.0"
+icecream = "^2.1.2"
+isort = "^5.10.1"
+mccabe = "^0.7.0"
+mypy = "^0.942"
+pep257 = "^0.7.0"
+pep8 = "^1.7.1"
+pycodestyle = "^2.8.0"
+pydocstyle = "^6.1.1"
+pyflakes = "^2.4.0"
+pylama = "*"
+pylint = "^2.13.5"
+pyre-check = "^0.9.10"
+pyright = "*"
+pytest = "*"
+radon = "^5.1.0"
+toml = "*"
+vermin = "*"
 
 [pylama.pep8]
 max_line_length = 88
