@@ -39,10 +39,11 @@ else:
             **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
         ) -> ResultT:
             """Run with timing."""
-            before = resource.getrusage(resource.RUSAGE_SELF)[:2]
+            before = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             retval = func(*args, **kwargs)
-            after = resource.getrusage(resource.RUSAGE_SELF)[:2]
-            print(save, sum(after) - sum(before))
+            after = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            if before and after:
+                print(save, after - before)
             return retval  # type: ignore[no-any-return]
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
