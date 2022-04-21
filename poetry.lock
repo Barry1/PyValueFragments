@@ -527,7 +527,7 @@ diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
 name = "pyre-check"
-version = "0.9.10"
+version = "0.9.11"
 description = "A performant type checker for Python"
 category = "dev"
 optional = false
@@ -1061,9 +1061,9 @@ pyparsing = [
     {file = "pyparsing-3.0.8.tar.gz", hash = "sha256:7bf433498c016c4314268d95df76c81b842a4cb2b276fa3312cfb1e1d85f6954"},
 ]
 pyre-check = [
-    {file = "pyre-check-0.9.10.tar.gz", hash = "sha256:d3a5e66fc6e7fa998fcf2c74dbe92746bb6907aaaccfa9e1c88ab591b2c85684"},
-    {file = "pyre_check-0.9.10-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:fb127422a07c86240367739bde704b8da3144b0d3fbd68af937fee445c040f33"},
-    {file = "pyre_check-0.9.10-py3-none-manylinux1_x86_64.whl", hash = "sha256:472e53fbb4e463ecd1e3e6c9c0d25ad0d99a3d596a643f11c6070745a36fac81"},
+    {file = "pyre-check-0.9.11.tar.gz", hash = "sha256:3e1ddcc9217b6d19b1f31bb822e2fca7edefd8b0dd7fcc13463c9d936838c184"},
+    {file = "pyre_check-0.9.11-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:b7de04e951ebdbd419671d783533b54dd527cc531e6acad57db144bec57982a8"},
+    {file = "pyre_check-0.9.11-py3-none-manylinux1_x86_64.whl", hash = "sha256:cff42902cb30b7bd6c4c778ae177d939c4791773becc2f897182c1a7d5078442"},
 ]
 pyre-extensions = [
     {file = "pyre-extensions-0.0.27.tar.gz", hash = "sha256:767607736d5d2da4db3377e016746776a195987fb3c61c7b38b442160e67771f"},
