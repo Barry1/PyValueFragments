@@ -559,7 +559,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.241"
+version = "1.1.242"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
@@ -1070,8 +1070,8 @@ pyre-extensions = [
     {file = "pyre_extensions-0.0.27-py3-none-any.whl", hash = "sha256:5ad4822ceaed43171a36391a95b70b928c222ca0776f4e689f6921081ecfb324"},
 ]
 pyright = [
-    {file = "pyright-1.1.241-py3-none-any.whl", hash = "sha256:2c3778220f6285b330df7e4875af6ac453118c63b79d75828be57bf7ff17f886"},
-    {file = "pyright-1.1.241.tar.gz", hash = "sha256:8a61266da68aa8f5b1248266472003b09866898377a06def32bce22409af39e1"},
+    {file = "pyright-1.1.242-py3-none-any.whl", hash = "sha256:5a13e69c6763fd9c61107114cdd4b4bc81605b1fc8c0f250d6a0eefbdc39e6f0"},
+    {file = "pyright-1.1.242.tar.gz", hash = "sha256:db95c4f95e31ccdb0433b65435ab27dd2395eed00de686c58ebf5e20843bdbb0"},
 ]
 pytest = [
     {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
