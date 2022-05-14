@@ -72,6 +72,7 @@ else:
             delta = [end - start for start, end in zip(before, after)]
             print(save, delta, sum(delta))
             return retval
+
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
@@ -101,9 +102,7 @@ def timing_process_time(
     """Measures execution times by time (process)."""
     save: str = func.__name__
 
-    def wrapped(
-        *args: ParamType.args, **kwargs: ParamType.kwargs
-    ) -> ResultT:
+    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
         """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
@@ -112,6 +111,8 @@ def timing_process_time(
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
+
+
 class LazyProperty(property):
     """
     Decorator for properties, which will be only evaluated if needed.
