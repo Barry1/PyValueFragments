@@ -112,8 +112,6 @@ def timing_process_time(
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
-
-
 class LazyProperty(property):
     """
     Decorator for properties, which will be only evaluated if needed.
@@ -128,12 +126,9 @@ class LazyProperty(property):
     # having a look at <https://www.programiz.com/python-programming/property>
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
-
     def __init__(
         self,
-        getterfunction: Callable[
-            [InstanceObjectT], ResultT
-        ],
+        getterfunction: Callable[[InstanceObjectT], ResultT],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = "_lazy_" + getterfunction.__name__
