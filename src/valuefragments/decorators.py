@@ -29,14 +29,14 @@ except ImportError:
 else:
 
     def timing_resource(
-        func: Callable[ParamType, ResultT]  # type: ignore[misc]
-    ) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
+        func: Callable[ParamType, ResultT]
+    ) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
         save: str = func.__name__
 
         def wrapped(
-            *args: ParamType.args,  # type: ignore[name-defined]
-            **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+            *args: ParamType.args,
+            **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
             before = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
@@ -44,7 +44,7 @@ else:
             after = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
                 print(save, after - before)
-            return retval  # type: ignore[no-any-return]
+            return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
@@ -56,14 +56,14 @@ except ImportError:
 else:
 
     def timing_psutil(
-        func: Callable[ParamType, ResultT]  # type: ignore[misc]
-    ) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
+        func: Callable[ParamType, ResultT]
+    ) -> Callable[ParamType, ResultT]:
         """Measures execution times by psutil."""
         save: str = func.__name__
 
         def wrapped(
-            *args: ParamType.args,  # type: ignore[name-defined]
-            **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+            *args: ParamType.args,
+            **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
@@ -71,46 +71,45 @@ else:
             after: NamedTuple = psutil.Process().cpu_times()
             delta = [end - start for start, end in zip(before, after)]
             print(save, delta, sum(delta))
-            return retval  # type: ignore[no-any-return]
-
+            return retval
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
 def timing_thread_time(
-    func: Callable[ParamType, ResultT]  # type: ignore[misc]
-) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
+    func: Callable[ParamType, ResultT]
+) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (thread)."""
     save: str = func.__name__
 
     def wrapped(
-        *args: ParamType.args,  # type: ignore[name-defined]
-        **kwargs: ParamType.kwargs,  # type: ignore[name-defined]
+        *args: ParamType.args,
+        **kwargs: ParamType.kwargs,
     ) -> ResultT:
         """Run with timing."""
         before = time.thread_time()
         retval = func(*args, **kwargs)
         after = time.thread_time()
         print(save, after - before)
-        return retval  # type: ignore[no-any-return]
+        return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
 def timing_process_time(
-    func: Callable[ParamType, ResultT]  # type: ignore[misc]
-) -> Callable[ParamType, ResultT]:  # type: ignore[misc]
+    func: Callable[ParamType, ResultT]
+) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (process)."""
     save: str = func.__name__
 
     def wrapped(
-        *args: ParamType.args, **kwargs: ParamType.kwargs  # type: ignore[name-defined]
+        *args: ParamType.args, **kwargs: ParamType.kwargs
     ) -> ResultT:
         """Run with timing."""
         before = time.process_time()
         retval = func(*args, **kwargs)
         after = time.process_time()
         print(save, after - before)
-        return retval  # type: ignore[no-any-return]
+        return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
@@ -133,7 +132,7 @@ class LazyProperty(property):
     def __init__(
         self,
         getterfunction: Callable[
-            [InstanceObjectT], ResultT  # type: ignore[invalid-type-var-use]
+            [InstanceObjectT], ResultT
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""

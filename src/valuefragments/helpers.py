@@ -2,15 +2,10 @@
 import sys
 from importlib.util import find_spec
 from typing import TypeVar, Union
-
 # found on https://stackoverflow.com/a/14981125
-
-
-def eprint(*args, **kwargs):
+def eprint(*args:object, **kwargs)->None:
     """simple print to stderr."""
     print(*args, file=sys.stderr, **kwargs)
-
-
 FirstElementT = TypeVar("FirstElementT")
 if __debug__ and find_spec("icecream"):
     from icecream import ic
