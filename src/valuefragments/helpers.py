@@ -1,6 +1,15 @@
 """helper functions and code snippets which are not decorators."""
+import sys
 from importlib.util import find_spec
 from typing import TypeVar, Union
+
+# found on https://stackoverflow.com/a/14981125
+
+
+def eprint(*args, **kwargs):
+    """simple print to stderr."""
+    print(*args, file=sys.stderr, **kwargs)
+
 
 FirstElementT = TypeVar("FirstElementT")
 if __debug__ and find_spec("icecream"):
@@ -16,7 +25,7 @@ else:
         return a[0] if len(a) == 1 else a
 
 
-__all__ = ["ic"]
+__all__ = ["eprint", "ic"]
 
 try:
     import psutil
