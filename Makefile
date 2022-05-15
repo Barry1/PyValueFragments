@@ -31,8 +31,8 @@ pydocstyle:
 pyright: export NODE_OPTIONS = --experimental-worker
 pyright:
 	@echo "==========" "$@" "=========="
-	-pyright --dependencies --stats --verbose $(pyobjs)
-	-pyright --verifytypes valuefragments
+	-poetry run pyright --dependencies --stats --verbose $(pyobjs)
+#	-poetry run pyright --verifytypes valuefragments
 
 ./typings/src/valuefragments/contextmanagers.pyi ./typings/src/valuefragments/decorators.pyi ./typings/src/valuefragments/helpers.pyi ./typings/src/valuefragments/test_helpers.pyi ./typings/src/valuefragments/__init__.pyi: src/valuefragments/contextmanagers.py src/valuefragments/decorators.py src/valuefragments/helpers.py src/valuefragments/test_helpers.py src/valuefragments/__init__.py
 	-poetry run pyright --createstub src/valuefragments

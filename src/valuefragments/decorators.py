@@ -6,7 +6,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, NamedTuple, TypeVar, cast
+from typing import Callable, TypeVar, cast
 
 from .helpers import ic  # pylint: disable=E0402
 
@@ -66,9 +66,9 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before: NamedTuple = psutil.Process().cpu_times()
+            before: psutil._common.pcputimes = psutil.Process().cpu_times()#pcputimes
             retval = func(*args, **kwargs)
-            after: NamedTuple = psutil.Process().cpu_times()
+            after: psutil._common.pcputimes = psutil.Process().cpu_times()
             delta = [end - start for start, end in zip(before, after)]
             print(save, delta, sum(delta))
             return retval
@@ -133,7 +133,6 @@ class LazyProperty(property):
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = "_lazy_" + getterfunction.__name__
-
         def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
             """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
