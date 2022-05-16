@@ -7,7 +7,7 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
-default: formatters pylint pydocstyle pylama pyright checkminver
+default: formatters pylint pydocstyle pyright checkminver
 
 checkminver:
 	poetry run vermin -v --no-parse-comments --backport typing src
