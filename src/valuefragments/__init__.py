@@ -4,5 +4,5 @@ from .decorators import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 from .helpers import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 
 # from .helpers import ic  # pylint: disable=E0401,E0402 # noqa: W0611
-#from typing import List
-__all__ :list[str]= []
+# from typing import List
+__all__: list[str] = []
