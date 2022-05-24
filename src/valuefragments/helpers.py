@@ -71,7 +71,6 @@ else:
 
     __all__.append("backgroundme")
 
-
 try:
     import hashlib
 except ImportError:
@@ -87,7 +86,6 @@ else:
         return file_hash.hexdigest()
 
     __all__.append("hashfile")
-
 
 try:
     import cpu_load_generator
