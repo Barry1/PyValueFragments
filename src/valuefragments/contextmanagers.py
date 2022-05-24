@@ -12,7 +12,7 @@ class TimingCM:  # pyre-ignore[13]
     """
     Use this as a context manager for getting timing details.
 
-    at the moment it is need to be instatiated with paranthesis as in
+    at the moment it is needed to be instantiated with parenthesis as in
     with TimingCM():
     hopefully I can remove that for further simplification
     """
@@ -21,7 +21,7 @@ class TimingCM:  # pyre-ignore[13]
     # https://www.python.org/dev/peps/pep-0484/ Type hints
     # Instance variables should be type hinted here not in __init__ by
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
-    # pseudo private intance variables with single underscore
+    # pseudo private instance variables with single underscore
     # https://adamj.eu/tech/2021/07/04/python-type-hints-how-to-type-a-context-manager/
     _process: float
     _thread: float
@@ -48,7 +48,7 @@ class TimingCM:  # pyre-ignore[13]
         exc_value: Optional[BaseException],
         exc_traceback: Optional[TracebackType],
     ) -> None:
-        """Retrieve end timing informationc and print."""
+        """Retrieve end timing information and print."""
         self._wall += time.monotonic()
         self._process += time.process_time()
         self._thread += time.thread_time()
@@ -56,6 +56,6 @@ class TimingCM:  # pyre-ignore[13]
             f"computed {self._process} process seconds",
             f"and {self._thread} thread seconds",
             f"within {self._wall} wall seconds",
-            f"resulting in {100*(self._process)/(self._wall)} % CPU-load.",
+            f"resulting in {100*self._process/self._wall} % CPU-load.",
         )
         ic("Ended to run with Timing -> __exit__")
