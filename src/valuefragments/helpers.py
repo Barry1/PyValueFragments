@@ -9,7 +9,7 @@ from typing_extensions import Unpack
 # found on https://stackoverflow.com/a/14981125
 
 
-class Printable(Protocol):
+class Printable(Protocol): # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
     def __str__(self) -> str:
@@ -24,7 +24,7 @@ KwargsForPrint = TypedDict(
 
 
 def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
-    """simple print to stderr."""
+    """Print to stderr."""
     print(*args, file=sys.stderr, **kwargs)
 
 
