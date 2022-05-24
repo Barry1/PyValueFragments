@@ -66,7 +66,7 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before: psutil._common.pcputimes = psutil.Process().cpu_times()#pcputimes
+            before: psutil._common.pcputimes = psutil.Process().cpu_times()  # pcputimes
             retval = func(*args, **kwargs)
             after: psutil._common.pcputimes = psutil.Process().cpu_times()
             delta = [end - start for start, end in zip(before, after)]
@@ -129,10 +129,11 @@ class LazyProperty(property):
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
         self,
-        getterfunction: Callable[[InstanceObjectT],ResultT],
+        getterfunction: Callable[[InstanceObjectT], ResultT],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = "_lazy_" + getterfunction.__name__
+
         def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
             """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
