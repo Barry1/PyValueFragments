@@ -16,13 +16,6 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...
 
 
-# KwargsForPrint = TypedDict(
-#    "KwargsForPrint",
-#    {"sep": str, "end": str, "file": IO[str], "flush": bool},
-#    total=False,
-# )
-
-
 class KwargsForPrint(TypedDict, total=False):
     """Typing class for kwargs to print."""
 
@@ -32,12 +25,14 @@ class KwargsForPrint(TypedDict, total=False):
     flush: bool
 
 
+FirstElementT = TypeVar("FirstElementT")
+
+
 def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
     """Print to stderr."""
     print(*args, file=sys.stderr, **kwargs)
 
 
-FirstElementT = TypeVar("FirstElementT")
 if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
