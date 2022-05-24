@@ -4,7 +4,7 @@ from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar, Union
 
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-from typing_extensions import Unpack
+from typing_extensions import Unpack  # type: ignore[attr-defined]
 
 # found on https://stackoverflow.com/a/14981125
 
