@@ -10,6 +10,7 @@ from typing_extensions import Unpack  # type: ignore[attr-defined]
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
+
     """Typing Protocol for objects with __str__ method."""
 
     def __str__(self) -> str:
@@ -17,6 +18,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 
 
 class KwargsForPrint(TypedDict, total=False):
+
     """Typing class for kwargs to print."""
 
     sep: str
