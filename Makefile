@@ -31,7 +31,7 @@ pydocstyle:
 pyright: export NODE_OPTIONS = --experimental-worker
 pyright:
 	@echo "==========" "$@" "=========="
-	-poetry run pyright --dependencies --stats --verbose $(pyobjs)
+	-poetry run pyright --verbose $(pyobjs)
 #	-poetry run pyright --verifytypes valuefragments
 
 ./typings/src/valuefragments/contextmanagers.pyi ./typings/src/valuefragments/decorators.pyi ./typings/src/valuefragments/helpers.pyi ./typings/src/valuefragments/test_helpers.pyi ./typings/src/valuefragments/__init__.pyi: src/valuefragments/contextmanagers.py src/valuefragments/decorators.py src/valuefragments/helpers.py src/valuefragments/test_helpers.py src/valuefragments/__init__.py
@@ -39,7 +39,7 @@ pyright:
 
 pylama:
 	@echo "==========" "$@" "=========="
-	poetry run pylama .
+	poetry run pylama src
 
 install:
 	sudo python3 -m pip install --upgrade --user --editable .
