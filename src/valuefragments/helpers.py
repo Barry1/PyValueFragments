@@ -2,10 +2,15 @@
 import sys
 from importlib.util import find_spec
 from typing import TypeVar, Union
+
 # found on https://stackoverflow.com/a/14981125
-def eprint(*args:object, **kwargs)->None:
-    """simple print to stderr."""
+
+
+def eprint(*args: object, **kwargs) -> None:
+    """Print to stderr."""
     print(*args, file=sys.stderr, **kwargs)
+
+
 FirstElementT = TypeVar("FirstElementT")
 if __debug__ and find_spec("icecream"):
     from icecream import ic
@@ -20,6 +25,7 @@ else:
         return a[0] if len(a) == 1 else a
 
 
+ic("a")
 __all__ = ["eprint", "ic"]
 
 try:
