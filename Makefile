@@ -60,7 +60,7 @@ pyrecheck:
 	poetry run pyre check
 
 requirements.txt: poetry.lock
-	poetry export --without-hashes --dev --output $@
+	poetry export --without-hashes --with dev --output $@
 
 pytype:
 	poetry run pytype $(pyobjs)

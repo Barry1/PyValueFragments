@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import sys
 import time
-
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Callable, TypeVar, cast
