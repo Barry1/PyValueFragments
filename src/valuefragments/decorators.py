@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import sys
 import time
+
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Callable, TypeVar, cast
@@ -19,7 +20,7 @@ ResultT = TypeVar("ResultT")
 # FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 InstanceObjectT = TypeVar("InstanceObjectT")
 
-# Good info for timinig measurement <https://stackoverflow.com/a/62115793>
+# Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
 try:
     import resource
