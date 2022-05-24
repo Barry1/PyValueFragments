@@ -3,7 +3,7 @@ import sys
 from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar, Union
 
-from typing_extensions import Unpack
+from typing_extensions import Unpack # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 
 # found on https://stackoverflow.com/a/14981125
 
