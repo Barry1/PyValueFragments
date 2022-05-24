@@ -2,17 +2,26 @@
 import sys
 from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar, Union
+
 from typing_extensions import Unpack
+
 # found on https://stackoverflow.com/a/14981125
+
+
 class Printable(Protocol):
     """Typing Protocol for objects with __str__ method."""
+
     def __str__(self) -> str:
         ...
+
+
 KwargsForPrint = TypedDict(
     "KwargsForPrint",
     {"sep": str, "end": str, "file": IO[str], "flush": bool},
     total=False,
 )
+
+
 def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
     """simple print to stderr."""
     print(*args, file=sys.stderr, **kwargs)
