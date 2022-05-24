@@ -56,6 +56,6 @@ class TimingCM:  # pyre-ignore[13]
             f"computed {self._process} process seconds",
             f"and {self._thread} thread seconds",
             f"within {self._wall} wall seconds",
-            f"resulting in {100*self._process/self._wall} % CPU-load.",
+            f"resulting in {100 * self._process / self._wall} % CPU-load.",
         )
         ic("Ended to run with Timing -> __exit__")
