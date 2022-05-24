@@ -5,7 +5,6 @@ from typing import IO, Protocol, TypedDict, TypeVar, Union
 
 from typing_extensions import Unpack
 
-
 # found on https://stackoverflow.com/a/14981125
 
 
