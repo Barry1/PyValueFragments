@@ -3,31 +3,36 @@ import sys
 from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar, Union
 
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 from typing_extensions import Unpack
 
 # found on https://stackoverflow.com/a/14981125
 
 
-class Printable(Protocol):
+class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
     def __str__(self) -> str:
         ...
 
 
-KwargsForPrint = TypedDict(
-    "KwargsForPrint",
-    {"sep": str, "end": str, "file": IO[str], "flush": bool},
-    total=False,
-)
+class KwargsForPrint(TypedDict, total=False):
+    """Typing class for kwargs to print."""
 
-
-def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
-    """simple print to stderr."""
-    print(*args, file=sys.stderr, **kwargs)
+    sep: str
+    end: str
+    file: IO[str]
+    flush: bool
 
 
 FirstElementT = TypeVar("FirstElementT")
+
+
+def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
+    """Print to stderr."""
+    print(*args, file=sys.stderr, **kwargs)
+
+
 if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
