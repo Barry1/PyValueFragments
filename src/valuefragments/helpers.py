@@ -16,11 +16,20 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...
 
 
-KwargsForPrint = TypedDict(
-    "KwargsForPrint",
-    {"sep": str, "end": str, "file": IO[str], "flush": bool},
-    total=False,
-)
+# KwargsForPrint = TypedDict(
+#    "KwargsForPrint",
+#    {"sep": str, "end": str, "file": IO[str], "flush": bool},
+#    total=False,
+# )
+
+
+class KwargsForPrint(TypedDict, total=False):
+    """Typing class for kwargs to print."""
+
+    sep: str
+    end: str
+    file: IO[str]
+    flush: bool
 
 
 def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
