@@ -27,7 +27,7 @@ class TimingCM:  # pyre-ignore[13]
     _thread: float
     _wall: float
 
-    def __init__(self)-> None:#: TimingCM
+    def __init__(self) -> None:  # : TimingCM
         """Prepare (type) variables."""
         # self._process:float# = 0
         # self._thread:float# = 0
