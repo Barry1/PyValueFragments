@@ -17,7 +17,6 @@ else:
     from typing import ParamSpec  # pylint: disable=E0611
 ParamType = ParamSpec("ParamType")
 ResultT = TypeVar("ResultT")
-# FunctionTypeVar = TypeVar("FunctionTypeVar", bound=Callable[..., Any])
 InstanceObjectT = TypeVar("InstanceObjectT")
 
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
@@ -66,9 +65,13 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before: psutil._common.pcputimes = psutil.Process().cpu_times()  # pcputimes
+            before: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
+                psutil.Process().cpu_times()
+            )
             retval = func(*args, **kwargs)
-            after: psutil._common.pcputimes = psutil.Process().cpu_times()
+            after: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
+                psutil.Process().cpu_times()
+            )
             delta = [end - start for start, end in zip(before, after)]
             print(save, delta, sum(delta))
             return retval
