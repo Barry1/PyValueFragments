@@ -66,13 +66,11 @@ psutil = { version = "*", optional = true }
 typing-extensions = "*"
 pytype = "^2022.5.10"
 
-[tool.poetry.group.dev.dependencies]
-prospector = "^1.7.7"
-
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
 black = "*"
 build = "*"
+prospector = {extras = ["with_everything"], version = "^1.7.7"}
 cpu-load-generator = "^1.2.0"
 icecream = "^2.1.2"
 isort = "^5.10.1"

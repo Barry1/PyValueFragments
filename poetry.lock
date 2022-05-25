@@ -68,6 +68,19 @@ pycodestyle = ">=2.8.0"
 toml = "*"
 
 [[package]]
+name = "bandit"
+version = "1.7.4"
+description = "Security oriented static analyser for python code."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+test = ["coverage (>=4.5.4)", "fixtures (>=3.0.0)", "flake8 (>=4.0.0)", "stestr (>=2.5.0)", "testscenarios (>=0.5.0)", "testtools (>=2.3.0)", "toml", "beautifulsoup4 (>=4.8.0)", "pylint (==1.9.4)"]
+toml = ["toml"]
+yaml = ["pyyaml"]
+
+[[package]]
 name = "black"
 version = "22.3.0"
 description = "The uncompromising code formatter."
@@ -191,16 +204,16 @@ python-versions = "*"
 
 [[package]]
 name = "flake8"
-version = "2.3.0"
-description = "the modular source code checker: pep8, pyflakes and co"
+version = "4.0.1"
+description = "the modular source code checker: pep8 pyflakes and co"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 
 [package.dependencies]
-mccabe = ">=0.2.1"
-pep8 = ">=1.5.7"
-pyflakes = ">=0.8.1"
+mccabe = ">=0.6.0,<0.7.0"
+pycodestyle = ">=2.8.0,<2.9.0"
+pyflakes = ">=2.4.0,<2.5.0"
 
 [[package]]
 name = "flake8-polyfill"
@@ -212,6 +225,14 @@ python-versions = "*"
 
 [package.dependencies]
 flake8 = "*"
+
+[[package]]
+name = "frosted"
+version = "1.4.1"
+description = "A passive Python syntax checker"
+category = "dev"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "future"
@@ -355,11 +376,11 @@ marshmallow = ">=2.0.0"
 
 [[package]]
 name = "mccabe"
-version = "0.7.0"
+version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = "*"
 
 [[package]]
 name = "mypy"
@@ -469,7 +490,7 @@ python-versions = "*"
 
 [[package]]
 name = "pep8-naming"
-version = "0.11.1"
+version = "0.10.0"
 description = "Check PEP-8 naming conventions, plugin for flake8"
 category = "dev"
 optional = false
@@ -503,43 +524,42 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
-name = "poetry-semver"
-version = "0.1.0"
-description = "A semantic versioning library for Python"
-category = "dev"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[[package]]
 name = "prospector"
-version = "0.12.2"
-description = "Prospector: python static analysis tool"
+version = "1.7.7"
+description = ""
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6.2,<4.0"
 
 [package.dependencies]
-dodgy = ">=0.1.9"
-mccabe = ">=0.5.0"
-pep8-naming = ">=0.3.3"
-pycodestyle = ">=2.0.0"
-pydocstyle = ">=0.1"
-pyflakes = ">=0.8.1"
-pylint = ">=1.5.6"
-pylint-celery = ">=0.3"
-pylint-common = ">=0.2.2"
-pylint-django = ">=0.7.2"
-pylint-flask = ">=0.3"
-pylint-plugin-utils = ">=0.2.3"
-pyyaml = "*"
-requirements-detector = ">=0.4.1"
-setoptconf = ">=0.2.0"
+bandit = {version = ">=1.5.1", optional = true, markers = "extra == \"with_bandit\" or extra == \"with_everything\""}
+dodgy = ">=0.2.1,<0.3.0"
+frosted = {version = ">=1.4.1", optional = true, markers = "extra == \"with_frosted\" or extra == \"with_everything\""}
+mccabe = ">=0.6.0,<0.7.0"
+mypy = {version = ">=0.600", optional = true, markers = "extra == \"with_mypy\" or extra == \"with_everything\""}
+pep8-naming = ">=0.3.3,<=0.10.0"
+pycodestyle = ">=2.6.0,<2.9.0"
+pydocstyle = ">=2.0.0"
+pyflakes = ">=2.2.0,<3"
+pylint = ">=2.8.3"
+pylint-celery = "0.3"
+pylint-django = ">=2.5,<2.6"
+pylint-flask = "0.6"
+pylint-plugin-utils = ">=0.7,<0.8"
+pyroma = {version = ">=2.4", optional = true, markers = "extra == \"with_pyroma\" or extra == \"with_everything\""}
+PyYAML = "*"
+requirements-detector = ">=0.7,<0.8"
+setoptconf-tmp = ">=0.3.1,<0.4.0"
+toml = ">=0.10.2,<0.11.0"
+vulture = {version = ">=1.5", optional = true, markers = "extra == \"with_vulture\" or extra == \"with_everything\""}
 
 [package.extras]
-with_everything = ["frosted (>=1.4.1)", "pyroma (>=2.0.2)", "vulture (>=0.6)"]
+with_bandit = ["bandit (>=1.5.1)"]
+with_everything = ["bandit (>=1.5.1)", "frosted (>=1.4.1)", "mypy (>=0.600)", "pyroma (>=2.4)", "vulture (>=1.5)"]
 with_frosted = ["frosted (>=1.4.1)"]
-with_pyroma = ["pyroma (>=2.0.2)"]
-with_vulture = ["vulture (>=0.6)"]
+with_mypy = ["mypy (>=0.600)"]
+with_pyroma = ["pyroma (>=2.4)"]
+with_vulture = ["vulture (>=1.5)"]
 
 [[package]]
 name = "psutil"
@@ -660,18 +680,6 @@ pylint = ">=1.0"
 pylint-plugin-utils = ">=0.2.1"
 
 [[package]]
-name = "pylint-common"
-version = "0.2.5"
-description = "pylint-common is a Pylint plugin to improve Pylint error analysis of the standard Python library"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-pylint = ">=1.0"
-pylint-plugin-utils = ">=0.2.5"
-
-[[package]]
 name = "pylint-django"
 version = "2.5.3"
 description = "A Pylint plugin to help Pylint understand the Django web framework"
@@ -768,6 +776,17 @@ all = ["twine (>=3.4.1)"]
 dev = ["twine (>=3.4.1)"]
 
 [[package]]
+name = "pyroma"
+version = "4.0"
+description = "Test your project's packaging friendliness"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["pytest", "pytest-cov", "setuptools (>=60)"]
+
+[[package]]
 name = "pytest"
 version = "7.1.2"
 description = "pytest: simple powerful testing with Python"
@@ -827,25 +846,22 @@ mando = ">=0.6,<0.7"
 
 [[package]]
 name = "requirements-detector"
-version = "1.0.3"
+version = "0.7"
 description = "Python tool to find and list requirements of a Python project"
 category = "dev"
 optional = false
-python-versions = ">=3.6.2,<4.0"
+python-versions = "*"
 
 [package.dependencies]
-astroid = ">=2.0,<3.0"
-packaging = ">=21.3,<22.0"
-poetry-semver = "0.1.0"
-toml = ">=0.10.2,<0.11.0"
+astroid = ">=1.4"
 
 [[package]]
-name = "setoptconf"
-version = "0.3.0"
+name = "setoptconf-tmp"
+version = "0.3.1"
 description = "A module for retrieving program settings from various sources in a consistant method."
 category = "dev"
 optional = false
-python-versions = ">=3.0"
+python-versions = "*"
 
 [package.extras]
 yaml = ["pyyaml"]
@@ -978,9 +994,6 @@ category = "dev"
 optional = false
 python-versions = ">=3.6"
 
-[package.dependencies]
-toml = "*"
-
 [[package]]
 name = "wrapt"
 version = "1.14.1"
@@ -992,7 +1005,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.10"
-content-hash = "26dd2a0d979351bb854ffd585db29dead4cd43c50470ffd1ed1f366a727ff9ed"
+content-hash = "4773f3fa285c842da134af19fc8523dffd1defded40ed5f471de51c9431ee855"
 
 [metadata.files]
 astroid = [
@@ -1018,6 +1031,10 @@ attrs = [
 autopep8 = [
     {file = "autopep8-1.6.0-py2.py3-none-any.whl", hash = "sha256:ed77137193bbac52d029a52c59bec1b0629b5a186c495f1eb21b126ac466083f"},
     {file = "autopep8-1.6.0.tar.gz", hash = "sha256:44f0932855039d2c15c4510d6df665e4730f2b8582704fa48f9c55bd3e17d979"},
+]
+bandit = [
+    {file = "bandit-1.7.4-py3-none-any.whl", hash = "sha256:412d3f259dab4077d0e7f0c11f50f650cc7d10db905d98f6520a95a18049658a"},
+    {file = "bandit-1.7.4.tar.gz", hash = "sha256:2d63a8c573417bae338962d4b9b06fbc6080f74ecd955a092849e1e65c717bd2"},
 ]
 black = [
     {file = "black-22.3.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:2497f9c2386572e28921fa8bec7be3e51de6801f7459dffd6e62492531c47e09"},
@@ -1081,12 +1098,16 @@ executing = [
     {file = "executing-0.8.3.tar.gz", hash = "sha256:c6554e21c6b060590a6d3be4b82fb78f8f0194d809de5ea7df1c093763311501"},
 ]
 flake8 = [
-    {file = "flake8-2.3.0-py2.py3-none-any.whl", hash = "sha256:c99cc9716d6655d9c8bcb1e77632b8615bf0abd282d7abd9f5c2148cad7fc669"},
-    {file = "flake8-2.3.0.tar.gz", hash = "sha256:5ee1a43ccd0716d6061521eec6937c983efa027793013e572712c4da55c7c83e"},
+    {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
+    {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
 flake8-polyfill = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
     {file = "flake8_polyfill-1.0.2-py2.py3-none-any.whl", hash = "sha256:12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9"},
+]
+frosted = [
+    {file = "frosted-1.4.1-py2.py3-none-any.whl", hash = "sha256:c6a30ad502ea373f6fe4cafbcd896ece66948406b04365d14a3eb764cc529b07"},
+    {file = "frosted-1.4.1.tar.gz", hash = "sha256:d1e5d2b43a064b33c289b9a986a7425fd9a36bed8f519ca430ac7a0915e32b51"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
@@ -1191,8 +1212,8 @@ marshmallow-enum = [
     {file = "marshmallow_enum-1.5.1-py2.py3-none-any.whl", hash = "sha256:57161ab3dbfde4f57adeb12090f39592e992b9c86d206d02f6bd03ebec60f072"},
 ]
 mccabe = [
-    {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
-    {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
+    {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
+    {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
 ]
 mypy = [
     {file = "mypy-0.942-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:5bf44840fb43ac4074636fd47ee476d73f0039f4f54e86d7265077dc199be24d"},
@@ -1268,8 +1289,8 @@ pep8 = [
     {file = "pep8-1.7.1.tar.gz", hash = "sha256:fe249b52e20498e59e0b5c5256aa52ee99fc295b26ec9eaa85776ffdb9fe6374"},
 ]
 pep8-naming = [
-    {file = "pep8-naming-0.11.1.tar.gz", hash = "sha256:a1dd47dd243adfe8a83616e27cf03164960b507530f155db94e10b36a6cd6724"},
-    {file = "pep8_naming-0.11.1-py2.py3-none-any.whl", hash = "sha256:f43bfe3eea7e0d73e8b5d07d6407ab47f2476ccaeff6937c84275cd30b016738"},
+    {file = "pep8-naming-0.10.0.tar.gz", hash = "sha256:f3b4a5f9dd72b991bf7d8e2a341d2e1aa3a884a769b5aaac4f56825c1763bf3a"},
+    {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
 ]
 platformdirs = [
     {file = "platformdirs-2.5.2-py3-none-any.whl", hash = "sha256:027d8e83a2d7de06bbac4e5ef7e023c02b863d7ea5d079477e722bb41ab25788"},
@@ -1279,12 +1300,9 @@ pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
 ]
-poetry-semver = [
-    {file = "poetry-semver-0.1.0.tar.gz", hash = "sha256:d809b612aa27b39bf2d0fc9d31b4f4809b0e972646c5f19cfa46c725b7638810"},
-    {file = "poetry_semver-0.1.0-py2.py3-none-any.whl", hash = "sha256:4e6349bd7231cc657f0e1930f7b204e87e33dfd63eef5cac869363969515083a"},
-]
 prospector = [
-    {file = "prospector-0.12.2.tar.gz", hash = "sha256:eee570da89ac0fec8d746fc72c97e1a8aca9dd82161cac175d78ddd0d5170487"},
+    {file = "prospector-1.7.7-py3-none-any.whl", hash = "sha256:2dec5dac06f136880a3710996c0886dcc99e739007bbc05afc32884973f5c058"},
+    {file = "prospector-1.7.7.tar.gz", hash = "sha256:c04b3d593e7c525cf9a742fed62afbe02e2874f0e42f2f56a49378fd94037360"},
 ]
 psutil = [
     {file = "psutil-5.9.1-cp27-cp27m-manylinux2010_i686.whl", hash = "sha256:799759d809c31aab5fe4579e50addf84565e71c1dc9f1c31258f159ff70d3f87"},
@@ -1351,9 +1369,6 @@ pylint = [
 pylint-celery = [
     {file = "pylint-celery-0.3.tar.gz", hash = "sha256:41e32094e7408d15c044178ea828dd524beedbdbe6f83f712c5e35bde1de4beb"},
 ]
-pylint-common = [
-    {file = "pylint-common-0.2.5.tar.gz", hash = "sha256:3276b9e4db16f41cee656c78c74cfef3da383e8301e5b3b91146586ae5b53659"},
-]
 pylint-django = [
     {file = "pylint-django-2.5.3.tar.gz", hash = "sha256:0ac090d106c62fe33782a1d01bda1610b761bb1c9bf5035ced9d5f23a13d8591"},
     {file = "pylint_django-2.5.3-py3-none-any.whl", hash = "sha256:56b12b6adf56d548412445bd35483034394a1a94901c3f8571980a13882299d5"},
@@ -1381,6 +1396,10 @@ pyre-extensions = [
 pyright = [
     {file = "pyright-1.1.249-py3-none-any.whl", hash = "sha256:f30138654f57d041e4af27e71a737de502d7475c5b588ab5a9990c1a30a0b6f9"},
     {file = "pyright-1.1.249.tar.gz", hash = "sha256:b7989a32462131b5edb1940944b6e1cfb660ae490c3a86c3221a39a643eb8663"},
+]
+pyroma = [
+    {file = "pyroma-4.0-py2.py3-none-any.whl", hash = "sha256:8aab9bc66f6bbd8a23a545a10ceea62d858bfdd1a3bd0144c2ac0854d029aacb"},
+    {file = "pyroma-4.0.tar.gz", hash = "sha256:b41ed0e080fb3aa9a7b8359d0ce7af39bc9b59cb9e7d696c6521f525257cc128"},
 ]
 pytest = [
     {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
@@ -1441,12 +1460,11 @@ radon = [
     {file = "radon-5.1.0.tar.gz", hash = "sha256:cb1d8752e5f862fb9e20d82b5f758cbc4fb1237c92c9a66450ea0ea7bf29aeee"},
 ]
 requirements-detector = [
-    {file = "requirements-detector-1.0.3.tar.gz", hash = "sha256:9124b0fa5808660e2ae65a06049dfe248a7b7df73f8e9d48d0ad7f7c790690ad"},
-    {file = "requirements_detector-1.0.3-py3-none-any.whl", hash = "sha256:d9fa8da14813500f6f94752c2bf4a6cf33d13e9f2140947f7df0149f1537437b"},
+    {file = "requirements-detector-0.7.tar.gz", hash = "sha256:0d1e13e61ed243f9c3c86e6cbb19980bcb3a0e0619cde2ec1f3af70fdbee6f7b"},
 ]
-setoptconf = [
-    {file = "setoptconf-0.3.0-py3-none-any.whl", hash = "sha256:1fa613dc4a6fbfbaab9a52319d1e369d030e8ed80455b151574ccf3390ec86c6"},
-    {file = "setoptconf-0.3.0.tar.gz", hash = "sha256:d2ecbd27c0c7d0d53990e2df98d9aad6490df8b75b71c621d8c441d6e91e3161"},
+setoptconf-tmp = [
+    {file = "setoptconf-tmp-0.3.1.tar.gz", hash = "sha256:e0480addd11347ba52f762f3c4d8afa3e10ad0affbc53e3ffddc0ca5f27d5778"},
+    {file = "setoptconf_tmp-0.3.1-py3-none-any.whl", hash = "sha256:76035d5cd1593d38b9056ae12d460eca3aaa34ad05c315b69145e138ba80a745"},
 ]
 setuptools = [
     {file = "setuptools-62.3.2-py3-none-any.whl", hash = "sha256:68e45d17c9281ba25dc0104eadd2647172b3472d9e01f911efa57965e8d51a36"},
