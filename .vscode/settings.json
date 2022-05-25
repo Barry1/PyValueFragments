@@ -1,0 +1,9 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": false,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.languageServer": "Pylance",
+    "python.linting.pylamaEnabled": true,
+    "code-runner.clearPreviousOutput": false
+}
