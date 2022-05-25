@@ -29,25 +29,22 @@ class TimingCM:  # pyre-ignore[13]
 
     def __init__(self) -> None:  # : TimingCM
         """Prepare (type) variables."""
-        # self._process:float# = 0
-        # self._thread:float# = 0
-        # self._wall:float# = 0
         ic("Prepared to run with Timing -> __init__")
 
-    def __enter__(self: TimingCM) -> None:  # -> TimingCM
+    def __enter__(self: TimingCM) -> TimingCM:  # -> TimingCM
         """Save startup timing information."""
         self._wall = -time.monotonic()
         self._process = -time.process_time()
         self._thread = -time.thread_time()
         ic("Prepared to run with Timing -> __enter__")
-        # return self
+        return self
 
     def __exit__(
         self: TimingCM,
         exc_type: Optional[Type[BaseException]],
         exc_value: Optional[BaseException],
         exc_traceback: Optional[TracebackType],
-    ) -> None:
+    ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         self._wall += time.monotonic()
         self._process += time.process_time()
@@ -59,3 +56,4 @@ class TimingCM:  # pyre-ignore[13]
             f"resulting in {100 * self._process / self._wall} % CPU-load.",
         )
         ic("Ended to run with Timing -> __exit__")
+        return True
