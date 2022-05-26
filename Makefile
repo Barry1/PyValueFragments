@@ -1,4 +1,4 @@
-.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer pytype
+.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer pytype prospector
 #should max-load be num-cpus?
 MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #https://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html
@@ -8,6 +8,9 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 pyobjs!= find src -regex .*\.pyi?$$
 
 default: formatters pylint pydocstyle pyright checkminver
+
+prospector:
+	poetry run prospector src
 
 checkminver:
 	poetry run vermin -v --no-parse-comments --backport typing src
@@ -22,7 +25,8 @@ formatters:
 
 pylint:
 	@echo "==========" "$@" "=========="
-	poetry run pylint $(pyobjs)
+#	poetry run pylint $(pyobjs)
+	poetry run pylint src/valuefragments/*.py
 
 pydocstyle:
 	@echo "==========" "$@" "=========="
