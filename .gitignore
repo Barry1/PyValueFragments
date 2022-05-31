@@ -6,3 +6,4 @@ valuefragments.egg-info/
 typings/
 *.out
 dist/
+.vscode/*.log
