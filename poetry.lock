@@ -775,7 +775,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.253"
+version = "1.1.254"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
@@ -882,7 +882,7 @@ yaml = ["pyyaml"]
 
 [[package]]
 name = "setuptools"
-version = "62.3.3"
+version = "62.3.4"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "dev"
 optional = false
@@ -1420,8 +1420,8 @@ pyre-extensions = [
     {file = "pyre_extensions-0.0.27-py3-none-any.whl", hash = "sha256:5ad4822ceaed43171a36391a95b70b928c222ca0776f4e689f6921081ecfb324"},
 ]
 pyright = [
-    {file = "pyright-1.1.253-py3-none-any.whl", hash = "sha256:9751da729cfa5e239911ac8793531a5948a999185edf9b0fae276a9d053da586"},
-    {file = "pyright-1.1.253.tar.gz", hash = "sha256:0f63f07d66fe1a66f9dcc7cb7c403413bf926a6a586e0ad7b66e3c5fb83e5611"},
+    {file = "pyright-1.1.254-py3-none-any.whl", hash = "sha256:4a12432a29359195738685091da9e5b39f830940d265c85ce8920fa936e92b31"},
+    {file = "pyright-1.1.254.tar.gz", hash = "sha256:55394e1198b0feef261552a7fcca13c7705cb89fd9c77e8c4cfa79b27f4af549"},
 ]
 pyroma = [
     {file = "pyroma-4.0-py2.py3-none-any.whl", hash = "sha256:8aab9bc66f6bbd8a23a545a10ceea62d858bfdd1a3bd0144c2ac0854d029aacb"},
@@ -1493,8 +1493,8 @@ setoptconf-tmp = [
     {file = "setoptconf_tmp-0.3.1-py3-none-any.whl", hash = "sha256:76035d5cd1593d38b9056ae12d460eca3aaa34ad05c315b69145e138ba80a745"},
 ]
 setuptools = [
-    {file = "setuptools-62.3.3-py3-none-any.whl", hash = "sha256:d1746e7fd520e83bbe210d02fff1aa1a425ad671c7a9da7d246ec2401a087198"},
-    {file = "setuptools-62.3.3.tar.gz", hash = "sha256:e7d11f3db616cda0751372244c2ba798e8e56a28e096ec4529010b803485f3fe"},
+    {file = "setuptools-62.3.4-py3-none-any.whl", hash = "sha256:30b6b0fbacc459c90d27a63e6173facfc8b8c99a48fb24b5044f459ba63cd6cf"},
+    {file = "setuptools-62.3.4.tar.gz", hash = "sha256:1f5d3a1502812025cdb2e5609b6af2d207332e3f50febe6db10ed3a59b2f155f"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
