@@ -82,7 +82,7 @@ pycodestyle = "^2.8.0"
 pydocstyle = "^6.1.1"
 pyflakes = "^2.4.0"
 pylama = {extras = ["all"], version = "^8.3.8"}
-pylint = "^2.13.5"
+pylint = "^2.14.2"
 pyre-check = "^0.9.10"
 pyright = "*"
 pytest = "*"
