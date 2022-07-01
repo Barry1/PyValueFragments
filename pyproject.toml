@@ -64,7 +64,7 @@ hashlib = { version = "*", optional = true }
 icecream = { version = "*", optional = true }
 psutil = { version = "*", optional = true }
 typing-extensions = "*"
-pytype = "^2022.5.10"
+pytype = "^2022.6.30"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
