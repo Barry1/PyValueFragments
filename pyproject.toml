@@ -83,7 +83,7 @@ pydocstyle = "^6.1.1"
 pyflakes = "^2.4.0"
 pylama = {extras = ["all"], version = "^8.3.8"}
 pylint = "^2.13.5"
-pyre-check = "^0.9.10"
+pyre-check = "^0.9.15"
 pyright = "*"
 pytest = "*"
 radon = "^5.1.0"
