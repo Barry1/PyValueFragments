@@ -6,6 +6,13 @@
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.poetry]
+name = "valuefragments"
+version = "0.1.6"
+description = "Testing installation of Package"
+authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+
+
 # https://github.com/hhatto/autopep8/blob/master/README.rst#pyproject-toml
 [tool.autopep8]
 max_line_length = 88
@@ -50,12 +57,6 @@ py_version = 310
 color_output = true
 profile = "black"
 skip = "venv"
-
-[tool.poetry]
-name = "valuefragments"
-version = "0.1.5"
-description = "Testing installation of Package"
-authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
 [tool.poetry.dependencies]
 python = "~3.10"
