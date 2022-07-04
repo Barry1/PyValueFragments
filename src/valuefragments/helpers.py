@@ -28,7 +28,10 @@ class KwargsForPrint(TypedDict, total=False):
 FirstElementT = TypeVar("FirstElementT")
 
 
-def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
+def eprint(# type: ignore[unused-argument]
+    *args: Printable,# type: ignore[unused-argument]
+    **kwargs: Unpack[KwargsForPrint]# type: ignore[unused-argument]
+    ) -> None:
     """Print to stderr. Ignores kwargs"""
     print(*args, file=sys.stderr)
 
