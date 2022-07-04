@@ -1,7 +1,7 @@
 """helper functions and code snippets which are not decorators."""
 import sys
 from importlib.util import find_spec
-from typing import IO, Protocol, TypedDict, TypeVar, Union
+from typing import IO, Protocol, TypedDict, TypeVar
 
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 from typing_extensions import Unpack  # type: ignore[attr-defined]
@@ -39,7 +39,7 @@ else:
 
     def ic(  # pylint: disable=invalid-name
         *a: FirstElementT,
-    ) -> Union[FirstElementT, tuple[FirstElementT, ...], None]:
+    ) -> FirstElementT|tuple[FirstElementT, ...]|None:
         """Just in case package icecream is not available: For logging purposes."""
         if not a:
             return None
