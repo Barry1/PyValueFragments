@@ -9,6 +9,9 @@ pyobjs!= find src -regex .*\.pyi?$$
 
 default: formatters pylint pydocstyle pyright checkminver
 
+mypy:
+	poetry run mypy --strict --show-error-codes src
+
 prospector:
 	poetry run prospector src
 
