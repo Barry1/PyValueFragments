@@ -19,8 +19,8 @@ checkminver:
 	poetry run vermin -v --no-parse-comments --backport typing src
 
 formatters:
-	@echo "==========" "autopep8" "=========="
-	poetry run autopep8 $(pyobjs)
+#	@echo "==========" "autopep8" "=========="
+#	poetry run autopep8 $(pyobjs)
 	@echo "==========" "isort" "=========="
 	poetry run isort $(pyobjs)
 	@echo "==========" "black" "=========="
