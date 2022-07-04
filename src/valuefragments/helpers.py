@@ -30,8 +30,8 @@ FirstElementT = TypeVar("FirstElementT")
 
 def eprint(
     *args: Printable,  # pylint: disable=unused-argument
-    **kwargs: Unpack[KwargsForPrint]  # pylint: disable=unused-argument
-    ) -> None:
+    **kwargs: Unpack[KwargsForPrint],  # pylint: disable=unused-argument
+) -> None:
     """Print to stderr. Ignores kwargs"""
     print(*args, file=sys.stderr)
 
@@ -86,6 +86,7 @@ else:
             file_hash = hashlib.md5()  # nosec
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
+        # file deepcode ignore insecureHash: no security problem as only for file identification
         return file_hash.hexdigest()
 
     __all__.append("hashfile")
