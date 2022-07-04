@@ -90,6 +90,7 @@ pytest = "*"
 radon = "*"
 toml = "*"
 vermin = "*"
+flake8 = "^4.0.1"
 
 [pylama.pep8]
 max_line_length = 88
