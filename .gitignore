@@ -7,3 +7,4 @@ typings/
 *.out
 dist/
 .vscode/*.log
+.dccache
