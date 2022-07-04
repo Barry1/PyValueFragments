@@ -29,8 +29,8 @@ FirstElementT = TypeVar("FirstElementT")
 
 
 def eprint(*args: Printable, **kwargs: Unpack[KwargsForPrint]) -> None:
-    """Print to stderr."""
-    print(*args, file=sys.stderr, **kwargs)
+    """Print to stderr. Ignores kwargs"""
+    print(*args, file=sys.stderr)
 
 
 if __debug__ and find_spec("icecream"):
@@ -39,7 +39,7 @@ else:
 
     def ic(  # pylint: disable=invalid-name
         *a: FirstElementT,
-    ) -> FirstElementT|tuple[FirstElementT, ...]|None:
+    ) -> FirstElementT | tuple[FirstElementT, ...] | None:
         """Just in case package icecream is not available: For logging purposes."""
         if not a:
             return None
@@ -88,7 +88,7 @@ else:
     __all__.append("hashfile")
 
 try:
-    import cpu_load_generator
+    import cpu_load_generator  # pyright: ignore[reportUnknownVariableType]
 except ImportError:
     pass
 else:
@@ -97,7 +97,7 @@ else:
         loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
     ) -> None:
         """Just a helper function to generate load on one given core."""
-        cpu_load_generator.load_single_core(
+        cpu_load_generator.load_single_core(  # pyright: ignore[reportUnknownMemberType]
             core_num=loadedcore,
             duration_s=loadduration,
             target_load=theload,
@@ -107,6 +107,8 @@ else:
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
+        cpu_load_generator.load_all_cores(  # pyright: ignore[reportUnknownMemberType]
+            duration_s=loadduration, target_load=theload
+        )
 
     __all__.append("loadallcores")
