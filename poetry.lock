@@ -34,7 +34,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "atomicwrites"
-version = "1.4.0"
+version = "1.4.1"
 description = "Atomic file writes."
 category = "dev"
 optional = false
@@ -856,7 +856,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.257"
+version = "1.1.258"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
@@ -1170,10 +1170,7 @@ async-generator = [
     {file = "async_generator-1.10-py3-none-any.whl", hash = "sha256:01c7bf666359b4967d2cda0000cc2e4af16a0ae098cbffcb8472fb9e8ad6585b"},
     {file = "async_generator-1.10.tar.gz", hash = "sha256:6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144"},
 ]
-atomicwrites = [
-    {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
-    {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
-]
+atomicwrites = []
 attrs = [
     {file = "attrs-21.4.0-py2.py3-none-any.whl", hash = "sha256:2d27e3784d7a565d36ab851fe94887c5eccd6a463168875832a1be79c82828b4"},
     {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
@@ -1579,10 +1576,7 @@ pyre-extensions = [
     {file = "pyre-extensions-0.0.29.tar.gz", hash = "sha256:4113600706c47306a156dcc9c405f4d458c505be432699571e357ef20e2d5d77"},
     {file = "pyre_extensions-0.0.29-py3-none-any.whl", hash = "sha256:f4fef9089872c0656f82de7e8f357af0377dcbb6c2deadc1a7d3037aaf43757e"},
 ]
-pyright = [
-    {file = "pyright-1.1.257-py3-none-any.whl", hash = "sha256:e00b6601118f94554d62552605bebdd836d2e077552fdc578cecf4170fc25d9c"},
-    {file = "pyright-1.1.257.tar.gz", hash = "sha256:a0d566686292b49c2c578c0108cc31b6f228731c51a12b09242f9ff9fd1722e2"},
-]
+pyright = []
 pyroma = [
     {file = "pyroma-4.0-py2.py3-none-any.whl", hash = "sha256:8aab9bc66f6bbd8a23a545a10ceea62d858bfdd1a3bd0144c2ac0854d029aacb"},
     {file = "pyroma-4.0.tar.gz", hash = "sha256:b41ed0e080fb3aa9a7b8359d0ce7af39bc9b59cb9e7d696c6521f525257cc128"},
