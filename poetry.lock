@@ -856,7 +856,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.263"
+version = "1.1.264"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
@@ -909,7 +909,7 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.
 
 [[package]]
 name = "pytype"
-version = "2022.7.18"
+version = "2022.7.26"
 description = "Python type inferencer"
 category = "main"
 optional = false
