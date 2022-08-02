@@ -1,17 +1,43 @@
 # Learn more at <https://github.com/carlosperate/awesome-pyproject>
 # Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
 #https://setuptools.readthedocs.io/en/latest/build_meta.html
-[build-system]
-#https://www.python.org/dev/peps/pep-0508/
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+#https://peps.python.org/pep-0621/
+[project]
+name = "valuefragments"
+version = "0.1.9"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+ALLFEATURES = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.8"
+version = "0.1.9"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
+[build-system]
+#https://www.python.org/dev/peps/pep-0508/
+#https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+
+# ...
+# By default, include-package-data is true in pyproject.toml, so you do
+# NOT have to specify this line.
+#include_package_data = true
+#packages = "find:"
+#package_dir = "src"
+#### explicitly not coverred
+#[tool.poetry.extras]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+#mypkg = ["*.txt", "*.rst"]
+"*" = ["py.typed"]
 
 # https://github.com/hhatto/autopep8/blob/master/README.rst#pyproject-toml
 [tool.autopep8]
@@ -71,7 +97,7 @@ pytype = "^2022.5.10"
 autopep8 = "*"
 black = "*"
 build = "*"
-prospector = {extras = ["with_everything"], version = "*"}
+prospector = { extras = ["with_everything"], version = "*" }
 cpu-load-generator = "*"
 icecream = "*"
 isort = "*"
@@ -82,7 +108,7 @@ pep8 = "*"
 pycodestyle = "*"
 pydocstyle = "*"
 pyflakes = "*"
-pylama = {extras = ["all"], version = "*"}
+pylama = { extras = ["all"], version = "*" }
 pylint = "*"
 pyre-check = "*"
 pyright = "*"
@@ -92,9 +118,8 @@ toml = "*"
 vermin = "*"
 flake8 = "^4.0.1"
 
-[pylama.pep8]
-max_line_length = 88
-
+#[pylama.pep8]
+#max_line_length = 79
 [tool.pylint.MASTER]
 jobs = 0
 output-format = "colorized"
