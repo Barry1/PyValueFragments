@@ -83,7 +83,7 @@ else:
     def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
-            file_hash = hashlib.md5()  # nosec
+            file_hash = hashlib.md5()  # nosec  # Compliant
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
         # file deepcode ignore insecureHash: no security problem as only for file identification
