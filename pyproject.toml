@@ -43,7 +43,7 @@ where = ["src"]
 
 # https://github.com/hhatto/autopep8/blob/master/README.rst#pyproject-toml
 [tool.autopep8]
-max_line_length = 88
+max_line_length = 79
 in-place = true
 recursive = true
 jobs = 0
@@ -65,7 +65,7 @@ lint = ["pylint", "mypy", "flake8"]
 log_level = "INFO"
 
 [tool.flake8]
-max-line-length = 88
+max-line-length = 79
 
 # https://interrogate.readthedocs.io/en/latest/#configuration
 [tool.interrogate]

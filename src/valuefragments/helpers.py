@@ -13,25 +13,20 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
     def __str__(self) -> str:
+        """Just the stringification."""
         ...
 
 
-class KwargsForPrint(TypedDict, total=False):
-    """Typing class for kwargs to print."""
-
-    sep: str
-    end: str
-    file: IO[str]
-    flush: bool
-
+KwargsForPrint = TypedDict(
+    "KwargsForPrint",
+    {"sep": str, "end": str, "file": IO[str], "flush": bool},
+    total=False,
+)
 
 FirstElementT = TypeVar("FirstElementT")
 
 
-def eprint(
-    *args: Printable,  # pylint: disable=unused-argument
-    **_kwargs: Unpack[KwargsForPrint],  # pylint: disable=unused-argument
-) -> None:
+def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
     """Print to stderr and ignores kwargs."""
     print(*args, file=sys.stderr)
 

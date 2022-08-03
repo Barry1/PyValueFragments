@@ -6,15 +6,15 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, TypeVar, cast
+from typing import Callable, Literal, NamedTuple, TypeVar, cast
 
-from .helpers import ic  # pylint: disable=E0402
+from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
 else:
-    from typing import ParamSpec  # pylint: disable=E0611
+    from typing import ParamSpec  # pylint: disable=no-name-in-module
 ParamType = ParamSpec("ParamType")
 ResultT = TypeVar("ResultT")
 InstanceObjectT = TypeVar("InstanceObjectT")
@@ -69,13 +69,9 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
-                psutil.Process().cpu_times()
-            )
+            before: NamedTuple = psutil.Process().cpu_times()
             retval: ResultT = func(*args, **kwargs)
-            after: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
-                psutil.Process().cpu_times()
-            )
+            after: NamedTuple = psutil.Process().cpu_times()
             delta: list[float] = [
                 end - start for start, end in zip(before, after)
             ]
@@ -144,7 +140,7 @@ class LazyProperty(property):
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
-        attr_name: str = "_lazy_" + getterfunction.__name__
+        attr_name: str = f"_lazy_{getterfunction.__name__}"
 
         def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
             """Check if value present, if not calculate."""

@@ -5,7 +5,7 @@ import time
 from types import TracebackType
 from typing import Optional, Type
 
-from .helpers import ic  # pylint: disable=E0402
+from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 
 class TimingCM:  # pyre-ignore[13]
