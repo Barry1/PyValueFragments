@@ -50,7 +50,7 @@ else:
 
 
 ic("a")
-__all__ = ["eprint", "ic"]
+__all__:list[str] = ["eprint", "ic"]
 
 try:
     import psutil
