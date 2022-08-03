@@ -50,7 +50,7 @@ jobs = 0
 
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
-#line-length = 88
+line-length = 79
 target-version = ['py310'] #'py37', 'py38',
 color = true
 safe = true

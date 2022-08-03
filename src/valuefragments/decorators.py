@@ -38,9 +38,13 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before:float|Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
-            retval:ResultT = func(*args, **kwargs)
-            after:float|Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            before: float | Literal[0] = sum(
+                resource.getrusage(resource.RUSAGE_SELF)[:2]
+            )
+            retval: ResultT = func(*args, **kwargs)
+            after: float | Literal[0] = sum(
+                resource.getrusage(resource.RUSAGE_SELF)[:2]
+            )
             if before and after:
                 print(save, after - before)
             return retval
@@ -68,11 +72,13 @@ else:
             before: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
                 psutil.Process().cpu_times()
             )
-            retval:ResultT = func(*args, **kwargs)
+            retval: ResultT = func(*args, **kwargs)
             after: psutil._common.pcputimes = (  # type: ignore[reportPrivateUsage]
                 psutil.Process().cpu_times()
             )
-            delta:list[float] = [end - start for start, end in zip(before, after)]
+            delta: list[float] = [
+                end - start for start, end in zip(before, after)
+            ]
             print(save, delta, sum(delta))
             return retval
 
@@ -90,9 +96,9 @@ def timing_thread_time(
         **kwargs: ParamType.kwargs,
     ) -> ResultT:
         """Run with timing."""
-        before:float = time.thread_time()
-        retval:ResultT = func(*args, **kwargs)
-        after:float = time.thread_time()
+        before: float = time.thread_time()
+        retval: ResultT = func(*args, **kwargs)
+        after: float = time.thread_time()
         print(save, after - before)
         return retval
 
@@ -107,9 +113,9 @@ def timing_process_time(
 
     def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
         """Run with timing."""
-        before:float = time.process_time()
-        retval:ResultT = func(*args, **kwargs)
-        after:float = time.process_time()
+        before: float = time.process_time()
+        retval: ResultT = func(*args, **kwargs)
+        after: float = time.process_time()
         print(save, after - before)
         return retval
 

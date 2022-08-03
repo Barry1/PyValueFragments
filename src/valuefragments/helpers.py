@@ -43,14 +43,14 @@ else:
     def ic(  # pylint: disable=invalid-name
         *a: FirstElementT,
     ) -> FirstElementT | tuple[FirstElementT, ...] | None:
-        """Just in case package icecream is not available: For logging purposes."""
+        """Just in case icecream is not available: For logging purposes."""
         if not a:
             return None
         return a[0] if len(a) == 1 else a
 
 
 ic("a")
-__all__:list[str] = ["eprint", "ic"]
+__all__: list[str] = ["eprint", "ic"]
 
 try:
     import psutil
@@ -62,8 +62,10 @@ else:
         """Give this process background priority."""
         if psutil.WINDOWS:
             try:
-                # Details <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
-                psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
+                # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
+                psutil.Process().nice(
+                    0x00100000
+                )  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     ic("Prozess was already in background mode.")
