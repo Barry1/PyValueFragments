@@ -3,9 +3,9 @@ import sys
 from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar
 
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-from typing_extensions import Unpack  # type: ignore[attr-defined]
+from typing_extensions import Unpack
 
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 
 
@@ -14,7 +14,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 
     def __str__(self) -> str:
         """Just the stringification."""
-        ...
+        ...  # pylint: disable=unnecessary-ellipsis
 
 
 KwargsForPrint = TypedDict(
@@ -62,7 +62,8 @@ else:
                     0x00100000
                 )  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
-                if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
+                if theerr.winerror == 402:  # pylint: disable=no-member
+                    # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
                     ic("Prozess was already in background mode.")
                 else:
                     print(theerr)
@@ -83,7 +84,8 @@ else:
             file_hash = hashlib.md5()  # nosec  # Compliant
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
-        # file deepcode ignore insecureHash: no security problem as only for file identification
+        # file deepcode ignore insecureHash:
+        # no security problem as only for file identification
         return file_hash.hexdigest()
 
     __all__.append("hashfile")
@@ -97,7 +99,7 @@ else:
     def loadonecore(
         loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
     ) -> None:
-        """Just a helper function to generate load on one given core."""
+        """Generate load on one given core."""
         cpu_load_generator.load_single_core(  # pyright: ignore[reportUnknownMemberType]
             core_num=loadedcore,
             duration_s=loadduration,

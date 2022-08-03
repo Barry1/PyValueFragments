@@ -126,7 +126,8 @@ class LazyProperty(property):
     <https://stevenloria.com/lazy-properties>
     """
 
-    # <https://towardsdatascience.com/2807ef52d273> = <https://archive.is/GfSvY>
+    # <https://towardsdatascience.com/2807ef52d273>
+    # = <https://archive.is/GfSvY>
     # archived under <https://archive.is/8yiRH> and
     # <https://web.archive.org/web/20210514102257/https://stevenloria.com/lazy-properties/>
     # having a look at <https://www.programiz.com/python-programming/property>
