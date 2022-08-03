@@ -30,7 +30,7 @@ FirstElementT = TypeVar("FirstElementT")
 
 def eprint(
     *args: Printable,  # pylint: disable=unused-argument
-    **kwargs: Unpack[KwargsForPrint],  # pylint: disable=unused-argument
+    **_kwargs: Unpack[KwargsForPrint],  # pylint: disable=unused-argument
 ) -> None:
     """Print to stderr and ignores kwargs."""
     print(*args, file=sys.stderr)
