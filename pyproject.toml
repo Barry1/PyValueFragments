@@ -93,7 +93,6 @@ hashlib = { version = "*", optional = true }
 icecream = { version = "*", optional = true }
 psutil = { version = "*", optional = true }
 typing-extensions = "*"
-pytype = "^2022.5.10"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "*"
@@ -115,6 +114,7 @@ pylint = "*"
 pyre-check = "*"
 pyright = "*"
 pytest = "*"
+pytype = "^2022.5.10"
 radon = "*"
 toml = "*"
 vermin = "*"
