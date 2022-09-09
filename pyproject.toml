@@ -7,7 +7,7 @@ name = "valuefragments"
 version = "0.1.9"
 description = "Testing installation of Package"
 authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
-requires-python = ">=3.10"
+requires-python = "^3.10"
 
 [project.optional-dependencies]
 ALLFEATURES = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
@@ -87,7 +87,7 @@ profile = "black"
 skip = "venv"
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = "^3.10"
 cpu-load-generator = { version = "*", optional = true }
 hashlib = { version = "*", optional = true }
 icecream = { version = "*", optional = true }
@@ -126,6 +126,7 @@ flake8 = "^4.0.1"
 jobs = 0
 py-version = "3.10"
 output-format = "colorized"
+
 [tool.pylint.basic]
 include-naming-hint = "y"
 
