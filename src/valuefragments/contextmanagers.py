@@ -40,10 +40,10 @@ class TimingCM:  # pyre-ignore[13]
         return self
 
     def __exit__(
-            self: TimingCM,
-            exc_type: Optional[Type[BaseException]],
-            exc_value: Optional[BaseException],
-            exc_traceback: Optional[TracebackType],
+        self: TimingCM,
+        exc_type: Optional[Type[BaseException]],
+        exc_value: Optional[BaseException],
+        exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         self._wall += time.monotonic()

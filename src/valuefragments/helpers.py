@@ -5,7 +5,6 @@ from typing import IO, Protocol, TypedDict, TypeVar
 
 from typing_extensions import Unpack
 
-
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 
@@ -25,6 +24,7 @@ KwargsForPrint = TypedDict(
 )
 
 FirstElementT = TypeVar("FirstElementT")
+__all__: list[str] = []
 
 
 def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
@@ -32,20 +32,24 @@ def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
     print(*args, file=sys.stderr)
 
 
+__all__.append("eprint")
+
+
 if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
 
     def ic(  # pylint: disable=invalid-name
-            *a: FirstElementT,
+        *a: FirstElementT,
     ) -> FirstElementT | tuple[FirstElementT, ...] | None:
         """Just in case icecream is not available: For logging purposes."""
         if not a:
             return None
         return a[0] if len(a) == 1 else a
 
-ic("a")
-__all__: list[str] = ["eprint", "ic"]
+
+__all__.append("ic")
+
 
 try:
     # noinspection PyUnresolvedReferences
@@ -71,7 +75,6 @@ else:
         else:
             psutil.Process().nice(19)
 
-
     __all__.append("backgroundme")
 
 try:
@@ -81,7 +84,7 @@ except ImportError:
     ic("hashlib is not available")
 else:
 
-    def hashfile(filename: str, chunklen: int = 128 * 2 ** 12) -> str:
+    def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             file_hash = hashlib.md5()  # nosec  # Compliant
@@ -90,7 +93,6 @@ else:
         # file deepcode ignore insecureHash:
         # no security problem as only for file identification
         return file_hash.hexdigest()
-
 
     __all__.append("hashfile")
 
@@ -101,7 +103,7 @@ except ImportError:
 else:
 
     def loadonecore(
-            loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
+        loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
     ) -> None:
         """Generate load on one given core."""
         cpu_load_generator.load_single_core(  # pyright: ignore[reportUnknownMemberType]
@@ -110,15 +112,12 @@ else:
             target_load=theload,
         )
 
-
     __all__.append("loadonecore")
-
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
         cpu_load_generator.load_all_cores(  # pyright: ignore[reportUnknownMemberType]
             duration_s=loadduration, target_load=theload
         )
-
 
     __all__.append("loadallcores")

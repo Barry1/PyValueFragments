@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import sys
 import time
+
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Callable, Literal, NamedTuple, TypeVar, cast
@@ -28,15 +29,14 @@ except ImportError:
 else:
 
     def timing_resource(
-
-            func: Callable[ParamType, ResultT]
+        func: Callable[ParamType, ResultT]
     ) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
         save: str = func.__name__
 
         def wrapped(
-                *args: ParamType.args,
-                **kwargs: ParamType.kwargs,
+            *args: ParamType.args,
+            **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
             before: float | Literal[0] = sum(
@@ -52,6 +52,7 @@ else:
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
+
 try:
     # noinspection PyUnresolvedReferences
     import psutil
@@ -60,14 +61,14 @@ except ImportError:
 else:
 
     def timing_psutil(
-            func: Callable[ParamType, ResultT]
+        func: Callable[ParamType, ResultT]
     ) -> Callable[ParamType, ResultT]:
         """Measures execution times by psutil."""
         save: str = func.__name__
 
         def wrapped(
-                *args: ParamType.args,
-                **kwargs: ParamType.kwargs,
+            *args: ParamType.args,
+            **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
@@ -83,14 +84,14 @@ else:
 
 
 def timing_thread_time(
-        func: Callable[ParamType, ResultT]
+    func: Callable[ParamType, ResultT]
 ) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (thread)."""
     save: str = func.__name__
 
     def wrapped(
-            *args: ParamType.args,
-            **kwargs: ParamType.kwargs,
+        *args: ParamType.args,
+        **kwargs: ParamType.kwargs,
     ) -> ResultT:
         """Run with timing."""
         before: float = time.thread_time()
@@ -103,7 +104,7 @@ def timing_thread_time(
 
 
 def timing_process_time(
-        func: Callable[ParamType, ResultT]
+    func: Callable[ParamType, ResultT]
 ) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (process)."""
     save: str = func.__name__
@@ -135,11 +136,11 @@ class LazyProperty(property):
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
-            self,
-            getterfunction: Callable[
-                [InstanceObjectT],  # type: ignore[reportInvalidTypeVarUse]
-                ResultT,  # type: ignore[reportInvalidTypeVarUse]
-            ],
+        self,
+        getterfunction: Callable[
+            [InstanceObjectT],  # type: ignore[reportInvalidTypeVarUse]
+            ResultT,  # type: ignore[reportInvalidTypeVarUse]
+        ],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = f"_lazy_{getterfunction.__name__}"
