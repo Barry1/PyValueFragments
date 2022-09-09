@@ -7,14 +7,14 @@ name = "valuefragments"
 version = "0.1.9"
 description = "Testing installation of Package"
 authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
-requires-python = "^3.10"
+requires-python = ">=3.10,<4.0"
 
 [project.optional-dependencies]
 ALLFEATURES = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.10"
+version = "0.1.12"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
