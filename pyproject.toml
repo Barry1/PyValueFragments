@@ -114,11 +114,14 @@ pylint = "*"
 pyre-check = "*"
 pyright = "*"
 pytest = "*"
-pytype = "^2022.5.10"
 radon = "*"
 toml = "*"
 vermin = "*"
 flake8 = "^4.0.1"
+
+[tool.poetry.dev-dependencies.pytype]
+version = "^2022.5.10"
+python = "~3.10"
 
 #[pylama.pep8]
 #max_line_length = 79
