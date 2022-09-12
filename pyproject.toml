@@ -98,10 +98,8 @@ typing-extensions = "*"
 autopep8 = "*"
 black = "*"
 build = "*"
-prospector = { extras = ["with_everything"], version = "*" }
 cpu-load-generator = "*"
 icecream = "*"
-isort = "*"
 mccabe = "*"
 mypy = "*"
 pep257 = "*"
@@ -109,7 +107,6 @@ pep8 = "*"
 pycodestyle = "*"
 pydocstyle = "*"
 pyflakes = "*"
-pylama = { extras = ["all"], version = "*" }
 pylint = "*"
 pyre-check = "*"
 pyright = "*"
@@ -118,6 +115,18 @@ radon = "*"
 toml = "*"
 vermin = "*"
 flake8 = "^4.0.1"
+
+[tool.poetry.dev-dependencies.isort]
+version = "*"
+extras = ["colors"]
+
+[tool.poetry.dev-dependencies.prospector]
+version = "*"
+extras = ["with_everything"]
+
+[tool.poetry.dev-dependencies.pylama]
+version = "*"
+extras = ["all"]
 
 [tool.poetry.dev-dependencies.pytype]
 version = "^2022.5.10"
