@@ -88,11 +88,23 @@ skip = "venv"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-cpu-load-generator = { version = "*", optional = true }
-hashlib = { version = "*", optional = true }
-icecream = { version = "*", optional = true }
-psutil = { version = "*", optional = true }
 typing-extensions = "*"
+
+[tool.poetry.dependencies.cpu-load-generator]
+version = "*"
+optional = true
+
+[tool.poetry.dependencies.hashlib]
+version = "*"
+optional = true
+
+[tool.poetry.dependencies.icecream]
+version = "*"
+optional = true
+
+[tool.poetry.dependencies.psutil]
+version = "*"
+optional = true
 
 [tool.poetry.dev-dependencies]
 autopep8 = "*"
