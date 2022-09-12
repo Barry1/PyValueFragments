@@ -19,4 +19,4 @@ jobs:
           pip install pylint typing-extensions icecream
       - name: Analysing the code with pylint
         run: |
-          pylint `find src -regex .*.pyi?`
+          pylint $(find src -regex .*.pyi?)
