@@ -4,7 +4,7 @@
 #https://peps.python.org/pep-0621/
 [project]
 name = "valuefragments"
-version = "0.1.15"
+version = "0.1.16"
 description = "Testing installation of Package"
 authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.10,<4.0"
@@ -14,7 +14,7 @@ ALLFEATURES = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.15"
+version = "0.1.16"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
