@@ -98,10 +98,10 @@ class TimingCM:  # pyre-ignore[13]
         #            f"resulting in {100 * self._process / self._wall} % CPU-load.",
         #        )
         print(
-            f"{timedelta[0]+timedelta[2]} User",
-            f"{timedelta[1]+timedelta[3]} System",
-            f"{timedelta[4]} Wall",
-            f"{sum(timedelta[:4])/timedelta[4]} % Load",
+            f"{timedelta[0]+timedelta[2]:8.2f} [s] User",
+            f"{timedelta[1]+timedelta[3]:8.2f} [s] System",
+            f"{timedelta[4]:8.2f} [s] Wall",
+            f"{100*sum(timedelta[:4])/timedelta[4]:8.2f} [%] Load",
         )
         ic("Ended to run with Timing -> __exit__")
         return True
