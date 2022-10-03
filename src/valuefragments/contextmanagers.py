@@ -101,7 +101,7 @@ class TimingCM:  # pyre-ignore[13]
             f"{timedelta[0]+timedelta[2]} User",
             f"{timedelta[1]+timedelta[3]} System",
             f"{timedelta[4]} Wall",
-            f"{sum(timedelta[:4]/timedelta[4])} % Load",
+            f"{sum(timedelta[:4])/timedelta[4]} % Load",
         )
         ic("Ended to run with Timing -> __exit__")
         return True
