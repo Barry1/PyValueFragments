@@ -1,11 +1,11 @@
 """Module holding context managers."""
 from __future__ import annotations
-
 import sys
 import time
+import os
 from types import TracebackType
 from typing import Optional, TextIO, Type
-
+from joblib.externals.loky import get_reusable_executor
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 
@@ -57,6 +57,8 @@ class TimingCM:  # pyre-ignore[13]
     _process: float
     _thread: float
     _wall: float
+    starttimes: os.times_result
+    endtimes: os.times_result
 
     def __init__(self) -> None:  # : TimingCM
         """Prepare (type) variables."""
@@ -67,6 +69,7 @@ class TimingCM:  # pyre-ignore[13]
         self._wall = -time.monotonic()
         self._process = -time.process_time()
         self._thread = -time.thread_time()
+        self.starttimes=os.times()
         ic("Prepared to run with Timing -> __enter__")
         return self
 
@@ -77,6 +80,9 @@ class TimingCM:  # pyre-ignore[13]
         exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
+        # Check if any (loky) backend is still open and if, close
+        get_reusable_executor().shutdown(wait=True)
+        self.endtimes=os.times()
         self._wall += time.monotonic()
         self._process += time.process_time()
         self._thread += time.thread_time()
@@ -86,5 +92,6 @@ class TimingCM:  # pyre-ignore[13]
             f"within {self._wall} wall seconds",
             f"resulting in {100 * self._process / self._wall} % CPU-load.",
         )
+        print([e-a for (a,e) in zip (self.starttimes,self.endtimes)])
         ic("Ended to run with Timing -> __exit__")
         return True
