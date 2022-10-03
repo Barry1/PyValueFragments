@@ -1,11 +1,42 @@
 """Module holding context managers."""
 from __future__ import annotations
 
+import sys
 import time
 from types import TracebackType
-from typing import Optional, Type
+from typing import Optional, TextIO, Type
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
+
+
+class NoOutput:
+    """Contextmanager to suppress any output (stderr and stdout)."""
+
+    stdout: TextIO
+    stderr: TextIO
+
+    def __enter__(self: NoOutput) -> NoOutput:
+        self.stdout = sys.stdout
+        self.stderr = sys.stderr
+        sys.stderr = self
+        sys.stdout = self
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback)  -> Optional[bool]:
+        sys.stderr = self.stderr
+        sys.stdout = self.stdout
+
+    #        if exc_type is not None:
+    #            # Do normal exception handling
+    #            raise
+
+    def write(self, _x) -> None:
+        """Write method needed but does nothing."""
+        return
+
+    def flush(self) -> None:
+        """Flush attribute needed but does nothing."""
+        return
 
 
 class TimingCM:  # pyre-ignore[13]
