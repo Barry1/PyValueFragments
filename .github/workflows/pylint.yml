@@ -19,4 +19,5 @@ jobs:
           pip install pylint typing-extensions icecream
       - name: Analysing the code with pylint
         run: |
-          pylint "$(find src -regex .*\.pyi?)"
+          # shellcheck disable=SC2046
+          pylint --verbose --jobs 0 $(git ls-files *.py *.pyi)
