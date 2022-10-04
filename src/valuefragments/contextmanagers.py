@@ -6,8 +6,6 @@ import sys
 from types import TracebackType
 from typing import Optional, TextIO, Type
 
-from joblib.externals.loky import get_reusable_executor
-
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 
@@ -83,7 +81,12 @@ class TimingCM:  # pyre-ignore[13]
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
-        get_reusable_executor().shutdown(wait=True)
+        try:
+            from joblib.externals.loky import get_reusable_executor
+        except ModuleNotFoundError:
+            pass
+        else:
+            get_reusable_executor().shutdown(wait=True)
         self.endtimes = os.times()
         timedelta: list[float] = [
             e - a for (a, e) in zip(self.starttimes, self.endtimes)
