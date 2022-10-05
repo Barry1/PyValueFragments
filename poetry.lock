@@ -859,7 +859,7 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.273"
+version = "1.1.274"
 description = "Command line wrapper for pyright"
 category = "dev"
 optional = false
