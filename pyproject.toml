@@ -10,7 +10,7 @@ authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.10,<4.0"
 
 [project.optional-dependencies]
-ALLFEATURES = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
+allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry]
 name = "valuefragments"
