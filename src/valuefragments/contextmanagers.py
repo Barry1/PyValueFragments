@@ -16,7 +16,7 @@ class NoOutput:
     stderr: TextIO
 
     def __enter__(self: NoOutput) -> NoOutput:
-        """Entering/starting the context."""
+        """Enter/start context. Save and replace Streams."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
         sys.stderr = self
@@ -93,7 +93,7 @@ class TimingCM:  # pyre-ignore[13]
             pass
         else:
             from joblib.externals.loky.reusable_executor import (  # pylint: disable=C0415
-                _ReusablePoolExecutor,
+                _ReusablePoolExecutor,  # type: ignore[reportPrivateUsage]
             )
 
             _a_for_typing: _ReusablePoolExecutor = get_reusable_executor()
