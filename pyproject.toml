@@ -74,10 +74,11 @@ generate_badge = "."
 verbose = 2
 
 [tool.mypy]
-strict = true
+enable-incomplete-features = true
+pretty = true
 show_error_codes = true
 show_error_context = true
-pretty = true
+strict = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
