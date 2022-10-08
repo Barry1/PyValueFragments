@@ -5,5 +5,4 @@
 *.pyc
 dist/
 interrogate_badge.svg
-typings/
 valuefragments.egg-info/
