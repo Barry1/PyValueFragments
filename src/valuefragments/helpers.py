@@ -67,7 +67,7 @@ else:
                     0x00100000
                 )  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
-                if theerr.winerror == 402:  # pylint: disable=no-member
+                if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
                     ic("Prozess was already in background mode.")
                 else:
@@ -90,8 +90,7 @@ else:
             file_hash = hashlib.md5()  # nosec  # Compliant
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
-        # file deepcode ignore insecureHash:
-        # no security problem as only for file identification
+        # deepcode ignore InsecureHash: for file identification
         return file_hash.hexdigest()
 
     __all__.append("hashfile")
