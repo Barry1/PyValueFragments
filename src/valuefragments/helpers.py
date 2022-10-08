@@ -1,4 +1,7 @@
 """helper functions and code snippets which are not decorators."""
+from __future__ import annotations
+
+# https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
 from typing import IO, Protocol, TypedDict, TypeVar

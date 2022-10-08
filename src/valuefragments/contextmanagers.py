@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 import sys
 from types import TracebackType
-from typing import Optional, TextIO, Type
+from typing import Any, Optional, TextIO, Type
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
@@ -16,13 +16,20 @@ class NoOutput:
     stderr: TextIO
 
     def __enter__(self: NoOutput) -> NoOutput:
+        """Entering/starting the context."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
         sys.stderr = self
         sys.stdout = self
         return self
 
-    def __exit__(self, exc_type, exc_value, traceback) -> Optional[bool]:
+    def __exit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_value: Optional[BaseException],
+        exc_traceback: Optional[TracebackType],
+    ) -> Optional[bool]:
+        """Exit the context."""
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
@@ -30,7 +37,7 @@ class NoOutput:
     #            # Do normal exception handling
     #            raise
 
-    def write(self, _x) -> None:
+    def write(self, _x: Any) -> None:
         """Write method needed but does nothing."""
         return
 
@@ -54,9 +61,6 @@ class TimingCM:  # pyre-ignore[13]
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
     # pseudo private instance variables with single underscore
     # https://adamj.eu/tech/2021/07/04/python-type-hints-how-to-type-a-context-manager/
-    #    _process: float
-    #    _thread: float
-    #    _wall: float
     starttimes: os.times_result
     endtimes: os.times_result
 
@@ -66,9 +70,7 @@ class TimingCM:  # pyre-ignore[13]
 
     def __enter__(self: TimingCM) -> TimingCM:  # -> TimingCM
         """Save startup timing information."""
-        #        self._wall = -time.monotonic()
-        #        self._process = -time.process_time()
-        #        self._thread = -time.thread_time()
+        # old solution used time: monotonic(), process_time(), thread_time()
         self.starttimes = os.times()
         ic("Prepared to run with Timing -> __enter__")
         return self
@@ -81,12 +83,21 @@ class TimingCM:  # pyre-ignore[13]
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
+        # pyling C0415==import-outside-toplevel
         try:
-            from joblib.externals.loky import get_reusable_executor
+            from joblib.externals.loky import (  # pylint: disable=C0415
+                get_reusable_executor,
+            )
+
         except ModuleNotFoundError:
             pass
         else:
-            get_reusable_executor().shutdown(wait=True)
+            from joblib.externals.loky.reusable_executor import (  # pylint: disable=C0415
+                _ReusablePoolExecutor,
+            )
+
+            _a_for_typing: _ReusablePoolExecutor = get_reusable_executor()
+            _a_for_typing.shutdown()  # wait=True default
         self.endtimes = os.times()
         timedelta: list[float] = [
             e - a for (a, e) in zip(self.starttimes, self.endtimes)
