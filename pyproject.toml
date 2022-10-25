@@ -64,6 +64,8 @@ isort = true
 lint = ["pylint", "mypy", "flake8"]
 log_level = "INFO"
 
+[tool.ufmt]
+
 [tool.flake8]
 max-line-length = 79
 
@@ -132,6 +134,7 @@ radon = "*"
 toml = "*"
 vermin = "*"
 flake8 = "^4.0.1"
+ufmt = "^2.0.1"
 
 [tool.poetry.dev-dependencies.isort]
 version = "*"
@@ -146,7 +149,7 @@ version = "*"
 extras = ["all"]
 
 [tool.poetry.dev-dependencies.pytype]
-version = "^2022.5.10"
+version = ">=2022.09.27"
 python = "~3.10"
 
 #[pylama.pep8]

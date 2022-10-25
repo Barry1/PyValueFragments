@@ -460,6 +460,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "moreorless"
+version = "0.4.0"
+description = "Python diff wrapper"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+click = "*"
+
+[[package]]
 name = "mypy"
 version = "0.982"
 description = "Optional static typing for Python"
@@ -1025,6 +1036,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "stdlibs"
+version = "2022.10.9"
+description = "List of packages in the stdlib"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "stevedore"
 version = "4.1.0"
 description = "Manage dynamic plugins for Python applications"
@@ -1087,6 +1106,17 @@ optional = false
 python-versions = ">=3.6,<4.0"
 
 [[package]]
+name = "trailrunner"
+version = "1.2.1"
+description = "Run things on paths"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pathspec = ">=0.8.1"
+
+[[package]]
 name = "typeguard"
 version = "2.13.3"
 description = "Run-time type checker for Python"
@@ -1119,6 +1149,24 @@ mypy-extensions = ">=0.3.0"
 typing-extensions = ">=3.7.4"
 
 [[package]]
+name = "ufmt"
+version = "2.0.1"
+description = "Safe, atomic formatting with black and µsort"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+black = ">=20.8b0"
+click = ">=8.0"
+libcst = ">=0.4.0"
+moreorless = ">=0.4.0"
+tomlkit = ">=0.7.2"
+trailrunner = ">=1.2.1"
+typing-extensions = ">=4.0"
+usort = ">=1.0"
+
+[[package]]
 name = "urllib3"
 version = "1.26.12"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1130,6 +1178,23 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, 
 brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "urllib3-secure-extra", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+
+[[package]]
+name = "usort"
+version = "1.0.5"
+description = "A small, safe import sorter"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+attrs = ">=21.2.0"
+click = ">=7.0.0"
+LibCST = ">=0.3.7"
+moreorless = ">=0.3.0"
+stdlibs = ">=2021.4.1"
+toml = ">=0.10.0"
+trailrunner = ">=1.0"
 
 [[package]]
 name = "vermin"
@@ -1161,7 +1226,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "06cbc69b85c5c68ee29bb73e9d17e0fa76ebbf475a30eee20557166c40db042e"
+content-hash = "9fd1ea26cfc830f38ee5167020c527bc29b478cd3d75322a9ac74799a452c40c"
 
 [metadata.files]
 astroid = []
@@ -1302,6 +1367,7 @@ mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
 ]
+moreorless = []
 mypy = []
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
@@ -1467,6 +1533,7 @@ sortedcontainers = [
     {file = "sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0"},
     {file = "sortedcontainers-2.4.0.tar.gz", hash = "sha256:25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88"},
 ]
+stdlibs = []
 stevedore = []
 tabulate = []
 testslide = [
@@ -1481,13 +1548,16 @@ tomli = [
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 tomlkit = []
+trailrunner = []
 typeguard = [
     {file = "typeguard-2.13.3-py3-none-any.whl", hash = "sha256:5e3e3be01e887e7eafae5af63d1f36c849aaa94e3a0112097312aabfa16284f1"},
     {file = "typeguard-2.13.3.tar.gz", hash = "sha256:00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4"},
 ]
 typing-extensions = []
 typing-inspect = []
+ufmt = []
 urllib3 = []
+usort = []
 vermin = []
 vulture = []
 wrapt = [
