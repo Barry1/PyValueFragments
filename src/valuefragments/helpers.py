@@ -1,15 +1,40 @@
 """helper functions and code snippets which are not decorators."""
 from __future__ import annotations
 
+import asyncio
+import concurrent.futures
+
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
-from typing import IO, Protocol, TypedDict, TypeVar
+from typing import IO, Callable, Protocol, TypedDict, TypeVar
 
 from typing_extensions import Unpack
 
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
+
+
+async def run_grouped_in_pce(the_functioncalls: list[Callable]):
+    """
+    run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor
+
+    as for now the functions needs to be without parameters, prepare your calls
+    with functools.partial
+    """
+    async def to_inner_task(funcall,the_executor=None):
+        """build FUTURE from call and convert to CORO"""
+        return await asyncio.get_running_loop().run_in_executor(the_executor,funcall)
+    with concurrent.futures.ProcessPoolExecutor() as pool_executor:
+        async with asyncio.TaskGroup() as the_task_group:
+            the_tasks: list[asyncio.Task] = [
+                the_task_group.create_task(
+                    to_inner_task(funcall, pool_executor)
+                    #                    asyncio.to_thread(funcall)
+                )
+                for funcall in the_functioncalls
+            ]
+    return [ready_task.result() for ready_task in the_tasks]
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
