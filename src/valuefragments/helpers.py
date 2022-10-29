@@ -7,8 +7,6 @@ import concurrent.futures
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
-
-# from re import A
 from typing import IO, Callable, Protocol, TypedDict, TypeVar
 
 from typing_extensions import Unpack
@@ -37,25 +35,27 @@ __all__: list[str] = []
 
 
 async def to_inner_task(
-    funcall: Callable[..., _FunCallResultT],
+    funcall: Callable[[None], _FunCallResultT],
     the_executor: concurrent.futures._base.Executor | None = None,
 ) -> _FunCallResultT:
-    """build FUTURE from funcall and convert to CORO"""
+    """Build FUTURE from funcall and convert to CORO."""
     return await asyncio.get_running_loop().run_in_executor(
         the_executor, funcall
     )
 
 
-async def run_grouped_in_pce(the_functioncalls: list[Callable]):
+async def run_grouped_in_pce(
+    the_functioncalls: list[Callable[[None], _FunCallResultT]]
+) -> list[_FunCallResultT]:
     """
-    run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor
+    Run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor.
 
     as for now the functions needs to be without parameters, prepare your calls
     with functools.partial
     """
     with concurrent.futures.ProcessPoolExecutor() as pool_executor:
         async with asyncio.TaskGroup() as the_task_group:
-            the_tasks: list[asyncio.Task] = [
+            the_tasks: list[asyncio.Task[_FunCallResultT]] = [
                 the_task_group.create_task(
                     to_inner_task(funcall, pool_executor)
                     #                    asyncio.to_thread(funcall)
