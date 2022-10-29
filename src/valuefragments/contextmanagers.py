@@ -92,8 +92,8 @@ class TimingCM:  # pyre-ignore[13]
         except ModuleNotFoundError:
             pass
         else:
-            from joblib.externals.loky.reusable_executor import (  # pylint: disable=C0415
-                _ReusablePoolExecutor,  # type: ignore[reportPrivateUsage]
+            from joblib.externals.loky.reusable_executor import (
+                _ReusablePoolExecutor,  # pylint: disable=C0415; type: ignore[reportPrivateUsage]
             )
 
             _a_for_typing: _ReusablePoolExecutor = get_reusable_executor()

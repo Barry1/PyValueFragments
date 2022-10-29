@@ -22,7 +22,7 @@ prospector:
 	poetry run prospector src
 
 checkminver:
-	poetry run vermin -vv --eval-annotations --no-parse-comments --backport typing src
+	poetry run vermin -vv --eval-annotations --no-parse-comments --backport asyncio --backport typing src
 
 formatters:
 #	@echo "==========" "autopep8" "=========="

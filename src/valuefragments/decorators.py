@@ -6,7 +6,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, cast, Literal, NamedTuple, TypeVar
+from typing import Callable, Literal, NamedTuple, TypeVar, cast
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
