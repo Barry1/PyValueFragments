@@ -7,34 +7,14 @@ import concurrent.futures
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
+
+# from re import A
 from typing import IO, Callable, Protocol, TypedDict, TypeVar
 
 from typing_extensions import Unpack
 
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
-
-
-async def run_grouped_in_pce(the_functioncalls: list[Callable]):
-    """
-    run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor
-
-    as for now the functions needs to be without parameters, prepare your calls
-    with functools.partial
-    """
-    async def to_inner_task(funcall,the_executor=None):
-        """build FUTURE from call and convert to CORO"""
-        return await asyncio.get_running_loop().run_in_executor(the_executor,funcall)
-    with concurrent.futures.ProcessPoolExecutor() as pool_executor:
-        async with asyncio.TaskGroup() as the_task_group:
-            the_tasks: list[asyncio.Task] = [
-                the_task_group.create_task(
-                    to_inner_task(funcall, pool_executor)
-                    #                    asyncio.to_thread(funcall)
-                )
-                for funcall in the_functioncalls
-            ]
-    return [ready_task.result() for ready_task in the_tasks]
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -52,7 +32,40 @@ KwargsForPrint = TypedDict(
 )
 
 FirstElementT = TypeVar("FirstElementT")
+_FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
+
+
+async def to_inner_task(
+    funcall: Callable[..., _FunCallResultT],
+    the_executor: concurrent.futures._base.Executor | None = None,
+) -> _FunCallResultT:
+    """build FUTURE from funcall and convert to CORO"""
+    return await asyncio.get_running_loop().run_in_executor(
+        the_executor, funcall
+    )
+
+
+async def run_grouped_in_pce(the_functioncalls: list[Callable]):
+    """
+    run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor
+
+    as for now the functions needs to be without parameters, prepare your calls
+    with functools.partial
+    """
+    with concurrent.futures.ProcessPoolExecutor() as pool_executor:
+        async with asyncio.TaskGroup() as the_task_group:
+            the_tasks: list[asyncio.Task] = [
+                the_task_group.create_task(
+                    to_inner_task(funcall, pool_executor)
+                    #                    asyncio.to_thread(funcall)
+                )
+                for funcall in the_functioncalls
+            ]
+    return [ready_task.result() for ready_task in the_tasks]
+
+
+__all__.append("run_grouped_in_pce")
 
 
 def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
