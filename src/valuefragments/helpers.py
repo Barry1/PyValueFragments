@@ -44,7 +44,31 @@ async def to_inner_task(
     )
 
 
-async def run_grouped_in_pce(
+async def run_grouped_in_tpe(
+    the_functioncalls: list[Callable[[None], _FunCallResultT]]
+) -> list[_FunCallResultT]:
+    """
+    Run functions grouped (asyncio.TaskGroup) in ThreadPoolExecutor.
+
+    as for now the functions needs to be without parameters, prepare your calls
+    with functools.partial
+    """
+    with concurrent.futures.ThreadPoolExecutor() as pool_executor:
+        async with asyncio.TaskGroup() as the_task_group:
+            the_tasks: list[asyncio.Task[_FunCallResultT]] = [
+                the_task_group.create_task(
+                    to_inner_task(funcall, pool_executor)
+                    #                    asyncio.to_thread(funcall)
+                )
+                for funcall in the_functioncalls
+            ]
+    return [ready_task.result() for ready_task in the_tasks]
+
+
+__all__.append("run_grouped_in_tpe")
+
+
+async def run_grouped_in_ppe(
     the_functioncalls: list[Callable[[None], _FunCallResultT]]
 ) -> list[_FunCallResultT]:
     """
@@ -65,7 +89,7 @@ async def run_grouped_in_pce(
     return [ready_task.result() for ready_task in the_tasks]
 
 
-__all__.append("run_grouped_in_pce")
+__all__.append("run_grouped_in_ppe")
 
 
 def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
