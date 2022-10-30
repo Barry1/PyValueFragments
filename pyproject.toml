@@ -4,17 +4,17 @@
 #https://peps.python.org/pep-0621/
 [project]
 name = "valuefragments"
-version = "0.1.20"
+version = "0.1.21"
 description = "Testing installation of Package"
 authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.11,<4.0"
 
 [project.optional-dependencies]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.20"
+version = "0.1.21"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
@@ -51,7 +51,7 @@ jobs = 0
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
 line-length = 79
-target-version = ['py310'] #'py37', 'py38',
+target-version = ['py311'] #'py37', 'py38',
 color = true
 safe = true
 
@@ -84,7 +84,7 @@ strict = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
-py_version = 310
+py_version = 311
 color_output = true
 profile = "black"
 skip = "venv"
@@ -156,7 +156,7 @@ python = "~3.10"
 #max_line_length = 79
 [tool.pylint.main]
 jobs = 0
-py-version = "3.10"
+py-version = "3.11"
 output-format = "colorized"
 
 [tool.pylint.basic]
