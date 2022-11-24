@@ -820,7 +820,7 @@ dev = ["twine (>=3.4.1)"]
 
 [[package]]
 name = "pyroma"
-version = "4.0"
+version = "4.1"
 description = "Test your project's packaging friendliness"
 category = "dev"
 optional = false
@@ -829,11 +829,13 @@ python-versions = "*"
 [package.dependencies]
 build = "*"
 docutils = "*"
+pep517 = "*"
 pygments = "*"
 requests = "*"
+trove-classifiers = ">=2022.6.26"
 
 [package.extras]
-test = ["pytest", "pytest-cov", "setuptools (>=60)"]
+test = ["flit (>=3.4,<4)", "pytest", "pytest-cov", "setuptools (>=60)"]
 
 [[package]]
 name = "pytest"
@@ -1018,6 +1020,14 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 pathspec = ">=0.8.1"
+
+[[package]]
+name = "trove-classifiers"
+version = "2022.10.19"
+description = "Canonical source for classifiers on PyPI (pypi.org)."
+category = "dev"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "typeguard"
@@ -1306,10 +1316,7 @@ pyparsing = [
 pyre-check = []
 pyre-extensions = []
 pyright = []
-pyroma = [
-    {file = "pyroma-4.0-py2.py3-none-any.whl", hash = "sha256:8aab9bc66f6bbd8a23a545a10ceea62d858bfdd1a3bd0144c2ac0854d029aacb"},
-    {file = "pyroma-4.0.tar.gz", hash = "sha256:b41ed0e080fb3aa9a7b8359d0ce7af39bc9b59cb9e7d696c6521f525257cc128"},
-]
+pyroma = []
 pytest = []
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},
@@ -1389,6 +1396,7 @@ toml = [
 ]
 tomlkit = []
 trailrunner = []
+trove-classifiers = []
 typeguard = [
     {file = "typeguard-2.13.3-py3-none-any.whl", hash = "sha256:5e3e3be01e887e7eafae5af63d1f36c849aaa94e3a0112097312aabfa16284f1"},
     {file = "typeguard-2.13.3.tar.gz", hash = "sha256:00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4"},
