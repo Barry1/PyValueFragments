@@ -1,11 +1,12 @@
 """helper functions and code snippets which are not decorators."""
 from __future__ import annotations
-import math
-from typing_extensions import SupportsIndex, Unpack
+
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
+import math
+
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
@@ -19,8 +20,13 @@ from typing import (
     TypedDict,
     TypeVar,
 )
+
+from typing_extensions import SupportsIndex, Unpack
+
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
+
+
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
@@ -30,7 +36,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 
 
 class HumanReadAble(int):
-    """int like with print in human readable scales"""
+    """int like with print in human readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
     def __new__(
@@ -42,6 +48,7 @@ class HumanReadAble(int):
         | SupportsTrunc,
         __baseunit: str = "B",
     ) -> Self:
+        """Build an int object by the super class."""
         return super().__new__(cls, __x)
 
     def __init__(
@@ -53,12 +60,14 @@ class HumanReadAble(int):
         | SupportsTrunc,
         __baseunit: str = "B",
     ) -> None:
+        """Take int value, optional unit and prepare scaling."""
         self.value: int = int(self)
         self.unit: str = __baseunit
         self.scaler: int = math.floor(math.log2(self.value) / 10)
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
+        """Implement format-method human readable."""
         # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
             1: "Ki",
@@ -71,12 +80,15 @@ class HumanReadAble(int):
             8: "Yi",
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
-        return f'{self.value/(1024**self.scaler):{format_spec}} {scalerdict.get(self.scaler,"")}{self.unit}'
+        return (f'{self.value/(1024**self.scaler):{format_spec}} '
+                f'{scalerdict.get(self.scaler,"")}{self.unit}')
 
     def __str__(self) -> str:
+        """Show scaled readable value."""
         return self.__format__()
 
     def __repr__(self) -> str:
+        """Show how to recreate object."""
         return f"{self.__class__.__name__}({super().__repr__()})"
 
 
