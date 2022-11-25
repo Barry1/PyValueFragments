@@ -1,21 +1,26 @@
 """helper functions and code snippets which are not decorators."""
 from __future__ import annotations
-
+import math
+from typing_extensions import SupportsIndex, Unpack
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
+# found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
-import math
-
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
-from typing import IO, Callable, Protocol, Self, TypedDict, TypeVar
-
-from typing_extensions import Unpack
-
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-# found on https://stackoverflow.com/a/14981125
-
-
+from typing import (
+    IO,
+    TYPE_CHECKING,
+    Callable,
+    Protocol,
+    Self,
+    SupportsInt,
+    TypedDict,
+    TypeVar,
+)
+if TYPE_CHECKING:
+    from _typeshed import ReadableBuffer, SupportsTrunc
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
@@ -28,13 +33,28 @@ class HumanReadAble(int):
     """int like with print in human readable scales"""
 
     # <https://pypi.python.org/pypi/humanize>
-    def __new__(cls, __x, baseunit: str = "B") -> Self:
-        # str |ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+    def __new__(
+        cls,
+        __x: str
+        | ReadableBuffer
+        | SupportsInt
+        | SupportsIndex
+        | SupportsTrunc,
+        __baseunit: str = "B",
+    ) -> Self:
         return super().__new__(cls, __x)
 
-    def __init__(self, __x, baseunit: str = "B") -> None:
+    def __init__(
+        self,
+        __x: str
+        | ReadableBuffer
+        | SupportsInt
+        | SupportsIndex
+        | SupportsTrunc,
+        __baseunit: str = "B",
+    ) -> None:
         self.value: int = int(self)
-        self.unit: str = baseunit
+        self.unit: str = __baseunit
         self.scaler: int = math.floor(math.log2(self.value) / 10)
         super().__init__()
 
