@@ -32,6 +32,10 @@ formatters:
 	@echo "==========" "black" "=========="
 	poetry run black $(pyobjs)
 
+pytest:
+	@echo "==========" "$@" "=========="
+	poetry run pytest
+
 pylint:
 	@echo "==========" "$@" "=========="
 #	poetry run pylint $(pyobjs)
