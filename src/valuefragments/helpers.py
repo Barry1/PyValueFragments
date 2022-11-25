@@ -66,9 +66,8 @@ class HumanReadAble(int):
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
-        self.value: int = int(self)
         self.unit: str = __baseunit
-        self.scaler: int = math.floor(math.log2(self.value) / 10)
+        self.scaler: int = math.floor(math.log2(self) / 10)
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
@@ -86,7 +85,7 @@ class HumanReadAble(int):
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
-            f"{self.value/(1024**self.scaler):{format_spec}} "
+            f"{self/(1024**self.scaler):{format_spec}} "
             f'{scalerdict.get(self.scaler,"")}{self.unit}'
         )
 
