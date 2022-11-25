@@ -67,7 +67,11 @@ class HumanReadAble(int):
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
         self.unit: str = __baseunit
-        self.scaler: int = math.floor(math.log2(self) / 10)
+        #        self.scaler: int = math.floor(math.log2(self) / 10)
+        #        self.scaler: int = math.floor(math.log10(self) / 3)
+        self.scaler: int = (
+            1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
+        )
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
