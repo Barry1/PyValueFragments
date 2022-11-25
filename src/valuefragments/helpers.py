@@ -35,6 +35,11 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
+FirstElementT = TypeVar("FirstElementT")
+_FunCallResultT = TypeVar("_FunCallResultT")
+__all__: list[str] = []
+
+
 class HumanReadAble(int):
     """int like with print in human readable scales."""
 
@@ -94,15 +99,12 @@ class HumanReadAble(int):
         return f"{self.__class__.__name__}({super().__repr__()})"
 
 
+__all__.append("HumanReadAble")
 KwargsForPrint = TypedDict(
     "KwargsForPrint",
     {"sep": str, "end": str, "file": IO[str], "flush": bool},
     total=False,
 )
-
-FirstElementT = TypeVar("FirstElementT")
-_FunCallResultT = TypeVar("_FunCallResultT")
-__all__: list[str] = []
 
 
 async def to_inner_task(
