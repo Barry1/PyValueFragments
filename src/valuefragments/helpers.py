@@ -28,24 +28,30 @@ class HumanReadAble(int):
     """int like with print in human readable scales"""
 
     # <https://pypi.python.org/pypi/humanize>
-    def __new__(cls, *args, **kwargs) -> Self:
-        return super().__new__(cls, *args, **kwargs)
+    def __new__(cls, __x, baseunit: str = "B") -> Self:
+        # str |ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+        return super().__new__(cls, __x)
 
-    def __init__(self, *args, **kwargs) -> None:
-        self.size: int = int(self)
-        self.scaler: int = math.floor(math.log2(self.size) / 10)
+    def __init__(self, __x, baseunit: str = "B") -> None:
+        self.value: int = int(self)
+        self.unit: str = baseunit
+        self.scaler: int = math.floor(math.log2(self.value) / 10)
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
+        # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
-            1: "KiB",
-            2: "MiB",
-            3: "GiB",
-            4: "TiB",
-            5: "PiB",
+            1: "Ki",
+            2: "Mi",
+            3: "Gi",
+            4: "Ti",
+            5: "Pi",
+            6: "Ei",
+            7: "Zi",
+            8: "Yi",
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
-        return f'{self.size/(1024**self.scaler):{format_spec}} {scalerdict.get(self.scaler,"B")}'
+        return f'{self.value/(1024**self.scaler):{format_spec}} {scalerdict.get(self.scaler,"")}{self.unit}'
 
     def __str__(self) -> str:
         return self.__format__()
