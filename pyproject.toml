@@ -84,7 +84,8 @@ strict = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
-py_version = 311
+py_version = 310
+#awaiting 311
 color_output = true
 profile = "black"
 skip = "venv"
