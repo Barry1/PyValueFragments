@@ -80,8 +80,10 @@ class HumanReadAble(int):
             8: "Yi",
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
-        return (f'{self.value/(1024**self.scaler):{format_spec}} '
-                f'{scalerdict.get(self.scaler,"")}{self.unit}')
+        return (
+            f"{self.value/(1024**self.scaler):{format_spec}} "
+            f'{scalerdict.get(self.scaler,"")}{self.unit}'
+        )
 
     def __str__(self) -> str:
         """Show scaled readable value."""
@@ -105,7 +107,8 @@ __all__: list[str] = []
 
 async def to_inner_task(
     funcall: Callable[[None], _FunCallResultT],
-    the_executor: concurrent.futures._base.Executor | None = None,
+    the_executor: concurrent.futures._base.Executor  # pyright: ignore[reportPrivateUsage]
+    | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
     return await asyncio.get_running_loop().run_in_executor(
