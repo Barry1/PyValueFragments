@@ -3,11 +3,12 @@ from __future__ import annotations
 
 import asyncio
 import concurrent.futures
+import math
 
 # https://docs.python.org/3/library/__future__.html
 import sys
 from importlib.util import find_spec
-from typing import IO, Callable, Protocol, TypedDict, TypeVar
+from typing import IO, Callable, Protocol, Self, TypedDict, TypeVar
 
 from typing_extensions import Unpack
 
@@ -21,6 +22,36 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
     def __str__(self) -> str:
         """Just the stringification."""
         ...  # pylint: disable=unnecessary-ellipsis
+
+
+class HumanReadAble(int):
+    """int like with print in human readable scales"""
+
+    # <https://pypi.python.org/pypi/humanize>
+    def __new__(cls, *args, **kwargs) -> Self:
+        return super().__new__(cls, *args, **kwargs)
+
+    def __init__(self, *args, **kwargs) -> None:
+        self.size: int = int(self)
+        self.scaler: int = math.floor(math.log2(self.size) / 10)
+        super().__init__()
+
+    def __format__(self, format_spec: str = ".3f") -> str:
+        scalerdict: dict[int, str] = {
+            1: "KiB",
+            2: "MiB",
+            3: "GiB",
+            4: "TiB",
+            5: "PiB",
+        }
+        #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
+        return f'{self.size/(1024**self.scaler):{format_spec}} {scalerdict.get(self.scaler,"B")}'
+
+    def __str__(self) -> str:
+        return self.__format__()
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({super().__repr__()})"
 
 
 KwargsForPrint = TypedDict(
