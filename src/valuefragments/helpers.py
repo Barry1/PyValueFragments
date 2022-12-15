@@ -14,6 +14,7 @@ from typing import (
     IO,
     TYPE_CHECKING,
     Callable,
+    Generator,
     Protocol,
     Self,
     SupportsInt,
@@ -25,6 +26,15 @@ from typing_extensions import SupportsIndex, Unpack
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
+
+import os
+
+
+def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
+    """return paths for all files in basepath recursively"""
+    for root, _dirs, files in os.walk(thebasepath, topdown=False):
+        for filename in files:
+            yield os.path.join(root, filename)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -175,7 +185,6 @@ def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
 
 
 __all__.append("eprint")
-
 
 if __debug__ and find_spec("icecream"):
     from icecream import ic
