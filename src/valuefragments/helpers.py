@@ -6,6 +6,7 @@ from __future__ import annotations
 import asyncio
 import concurrent.futures
 import math
+import os
 
 # https://docs.python.org/3/library/__future__.html
 import sys
@@ -26,8 +27,6 @@ from typing_extensions import SupportsIndex, Unpack
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
-
-import os
 
 
 def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
