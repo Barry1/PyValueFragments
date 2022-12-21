@@ -53,7 +53,7 @@ class HumanReadAble(int):
     """int like with print in human readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
-    def __new__(
+    def __new__(  # type: ignore[misc]
         cls,
         __x: str
         | ReadableBuffer
@@ -61,7 +61,7 @@ class HumanReadAble(int):
         | SupportsIndex
         | SupportsTrunc,
         __baseunit: str = "B",
-    ) -> Self:
+    ) -> Self:  # type: ignore[valid-type]
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
 
@@ -98,8 +98,8 @@ class HumanReadAble(int):
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
-            f"{self/(1024**self.scaler):{format_spec}} "
-            f'{scalerdict.get(self.scaler,"")}{self.unit}'
+            f"{self / (1024 ** self.scaler):{format_spec}} "
+            f'{scalerdict.get(self.scaler, "")}{self.unit}'
         )
 
     def __str__(self) -> str:
@@ -198,7 +198,6 @@ else:
 
 
 __all__.append("ic")
-
 
 try:
     # noinspection PyUnresolvedReferences
