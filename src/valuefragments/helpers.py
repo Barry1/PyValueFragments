@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 
 
 def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
-    """return paths for all files in basepath recursively"""
+    """Recursivly return paths for all files in basepath."""
     for root, _dirs, files in os.walk(thebasepath, topdown=False):
         for filename in files:
             yield os.path.join(root, filename)

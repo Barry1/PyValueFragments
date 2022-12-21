@@ -9,7 +9,7 @@ from typing import Any, Optional, TextIO, Type
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 
-class NoOutput:
+class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
@@ -28,21 +28,17 @@ class NoOutput:
         exc_type: Optional[Type[BaseException]],
         exc_value: Optional[BaseException],
         exc_traceback: Optional[TracebackType],
-    ) -> Optional[bool]:
-        """Exit the context."""
+    ) -> None:
+        """Exit the context. Restore Streams."""
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    #        if exc_type is not None:
-    #            # Do normal exception handling
-    #            raise
-
-    def write(self, _x: Any) -> None:
-        """Write method needed but does nothing."""
-        return
+    def write(self, _x: Any) -> int:
+        """Write method: Needed but does nothing."""
+        return 0
 
     def flush(self) -> None:
-        """Flush attribute needed but does nothing."""
+        """Flush attribute: Needed but does nothing."""
         return
 
 
@@ -112,10 +108,10 @@ class TimingCM:  # pyre-ignore[13]
         #            f"resulting in {100 * self._process / self._wall} % CPU-load.",
         #        )
         print(
-            f"{timedelta[0]+timedelta[2]:8.2f} [s] User",
-            f"{timedelta[1]+timedelta[3]:8.2f} [s] System",
+            f"{timedelta[0] + timedelta[2]:8.2f} [s] User",
+            f"{timedelta[1] + timedelta[3]:8.2f} [s] System",
             f"{timedelta[4]:8.2f} [s] Wall",
-            f"{100*sum(timedelta[:4])/timedelta[4]:8.2f} [%] Load",
+            f"{100 * sum(timedelta[:4]) / timedelta[4]:8.2f} [%] Load",
         )
         ic("Ended to run with Timing -> __exit__")
         return True

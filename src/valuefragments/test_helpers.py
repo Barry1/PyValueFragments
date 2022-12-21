@@ -1,7 +1,9 @@
 #!/usr/bin/env pytest
 """Test functions for helpers module."""
-from .helpers import HumanReadAble  # pylint: disable=E0402
-from .helpers import hashfile  # pylint: disable=E0402
+from .helpers import (  # pylint: disable=E0402  # pylint: disable=E0402
+    HumanReadAble,
+    hashfile,
+)
 
 
 def test_hashfile() -> None:
@@ -9,7 +11,7 @@ def test_hashfile() -> None:
     assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
 
 
-def test_HumanReadAble() -> None:
+def test_humanreadable() -> None:
     """Check if Calculation and units work."""
     assert format(HumanReadAble(2**10)) == "1.0 KiB"
     assert format(HumanReadAble(10**3)) == "0.9765625 KiB"

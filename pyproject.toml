@@ -136,7 +136,7 @@ pytest = "*"
 radon = "*"
 toml = "*"
 vermin = "*"
-flake8 = "^4.0.1"
+flake8 = "*"
 ufmt = "^2.0.1"
 setuptools = "^65.6.3"
 
