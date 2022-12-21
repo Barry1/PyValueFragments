@@ -76,7 +76,9 @@ generate_badge = "."
 verbose = 2
 
 [tool.mypy]
-enable-incomplete-features = true
+python_version = "3.11"
+warn_unused_configs = true
+enable_incomplete_feature = "Unpack"
 pretty = true
 show_error_codes = true
 show_error_context = true
