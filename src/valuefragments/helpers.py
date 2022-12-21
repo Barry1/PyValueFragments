@@ -121,7 +121,7 @@ KwargsForPrint = TypedDict(
 
 async def to_inner_task(
     funcall: Callable[[None], _FunCallResultT],
-    the_executor: concurrent.futures._base.Executor  # pyright: ignore[reportPrivateUsage]
+    the_executor: concurrent.futures.Executor  # pyright: ignore[reportPrivateUsage]
     | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
