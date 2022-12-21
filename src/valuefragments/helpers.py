@@ -121,8 +121,7 @@ KwargsForPrint = TypedDict(
 
 async def to_inner_task(
     funcall: Callable[[None], _FunCallResultT],
-    the_executor: concurrent.futures.Executor  # pyright: ignore[reportPrivateUsage]
-    | None = None,
+    the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
     return await asyncio.get_running_loop().run_in_executor(
