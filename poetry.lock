@@ -932,6 +932,22 @@ toml = ["toml (>=0.10.2)"]
 vulture = ["vulture"]
 
 [[package]]
+name = "pyleft"
+version = "1.1.1"
+description = "Python type annotation existence checker"
+category = "dev"
+optional = false
+python-versions = ">=3.6.2,<4.0"
+files = [
+    {file = "pyleft-1.1.1-py3-none-any.whl", hash = "sha256:d0d6460792c9d672c843e4bf55a3c2dc7d158387cbc05e0fcec274b9d6a33abc"},
+    {file = "pyleft-1.1.1.tar.gz", hash = "sha256:fe401109ee356c7e5274633417a8d2acdbb1108dd9d60398ec833c0ddd9e2bff"},
+]
+
+[package.dependencies]
+pathspec = ">=0.9.0"
+tomli = ">=1.1.0"
+
+[[package]]
 name = "pylint"
 version = "2.15.9"
 description = "python code static checker"
@@ -1372,6 +1388,18 @@ files = [
 ]
 
 [[package]]
+name = "tomli"
+version = "2.0.1"
+description = "A lil' TOML parser"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
+    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
+]
+
+[[package]]
 name = "tomlkit"
 version = "0.11.6"
 description = "Style preserving TOML library"
@@ -1644,4 +1672,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "926b8b32bc97612c7a5642bbc12e535525a0a7296c8d311efcc13b4d7a19d749"
+content-hash = "9a6335901d5180789525c0564c7304dd8029d9d078bb44b3f0345dfe7f34ecb7"
