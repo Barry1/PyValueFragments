@@ -33,13 +33,13 @@ jobs:
         #uses: actions/setup-python@latest
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Show Python Version
-        run: >
-          python3 --version
-      - name: Print Python location
-        run: >
-          echo "PyPATH=$(which python3)" >> $GITHUB_OUTPUT
-        id: PythonLocation
+      #      - name: Show Python Version
+      #        run: >
+      #          python3 --version
+      #      - name: Print Python location
+      #        run: >
+      #          echo "PyPATH=$(which python3)" >> $GITHUB_OUTPUT
+      #        id: PythonLocation
       - name: Lint Code Base
         #https://github.com/marketplace/actions/super-linter
         uses: github/super-linter@latest
@@ -50,7 +50,4 @@ jobs:
           LINTER_RULES_PATH: /
           PYTHON_BLACK_CONFIG_FILE: ./pyproject.toml
           PYTHON_ISORT_CONFIG_FILE: ./pyproject.toml
-          pythonLocation: ${{ steps.PythonLocation.outputs.PyPATH }}
-          #/opt/hostedtoolcache/Python/3.11.1/x64/bin
-#          Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.1/x64/bin
-#          Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.1/x64/bin
+#          pythonLocation: ${{ steps.PythonLocation.outputs.PyPATH }}
