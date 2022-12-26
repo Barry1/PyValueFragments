@@ -26,5 +26,5 @@ jobs:
           pip install pylint typing-extensions icecream
       - name: Analysing the code with pylint
         run: |
-          # shellcheck disable=SC2035
+          # shellcheck disable=SC2035,SC2046
           pylint --verbose --jobs 0 $(git ls-files *.py *.pyi)
