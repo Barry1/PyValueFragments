@@ -62,13 +62,13 @@ class TimingCM:  # pyre-ignore[13]
 
     def __init__(self) -> None:  # : TimingCM
         """Prepare (type) variables."""
-        ic("Prepared to run with Timing -> __init__")
+        ic('Prepared to run with Timing -> __init__')
 
     def __enter__(self: TimingCM) -> TimingCM:  # -> TimingCM
         """Save startup timing information."""
         # old solution used time: monotonic(), process_time(), thread_time()
         self.starttimes = os.times()
-        ic("Prepared to run with Timing -> __enter__")
+        ic('Prepared to run with Timing -> __enter__')
         return self
 
     def __exit__(
@@ -108,10 +108,10 @@ class TimingCM:  # pyre-ignore[13]
         #            f"resulting in {100 * self._process / self._wall} % CPU-load.",
         #        )
         print(
-            f"{timedelta[0] + timedelta[2]:8.2f} [s] User",
-            f"{timedelta[1] + timedelta[3]:8.2f} [s] System",
-            f"{timedelta[4]:8.2f} [s] Wall",
-            f"{sum(timedelta[:4]) / timedelta[4] * 100 :8.2f} [%] Load",
+            f'{timedelta[0] + timedelta[2]:8.2f} [s] User',
+            f'{timedelta[1] + timedelta[3]:8.2f} [s] System',
+            f'{timedelta[4]:8.2f} [s] Wall',
+            f'{sum(timedelta[:4]) / timedelta[4] * 100 :8.2f} [%] Load',
         )
-        ic("Ended to run with Timing -> __exit__")
+        ic('Ended to run with Timing -> __exit__')
         return True
