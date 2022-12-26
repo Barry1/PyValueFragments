@@ -36,6 +36,9 @@ jobs:
       - name: Show Python Version
         run: >
           python3 --version
+      - name: Print Python location
+        run: >
+          which -a python3
       - name: Lint Code Base
         #https://github.com/marketplace/actions/super-linter
         uses: github/super-linter@latest
