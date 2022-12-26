@@ -8,8 +8,7 @@
 # https://github.com/github/super-linter
 name: Lint Code Base
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 #  push:
 #    branches: ["main", "master"]
 #  pull_request:
