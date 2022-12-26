@@ -16,9 +16,9 @@ if sys.version_info < (3, 10):
 else:
     from typing import ParamSpec  # pylint: disable=no-name-in-module
 
-ParamType = ParamSpec('ParamType')
-ResultT = TypeVar('ResultT')
-InstanceObjectT = TypeVar('InstanceObjectT')
+ParamType = ParamSpec("ParamType")
+ResultT = TypeVar("ResultT")
+InstanceObjectT = TypeVar("InstanceObjectT")
 
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
@@ -26,7 +26,7 @@ try:
     # noinspection PyUnresolvedReferences
     import resource
 except ImportError:
-    ic('resource is not available')
+    ic("resource is not available")
 else:
 
     def timing_resource(
@@ -58,7 +58,7 @@ try:
     # noinspection PyUnresolvedReferences
     import psutil
 except ImportError:
-    ic('psutil is not available')
+    ic("psutil is not available")
 else:
 
     def timing_psutil(
@@ -144,7 +144,7 @@ class LazyProperty(property):
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
-        attr_name: str = f'_lazy_{getterfunction.__name__}'
+        attr_name: str = f"_lazy_{getterfunction.__name__}"
 
         def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
             """Check if value present, if not calculate."""

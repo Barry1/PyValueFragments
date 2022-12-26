@@ -44,8 +44,8 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-FirstElementT = TypeVar('FirstElementT')
-_FunCallResultT = TypeVar('_FunCallResultT')
+FirstElementT = TypeVar("FirstElementT")
+_FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
 
 
@@ -60,7 +60,7 @@ class HumanReadAble(int):
         | SupportsInt
         | SupportsIndex
         | SupportsTrunc,
-        __baseunit: str = 'B',
+        __baseunit: str = "B",
     ) -> Self:  # type: ignore[valid-type]
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
@@ -72,7 +72,7 @@ class HumanReadAble(int):
         | SupportsInt
         | SupportsIndex
         | SupportsTrunc,
-        __baseunit: str = 'B',
+        __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
         self.unit: str = __baseunit
@@ -83,22 +83,22 @@ class HumanReadAble(int):
         )
         super().__init__()
 
-    def __format__(self, format_spec: str = '.3f') -> str:
+    def __format__(self, format_spec: str = ".3f") -> str:
         """Implement format-method human readable."""
         # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
-            1: 'Ki',
-            2: 'Mi',
-            3: 'Gi',
-            4: 'Ti',
-            5: 'Pi',
-            6: 'Ei',
-            7: 'Zi',
-            8: 'Yi',
+            1: "Ki",
+            2: "Mi",
+            3: "Gi",
+            4: "Ti",
+            5: "Pi",
+            6: "Ei",
+            7: "Zi",
+            8: "Yi",
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
-            f'{self / (1024 ** self.scaler):{format_spec}} '
+            f"{self / (1024 ** self.scaler):{format_spec}} "
             f'{scalerdict.get(self.scaler, "")}{self.unit}'
         )
 
@@ -108,13 +108,13 @@ class HumanReadAble(int):
 
     def __repr__(self) -> str:
         """Show how to recreate object."""
-        return f'{self.__class__.__name__}({super().__repr__()})'
+        return f"{self.__class__.__name__}({super().__repr__()})"
 
 
-__all__.append('HumanReadAble')
+__all__.append("HumanReadAble")
 KwargsForPrint = TypedDict(
-    'KwargsForPrint',
-    {'sep': str, 'end': str, 'file': IO[str], 'flush': bool},
+    "KwargsForPrint",
+    {"sep": str, "end": str, "file": IO[str], "flush": bool},
     total=False,
 )
 
@@ -150,7 +150,7 @@ async def run_grouped_in_tpe(
     return [ready_task.result() for ready_task in the_tasks]
 
 
-__all__.append('run_grouped_in_tpe')
+__all__.append("run_grouped_in_tpe")
 
 
 async def run_grouped_in_ppe(
@@ -174,7 +174,7 @@ async def run_grouped_in_ppe(
     return [ready_task.result() for ready_task in the_tasks]
 
 
-__all__.append('run_grouped_in_ppe')
+__all__.append("run_grouped_in_ppe")
 
 
 def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
@@ -182,9 +182,9 @@ def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
     print(*args, file=sys.stderr)
 
 
-__all__.append('eprint')
+__all__.append("eprint")
 
-if __debug__ and find_spec('icecream'):
+if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
 
@@ -197,13 +197,13 @@ else:
         return a[0] if len(a) == 1 else a
 
 
-__all__.append('ic')
+__all__.append("ic")
 
 try:
     # noinspection PyUnresolvedReferences
     import psutil
 except ImportError:
-    ic('psutil is not available')
+    ic("psutil is not available")
 else:
 
     def backgroundme() -> None:
@@ -217,24 +217,24 @@ else:
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
-                    ic('Prozess was already in background mode.')
+                    ic("Prozess was already in background mode.")
                 else:
                     print(theerr)
         else:
             psutil.Process().nice(19)
 
-    __all__.append('backgroundme')
+    __all__.append("backgroundme")
 
 try:
     # noinspection PyUnresolvedReferences
     import hashlib
 except ImportError:
-    ic('hashlib is not available')
+    ic("hashlib is not available")
 else:
 
     def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
         """Return md5 hash for file."""
-        with open(filename, 'rb') as thefile:
+        with open(filename, "rb") as thefile:
             file_hash: hashlib._Hash = (  # pyright: ignore[reportPrivateUsage]
                 hashlib.md5()  # nosec  # Compliant
             )
@@ -243,7 +243,7 @@ else:
         # deepcode ignore InsecureHash: for file identification
         return file_hash.hexdigest()
 
-    __all__.append('hashfile')
+    __all__.append("hashfile")
 
 try:
     import cpu_load_generator  # pyright: ignore[reportUnknownVariableType]
@@ -261,7 +261,7 @@ else:
             target_load=theload,
         )
 
-    __all__.append('loadonecore')
+    __all__.append("loadonecore")
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
@@ -269,4 +269,4 @@ else:
             duration_s=loadduration, target_load=theload
         )
 
-    __all__.append('loadallcores')
+    __all__.append("loadallcores")
