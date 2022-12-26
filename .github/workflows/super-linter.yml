@@ -33,6 +33,7 @@ jobs:
         #uses: actions/setup-python@latest
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Show Python Version
         run: >
           python3 --version
       - name: Lint Code Base
