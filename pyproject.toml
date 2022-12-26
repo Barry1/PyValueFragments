@@ -86,11 +86,10 @@ strict = true
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
-py_version = 310
-#awaiting 311
+#extend_skip = ["venv"]
+py_version = 311
 color_output = true
 profile = "black"
-skip = "venv"
 
 [tool.poetry.dependencies]
 python = "^3.11"

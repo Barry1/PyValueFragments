@@ -195,6 +195,28 @@ files = [
 psutil = "*"
 
 [[package]]
+name = "darker"
+version = "1.6.0"
+description = "Apply Black formatting only in regions changed since last commit"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "darker-1.6.0-py3-none-any.whl", hash = "sha256:435f82cc7c672e399ecfe6688dc862082f37cac1219508d9b60a50417a21b96b"},
+    {file = "darker-1.6.0.tar.gz", hash = "sha256:d41bed9e852d48b07aeaecfe7f9525afa6a7d5c0ca2a6b0778ebbdd9346ff443"},
+]
+
+[package.dependencies]
+black = ">=21.5b1"
+toml = ">=0.10.0"
+
+[package.extras]
+color = ["Pygments (>=2.4.0)"]
+isort = ["isort (>=5.0.1)"]
+release = ["airium (>=0.2.3)", "click (>=8.0.0)", "defusedxml (>=0.7.1)", "requests-cache (>=0.7)"]
+test = ["airium (>=0.2.3)", "black (>=21.7b1)", "defusedxml (>=0.7.1)", "isort (>=5.0.1)", "pygments", "pytest (>=6.2.0)", "pytest-darker", "pytest-kwparametrize (>=0.0.3)", "regex (>=2021.4.4)", "requests-cache (>=0.7)", "ruamel.yaml (>=0.17.21)", "twine (>=2.0.0)", "types-requests (>=2.27.9)", "types-toml (>=0.10.4)", "wheel (>=0.21.0)"]
+
+[[package]]
 name = "dataclasses-json"
 version = "0.5.7"
 description = "Easily serialize dataclasses to and from JSON"
@@ -1672,4 +1694,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9a6335901d5180789525c0564c7304dd8029d9d078bb44b3f0345dfe7f34ecb7"
+content-hash = "aa4bb5da44dc7cb7e983141ace8b7e081b51ee90a4124c0d3d42860318c67e63"
