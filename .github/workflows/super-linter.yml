@@ -16,16 +16,22 @@ on: workflow_dispatch
 jobs:
   run-lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
     steps:
+      #https://github.com/marketplace/actions/checkout
       - name: Checkout code
-        #https://github.com/marketplace/actions/checkout
-        uses: actions/checkout@v2.5.0
-        #uses: actions/checkout@latest
+        #uses: actions/checkout@v3.2.0
+        uses: actions/checkout@latest
         with:
           # Full git history is needed to get a proper list
           # of changed files within `super-linter`
           fetch-depth: 0
-
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}s
       - name: Lint Code Base
         #https://github.com/marketplace/actions/super-linter
         #uses: github/super-linter@v4.9.7
