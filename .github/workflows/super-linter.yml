@@ -31,10 +31,9 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}s
+          python-version: ${{ matrix.python-version }}
       - name: Lint Code Base
         #https://github.com/marketplace/actions/super-linter
-        #uses: github/super-linter@v4.9.7
         uses: github/super-linter@latest
         env:
           VALIDATE_ALL_CODEBASE: true
