@@ -79,16 +79,16 @@ class TimingCM:  # pyre-ignore[13]
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
-        # pyling C0415==import-outside-toplevel
+        # pylint C0415==import-outside-toplevel
         try:
-            from joblib.externals.loky import (  # pylint: disable=C0415
-                get_reusable_executor,  # type: ignore[reportUnknownVariableType]
+            # pylint: disable=C0415
+            from joblib.externals.loky import (
+                get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
             )
-
         except ModuleNotFoundError:
             pass
         else:
-            get_reusable_executor().shutdown()  # type: ignore[reportUnknownMemberType]
+            get_reusable_executor().shutdown()  # pyright: ignore[reportUnknownMemberType]
         self.endtimes = os.times()
         timedelta: list[float] = [
             e - a for (a, e) in zip(self.starttimes, self.endtimes)
