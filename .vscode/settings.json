@@ -5,5 +5,21 @@
     "python.analysis.typeCheckingMode": "strict",
     "python.languageServer": "Pylance",
     "python.linting.pylamaEnabled": true,
-    "code-runner.clearPreviousOutput": false
+    "code-runner.clearPreviousOutput": false,
+    "vsintellicode.features.python.deepLearning": "enabled",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.prospectorEnabled": true,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "pythonTestExplorer.testFramework": "pytest",
+    "python.defaultInterpreterPath": "/home/ebeling/GitHub/PyValueFragments/.venv/bin/python",
+    "isort.interpreter": [
+        "/home/ebeling/GitHub/PyValueFragments/.venv/bin/python"
+    ]
 }
