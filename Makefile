@@ -31,7 +31,8 @@ formatters:
 	poetry run isort $(pyobjs)
 	@echo "==========" "black" "=========="
 	poetry run black $(pyobjs)
-
+bandit:
+	poetry run bandit $$(find src -regex .*\.pyi? -not -name test*)
 pytest:
 	@echo "==========" "$@" "=========="
 	poetry run pytest
