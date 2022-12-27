@@ -81,7 +81,7 @@ class TimingCM:  # pyre-ignore[13]
         # Check if any (loky) backend is still open and if, close
         # pyling C0415==import-outside-toplevel
         try:
-            from joblib.externals.loky import (
+            from joblib.externals.loky import (  # pylint: disable=C0415
                 get_reusable_executor,  # type: ignore[reportUnknownVariableType]
             )
 
