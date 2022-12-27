@@ -17,6 +17,9 @@ name = "valuefragments"
 version = "0.1.22"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+[tool.poetry.group.dev.dependencies]
+joblib = "^1.2.0"
+
 
 [build-system]
 #https://www.python.org/dev/peps/pep-0508/
@@ -66,9 +69,12 @@ log_level = "INFO"
 
 [tool.ufmt]
 
-[tool.flake8]
-max-line-length = 79
+[tool.pylint.format]
+max-line-length = "88"
 
+#[tool.flake8]
+#max-line-length = 88
+#extend-ignore = "E203"
 # https://interrogate.readthedocs.io/en/latest/#configuration
 [tool.interrogate]
 color = true
@@ -89,7 +95,7 @@ strict = true
 #extend_skip = ["venv"]
 py_version = 311
 color_output = true
-profile = "black"
+profile = 'black'
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -135,7 +141,7 @@ pyre-check = "*"
 pyright = "*"
 pytest = "*"
 radon = "*"
-setuptools = ">=65.6.3"
+setuptools = ">65"
 toml = "*"
 ufmt = "*"
 vermin = "*"
