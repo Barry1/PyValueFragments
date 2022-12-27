@@ -139,8 +139,8 @@ class LazyProperty(property):
     def __init__(
         self,
         getterfunction: Callable[
-            [InstanceObjectT],  # type: ignore[reportInvalidTypeVarUse]
-            ResultT,  # type: ignore[reportInvalidTypeVarUse]
+            [InstanceObjectT],  # pyright: ignore[reportInvalidTypeVarUse]
+            ResultT,  # pyright: ignore[reportInvalidTypeVarUse]
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
