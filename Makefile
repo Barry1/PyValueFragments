@@ -28,14 +28,16 @@ formatters:
 #	@echo "==========" "autopep8" "=========="
 #	poetry run autopep8 $(pyobjs)
 	@echo "==========" "isort" "=========="
-	poetry run isort $(pyobjs)
+	poetry run isort --line-length 79 $(pyobjs)
 	@echo "==========" "black" "=========="
-	poetry run black $(pyobjs)
+	poetry run black --line-length 79 $(pyobjs)
+
 bandit:
-	poetry run bandit $$(find src -regex .*\.pyi? -not -name test*)
+	poetry run bandit --verbose $$(find src -regex .*\.pyi? -not -name test*)
+
 pytest:
 	@echo "==========" "$@" "=========="
-	poetry run pytest
+	poetry run pytest --pylama
 
 pylint:
 	@echo "==========" "$@" "=========="
