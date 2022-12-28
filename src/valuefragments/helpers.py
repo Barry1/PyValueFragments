@@ -10,6 +10,7 @@ import os
 
 # https://docs.python.org/3/library/__future__.html
 import sys
+from base64 import b64encode
 from importlib.util import find_spec
 from typing import (
     IO,
@@ -47,6 +48,21 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 FirstElementT = TypeVar("FirstElementT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
+
+
+def basic_auth(
+    user: str,
+    passw: str,
+) -> str:
+    """Build String for Basic AUTH."""
+    # Authorization token: we need to base 64 encode it
+    # and then decode it to acsii as python 3 stores it as a byte string
+    return "Basic " + b64encode(f"{user}:{passw}".encode("utf-8")).decode(
+        "ascii"
+    )
+
+
+__all__.append("basic_auth")
 
 
 class HumanReadAble(int):

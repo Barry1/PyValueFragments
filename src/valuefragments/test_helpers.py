@@ -2,8 +2,17 @@
 """Test functions for helpers module."""
 from .helpers import (  # pylint: disable=E0402  # pylint: disable=E0402
     HumanReadAble,
+    basic_auth,
     hashfile,
 )
+
+
+def test_basic_auth() -> None:
+    """PyTestMethod."""
+    assert (
+        basic_auth("Aladdin", "open sesame")[6:]
+        == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+    )
 
 
 def test_hashfile() -> None:
