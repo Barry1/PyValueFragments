@@ -9,7 +9,7 @@ from typing import Any, Optional, TextIO, Type
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 
-class NoOutput(TextIO):
+class NoOutput(TextIO):  # pylint: disable=W0223
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
