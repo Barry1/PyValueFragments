@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 import sys
 from types import TracebackType
-from typing import Any, Optional, TextIO, Type
+from typing import Any, Optional, Self, TextIO, Type
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
@@ -15,7 +15,7 @@ class NoOutput(TextIO):  # pylint: disable=W0223
     stdout: TextIO
     stderr: TextIO
 
-    def __enter__(self: NoOutput) -> NoOutput:
+    def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
         """Enter/start context. Save and replace Streams."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
@@ -33,11 +33,11 @@ class NoOutput(TextIO):  # pylint: disable=W0223
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self, _x: Any) -> int:
+    def write(self: Self, _x: Any) -> int:  # type: ignore[valid-type]
         """Write method: Needed but does nothing."""
         return 0
 
-    def flush(self) -> None:
+    def flush(self: Self) -> None:  # type: ignore[valid-type]
         """Flush attribute: Needed but does nothing."""
         return
 
@@ -64,7 +64,7 @@ class TimingCM:  # pyre-ignore[13]
         """Prepare (type) variables."""
         ic("Prepared to run with Timing -> __init__")
 
-    def __enter__(self: TimingCM) -> TimingCM:  # -> TimingCM
+    def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
         """Save startup timing information."""
         # old solution used time: monotonic(), process_time(), thread_time()
         self.starttimes = os.times()
@@ -72,7 +72,7 @@ class TimingCM:  # pyre-ignore[13]
         return self
 
     def __exit__(
-        self: TimingCM,
+        self: Self,  # type: ignore[valid-type]
         exc_type: Optional[Type[BaseException]],
         exc_value: Optional[BaseException],
         exc_traceback: Optional[TracebackType],

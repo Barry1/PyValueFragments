@@ -6,7 +6,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, NamedTuple, TypeVar, cast
+from typing import Callable, Literal, NamedTuple, Self, TypeVar, cast
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
@@ -137,7 +137,7 @@ class LazyProperty(property):
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
-        self,
+        self: Self,  # type: ignore[valid-type]
         getterfunction: Callable[
             [InstanceObjectT],  # pyright: ignore[reportInvalidTypeVarUse]
             ResultT,  # pyright: ignore[reportInvalidTypeVarUse]
