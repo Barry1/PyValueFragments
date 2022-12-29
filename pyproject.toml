@@ -20,6 +20,7 @@ authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 [tool.poetry.group.dev.dependencies]
 joblib = "^1.2.0"
 bandit = "^1.7.4"
+pylama = {extras = ["all"], version = "^8.4.1"}
 
 
 [build-system]
@@ -179,6 +180,13 @@ include-naming-hint = "y"
 typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
+
+[tool.pylama]
+linters = [""] # means all
+#linters = ["mypy,pycodestyle,pydocstyle,pyflakes,pylint,isort"]
+verbose = true
+concurrent = true
+max_line_length = 79
 
 [tool.pylint."MESSAGES CONTROL"]
 disable = "duplicate-code"
