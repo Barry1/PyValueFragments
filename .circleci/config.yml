@@ -8,7 +8,7 @@ orbs:
   # paste it everywhere.
   # See the orb documentation here:
   # https://circleci.com/developer/orbs/orb/circleci/python
-  python: circleci/python@1.2
+  python: circleci/python@2.1.1
 
 workflows:
   sample:
@@ -32,7 +32,7 @@ jobs:
     # - below will use a python 3.9 container
     # Change the version below to your required version of python
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/python:3.11
     # Checkout the code as the first step. This is a dedicated CircleCI step.
     # The python orb's install-packages step will install the dependencies
     # from a Pipfile via Pipenv by default.
@@ -53,3 +53,5 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+
+# VS Code Extension Version: 1.5.1
