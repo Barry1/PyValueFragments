@@ -17,8 +17,8 @@ class NoOutput(TextIO):  # pylint: disable=W0223
 
     def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
         """Enter/start context. Save and replace Streams."""
-        self.stdout = sys.stdout
-        self.stderr = sys.stderr
+        self.stdout = sys.stdout  # type: ignore[attr-defined]
+        self.stderr = sys.stderr  # type: ignore[attr-defined
         sys.stderr = self
         sys.stdout = self
         return self
@@ -67,7 +67,7 @@ class TimingCM:  # pyre-ignore[13]
     def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
         """Save startup timing information."""
         # old solution used time: monotonic(), process_time(), thread_time()
-        self.starttimes = os.times()
+        self.starttimes = os.times()  # type: ignore[attr-defined
         ic("Prepared to run with Timing -> __enter__")
         return self
 
@@ -89,9 +89,9 @@ class TimingCM:  # pyre-ignore[13]
             pass
         else:
             get_reusable_executor().shutdown()  # pyright: ignore[reportUnknownMemberType]
-        self.endtimes = os.times()
+        self.endtimes = os.times()  # type: ignore[attr-defined]
         timedelta: list[float] = [
-            e - a for (a, e) in zip(self.starttimes, self.endtimes)
+            e - a for (a, e) in zip(self.starttimes, self.endtimes)  # type: ignore[attr-defined]
         ]
         #        self._wall += time.monotonic()
         #        self._process += time.process_time()
