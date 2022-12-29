@@ -11,7 +11,7 @@ orbs:
   python: circleci/python@2.1.1
 
 workflows:
-  sample:
+  BastiCircCi:
     # This is the name of the workflow, feel free to change it to better
     # match your workflow. Inside the workflow, you define the jobs you want to
     # run. For more details on extending your workflow, see the configuration
@@ -48,6 +48,8 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: poetry run pytest --pylama
+          command: |
+              poetry run pytest
+              poetry run pylama
 
 # VS Code Extension Version: 1.5.1
