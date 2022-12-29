@@ -52,6 +52,6 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: pytest
+          command: pytest --pylama
 
 # VS Code Extension Version: 1.5.1
