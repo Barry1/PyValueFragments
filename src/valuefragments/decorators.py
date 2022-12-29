@@ -152,4 +152,4 @@ class LazyProperty(property):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
             return cast(ResultT, getattr(instanceobj, attr_name))
 
-        super().__init__(_lazy_getterfunction)
+        super().__init__(_lazy_getterfunction)  # type: ignore[misc]

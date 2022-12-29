@@ -82,7 +82,7 @@ class TimingCM:  # pyre-ignore[13]
         # pylint C0415==import-outside-toplevel
         try:
             # pylint: disable=C0415
-            from joblib.externals.loky import (
+            from joblib.externals.loky import (  # type: ignore[import]
                 get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
             )
         except ModuleNotFoundError:
