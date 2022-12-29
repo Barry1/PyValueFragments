@@ -193,7 +193,16 @@ disable = "duplicate-code"
 
 [tool.pytest.ini_options]
 minversion = "6.2"
-addopts = ["--verbose"]
+testpaths = ["src"]
+required_plugins = ["typeguard", "pylama"]
+addopts = [
+    "--verbose",
+    #    "--pylama",
+    "--cache-clear",
+    "--color=yes",
+    #    "--typeguard-packages=valuefragments",
+
+]
 
 [tool.towncrier]
 
