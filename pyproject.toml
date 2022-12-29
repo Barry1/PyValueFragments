@@ -17,16 +17,16 @@ name = "valuefragments"
 version = "0.1.22"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+
 [tool.poetry.group.dev.dependencies]
 joblib = "^1.2.0"
 bandit = "^1.7.4"
-pylama = {extras = ["all"], version = "^8.4.1"}
-
+pylama = { extras = ["all"], version = "^8.4.1" }
 
 [build-system]
 #https://www.python.org/dev/peps/pep-0508/
 #https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=65.5.1", "wheel>=0.38.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
@@ -143,7 +143,7 @@ pyre-check = "*"
 pyright = "*"
 pytest = "*"
 radon = "*"
-setuptools = ">65"
+setuptools = ">=65.5.1"
 toml = "*"
 ufmt = "*"
 vermin = "*"
