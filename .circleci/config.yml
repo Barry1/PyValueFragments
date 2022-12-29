@@ -50,6 +50,6 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: |
               poetry run pytest
-              poetry run pylama
+              #poetry run pylama
 
 # VS Code Extension Version: 1.5.1
