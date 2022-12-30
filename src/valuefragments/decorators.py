@@ -137,7 +137,7 @@ class LazyProperty(property):
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
-        self: Self,  # type: ignore[valid-type]
+        self: Self,
         getterfunction: Callable[
             [InstanceObjectT],  # pyright: ignore[reportInvalidTypeVarUse]
             ResultT,  # pyright: ignore[reportInvalidTypeVarUse]
@@ -152,4 +152,4 @@ class LazyProperty(property):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
             return cast(ResultT, getattr(instanceobj, attr_name))
 
-        super().__init__(_lazy_getterfunction)  # type: ignore[misc]
+        super().__init__(_lazy_getterfunction)

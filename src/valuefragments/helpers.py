@@ -40,7 +40,7 @@ def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
-    def __str__(self: Self) -> str:  # type: ignore[valid-type]
+    def __str__(self: Self) -> str:
         """Just the stringification."""
         ...  # pylint: disable=unnecessary-ellipsis
 
@@ -69,7 +69,7 @@ class HumanReadAble(int):
     """int like with print in human readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
-    def __new__(  # type: ignore[misc]
+    def __new__(
         cls,
         __x: ReadableBuffer
         | str
@@ -77,7 +77,7 @@ class HumanReadAble(int):
         | SupportsIndex
         | SupportsTrunc,
         __baseunit: str = "B",
-    ) -> Self:  # type: ignore[valid-type]
+    ) -> Self:
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
 

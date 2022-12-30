@@ -15,10 +15,10 @@ class NoOutput(TextIO):  # pylint: disable=W0223
     stdout: TextIO
     stderr: TextIO
 
-    def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
+    def __enter__(self: Self) -> Self:
         """Enter/start context. Save and replace Streams."""
-        self.stdout = sys.stdout  # type: ignore[attr-defined]
-        self.stderr = sys.stderr  # type: ignore[attr-defined]
+        self.stdout = sys.stdout
+        self.stderr = sys.stderr
         sys.stderr = self
         sys.stdout = self
         return self
@@ -33,11 +33,11 @@ class NoOutput(TextIO):  # pylint: disable=W0223
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: Self, _x: Any) -> int:  # type: ignore[valid-type]
+    def write(self: Self, _x: Any) -> int:
         """Write method: Needed but does nothing."""
         return 0
 
-    def flush(self: Self) -> None:  # type: ignore[valid-type]
+    def flush(self: Self) -> None:
         """Flush attribute: Needed but does nothing."""
         return
 
@@ -64,15 +64,15 @@ class TimingCM:  # pyre-ignore[13]
         """Prepare (type) variables."""
         ic("Prepared to run with Timing -> __init__")
 
-    def __enter__(self: Self) -> Self:  # type: ignore[valid-type]
+    def __enter__(self: Self) -> Self:
         """Save startup timing information."""
         # old solution used time: monotonic(), process_time(), thread_time()
-        self.starttimes = os.times()  # type: ignore[attr-defined]
+        self.starttimes = os.times()
         ic("Prepared to run with Timing -> __enter__")
         return self
 
     def __exit__(
-        self: Self,  # type: ignore[valid-type]
+        self: Self,
         exc_type: Optional[Type[BaseException]],
         exc_value: Optional[BaseException],
         exc_traceback: Optional[TracebackType],
@@ -89,9 +89,9 @@ class TimingCM:  # pyre-ignore[13]
             pass
         else:
             get_reusable_executor().shutdown()  # pyright: ignore[reportUnknownMemberType]
-        self.endtimes = os.times()  # type: ignore[attr-defined]
+        self.endtimes = os.times()
         timedelta: list[float] = [
-            e - a for (a, e) in zip(self.starttimes, self.endtimes)  # type: ignore[attr-defined]
+            e - a for (a, e) in zip(self.starttimes, self.endtimes)
         ]
         #        self._wall += time.monotonic()
         #        self._process += time.process_time()
