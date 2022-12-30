@@ -6,6 +6,7 @@ from .helpers import (  # pylint: disable=E0402  # pylint: disable=E0402
     hashfile,
 )
 
+
 def test_basic_auth() -> None:
     """PyTestMethod."""
     assert (
