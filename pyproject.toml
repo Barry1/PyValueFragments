@@ -18,11 +18,6 @@ version = "0.1.22"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
-[tool.poetry.group.dev.dependencies]
-joblib = "^1.2.0"
-bandit = "^1.7.4"
-pylama = { extras = ["all"], version = "^8.4.1" }
-
 [build-system]
 #https://www.python.org/dev/peps/pep-0508/
 #https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
@@ -123,15 +118,16 @@ optional = true
 version = "*"
 optional = true
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 autopep8 = "*"
+bandit = "^1.7.4"
 black = "*"
 build = "*"
 cpu-load-generator = "*"
 flake8 = "*"
 icecream = "*"
+joblib = "^1.2.0"
 mccabe = "*"
-mypy = "*"
 pep257 = "*"
 pep8 = "*"
 pycodestyle = "*"
@@ -149,6 +145,13 @@ ufmt = "*"
 vermin = "*"
 yapf = "*"
 
+[tool.poetry.dev-dependencies.mypy]
+git = "https://github.com/python/mypy.git"
+
+[tool.poetry.dev-dependencies.pylama]
+extras = ["all"]
+version = ">8.4"
+
 [tool.poetry.dev-dependencies.isort]
 version = "*"
 extras = ["colors"]
@@ -156,10 +159,6 @@ extras = ["colors"]
 [tool.poetry.dev-dependencies.prospector]
 version = "*"
 extras = ["with_everything"]
-
-[tool.poetry.dev-dependencies.pylama]
-version = "*"
-extras = ["all"]
 
 [tool.poetry.dev-dependencies.pytype]
 version = ">=2022.09.27"
