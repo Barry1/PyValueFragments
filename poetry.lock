@@ -636,7 +636,7 @@ click = "*"
 
 [[package]]
 name = "mypy"
-version = "1.0.0+dev.c8316545971833e1f6eafd09de6aa12d9a00278c"
+version = "1.0.0+dev.f104914b9d4f58796042667a8b3d06b5868bee34"
 description = "Optional static typing for Python"
 category = "dev"
 optional = false
@@ -658,7 +658,7 @@ reports = ["lxml"]
 type = "git"
 url = "https://github.com/python/mypy.git"
 reference = "HEAD"
-resolved_reference = "f104914b9d4f58796042667a8b3d06b5868bee34"
+resolved_reference = "692af6d8c87e03c3a16cb67958d84219df823eaa"
 
 [[package]]
 name = "mypy-extensions"
@@ -896,21 +896,21 @@ files = [
 
 [[package]]
 name = "pydocstyle"
-version = "6.2.0"
+version = "6.2.1"
 description = "Python docstring style checker"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "pydocstyle-6.2.0-py3-none-any.whl", hash = "sha256:39573fa08919ac492b063724af39a1afdcfea8cdaa2c7b8018ca0dfff5d7e36f"},
-    {file = "pydocstyle-6.2.0.tar.gz", hash = "sha256:b2d280501a4c0d9feeb96e9171dc3f6f7d0064c55270f4c7b1baa18452019fd9"},
+    {file = "pydocstyle-6.2.1-py3-none-any.whl", hash = "sha256:e034023706489a5786778d21bd25e951052616b260d83e163f09d559dcd647b9"},
+    {file = "pydocstyle-6.2.1.tar.gz", hash = "sha256:5ddccabe3c9555d4afaabdba909ca2de4fa24ac31e2eede4ab3d528a4bcadd52"},
 ]
 
 [package.dependencies]
 snowballstemmer = ">=2.2.0"
 
 [package.extras]
-toml = ["toml (>=0.10.2)"]
+toml = ["tomli (>=1.2.3)"]
 
 [[package]]
 name = "pyflakes"
