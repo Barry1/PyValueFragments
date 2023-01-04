@@ -124,15 +124,15 @@ bandit = "^1.7.4"
 black = "*"
 build = "*"
 cpu-load-generator = "*"
-flake8 = "*"
+flake8 = ">5"
 icecream = "*"
 joblib = "^1.2.0"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
-pycodestyle = "*"
+pycodestyle = ">2.9"
 pydocstyle = "*"
-pyflakes = "*"
+pyflakes = ">2"
 pyleft = "*"
 pylint = "*"
 pyre-check = "*"
@@ -157,7 +157,7 @@ version = "*"
 extras = ["colors"]
 
 [tool.poetry.dev-dependencies.prospector]
-version = "*"
+version = ">1.5"
 extras = ["with_everything"]
 
 [tool.poetry.dev-dependencies.pytype]
