@@ -655,7 +655,7 @@ click = "*"
 
 [[package]]
 name = "mypy"
-version = "1.0.0+dev.4ec6ea519f02dc918ad1e55c1096a1009079bfac"
+version = "1.0.0+dev.2475643f7e6708ec7da45a753003c13a2baaddce"
 description = "Optional static typing for Python"
 category = "dev"
 optional = false
@@ -677,7 +677,7 @@ reports = ["lxml"]
 type = "git"
 url = "https://github.com/python/mypy.git"
 reference = "HEAD"
-resolved_reference = "2475643f7e6708ec7da45a753003c13a2baaddce"
+resolved_reference = "13e6617448ed5619c8b3512c5eed302f6d9f0f5b"
 
 [[package]]
 name = "mypy-extensions"
@@ -842,14 +842,14 @@ files = [
 
 [[package]]
 name = "prospector"
-version = "1.8.3"
+version = "1.8.4"
 description = "Prospector is a tool to analyse Python code by aggregating the result of other tools."
 category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "prospector-1.8.3-py3-none-any.whl", hash = "sha256:75d65a6f40682f25ea6f69dc12add9f921dbafdd307bf27aa099728f89d77b67"},
-    {file = "prospector-1.8.3.tar.gz", hash = "sha256:b674b619e1b9923eb750aea4ccda6254d2ebaca11eb1c43fbddf019a7cfcc5cb"},
+    {file = "prospector-1.8.4-py3-none-any.whl", hash = "sha256:4a9584544cf8d118574567a669b85456d036444597f0664185263e229055cdf6"},
+    {file = "prospector-1.8.4.tar.gz", hash = "sha256:60db5b6046a523248a1b32fb2daa8080d3f406da822ad95cff8cd9f153e04555"},
 ]
 
 [package.dependencies]
@@ -859,6 +859,7 @@ flake8 = "<6.0.0"
 GitPython = ">=3.1.27,<4.0.0"
 mccabe = ">=0.7.0,<0.8.0"
 mypy = {version = ">=0.600", optional = true, markers = "extra == \"with_mypy\" or extra == \"with_everything\""}
+packaging = "<22.0"
 pep8-naming = ">=0.3.3,<=0.10.0"
 pycodestyle = ">=2.9.0"
 pydocstyle = ">=2.0.0"
