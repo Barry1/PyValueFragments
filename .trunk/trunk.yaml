@@ -11,19 +11,20 @@ lint:
     - isort@5.11.4
     - autopep8@2.0.1
     - gitleaks@8.15.2
-    - prettier@2.8.2
+    - prettier@2.8.3
     - actionlint@1.6.22
     - markdownlint@0.33.0
     - taplo@0.7.0
     - black@22.12.0
     - flake8@6.0.0
     - git-diff-check
+    #    - mypy@0.991
     - mypy@0.991
 runtimes:
   enabled:
     - go@1.18.3
     - node@18.12.1
-    - python@3.10.8
+    - python@3.10.9
 actions:
   disabled:
     - trunk-check-pre-push
@@ -31,3 +32,12 @@ actions:
   enabled:
     - trunk-announce
     - trunk-upgrade-available
+downloads:
+  - name: python
+    downloads:
+      - os:
+          linux: unknown-linux-gnu
+          macos: apple-darwin
+        url: https://github.com/indygreg/python-build-standalone/releases/latest/download/cpython-${version}+20221220-x86_64-${os}-install_only.tar.gz
+        version: <=3.10.9
+        strip_components: 1
