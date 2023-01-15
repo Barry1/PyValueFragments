@@ -15,8 +15,11 @@ typings/joblib/joblib/externals/loky/reusable_executor.pyi.pyi:
 
 default: formatters pylint pydocstyle pyright checkminver
 
+trunk:
+	poetry run trunk check --all
+
 mypy:
-	poetry run mypy --strict --show-error-codes --enable-incomplete-features src
+	poetry run mypy --strict --show-error-codes src
 
 prospector:
 	poetry run prospector src
