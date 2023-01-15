@@ -18,8 +18,8 @@ lint:
     - black@22.12.0
     - flake8@6.0.0
     - git-diff-check
-    #    - mypy@git+https://github.com/python/mypy.git 
-    - mypy@git+https://github.com/python/mypy.git 
+    #    - mypy@git+https://github.com/python/mypy.git
+    - mypy@0.991
 runtimes:
   enabled:
     - go@1.18.3
