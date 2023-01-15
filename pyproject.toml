@@ -86,7 +86,7 @@ pretty = true
 show_error_codes = true
 show_error_context = true
 strict = true
-install_types=true
+install_types = true
 non_interactive = true
 
 [tool.isort]
@@ -197,11 +197,11 @@ minversion = "6.2"
 testpaths = ["src"]
 required_plugins = ["typeguard", "pylama"]
 addopts = [
-    "--verbose",
-    #    "--pylama",
-    "--cache-clear",
-    "--color=yes",
-    #    "--typeguard-packages=valuefragments",
+  "--verbose",
+  #    "--pylama",
+  "--cache-clear",
+  "--color=yes",
+  #    "--typeguard-packages=valuefragments",
 
 ]
 
