@@ -12,9 +12,9 @@ For learning and helping I enabled code checking by CodeFactor. Here you can see
 
 For live playing around with my first steps, you might try one of the following links:
 
-* Jupyter Notebook![Binder JupyterNotebook](https://mybinder.org/badge_logo.svg)
-* Jupyter Lab![Binder JupyterLab](https://mybinder.org/badge_logo.svg)
-* NTERACT![Binder NTERACT](https://mybinder.org/badge_logo.svg)
+- Jupyter Notebook![Binder JupyterNotebook](https://mybinder.org/badge_logo.svg)
+- Jupyter Lab![Binder JupyterLab](https://mybinder.org/badge_logo.svg)
+- NTERACT![Binder NTERACT](https://mybinder.org/badge_logo.svg)
 
 ## Checking
 
@@ -25,4 +25,3 @@ python3 - m pip install --upgrade --user --editable .
 ```
 
 or `make install`.
-
