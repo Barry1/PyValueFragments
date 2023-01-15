@@ -123,7 +123,6 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 autopep8 = "*"
 bandit = "^1.7.4"
-black = "*"
 build = "*"
 cpu-load-generator = "*"
 flake8 = ">5"
@@ -146,6 +145,10 @@ toml = "*"
 ufmt = "*"
 vermin = "*"
 yapf = "*"
+
+[tool.poetry.group.dev.dependencies.black]
+version = ">22"
+allow-prereleases = true
 
 [tool.poetry.dev-dependencies.mypy]
 git = "https://github.com/python/mypy.git"
