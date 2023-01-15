@@ -82,13 +82,14 @@ class TimingCM:  # pyre-ignore[13]
         # pylint C0415==import-outside-toplevel
         try:
             # pylint: disable=C0415
-            from joblib.externals.loky import (  # type: ignore[import]
-                get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
+            from joblib.externals.loky import (  # pyright: ignore[reportUnknownVariableType]
+                get_reusable_executor,
             )
         except ModuleNotFoundError:
             pass
         else:
-            get_reusable_executor().shutdown()  # pyright: ignore[reportUnknownMemberType]
+            # pyright: ignore[reportUnknownMemberType]
+            get_reusable_executor().shutdown()
         self.endtimes = os.times()
         timedelta: list[float] = [
             e - a for (a, e) in zip(self.starttimes, self.endtimes)
