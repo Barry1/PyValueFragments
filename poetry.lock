@@ -760,7 +760,7 @@ reports = ["lxml"]
 type = "git"
 url = "https://github.com/python/mypy.git"
 reference = "HEAD"
-resolved_reference = "f37a0aeeb89b87de2d2bcdb7a749e4e6f63a3185"
+resolved_reference = "f957a39f4338e6532dd7381230d07cf51c72f265"
 
 [[package]]
 name = "mypy-extensions"
