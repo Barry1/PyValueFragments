@@ -759,7 +759,7 @@ reports = ["lxml"]
 type = "git"
 url = "https://github.com/python/mypy.git"
 reference = "HEAD"
-resolved_reference = "891e035ff661deec96479e990a6a7695fdfe8af6"
+resolved_reference = "9e85f9b862287f86498f5fb084a13504d09326fd"
 
 [[package]]
 name = "mypy-extensions"
@@ -1622,14 +1622,14 @@ pathspec = ">=0.8.1"
 
 [[package]]
 name = "trove-classifiers"
-version = "2023.1.20"
+version = "2023.2.8"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "trove-classifiers-2023.1.20.tar.gz", hash = "sha256:ed3fd4e1d2ea77ca9ed379380582566e6003a54d70a3e5521a9b2a7896609362"},
-    {file = "trove_classifiers-2023.1.20-py3-none-any.whl", hash = "sha256:e4fb91e744a1b8a4e416226dbd4c3a58717295f54608e412cee526287d5d14d0"},
+    {file = "trove-classifiers-2023.2.8.tar.gz", hash = "sha256:3b6960fb96c1d4cc9988bdc1b90bcd65fcf5d9843d884dfc86bd674ff81a4dea"},
+    {file = "trove_classifiers-2023.2.8-py3-none-any.whl", hash = "sha256:3aff899dd9792c4d095740980a5967eb98094ff881faf0b29afc775b75aaaac6"},
 ]
 
 [[package]]
