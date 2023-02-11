@@ -879,7 +879,7 @@ click = "*"
 
 [[package]]
 name = "mypy"
-version = "1.1.0+dev.9e85f9b862287f86498f5fb084a13504d09326fd"
+version = "1.1.0+dev.99b04cac8b216bb426b1fab5a3ff447d1451c967"
 description = "Optional static typing for Python"
 category = "dev"
 optional = false
