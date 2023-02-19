@@ -67,10 +67,10 @@ log_level = "INFO"
 [tool.ufmt]
 
 [tool.pylint.format]
-max-line-length = "88"
+max-line-length = "7988"
 
 #[tool.flake8]
-#max-line-length = 88
+#max-line-length = 79
 #extend-ignore = "E203"
 # https://interrogate.readthedocs.io/en/latest/#configuration
 [tool.interrogate]
