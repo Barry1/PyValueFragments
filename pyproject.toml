@@ -1,4 +1,4 @@
-# Learn more at <https://github.com/carlosperate/awesome-pyproject>
+# Learn more at <https://github.com/carlosperate/awesome-pyprojevaluefragmentsct>
 # Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
 #https://setuptools.readthedocs.io/en/latest/build_meta.html
 #https://peps.python.org/pep-0621/
@@ -43,14 +43,14 @@ where = ["src"]
 
 # https://github.com/hhatto/autopep8/blob/master/README.rst#pyproject-toml
 [tool.autopep8]
-max_line_length = 79
+max_line_length = 99
 in-place = true
 recursive = true
 jobs = 0
 
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
-line-length = 79
+line-length = 99
 target-version = ['py311'] #'py37', 'py38',
 color = true
 safe = true
@@ -70,7 +70,7 @@ log_level = "INFO"
 max-line-length = "7988"
 
 #[tool.flake8]
-#max-line-length = 79
+#max-line-length = 99
 #extend-ignore = "E203"
 # https://interrogate.readthedocs.io/en/latest/#configuration
 [tool.interrogate]
@@ -176,7 +176,7 @@ version = ">=2022.09.27"
 python = "~3.10"
 
 #[pylama.pep8]
-#max_line_length = 79
+#max_line_length = 99
 [tool.pylint.main]
 jobs = 0
 py-version = "3.11"
@@ -196,7 +196,7 @@ linters = [""] # means all
 #linters = ["mypy,pycodestyle,pydocstyle,pyflakes,pylint,isort"]
 verbose = true
 concurrent = true
-max_line_length = 79
+max_line_length = 99
 
 [tool.pylint."MESSAGES CONTROL"]
 disable = "duplicate-code"
