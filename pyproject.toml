@@ -148,6 +148,10 @@ vermin = "*"
 yapf = "*"
 interrogate = "^1.5.0"
 
+[tool.poetry.group.dev.dependencies.pylint-django]
+extras = ["with-django"]
+version = ">=2.5"
+
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"
 allow-prereleases = true
