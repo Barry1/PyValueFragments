@@ -1,6 +1,6 @@
 #!/usr/bin/env pytest
 """Test functions for helpers module."""
-from .helpers import (  # pylint: disable=E0402  # pylint: disable=E0402
+from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
     hashfile,

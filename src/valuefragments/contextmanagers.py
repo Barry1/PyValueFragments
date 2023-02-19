@@ -6,7 +6,7 @@ import sys
 from types import TracebackType
 from typing import Any, Optional, Self, TextIO, Type
 
-from .helpers import ic
+from .helpers import ic  # pylint: disable=relative-beyond-top-level]
 
 
 class NoOutput(TextIO):  # pylint: disable=abstract-method
