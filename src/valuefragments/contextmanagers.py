@@ -84,12 +84,10 @@ class TimingCM:  # pyre-ignore[13]
             from joblib.externals.loky import (
                 get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
             )
+            from joblib.externals.loky.process_executor import ProcessPoolExecutor
         except ModuleNotFoundError:
             pass
         else:
-            # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky.process_executor import ProcessPoolExecutor
-
             if isinstance(
                 rex := get_reusable_executor(),  # pyright: ignore[reportUnknownVariableType]
                 ProcessPoolExecutor,
