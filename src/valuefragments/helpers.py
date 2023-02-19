@@ -57,9 +57,7 @@ def basic_auth(
     """Build String for Basic AUTH."""
     # Authorization token: we need to base 64 encode it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + b64encode(f"{user}:{passw}".encode("utf-8")).decode(
-        "ascii"
-    )
+    return "Basic " + b64encode(f"{user}:{passw}".encode("utf-8")).decode("ascii")
 
 
 __all__.append("basic_auth")
@@ -71,11 +69,7 @@ class HumanReadAble(int):
     # <https://pypi.python.org/pypi/humanize>
     def __new__(
         cls,
-        __x: ReadableBuffer
-        | str
-        | SupportsInt
-        | SupportsIndex
-        | SupportsTrunc,
+        __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> Self:
         """Build an int object by the super class."""
@@ -83,20 +77,14 @@ class HumanReadAble(int):
 
     def __init__(
         self,
-        __x: str
-        | ReadableBuffer
-        | SupportsInt
-        | SupportsIndex
-        | SupportsTrunc,
+        __x: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
         self.unit: str = __baseunit
         #        self.scaler: int = math.floor(math.log2(self) / 10)
         #        self.scaler: int = math.floor(math.log10(self) / 3)
-        self.scaler: int = (
-            1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
-        )
+        self.scaler: int = 1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
@@ -140,9 +128,7 @@ async def to_inner_task(
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
-    return await asyncio.get_running_loop().run_in_executor(
-        the_executor, funcall
-    )
+    return await asyncio.get_running_loop().run_in_executor(the_executor, funcall)
 
 
 async def run_grouped_in_tpe(
@@ -227,9 +213,7 @@ else:
         if psutil.WINDOWS:
             try:
                 # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
-                psutil.Process().nice(
-                    0x00100000
-                )  # PROCESS_MODE_BACKGROUND_BEGIN
+                psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
@@ -251,9 +235,8 @@ else:
     def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
-            file_hash: hashlib._Hash = (  # pyright: ignore[reportPrivateUsage]
-                hashlib.md5()  # nosec  # Compliant
-            )
+            # nosec  # Compliant
+            file_hash: hashlib._Hash = hashlib.md5()  # pyright: ignore[reportPrivateUsage]
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
         # deepcode ignore InsecureHash: for file identification
@@ -267,9 +250,7 @@ except ImportError:
     pass
 else:
 
-    def loadonecore(
-        loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
-    ) -> None:
+    def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
         """Generate load on one given core."""
         cpu_load_generator.load_single_core(  # pyright: ignore[reportUnknownMemberType]
             core_num=loadedcore,
@@ -281,8 +262,8 @@ else:
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(  # pyright: ignore[reportUnknownMemberType]
+        cpu_load_generator.load_all_cores(
             duration_s=loadduration, target_load=theload
-        )
+        )  # pyright: ignore[reportUnknownMemberType]
 
     __all__.append("loadallcores")

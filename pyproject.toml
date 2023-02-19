@@ -67,7 +67,7 @@ log_level = "INFO"
 [tool.ufmt]
 
 [tool.pylint.format]
-max-line-length = "7988"
+max-line-length = "99"
 
 #[tool.flake8]
 #max-line-length = 99

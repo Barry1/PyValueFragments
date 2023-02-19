@@ -31,9 +31,9 @@ formatters:
 #	@echo "==========" "autopep8" "=========="
 #	poetry run autopep8 $(pyobjs)
 	@echo "==========" "isort" "=========="
-	poetry run isort --line-length 79 $(pyobjs)
+	poetry run isort $(pyobjs)
 	@echo "==========" "black" "=========="
-	poetry run black --line-length 79 $(pyobjs)
+	poetry run black $(pyobjs)
 
 bandit:
 	poetry run bandit --verbose $$(find src -regex .*\.pyi? -not -name test*)

@@ -29,9 +29,7 @@ except ImportError:
     ic("resource is not available")
 else:
 
-    def timing_resource(
-        func: Callable[ParamType, ResultT]
-    ) -> Callable[ParamType, ResultT]:
+    def timing_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
         save: str = func.__name__
 
@@ -40,13 +38,9 @@ else:
             **kwargs: ParamType.kwargs,
         ) -> ResultT:
             """Run with timing."""
-            before: float | Literal[0] = sum(
-                resource.getrusage(resource.RUSAGE_SELF)[:2]
-            )
+            before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             retval: ResultT = func(*args, **kwargs)
-            after: float | Literal[0] = sum(
-                resource.getrusage(resource.RUSAGE_SELF)[:2]
-            )
+            after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
                 print(save, after - before)
             return retval
@@ -61,9 +55,7 @@ except ImportError:
     ic("psutil is not available")
 else:
 
-    def timing_psutil(
-        func: Callable[ParamType, ResultT]
-    ) -> Callable[ParamType, ResultT]:
+    def timing_psutil(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measures execution times by psutil."""
         save: str = func.__name__
 
@@ -75,18 +67,14 @@ else:
             before: NamedTuple = psutil.Process().cpu_times()
             retval: ResultT = func(*args, **kwargs)
             after: NamedTuple = psutil.Process().cpu_times()
-            delta: list[float] = [
-                end - start for start, end in zip(before, after)
-            ]
+            delta: list[float] = [end - start for start, end in zip(before, after)]
             print(save, delta, sum(delta))
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-def timing_thread_time(
-    func: Callable[ParamType, ResultT]
-) -> Callable[ParamType, ResultT]:
+def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (thread)."""
     save: str = func.__name__
 
@@ -104,9 +92,7 @@ def timing_thread_time(
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-def timing_process_time(
-    func: Callable[ParamType, ResultT]
-) -> Callable[ParamType, ResultT]:
+def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (process)."""
     save: str = func.__name__
 
