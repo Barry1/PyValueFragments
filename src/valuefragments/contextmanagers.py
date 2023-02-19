@@ -6,10 +6,10 @@ import sys
 from types import TracebackType
 from typing import Any, Optional, Self, TextIO, Type
 
-from .helpers import ic  # pylint: disable=relative-beyond-top-level
+from .helpers import ic
 
 
-class NoOutput(TextIO):  # pylint: disable=W0223
+class NoOutput(TextIO):  # pylint: disable=abstract-method
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
@@ -79,30 +79,20 @@ class TimingCM:  # pyre-ignore[13]
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
-        # pylint C0415==import-outside-toplevel
         try:
-            # pylint: disable=C0415
-            from joblib.externals.loky import (  # pyright: ignore[reportUnknownVariableType]
-                get_reusable_executor,
-            )
+            # pylint: disable=import-outside-toplevel
+            # pyright: ignore[reportUnknownVariableType]
+            from joblib.externals.loky import get_reusable_executor
         except ModuleNotFoundError:
             pass
         else:
-            # pyright: ignore[reportUnknownMemberType]
-            get_reusable_executor().shutdown()
+            from joblib.externals.loky.process_executor import ProcessPoolExecutor
+
+            # pyright: ignore[reportUnknownVariableType]
+            if isinstance(rex := get_reusable_executor(), ProcessPoolExecutor):
+                rex.shutdown()
         self.endtimes = os.times()
-        timedelta: list[float] = [
-            e - a for (a, e) in zip(self.starttimes, self.endtimes)
-        ]
-        #        self._wall += time.monotonic()
-        #        self._process += time.process_time()
-        #        self._thread += time.thread_time()
-        #        print(
-        #            f"computed {self._process} process seconds",
-        #            f"and {self._thread} thread seconds",
-        #            f"within {self._wall} wall seconds",
-        #            f"resulting in {100 * self._process / self._wall} % CPU-load.",
-        #        )
+        timedelta: list[float] = [e - a for (a, e) in zip(self.starttimes, self.endtimes)]
         print(
             f"{timedelta[0] + timedelta[2]:8.2f} [s] User",
             f"{timedelta[1] + timedelta[3]:8.2f} [s] System",
