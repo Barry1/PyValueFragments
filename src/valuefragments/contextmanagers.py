@@ -25,9 +25,9 @@ class NoOutput(TextIO):  # pylint: disable=abstract-method
 
     def __exit__(
         self,
-        exc_type: Optional[Type[BaseException]],
-        exc_value: Optional[BaseException],
-        exc_traceback: Optional[TracebackType],
+        _exc_type: Optional[Type[BaseException]],
+        _exc_value: Optional[BaseException],
+        _exc_traceback: Optional[TracebackType],
     ) -> None:
         """Exit the context. Restore Streams."""
         sys.stderr = self.stderr
@@ -73,9 +73,9 @@ class TimingCM:  # pyre-ignore[13]
 
     def __exit__(
         self: Self,
-        exc_type: Optional[Type[BaseException]],
-        exc_value: Optional[BaseException],
-        exc_traceback: Optional[TracebackType],
+        _exc_type: Optional[Type[BaseException]],
+        _exc_value: Optional[BaseException],
+        _exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
