@@ -81,15 +81,14 @@ class TimingCM:  # pyre-ignore[13]
         # Check if any (loky) backend is still open and if, close
         try:
             # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import (  # pyright: ignore[reportUnknownVariableType]
-                get_reusable_executor,
+            from joblib.externals.loky import (
+                get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
             )
         except ModuleNotFoundError:
             pass
         else:
-            from joblib.externals.loky.process_executor import (  # pylint: disable=import-outside-toplevel
-                ProcessPoolExecutor,
-            )
+            # pylint: disable=import-outside-toplevel
+            from joblib.externals.loky.process_executor import ProcessPoolExecutor
 
             if isinstance(
                 rex := get_reusable_executor(),  # pyright: ignore[reportUnknownVariableType]
