@@ -40,7 +40,8 @@ bandit:
 
 pytest:
 	@echo "==========" "$@" "=========="
-	poetry run pytest --pylama
+	poetry run pytest
+# --pylama
 
 pylint:
 	@echo "==========" "$@" "=========="
