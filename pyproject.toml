@@ -103,7 +103,6 @@ profile = 'black'
 [tool.poetry.dependencies]
 python = "^3.11"
 typing-extensions = "*"
-pyanalyze = "^0.9.0"
 
 [tool.poetry.dependencies.joblib]
 version = "*"
@@ -137,6 +136,7 @@ joblib = "^1.2.0"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
+pyanalyze = "^0.9.0"
 pycodestyle = ">2.9"
 pydocstyle = ">=6.3.0"
 pyflakes = ">2"
@@ -153,26 +153,26 @@ ufmt = "*"
 vermin = ">=1.5"
 yapf = "*"
 
-[tool.poetry.group.dev.dependencies.black]
+[tool.poetry.dev-dependencies.black]
 version = ">22"
 allow-prereleases = true
 
-[tool.poetry.group.dev.dependencies.mypy]
-#git = "https://github.com/python/mypy.git"
-version = ">=1"
-allow-prereleases = true
-[tool.poetry.group.dev.dependencies.pylama]
+[tool.poetry.dev-dependencies.pylama]
 extras = ["all"]
 version = ">8.4"
 
-[tool.poetry.group.dev.dependencies.isort]
+[tool.poetry.dev-dependencies.isort]
 version = "*"
 extras = ["colors"]
 [tool.prospector]
 without_tool = "django"
 
+# [tool.poetry.dev-dependencies.mypy]
+# git = "https://github.com/python/mypy.git"
+# version = "^1"
+# allow-prereleases = true
 
-[tool.poetry.group.dev.dependencies.prospector]
+[tool.poetry.dev-dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
 # better see <https://prospector.landscape.io/en/master/supported_tools.html>
@@ -183,7 +183,8 @@ extras = [
   "with_mypy",
   "with_bandit",
 ]
-[tool.poetry.group.dev.dependencies.pytype]
+
+[tool.poetry.dev-dependencies.pytype]
 version = ">=2022.09.27"
 python = "~3.10"
 
