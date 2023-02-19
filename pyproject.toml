@@ -66,6 +66,10 @@ log_level = "INFO"
 
 [tool.ufmt]
 
+[tool.vulture]
+#verbose = true
+min_confidence = 61
+
 [tool.pylint.format]
 max-line-length = "99"
 
