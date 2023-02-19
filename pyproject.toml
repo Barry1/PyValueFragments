@@ -125,57 +125,65 @@ optional = true
 version = "*"
 optional = true
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.dev-dependencies]
 autopep8 = "*"
 bandit = "^1.7.4"
 build = "*"
 cpu-load-generator = "*"
 flake8 = ">5"
 icecream = "*"
+interrogate = ">=1.5"
 joblib = "^1.2.0"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
 pycodestyle = ">2.9"
-pydocstyle = "*"
+pydocstyle = ">=6.3.0"
 pyflakes = ">2"
 pyleft = "*"
 pylint = "*"
 pyre-check = "*"
 pyright = "*"
+pyroma = "^4.1"
 pytest = "*"
 radon = "*"
 setuptools = ">=65.5.1"
 toml = "*"
 ufmt = "*"
-vermin = "*"
+vermin = ">=1.5"
 yapf = "*"
-interrogate = "^1.5.0"
-
-[tool.poetry.group.dev.dependencies.pylint-django]
-extras = ["with-django"]
-version = ">=2.5"
 
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"
 allow-prereleases = true
 
-[tool.poetry.dev-dependencies.mypy]
-git = "https://github.com/python/mypy.git"
-
-[tool.poetry.dev-dependencies.pylama]
+[tool.poetry.group.dev.dependencies.mypy]
+#git = "https://github.com/python/mypy.git"
+version = ">=1"
+allow-prereleases = true
+[tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
 version = ">8.4"
 
-[tool.poetry.dev-dependencies.isort]
+[tool.poetry.group.dev.dependencies.isort]
 version = "*"
 extras = ["colors"]
+[tool.prospector]
+without_tool = "django"
 
-[tool.poetry.dev-dependencies.prospector]
+
+[tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
-extras = ["with_everything"]
-
-[tool.poetry.dev-dependencies.pytype]
+# extras = ["with_everything"]
+# better see <https://prospector.landscape.io/en/master/supported_tools.html>
+extras = [
+  "with_pyroma",
+  "with_vulture",
+  "with_frosted",
+  "with_mypy",
+  "with_bandit",
+]
+[tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
 python = "~3.10"
 
