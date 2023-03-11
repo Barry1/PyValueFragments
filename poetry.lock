@@ -1895,18 +1895,22 @@ files = [
 
 [[package]]
 name = "trailrunner"
-version = "1.2.1"
+version = "1.3.0"
 description = "Run things on paths"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "trailrunner-1.2.1-py3-none-any.whl", hash = "sha256:dff4ee07cf079bcd388585ee6f14911e2c9292d58bf7cc6047912e082ec21283"},
-    {file = "trailrunner-1.2.1.tar.gz", hash = "sha256:157de2b2d82139d9583ec1dbc1981c33b39e24c420bb5294f86083f1f4b44311"},
+    {file = "trailrunner-1.3.0-py3-none-any.whl", hash = "sha256:ed14aa9fef4f7394297d2ecc20b398016d3a520fdc34db111febf897d3a41dbb"},
+    {file = "trailrunner-1.3.0.tar.gz", hash = "sha256:f16eb26c7da6f74158cb69b8f2c756139cedb53f01d7562ea0a3564380b67275"},
 ]
 
 [package.dependencies]
 pathspec = ">=0.8.1"
+
+[package.extras]
+dev = ["attribution (==1.6.2)", "black (==22.3.0)", "coverage (==6.5)", "flake8 (==4.0.1)", "flake8-bugbear (==23.2.13)", "flit (==3.7.1)", "mypy (==1.1.1)", "ufmt (==2.0.1)", "usort (==1.0.5)"]
+docs = ["sphinx (==6.1.3)", "sphinx-mdinclude (==0.5.3)"]
 
 [[package]]
 name = "trove-classifiers"
