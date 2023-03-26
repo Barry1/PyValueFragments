@@ -10,8 +10,11 @@ pyobjs!= find src -regex .*\.pyi?$$
 typings/joblib/joblib/externals/loky/process_executor.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py  --createstub joblib.externals.loky.process_executor
 
-typings/joblib/joblib/externals/loky/reusable_executor.pyi.pyi:
+typings/joblib/joblib/externals/loky/reusable_executor.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py  --createstub joblib.externals.loky.reusable_executor 
+
+typings/cpu_load_generator/_interface.pyi:
+	poetry run pyright src/valuefragments/contextmanagers.py  --createstub cpu_load_generator
 
 default: formatters pylint pydocstyle pyright checkminver
 

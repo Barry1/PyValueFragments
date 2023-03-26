@@ -33,7 +33,7 @@ class NoOutput(TextIO):  # pylint: disable=abstract-method
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: Self, _x: Any) -> int:
+    def write(self: Self, s: Any) -> int:
         """Write method: Needed but does nothing."""
         return 0
 
