@@ -18,6 +18,9 @@ default: formatters pylint pydocstyle pyright checkminver
 trunk:
 	poetry run trunk check --all
 
+pyanalyze:
+	poetry run python -m pyanalyze src/valuefragments
+
 mypy:
 	poetry run mypy --strict --show-error-codes src
 
@@ -42,6 +45,10 @@ pytest:
 	@echo "==========" "$@" "=========="
 	poetry run pytest
 # --pylama
+
+pyroma:
+	@echo "==========" "$@" "=========="
+	poetry run pyroma .
 
 pylint:
 	@echo "==========" "$@" "=========="
