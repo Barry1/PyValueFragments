@@ -20,17 +20,17 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11"]
     steps:
-      #https://github.com/marketplace/actions/checkout
+      # https://github.com/marketplace/actions/checkout
       - name: Checkout code
         uses: actions/checkout@v3.2.0
-        #uses: actions/checkout@latest
+        # uses: actions/checkout@latest
         with:
           # Full git history is needed to get a proper list
           # of changed files within `super-linter`
           fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4.4.0
-        #uses: actions/setup-python@latest
+        # uses: actions/setup-python@latest
         with:
           python-version: ${{ matrix.python-version }}
       - name: Try to install own versions
@@ -44,11 +44,11 @@ jobs:
       #          echo "PyPATH=$(which python3)" >> $GITHUB_OUTPUT
       #        id: PythonLocation
       - name: Lint Code Base
-        #https://github.com/marketplace/actions/super-linter
+        # https://github.com/marketplace/actions/super-linter
         uses: github/super-linter@latest
         env:
           VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: "main"
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
           PYTHON_BLACK_CONFIG_FILE: ./pyproject.toml
