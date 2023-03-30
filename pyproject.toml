@@ -4,21 +4,20 @@
 #https://peps.python.org/pep-0621/
 [tool.poetry]
 name = "valuefragments"
-version = "0.2.0"
+version = "0.2.1"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+
+[tool.poetry.extras]
+allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry.group.dev.dependencies]
 pyanalyze = "^0.9.0"
 types-psutil = "^5.9.5.11"
 
 [build-system]
-#https://www.python.org/dev/peps/pep-0508/
-#https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
-requires = ["setuptools>=65.5.1", "wheel>=0.38.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 # ...
 # By default, include-package-data is true in pyproject.toml, so you do
@@ -27,9 +26,6 @@ build-backend = "setuptools.build_meta"
 #packages = "find:"
 #package_dir = "src"
 #### explicitly not coverred
-[tool.poetry.extras]
-allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
-
 [tool.setuptools.packages.find]
 where = ["src"]
 
