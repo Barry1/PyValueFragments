@@ -2170,6 +2170,18 @@ doc = ["sphinx-autodoc-typehints (>=1.2.0)", "sphinx-rtd-theme"]
 test = ["mypy", "pytest", "typing-extensions"]
 
 [[package]]
+name = "types-psutil"
+version = "5.9.5.11"
+description = "Typing stubs for psutil"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-psutil-5.9.5.11.tar.gz", hash = "sha256:3d59da0758f056bfb59fef757366e538c5dd5473d81c35b38956624ae2484f31"},
+    {file = "types_psutil-5.9.5.11-py3-none-any.whl", hash = "sha256:01cc541b187a11e758d336c4cc89abf71d0098627fa95d5cfaca536be31a7d1a"},
+]
+
+[[package]]
 name = "typeshed-client"
 version = "2.2.0"
 description = "A library for accessing stubs in typeshed."
@@ -2402,4 +2414,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "93443a865f4b5ccd5fcf44f70038b295333e401c97dffda8817c60370222b785"
+content-hash = "206cf434d86d8432e35564a8483737808f8dc0425f610a12b4f95b3c609642ec"
