@@ -2,19 +2,9 @@
 # Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
 #https://setuptools.readthedocs.io/en/latest/build_meta.html
 #https://peps.python.org/pep-0621/
-[project]
-name = "valuefragments"
-version = "0.1.28"
-description = "Testing installation of Package"
-authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
-requires-python = ">=3.10,<4.0"
-
-[project.optional-dependencies]
-allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
-
 [tool.poetry]
 name = "valuefragments"
-version = "0.1.28"
+version = "0.2.0"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
@@ -37,7 +27,9 @@ build-backend = "setuptools.build_meta"
 #packages = "find:"
 #package_dir = "src"
 #### explicitly not coverred
-#[tool.poetry.extras]
+[tool.poetry.extras]
+allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
