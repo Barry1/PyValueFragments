@@ -19,13 +19,12 @@ from typing import (
     Callable,
     Generator,
     Protocol,
-    Self,
     SupportsInt,
     TypedDict,
     TypeVar,
 )
 
-from typing_extensions import SupportsIndex, Unpack
+from typing_extensions import Self, SupportsIndex, Unpack
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc

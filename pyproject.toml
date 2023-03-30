@@ -7,7 +7,7 @@ name = "valuefragments"
 version = "0.1.22"
 description = "Testing installation of Package"
 authors = [{ name = "Ebeling, Dr. Bastian", email = "bastian.ebeling@web.de" }]
-requires-python = ">=3.11,<4.0"
+requires-python = ">=3.10,<4.0"
 
 [project.optional-dependencies]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
@@ -17,9 +17,9 @@ name = "valuefragments"
 version = "0.1.23"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+
 [tool.poetry.group.dev.dependencies]
 pyanalyze = "^0.9.0"
-
 
 [build-system]
 #https://www.python.org/dev/peps/pep-0508/
@@ -86,7 +86,7 @@ generate_badge = "."
 verbose = 2
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 warn_unused_configs = true
 enable_incomplete_feature = "Unpack"
 pretty = true
@@ -104,7 +104,7 @@ color_output = true
 profile = 'black'
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 typing-extensions = "*"
 
 [tool.poetry.dependencies.joblib]
@@ -167,6 +167,7 @@ version = ">8.4"
 [tool.poetry.dev-dependencies.isort]
 version = "*"
 extras = ["colors"]
+
 [tool.prospector]
 without_tool = "django"
 
@@ -174,7 +175,6 @@ without_tool = "django"
 # git = "https://github.com/python/mypy.git"
 # version = "^1"
 # allow-prereleases = true
-
 [tool.poetry.dev-dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -195,7 +195,7 @@ python = "~3.10"
 #max_line_length = 99
 [tool.pylint.main]
 jobs = 0
-py-version = "3.11"
+py-version = "3.10"
 output-format = "colorized"
 
 [tool.pylint.basic]

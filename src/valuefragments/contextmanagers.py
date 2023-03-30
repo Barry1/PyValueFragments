@@ -4,7 +4,9 @@ from __future__ import annotations
 import os
 import sys
 from types import TracebackType
-from typing import Any, Optional, Self, TextIO, Type
+from typing import Any, Optional, TextIO, Type
+
+from typing_extensions import Self
 
 from .helpers import ic  # pylint: disable=relative-beyond-top-level]
 
