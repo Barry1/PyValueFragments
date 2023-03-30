@@ -4,7 +4,15 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
     hashfile,
+    stringtovalidfilename,
 )
+
+
+def test_stringtovalidfilename() -> None:
+    """PyTest validity of strings."""
+    assert (
+        stringtovalidfilename("a:/xäü\\?*1__x&%&$§§)§(§/$<>-_,.;:;:)") == "axäü1__x§§)§(§-_,.;;)"
+    )
 
 
 def test_basic_auth() -> None:

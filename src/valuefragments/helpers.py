@@ -269,7 +269,20 @@ else:
 
 
 def stringtovalidfilename(inputstring: str) -> str:
+    """Return only valid characters of string for use in filenames.
+
+    easy solution by exclusion of maybe strange or forbidden characters
+    <https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#:~:text=Use%20any%20character,does%20not%20allow.>
+    """
+    return "".join(thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$')
+
+
+__all__.append("stringtovalidfilename")
+
+
+def stringtovalidfilename2(inputstring: str) -> str:
     """Return only valid characters of string for use in filenames."""
+
     return "".join(
         thechar
         for thechar in inputstring
@@ -277,4 +290,4 @@ def stringtovalidfilename(inputstring: str) -> str:
     )
 
 
-__all__.append("stringtovalidfilename")
+__all__.append("stringtovalidfilename2")
