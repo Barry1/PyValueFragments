@@ -7,6 +7,7 @@ import asyncio
 import concurrent.futures
 import math
 import os
+import string
 
 # https://docs.python.org/3/library/__future__.html
 import sys
@@ -267,3 +268,15 @@ else:
         )  # pyright: ignore[reportUnknownMemberType]
 
     __all__.append("loadallcores")
+
+
+def stringtovalidfilename(inputstring: str) -> str:
+    """Return only valid characters of string for use in filenames."""
+    return "".join(
+        thechar
+        for thechar in inputstring
+        if thechar in f"-_.{string.ascii_letters}{string.digits}"
+    )
+
+
+__all__.append("stringtovalidfilename")
