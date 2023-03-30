@@ -2411,7 +2411,10 @@ files = [
     {file = "yapf-0.32.0.tar.gz", hash = "sha256:a3f5085d37ef7e3e004c4ba9f9b3e40c54ff1901cd111f05145ae313a7c67d1b"},
 ]
 
+[extras]
+allfeatures = ["cpu-load-generator", "hashlib", "icecream", "psutil"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "206cf434d86d8432e35564a8483737808f8dc0425f610a12b4f95b3c609642ec"
+content-hash = "1986794e39112ef9ddb086841aaee58b5ae71041ea9b25f91bb7c0a74b3305ea"
