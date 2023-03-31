@@ -1,6 +1,7 @@
 """helper functions and code snippets which are not decorators."""
 from __future__ import annotations
 
+# https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 import asyncio
@@ -8,8 +9,6 @@ import concurrent.futures
 import math
 import os
 import string
-
-# https://docs.python.org/3/library/__future__.html
 import sys
 from base64 import b64encode
 from importlib.util import find_spec
@@ -71,7 +70,7 @@ class HumanReadAble(int):
         cls,
         __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
-    ) -> Self:
+    ) -> HumanReadAble:
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
 
@@ -143,6 +142,7 @@ if sys.version_info >= (3, 11):
         with functools.partial
         """
         with concurrent.futures.ThreadPoolExecutor() as pool_executor:
+            # pylint: disable-next=no-member
             async with asyncio.TaskGroup() as the_task_group:
                 the_tasks: list[asyncio.Task[_FunCallResultT]] = [
                     the_task_group.create_task(
@@ -165,6 +165,7 @@ if sys.version_info >= (3, 11):
         with functools.partial
         """
         with concurrent.futures.ProcessPoolExecutor() as pool_executor:
+            # pylint: disable-next=no-member
             async with asyncio.TaskGroup() as the_task_group:
                 the_tasks: list[asyncio.Task[_FunCallResultT]] = [
                     the_task_group.create_task(
@@ -244,6 +245,7 @@ else:
     __all__.append("hashfile")
 
 try:
+    # noinspection PyUnresolvedReferences
     import cpu_load_generator  # pyright: ignore[reportUnknownVariableType]
 except ImportError:
     pass

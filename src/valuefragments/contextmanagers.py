@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import sys
+from abc import ABC
 from types import TracebackType
 from typing import Any, Optional, TextIO, Type
 
@@ -11,7 +12,7 @@ from typing_extensions import Self
 from .helpers import ic  # pylint: disable=relative-beyond-top-level]
 
 
-class NoOutput(TextIO):  # pylint: disable=abstract-method
+class NoOutput(TextIO, ABC):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
@@ -35,13 +36,12 @@ class NoOutput(TextIO):  # pylint: disable=abstract-method
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: Self, s: Any) -> int:
+    def write(self: Self, s: Any) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
     def flush(self: Self) -> None:
         """Flush attribute: Needed but does nothing."""
-        return
 
 
 class TimingCM:  # pyre-ignore[13]
