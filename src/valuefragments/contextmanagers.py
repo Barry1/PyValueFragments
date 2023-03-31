@@ -83,15 +83,11 @@ class TimingCM:  # pyre-ignore[13]
 
         try:
             # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import ProcessPoolExecutor, get_reusable_executor
+            from joblib.externals.loky import get_reusable_executor
         except ModuleNotFoundError:
             pass
         else:
-            if isinstance(
-                rex := get_reusable_executor(),  # pyright: ignore[reportUnknownVariableType]
-                ProcessPoolExecutor,
-            ):
-                rex.shutdown()
+            get_reusable_executor().shutdown()
         self.endtimes = os.times()
         timedelta: list[float] = [e - a for (a, e) in zip(self.starttimes, self.endtimes)]
         print(

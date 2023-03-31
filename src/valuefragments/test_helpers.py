@@ -9,14 +9,14 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
 
 
 def test_stringtovalidfilename() -> None:
-    """PyTest validity of strings."""
+    """Test function for filename validity of strings."""
     assert (
         stringtovalidfilename("a:/xäü\\?*1__x&%&$§§)§(§/$<>-_,.;:;:)") == "axäü1__x§§)§(§-_,.;;)"
     )
 
 
 def test_basic_auth() -> None:
-    """PyTestMethod."""
+    """Test if basic_auth does what is expected."""
     assert basic_auth("Aladdin", "open sesame")[6:] == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
 
 

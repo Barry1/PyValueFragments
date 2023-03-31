@@ -16,6 +16,14 @@ typings/joblib/joblib/externals/loky/reusable_executor.pyi:
 typings/cpu_load_generator/_interface.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py  --createstub cpu_load_generator
 
+stubs:
+	poetry run pyright --createstub joblib
+	poetry run pyright --createstub icecream
+	poetry run pyright --createstub valuefragments
+	poetry run pyright --createstub cpu_load_generator
+	poetry run pyright --createstub hashlib
+	poetry run pyright --createstub psutil
+
 default: formatters pylint pydocstyle pyright checkminver
 
 trunk:
@@ -91,10 +99,10 @@ pyreanalyse:
 	poetry run pyre analyze --save-results-to pyreanalysis
 	
 pyrecheck:
-	poetry run pyre check
+	poetry run pyre --no-sequential --number-of-workers=3 --noninteractive --show-error-traces
 
 requirements.txt: poetry.lock
 	poetry export --without-hashes --with dev --output $@
 
 pytype:
-	poetry run pytype $(pyobjs)
+	poetry run pytype --keep-going --jobs 4 $(pyobjs)
