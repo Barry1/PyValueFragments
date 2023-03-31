@@ -81,17 +81,6 @@ color = true
 generate_badge = "."
 verbose = 2
 
-[tool.mypy]
-python_version = "3.10"
-warn_unused_configs = true
-enable_incomplete_feature = "Unpack"
-pretty = true
-show_error_codes = true
-show_error_context = true
-#strict = true
-install_types = true
-non_interactive = true
-
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
 #extend_skip = ["venv"]
@@ -229,10 +218,25 @@ addopts = [
 [tool.towncrier]
 
 #https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
+[tool.mypy]
+python_version = "3.10"
+warn_unused_configs = true
+enable_incomplete_feature = "Unpack"
+pretty = true
+show_error_codes = true
+show_error_context = true
+#strict = true
+install_types = true
+non_interactive = true
+
+[[tool.mypy.overrides]]
+module = 'cpu_load_generator'
+ignore_missing_imports = true
+implicit_reexport = true
+
 [[tool.mypy.overrides]]
 module = [
   "icecream",
-  "cpu_load_generator",
   "joblib.externals.loky",
   "joblib.externals.loky.process_executor",
 ]

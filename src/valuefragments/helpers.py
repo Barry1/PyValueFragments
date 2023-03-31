@@ -187,7 +187,7 @@ def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
 __all__.append("eprint")
 
 if __debug__ and find_spec("icecream"):
-    from icecream import ic
+    from icecream.icecream import ic
 else:
 
     def ic(  # pylint: disable=invalid-name
@@ -246,15 +246,17 @@ else:
 
 try:
     # noinspection PyUnresolvedReferences
-    # pyright: ignore[reportUnknownVariableType]
-    import cpu_load_generator
+    from cpu_load_generator import (  # type: ignore[attr-defined]
+        load_all_cores,
+        load_single_core,
+    )
 except ImportError:
     pass
 else:
 
     def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
         """Generate load on one given core."""
-        cpu_load_generator.load_single_core(
+        load_single_core(
             core_num=loadedcore,
             duration_s=loadduration,
             target_load=theload,
@@ -264,7 +266,7 @@ else:
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
+        load_all_cores(duration_s=loadduration, target_load=theload)
 
     __all__.append("loadallcores")
 
