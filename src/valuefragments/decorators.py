@@ -44,7 +44,7 @@ else:
             retval: ResultT = func(*args, **kwargs)
             after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
-                print(save, after - before)
+                print(save, float(after) - before)
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
@@ -125,7 +125,7 @@ class LazyProperty(property):
     # might also help. Further interesting is
     # <https://stackoverflow.com/questions/7151890#answer-7152065>
     def __init__(
-        self: Self,
+        self: LazyProperty,
         getterfunction: Callable[
             [InstanceObjectT],  # pyright: ignore[reportInvalidTypeVarUse]
             ResultT,  # pyright: ignore[reportInvalidTypeVarUse]

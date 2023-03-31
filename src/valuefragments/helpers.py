@@ -39,7 +39,7 @@ def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
-    def __str__(self: Self) -> str:
+    def __str__(self: Printable) -> str:
         """Just the stringification."""
         ...  # pylint: disable=unnecessary-ellipsis
 

@@ -18,7 +18,7 @@ class NoOutput(TextIO, ABC):
     stdout: TextIO
     stderr: TextIO
 
-    def __enter__(self: Self) -> Self:
+    def __enter__(self: NoOutput) -> NoOutput:
         """Enter/start context. Save and replace Streams."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
@@ -36,11 +36,11 @@ class NoOutput(TextIO, ABC):
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: Self, s: Any) -> int:  # pylint: disable=invalid-name,unused-argument
+    def write(self: NoOutput, s: Any) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
-    def flush(self: Self) -> None:
+    def flush(self: NoOutput) -> None:
         """Flush attribute: Needed but does nothing."""
 
 
@@ -66,7 +66,7 @@ class TimingCM:  # pyre-ignore[13]
         """Prepare (type) variables."""
         ic("Prepared to run with Timing -> __init__")
 
-    def __enter__(self: Self) -> Self:
+    def __enter__(self: TimingCM) -> TimingCM:
         """Save startup timing information."""
         # old solution used time: monotonic(), process_time(), thread_time()
         self.starttimes = os.times()
@@ -74,18 +74,17 @@ class TimingCM:  # pyre-ignore[13]
         return self
 
     def __exit__(
-        self: Self,
+        self: TimingCM,
         _exc_type: Optional[Type[BaseException]],
         _exc_value: Optional[BaseException],
         _exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
         # Check if any (loky) backend is still open and if, close
+
         try:
             # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import (
-                get_reusable_executor,  # pyright: ignore[reportUnknownVariableType]
-            )
+            from joblib.externals.loky import get_reusable_executor
             from joblib.externals.loky.process_executor import ProcessPoolExecutor
         except ModuleNotFoundError:
             pass
