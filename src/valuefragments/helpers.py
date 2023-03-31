@@ -23,7 +23,7 @@ from typing import (
     TypeVar,
 )
 
-from typing_extensions import Self, SupportsIndex, Unpack
+from typing_extensions import SupportsIndex, Unpack  # Self,
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
@@ -246,14 +246,15 @@ else:
 
 try:
     # noinspection PyUnresolvedReferences
-    import cpu_load_generator  # pyright: ignore[reportUnknownVariableType]
+    # pyright: ignore[reportUnknownVariableType]
+    import cpu_load_generator
 except ImportError:
     pass
 else:
 
     def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
         """Generate load on one given core."""
-        cpu_load_generator.load_single_core(  # pyright: ignore[reportUnknownMemberType]
+        cpu_load_generator.load_single_core(
             core_num=loadedcore,
             duration_s=loadduration,
             target_load=theload,
@@ -263,9 +264,7 @@ else:
 
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(
-            duration_s=loadduration, target_load=theload
-        )  # pyright: ignore[reportUnknownMemberType]
+        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
 
     __all__.append("loadallcores")
 

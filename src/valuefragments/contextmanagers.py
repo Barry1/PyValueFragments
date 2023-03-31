@@ -7,8 +7,7 @@ from abc import ABC
 from types import TracebackType
 from typing import Any, Optional, TextIO, Type
 
-from typing_extensions import Self
-
+# from typing_extensions import Self
 from .helpers import ic  # pylint: disable=relative-beyond-top-level]
 
 
@@ -84,8 +83,7 @@ class TimingCM:  # pyre-ignore[13]
 
         try:
             # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import get_reusable_executor
-            from joblib.externals.loky.process_executor import ProcessPoolExecutor
+            from joblib.externals.loky import ProcessPoolExecutor, get_reusable_executor
         except ModuleNotFoundError:
             pass
         else:

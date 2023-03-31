@@ -8,8 +8,7 @@ import time
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from typing import Callable, Literal, NamedTuple, TypeVar, cast
 
-from typing_extensions import Self
-
+# from typing_extensions import Self
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
