@@ -22,7 +22,7 @@ ResultT = TypeVar("ResultT")
 InstanceObjectT = TypeVar("InstanceObjectT")
 
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
-
+__all__: list[str] = []
 try:
     # noinspection PyUnresolvedReferences
     import resource
@@ -47,6 +47,8 @@ else:
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
+
+    __all__.append("timing_resource")
 
 
 try:
@@ -74,6 +76,8 @@ else:
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
+    __all__.append("timing_psutil")
+
 
 def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (thread)."""
@@ -93,6 +97,9 @@ def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
+__all__.append("timing_thread_time")
+
+
 def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (process)."""
     save: str = func.__name__
@@ -106,6 +113,9 @@ def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamTyp
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
+
+
+__all__.append("timing_process_time")
 
 
 class LazyProperty(property):
@@ -140,3 +150,27 @@ class LazyProperty(property):
             return cast(ResultT, getattr(instanceobj, attr_name))
 
         super().__init__(_lazy_getterfunction)
+
+
+__all__.append("LazyProperty")
+
+
+def memoize(func):
+    """decorater for caching calls
+    thanks to
+    <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
+    <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
+    """
+    cache = {}
+
+    def wrapper(*args):
+        if args in cache:
+            return cache[args]
+        result = func(*args)
+        cache[args] = result
+        return result
+
+    return wrapper
+
+
+__all__.append("memoize")
