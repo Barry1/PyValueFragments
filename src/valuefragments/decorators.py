@@ -163,11 +163,11 @@ def memoize(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """
     cache = {}
 
-    def wrapper(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
-        if (args, kwargs) in cache:
-            return cache[args, kwargs]
-        result = func(*args, **kwargs)
-        cache[args, kwargs] = result
+    def wrapper(*allargs: ParamType) -> ResultT:
+        if allargs in cache:
+            return cache[allargs]
+        result = func(*allargs)
+        cache[allargs] = result
         return result
 
     return wrapper
