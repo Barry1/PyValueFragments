@@ -155,7 +155,7 @@ class LazyProperty(property):
 __all__.append("LazyProperty")
 
 
-def memoize(func):
+def memoize(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """decorater for caching calls
     thanks to
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
@@ -163,11 +163,11 @@ def memoize(func):
     """
     cache = {}
 
-    def wrapper(*args):
-        if args in cache:
-            return cache[args]
-        result = func(*args)
-        cache[args] = result
+    def wrapper(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
+        if (args, kwargs) in cache:
+            return cache[args, kwargs]
+        result = func(*args, **kwargs)
+        cache[args, kwargs] = result
         return result
 
     return wrapper
