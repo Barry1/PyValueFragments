@@ -1,25 +1,12 @@
 {
-  "site_package_search_strategy": "none",
+  "site_package_search_strategy": "all",
   "source_directories": [
     {
       "import_root": "src",
       "source": "valuefragments"
     }
   ],
-  "site_roots": [
-    "./.venv/lib/python3.10/site-packages/"
-  ],
-  "search_path": [
-    {
-      "site-package": "icecream"
-    },
-    {
-      "site-package": "cpu_load_generator"
-    },
-    {
-      "site-package": "joblib"
-    }
-  ],
+  "ignore_all_errors": [".venv"],
   "taint_models_path": ".venv/lib/pyre_check",
   "strict": false
 }

@@ -16,13 +16,33 @@ if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
 else:
     from typing import ParamSpec  # pylint: disable=no-name-in-module
-
 ParamType = ParamSpec("ParamType")
 ResultT = TypeVar("ResultT")
 InstanceObjectT = TypeVar("InstanceObjectT")
-
-# Good info for timing measurement <https://stackoverflow.com/a/62115793>
 __all__: list[str] = []
+# Good info for timing measurement <https://stackoverflow.com/a/62115793>
+
+
+def timing_wall(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+    """Measure WALL-Clock monotonic."""
+    save: str = func.__name__
+
+    def wrapped(
+        *args: ParamType.args,
+        **kwargs: ParamType.kwargs,
+    ) -> ResultT:
+        """Run with timing."""
+        before: float | Literal[0] = time.monotonic()
+        retval: ResultT = func(*args, **kwargs)
+        after: float | Literal[0] = time.monotonic()
+        if before and after:
+            print(save, float(after) - before)
+        return retval
+
+    return wrapped  # cast(FunctionTypeVar, wrapped)
+
+
+__all__.append("timing_wall")
 try:
     # noinspection PyUnresolvedReferences
     import resource
@@ -161,13 +181,13 @@ def memoize(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
     <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
     """
-    cache = {}
+    cache: dict = {}
 
-    def wrapper(*allargs: ParamType) -> ResultT:
-        if allargs in cache:
-            return cache[allargs]
-        result = func(*allargs)
-        cache[allargs] = result
+    def wrapper(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
+        if args in cache:
+            return cache[args]
+        result = func(*args)
+        cache[args] = result
         return result
 
     return wrapper

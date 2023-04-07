@@ -23,7 +23,12 @@ from typing import (
     TypeVar,
 )
 
-from typing_extensions import SupportsIndex, Unpack  # Self,
+from typing_extensions import SupportsIndex  # Self,
+
+if sys.version_info < (3, 11):
+    from typing_extensions import Unpack
+else:
+    from typing import Unpack  # pylint: disable=no-name-in-module
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
@@ -179,15 +184,28 @@ if sys.version_info >= (3, 11):
     __all__.append("run_grouped_in_ppe")
 
 
-def eprint(*args: Printable, **_kwargs: Unpack[KwargsForPrint]) -> None:
+def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
     """Print to stderr and ignores kwargs."""
     print(*args, file=sys.stderr)
 
 
 __all__.append("eprint")
+if sys.version_info < (3, 10):
+    from typing_extensions import ParamSpec
+else:
+    from typing import ParamSpec  # pylint: disable=no-name-in-module
+
+TestParamType = ParamSpec("TestParamType")
+
+
+def ictest(
+    *args: TestParamType.args, **kwargs: TestParamType.kwargs
+) -> Unpack[TestParamType.args][0] | None:
+    ...
+
 
 if __debug__ and find_spec("icecream"):
-    from icecream.icecream import ic
+    from icecream import ic
 else:
 
     def ic(  # pylint: disable=invalid-name
