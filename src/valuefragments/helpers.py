@@ -195,6 +195,12 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 __all__.append("eprint")
 
 if __debug__ and find_spec("icecream"):
+
+    def ic(
+        a: FirstElementT | None = None, *b: Unpack[OtherElementsT]
+    ) -> None | FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]]:
+        ...
+
     from icecream import ic
 else:
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env pytest
+#!/usr/bin/env -S poetry run pytest
 """Test functions for helpers module."""
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
