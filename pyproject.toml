@@ -221,7 +221,7 @@ addopts = [
 [tool.mypy]
 python_version = "3.10"
 warn_unused_configs = true
-enable_incomplete_feature = "Unpack"
+enable_incomplete_feature = ["Unpack", "TypeVarTuple"]
 pretty = true
 show_error_codes = true
 show_error_context = true

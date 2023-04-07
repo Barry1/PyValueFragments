@@ -23,7 +23,7 @@ from typing import (
     TypeVar,
 )
 
-from typing_extensions import SupportsIndex  # Self,
+from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 
 if sys.version_info < (3, 11):
     from typing_extensions import Unpack
@@ -50,6 +50,9 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 
 
 FirstElementT = TypeVar("FirstElementT")
+OtherElementsT = TypeVarTuple("OtherElementsT")
+
+
 _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
 
@@ -190,31 +193,16 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 
 
 __all__.append("eprint")
-if sys.version_info < (3, 10):
-    from typing_extensions import ParamSpec
-else:
-    from typing import ParamSpec  # pylint: disable=no-name-in-module
-
-TestParamType = ParamSpec("TestParamType")
-
-
-def ictest(
-    *args: TestParamType.args, **kwargs: TestParamType.kwargs
-) -> Unpack[TestParamType.args][0] | None:
-    ...
-
 
 if __debug__ and find_spec("icecream"):
     from icecream import ic
 else:
 
-    def ic(  # pylint: disable=invalid-name
-        *a: FirstElementT,
-    ) -> FirstElementT | tuple[FirstElementT, ...] | None:
+    def ic(
+        a: FirstElementT | None = None, *b: Unpack[OtherElementsT]
+    ) -> None | FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]]:
         """Just in case icecream is not available: For logging purposes."""
-        if not a:
-            return None
-        return a[0] if len(a) == 1 else a
+        return (a, *b) if a and b else a
 
 
 __all__.append("ic")

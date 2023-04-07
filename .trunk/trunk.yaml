@@ -20,7 +20,7 @@ lint:
     - black@23.3.0
     - flake8@6.0.0
     - git-diff-check
-    - mypy@1.1.1
+    - mypy@1.2.0
 runtimes:
   enabled:
     - python@3.10.8
