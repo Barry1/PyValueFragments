@@ -191,6 +191,14 @@ include-naming-hint = "y"
 typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
+include = ["src/valuefragments"]
+exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+#ignore = ["src/oldstuff"]
+#defineConstant = { DEBUG = true }
+#stubPath = "src/stubs"
+#venv = "env367"
+pythonVersion = "3.10"
+pythonPlatform = "Linux"
 
 [tool.pylama]
 linters = [""] # means all
