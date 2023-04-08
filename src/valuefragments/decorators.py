@@ -6,7 +6,7 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, NamedTuple, Tuple, TypeVar, cast
+from typing import Callable, Literal, NamedTuple, TypeVar, cast
 
 from typing_extensions import TypeVarTuple, Unpack
 
@@ -180,14 +180,14 @@ ParameterTupleT = TypeVarTuple("ParameterTupleT")
 
 
 def memoize(
-    func: Callable[[Tuple[Unpack[ParameterTupleT]]], ResultT]
-) -> Callable[[Tuple[Unpack[ParameterTupleT]]], ResultT]:
+    func: Callable[[Unpack[ParameterTupleT]], ResultT]
+) -> Callable[[Unpack[ParameterTupleT]], ResultT]:
     """decorater for caching calls
     thanks to
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
     <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
     """
-    cache: dict[Tuple[Unpack[ParameterTupleT]], ResultT] = {}
+    cache: dict[tuple[Unpack[ParameterTupleT]], ResultT] = {}
 
     def wrapper(*args: Unpack[ParameterTupleT]) -> ResultT:
         if args in cache:
