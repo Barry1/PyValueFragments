@@ -199,10 +199,10 @@ if __debug__ and find_spec("icecream"):
 else:
 
     def ic(
-        a: FirstElementT | None = None, *b: Unpack[OtherElementsT]
+        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
     ) -> None | FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]]:
         """Just in case icecream is not available: For logging purposes."""
-        return (a, *b) if a and b else a
+        return (first, *rest) if first and rest else first
 
 
 __all__.append("ic")
