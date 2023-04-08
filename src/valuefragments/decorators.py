@@ -6,7 +6,9 @@ import time
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, NamedTuple, TypeVar, cast
+from typing import Any, Callable, Literal, NamedTuple, TypeVar, cast
+
+from typing_extensions import TypeVarTuple
 
 # from typing_extensions import Self
 from .helpers import ic  # pylint: disable=relative-beyond-top-level
@@ -174,6 +176,8 @@ class LazyProperty(property):
 
 __all__.append("LazyProperty")
 
+ParameterTupleT = TypeVarTuple("ParameterTupleT")
+
 
 def memoize(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """decorater for caching calls
@@ -181,7 +185,7 @@ def memoize(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
     <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
     """
-    cache: dict = {}
+    cache: dict[Any, ResultT] = {}
 
     def wrapper(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
         if args in cache:
