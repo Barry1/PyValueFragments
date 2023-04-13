@@ -59,8 +59,8 @@ else:
 
     def timing_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
-        save: str = func.__name__
 
+        @wraps(func)
         def wrapped(
             *args: ParamSpecArgs,
             **kwargs: ParamSpecKwargs,
@@ -70,7 +70,7 @@ else:
             retval: ResultT = func(*args, **kwargs)
             after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
-                print(save, float(after) - before)
+                print(func.__name__, float(after) - before)
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
@@ -87,8 +87,8 @@ else:
 
     def timing_psutil(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measures execution times by psutil."""
-        save: str = func.__name__
 
+        @wraps(func)
         def wrapped(
             *args: ParamSpecArgs,
             **kwargs: ParamSpecKwargs,
@@ -98,7 +98,7 @@ else:
             retval: ResultT = func(*args, **kwargs)
             after: NamedTuple = psutil.Process().cpu_times()
             delta: list[float] = [end - start for start, end in zip(before, after)]
-            print(save, delta, sum(delta))
+            print(func.__name__, delta, sum(delta))
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
@@ -108,8 +108,8 @@ else:
 
 def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (thread)."""
-    save: str = func.__name__
 
+    @wraps(func)
     def wrapped(
         *args: ParamSpecArgs,
         **kwargs: ParamSpecKwargs,
@@ -118,7 +118,7 @@ def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType
         before: float = time.thread_time()
         retval: ResultT = func(*args, **kwargs)
         after: float = time.thread_time()
-        print(save, after - before)
+        print(func.__name__, after - before)
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
@@ -129,14 +129,14 @@ __all__.append("timing_thread_time")
 
 def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measures execution times by time (process)."""
-    save: str = func.__name__
 
+    @wraps(func)
     def wrapped(*args: ParamSpecArgs, **kwargs: ParamSpecKwargs) -> ResultT:
         """Run with timing."""
         before: float = time.process_time()
         retval: ResultT = func(*args, **kwargs)
         after: float = time.process_time()
-        print(save, after - before)
+        print(func.__name__, after - before)
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
