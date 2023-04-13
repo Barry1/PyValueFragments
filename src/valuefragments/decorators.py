@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import sys
 import time
+from functools import wraps
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
@@ -15,9 +16,13 @@ from .helpers import ic  # pylint: disable=relative-beyond-top-level
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
-    from typing_extensions import ParamSpec
+    from typing_extensions import ParamSpec, ParamSpecArgs, ParamSpecKwargs
 else:
-    from typing import ParamSpec  # pylint: disable=no-name-in-module
+    from typing import (  # pylint: disable=no-name-in-module
+        ParamSpec,
+        ParamSpecArgs,
+        ParamSpecKwargs,
+    )
 ParamType = ParamSpec("ParamType")
 ResultT = TypeVar("ResultT")
 InstanceObjectT = TypeVar("InstanceObjectT")
@@ -27,18 +32,18 @@ __all__: list[str] = []
 
 def timing_wall(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
     """Measure WALL-Clock monotonic."""
-    save: str = func.__name__
 
+    @wraps(func)
     def wrapped(
-        *args: ParamType.args,
-        **kwargs: ParamType.kwargs,
+        *args: ParamSpecArgs,
+        **kwargs: ParamSpecKwargs,
     ) -> ResultT:
         """Run with timing."""
         before: float | Literal[0] = time.monotonic()
         retval: ResultT = func(*args, **kwargs)
         after: float | Literal[0] = time.monotonic()
         if before and after:
-            print(save, float(after) - before)
+            print(func.__name__, float(after) - before)
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
@@ -57,8 +62,8 @@ else:
         save: str = func.__name__
 
         def wrapped(
-            *args: ParamType.args,
-            **kwargs: ParamType.kwargs,
+            *args: ParamSpecArgs,
+            **kwargs: ParamSpecKwargs,
         ) -> ResultT:
             """Run with timing."""
             before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
@@ -85,8 +90,8 @@ else:
         save: str = func.__name__
 
         def wrapped(
-            *args: ParamType.args,
-            **kwargs: ParamType.kwargs,
+            *args: ParamSpecArgs,
+            **kwargs: ParamSpecKwargs,
         ) -> ResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
@@ -106,8 +111,8 @@ def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType
     save: str = func.__name__
 
     def wrapped(
-        *args: ParamType.args,
-        **kwargs: ParamType.kwargs,
+        *args: ParamSpecArgs,
+        **kwargs: ParamSpecKwargs,
     ) -> ResultT:
         """Run with timing."""
         before: float = time.thread_time()
@@ -126,7 +131,7 @@ def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamTyp
     """Measures execution times by time (process)."""
     save: str = func.__name__
 
-    def wrapped(*args: ParamType.args, **kwargs: ParamType.kwargs) -> ResultT:
+    def wrapped(*args: ParamSpecArgs, **kwargs: ParamSpecKwargs) -> ResultT:
         """Run with timing."""
         before: float = time.process_time()
         retval: ResultT = func(*args, **kwargs)
@@ -189,6 +194,7 @@ def memoize(
     """
     cache: dict[tuple[Unpack[ParameterTupleT]], ResultT] = {}
 
+    @wraps(func)
     def wrapper(*args: Unpack[ParameterTupleT]) -> ResultT:
         if args in cache:
             return cache[args]

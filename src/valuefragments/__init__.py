@@ -13,7 +13,7 @@ __all__: list[str] = [
     "timing_process_time",
     "memoize" "recurse_files_in_folder",
     "basic_auth",
-    "def to_inner_task",
+    "to_inner_task",
     "run_grouped_in_tpe",
     "run_grouped_in_ppe",
     "eprint",

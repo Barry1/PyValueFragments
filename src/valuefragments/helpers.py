@@ -200,7 +200,7 @@ else:
 
     def ic(
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> None | FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]]:
+    ) -> FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]] | None:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
 
@@ -242,7 +242,7 @@ else:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             # nosec  # Compliant
-            file_hash: hashlib._Hash = hashlib.md5()  # pyright: ignore[reportPrivateUsage]
+            file_hash: hashlib._hashlib.HASH = hashlib.md5()
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
         # deepcode ignore InsecureHash: for file identification
