@@ -50,6 +50,61 @@ def timing_wall(func: Callable[ParamType, ResultT]) -> Callable[ParamType, Resul
 
 
 __all__.append("timing_wall")
+
+try:
+    # noinspection PyUnresolvedReferences
+    import os
+except ImportError:
+    ic("os is not available")
+else:
+
+    def linuxtime(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+        """Measure like unix/linux time command."""
+
+        @wraps(func)
+        def wrapped(
+            *args: ParamSpecArgs,
+            **kwargs: ParamSpecKwargs,
+        ) -> ResultT:
+            """Run with timing."""
+            before: os.times_result = os.times()
+            retval: ResultT = func(*args, **kwargs)
+            after: os.times_result = os.times()
+            if before and after:
+                print("time function\t", func.__name__)
+                WALLtime: float = after.elapsed - before.elapsed
+                USERtime: float = (
+                    after.user - before.user + after.children_user - before.children_user
+                )
+                SYStime: float = (
+                    after.system - before.system + after.children_system - before.children_system
+                )
+                print(
+                    "user: ",
+                    after.user - before.user,
+                    "+",
+                    after.children_user - before.children_user,
+                    "=",
+                    USERtime,
+                    "[s]",
+                )
+                print(
+                    "system",
+                    after.system - before.system,
+                    "+",
+                    after.children_system - before.children_system,
+                    "=",
+                    SYStime,
+                    "[s]",
+                )
+                print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+            return retval
+
+        return wrapped
+
+    __all__.append("linuxtime")
+
+
 try:
     # noinspection PyUnresolvedReferences
     import resource
@@ -57,7 +112,7 @@ except ImportError:
     ic("resource is not available")
 else:
 
-    def linuxtime(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+    def linuxtime_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measure like unix/linux time command."""
 
         @wraps(func)
@@ -111,7 +166,7 @@ else:
 
         return wrapped
 
-    __all__.append("linuxtime")
+    __all__.append("linuxtime_resource")
 
     def timing_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
