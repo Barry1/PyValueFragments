@@ -10,6 +10,7 @@ import math
 import os
 import string
 import sys
+import warnings
 from base64 import b64encode
 from importlib.util import find_spec
 from typing import (
@@ -140,15 +141,56 @@ async def to_inner_task(
 
 if sys.version_info >= (3, 11):
 
+    async def run_grouped(
+        the_functioncalls: list[Callable[[None], _FunCallResultT]],
+        how: Literal["tpe", "ppe", "thread"] = "thread",
+    ) -> list[_FunCallResultT]:
+        """Execute funcalls async by given method."""
+        if how == "thread":
+            async with asyncio.TaskGroup() as the_task_group:
+                all_tasks = [
+                    the_task_group.create_task(asyncio.to_thread(funcall))
+                    for funcall in the_functioncalls
+                ]
+            return [ready_task.result() for ready_task in all_tasks]
+        if how == "ppe":
+            with concurrent.futures.ProcessPoolExecutor() as executor:
+                async with asyncio.TaskGroup() as the_task_group:
+                    all_tasks = [
+                        the_task_group.create_task(to_inner_task(funcall, executor))
+                        for funcall in the_functioncalls
+                    ]
+            return [ready_task.result() for ready_task in all_tasks]
+        if how == "tpe":
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                async with asyncio.TaskGroup() as the_task_group:
+                    all_tasks = [
+                        the_task_group.create_task(to_inner_task(funcall, executor))
+                        for funcall in the_functioncalls
+                    ]
+            return [ready_task.result() for ready_task in all_tasks]
+        print("how was '", how, "' but needs to be one of {'thread','tpe','ppe'}.")
+        raise NotImplementedError(
+            "how was '", how, "' but needs to be one of {'thread','tpe','ppe'}."
+        )
+
+    __all__.append("run_grouped")
+
+    ######################################
     async def run_calls_in_executor(
         the_functioncalls: list[Callable[[None], _FunCallResultT]], the_executor
     ) -> list[asyncio.Task[_FunCallResultT]]:
         """place functioncalls in given executor"""
+        warnings.warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning
+        )
         async with asyncio.TaskGroup() as the_task_group:
             return [
                 the_task_group.create_task(to_inner_task(funcall, the_executor))
                 for funcall in the_functioncalls
             ]
+
+    __all__.append("run_calls_in_executor")
 
     async def run_grouped_in_tpe(
         the_functioncalls: list[Callable[[None], _FunCallResultT]]
@@ -159,6 +201,9 @@ if sys.version_info >= (3, 11):
         as for now the functions needs to be without parameters, prepare your calls
         with functools.partial
         """
+        warnings.warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning
+        )
         with concurrent.futures.ThreadPoolExecutor() as pool_executor:
             return [
                 ready_task.result()
@@ -176,6 +221,9 @@ if sys.version_info >= (3, 11):
         as for now the functions needs to be without parameters, prepare your calls
         with functools.partial
         """
+        warnings.warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning
+        )
         with concurrent.futures.ProcessPoolExecutor() as pool_executor:
             return [
                 ready_task.result()
