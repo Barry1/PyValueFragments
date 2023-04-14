@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 from abc import ABC
 from types import TracebackType
 from typing import Any, Optional, TextIO, Type
@@ -41,6 +42,109 @@ class NoOutput(TextIO, ABC):
 
     def flush(self: NoOutput) -> None:
         """Flush attribute: Needed but does nothing."""
+
+
+try:
+    import resource
+except ImportError:
+    ic("resource is not available")
+else:
+
+    class LinuxTimeCM:
+        """
+        Use this as a context manager for getting timing details like with linux time.
+
+        at the moment it is needed to be instantiated with parenthesis as in
+        with LinuxTimeCM():
+        hopefully I can remove that for further simplification
+        """
+
+        before: float | Literal[0]
+        childbefore: resource.struct_rusage
+        selfbefore: resource.struct_rusage
+        selfafter: resource.struct_rusage
+        childafter: resource.struct_rusage
+        after: float | Literal[0]
+
+        def __init__(self) -> None:  # : TimingCM
+            """Prepare (type) variables."""
+            ic("Prepared to run with LinuxTime -> __init__")
+
+        def __enter__(self: LinuxTimeCM) -> LinuxTimeCM:
+            """Save startup timing information."""
+            self.before = time.monotonic()
+            self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)
+            self.selfbefore = resource.getrusage(resource.RUSAGE_SELF)
+            ic("Prepared to run with LinuxTime -> __enter__")
+            return self
+
+        def __exit__(
+            self: LinuxTimeCM,
+            _exc_type: Optional[Type[BaseException]],
+            _exc_value: Optional[BaseException],
+            _exc_traceback: Optional[TracebackType],
+        ) -> Optional[bool]:
+            """Retrieve end timing information and print."""
+            # Check if any (loky) backend is still open and if, close
+
+            try:
+                # pylint: disable=import-outside-toplevel
+                from joblib.externals.loky import get_reusable_executor
+            except ModuleNotFoundError:
+                pass
+            else:
+                get_reusable_executor().shutdown()
+            self.selfafter = resource.getrusage(resource.RUSAGE_SELF)
+            self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
+            self.after = time.monotonic()
+            if (
+                self.childbefore
+                and self.selfbefore
+                and self.selfafter
+                and self.childafter
+                and self.before
+                and self.after
+            ):
+                WALLtime: float = self.after - self.before
+                USERtime: float = (
+                    self.selfafter.ru_utime
+                    - self.selfbefore.ru_utime
+                    + self.childafter.ru_utime
+                    - self.childbefore.ru_utime
+                )
+                SYStime: float = (
+                    self.selfafter.ru_stime
+                    - self.selfbefore.ru_stime
+                    + self.childafter.ru_stime
+                    - self.childbefore.ru_stime
+                )
+                print(
+                    "user: ",
+                    self.selfafter.ru_utime - self.selfbefore.ru_utime,
+                    "+",
+                    self.childafter.ru_utime - self.childbefore.ru_utime,
+                    "=",
+                    USERtime,
+                    "[s]",
+                )
+                print(
+                    "system",
+                    self.selfafter.ru_stime - self.selfbefore.ru_stime,
+                    "+",
+                    self.childafter.ru_stime - self.childbefore.ru_stime,
+                    "=",
+                    SYStime,
+                    "[s]",
+                )
+                print(
+                    "real: ",
+                    WALLtime,
+                    "[s] beeing",
+                    100 * (USERtime + SYStime) / WALLtime,
+                    "% load",
+                )
+            ic("Ended to run with Timing -> __exit__")
+            return True
 
 
 class TimingCM:  # pyre-ignore[13]
