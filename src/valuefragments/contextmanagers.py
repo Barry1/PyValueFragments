@@ -44,86 +44,80 @@ class NoOutput(TextIO, ABC):
         """Flush attribute: Needed but does nothing."""
 
 
-try:
-    import os
-except ImportError:
-    ic("os is not available")
-else:
+class LinuxTimeCM:
+    """
+    Use this as a context manager for getting timing details like with linux time.
 
-    class LinuxTimeCM:
-        """
-        Use this as a context manager for getting timing details like with linux time.
+    at the moment it is needed to be instantiated with parenthesis as in
+    with LinuxTimeCM():
+    hopefully I can remove that for further simplification
+    """
 
-        at the moment it is needed to be instantiated with parenthesis as in
-        with LinuxTimeCM():
-        hopefully I can remove that for further simplification
-        """
+    before: os.times_result
+    after: os.times_result
 
-        before: os.times_result
-        after: os.times_result
+    def __init__(self) -> None:  # : TimingCM
+        """Prepare (type) variables."""
+        ic("Prepared to run with LinuxTime -> __init__")
 
-        def __init__(self) -> None:  # : TimingCM
-            """Prepare (type) variables."""
-            ic("Prepared to run with LinuxTime -> __init__")
+    def __enter__(self: LinuxTimeCM) -> LinuxTimeCM:
+        """Save startup timing information."""
+        self.before = os.times()
+        ic("Prepared to run with LinuxTime -> __enter__")
+        return self
 
-        def __enter__(self: LinuxTimeCM) -> LinuxTimeCM:
-            """Save startup timing information."""
-            self.before = os.times()
-            ic("Prepared to run with LinuxTime -> __enter__")
-            return self
+    def __exit__(
+        self: LinuxTimeCM,
+        _exc_type: Optional[Type[BaseException]],
+        _exc_value: Optional[BaseException],
+        _exc_traceback: Optional[TracebackType],
+    ) -> Optional[bool]:
+        """Retrieve end timing information and print."""
+        # Check if any (loky) backend is still open and if, close
 
-        def __exit__(
-            self: LinuxTimeCM,
-            _exc_type: Optional[Type[BaseException]],
-            _exc_value: Optional[BaseException],
-            _exc_traceback: Optional[TracebackType],
-        ) -> Optional[bool]:
-            """Retrieve end timing information and print."""
-            # Check if any (loky) backend is still open and if, close
-
-            try:
-                # pylint: disable=import-outside-toplevel
-                from joblib.externals.loky import get_reusable_executor
-            except ModuleNotFoundError:
-                pass
-            else:
-                get_reusable_executor().shutdown()
-            self.after = os.times()
-            if self.before and self.after:
-                WALLtime: float = self.after.elapsed - self.before.elapsed
-                USERtime: float = (
-                    self.after.user
-                    - self.before.user
-                    + self.after.children_user
-                    - self.before.children_user
-                )
-                SYStime: float = (
-                    self.after.system
-                    - self.before.system
-                    + self.after.children_system
-                    - self.before.children_system
-                )
-                print(
-                    "user: ",
-                    self.after.user - self.before.user,
-                    "+",
-                    self.after.children_user - self.before.children_user,
-                    "=",
-                    USERtime,
-                    "[s]",
-                )
-                print(
-                    "system",
-                    self.after.system - self.before.system,
-                    "+",
-                    self.after.children_system - self.before.children_system,
-                    "=",
-                    SYStime,
-                    "[s]",
-                )
-                print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
-            ic("Ended to run with Timing -> __exit__")
-            return True
+        try:
+            # pylint: disable=import-outside-toplevel
+            from joblib.externals.loky import get_reusable_executor
+        except ModuleNotFoundError:
+            pass
+        else:
+            get_reusable_executor().shutdown()
+        self.after = os.times()
+        if self.before and self.after:
+            WALLtime: float = self.after.elapsed - self.before.elapsed
+            USERtime: float = (
+                self.after.user
+                - self.before.user
+                + self.after.children_user
+                - self.before.children_user
+            )
+            SYStime: float = (
+                self.after.system
+                - self.before.system
+                + self.after.children_system
+                - self.before.children_system
+            )
+            print(
+                "user: ",
+                self.after.user - self.before.user,
+                "+",
+                self.after.children_user - self.before.children_user,
+                "=",
+                USERtime,
+                "[s]",
+            )
+            print(
+                "system",
+                self.after.system - self.before.system,
+                "+",
+                self.after.children_system - self.before.children_system,
+                "=",
+                SYStime,
+                "[s]",
+            )
+            print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+        ic("Ended to run with Timing -> __exit__")
+        return True
 
 
 try:
