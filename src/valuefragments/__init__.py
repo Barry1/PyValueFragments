@@ -21,6 +21,7 @@ __all__: list[str] = [
     "ic",
     "backgroundme",
     "hashfile",
+    "linuxtime",
     "loadonecore",
     "loadallcores",
     "stringtovalidfilename",
