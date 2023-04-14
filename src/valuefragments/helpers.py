@@ -140,6 +140,16 @@ async def to_inner_task(
 
 if sys.version_info >= (3, 11):
 
+    async def run_calls_in_executor(
+        the_functioncalls: list[Callable[[None], _FunCallResultT]], the_executor
+    ) -> list[asyncio.Task[_FunCallResultT]]:
+        """place functioncalls in given executor"""
+        async with asyncio.TaskGroup() as the_task_group:
+            return [
+                the_task_group.create_task(to_inner_task(funcall, the_executor))
+                for funcall in the_functioncalls
+            ]
+
     async def run_grouped_in_tpe(
         the_functioncalls: list[Callable[[None], _FunCallResultT]]
     ) -> list[_FunCallResultT]:
@@ -150,16 +160,10 @@ if sys.version_info >= (3, 11):
         with functools.partial
         """
         with concurrent.futures.ThreadPoolExecutor() as pool_executor:
-            # pylint: disable-next=no-member
-            async with asyncio.TaskGroup() as the_task_group:
-                the_tasks: list[asyncio.Task[_FunCallResultT]] = [
-                    the_task_group.create_task(
-                        to_inner_task(funcall, pool_executor)
-                        #                    asyncio.to_thread(funcall)
-                    )
-                    for funcall in the_functioncalls
-                ]
-        return [ready_task.result() for ready_task in the_tasks]
+            return [
+                ready_task.result()
+                for ready_task in run_calls_in_executor(the_functioncalls, pool_executor)
+            ]
 
     __all__.append("run_grouped_in_tpe")
 
@@ -173,16 +177,10 @@ if sys.version_info >= (3, 11):
         with functools.partial
         """
         with concurrent.futures.ProcessPoolExecutor() as pool_executor:
-            # pylint: disable-next=no-member
-            async with asyncio.TaskGroup() as the_task_group:
-                the_tasks: list[asyncio.Task[_FunCallResultT]] = [
-                    the_task_group.create_task(
-                        to_inner_task(funcall, pool_executor)
-                        #                    asyncio.to_thread(funcall)
-                    )
-                    for funcall in the_functioncalls
-                ]
-        return [ready_task.result() for ready_task in the_tasks]
+            return [
+                ready_task.result()
+                for ready_task in run_calls_in_executor(the_functioncalls, pool_executor)
+            ]
 
     __all__.append("run_grouped_in_ppe")
 
