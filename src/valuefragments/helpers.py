@@ -162,7 +162,7 @@ if sys.version_info >= (3, 11):
         with concurrent.futures.ThreadPoolExecutor() as pool_executor:
             return [
                 ready_task.result()
-                for ready_task in run_calls_in_executor(the_functioncalls, pool_executor)
+                for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
             ]
 
     __all__.append("run_grouped_in_tpe")
