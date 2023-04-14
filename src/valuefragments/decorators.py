@@ -57,6 +57,62 @@ except ImportError:
     ic("resource is not available")
 else:
 
+    def linuxtime(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+        """Measure like unix/linux time command."""
+
+        @wraps(func)
+        def wrapped(
+            *args: ParamSpecArgs,
+            **kwargs: ParamSpecKwargs,
+        ) -> ResultT:
+            """Run with timing."""
+            before: float | Literal[0] = time.monotonic()
+            childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
+            selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
+            retval: ResultT = func(*args, **kwargs)
+            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
+            childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
+            after: float | Literal[0] = time.monotonic()
+            if childbefore and selfbefore and selfafter and childafter and before and after:
+                print("time function\t", func.__name__)
+                WALLtime: float = after - before
+                USERtime: float = (
+                    selfafter.ru_utime
+                    - selfbefore.ru_utime
+                    + childafter.ru_utime
+                    - childbefore.ru_utime
+                )
+                SYStime: float = (
+                    selfafter.ru_stime
+                    - selfbefore.ru_stime
+                    + childafter.ru_stime
+                    - childbefore.ru_stime
+                )
+                print(
+                    "user: ",
+                    selfafter.ru_utime - selfbefore.ru_utime,
+                    "+",
+                    childafter.ru_utime - childbefore.ru_utime,
+                    "=",
+                    USERtime,
+                    "[s]",
+                )
+                print(
+                    "system",
+                    selfafter.ru_stime - selfbefore.ru_stime,
+                    "+",
+                    childafter.ru_stime - childbefore.ru_stime,
+                    "=",
+                    SYStime,
+                    "[s]",
+                )
+                print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+            return retval
+
+        return wrapped
+
+    __all__.append("linuxtime")
+
     def timing_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
         """Measure execution times by resource."""
 
