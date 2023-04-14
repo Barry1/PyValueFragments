@@ -135,12 +135,12 @@ else:
         hopefully I can remove that for further simplification
         """
 
-        self.before: float | Literal[0]
+        before: float | Literal[0]
         childbefore: resource.struct_rusage
         selfbefore: resource.struct_rusage
         selfafter: resource.struct_rusage
         childafter: resource.struct_rusage
-        self.after: float | Literal[0]
+        after: float | Literal[0]
 
         def __init__(self) -> None:  # : TimingCM
             """Prepare (type) variables."""
