@@ -89,7 +89,9 @@ def linuxtime(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT
                 SYStime,
                 "[s]",
             )
-            print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+            print(
+                "real: ", WALLtime, "[s] beeing", 100 * (USERtime + SYStime) / WALLtime, "% load"
+            )
         return retval
 
     return wrapped

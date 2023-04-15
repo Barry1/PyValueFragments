@@ -6,7 +6,7 @@ import sys
 import time
 from abc import ABC
 from types import TracebackType
-from typing import Any, Optional, TextIO, Type
+from typing import Any, Literal, Optional, TextIO, Type
 
 # from typing_extensions import Self
 from .helpers import ic  # pylint: disable=relative-beyond-top-level]
@@ -84,14 +84,14 @@ class LinuxTimeCM:
             get_reusable_executor().shutdown()
         self.after = os.times()
         if self.before and self.after:
-            WALLtime: float = self.after.elapsed - self.before.elapsed
-            USERtime: float = (
+            wall_time: float = self.after.elapsed - self.before.elapsed
+            user_time: float = (
                 self.after.user
                 - self.before.user
                 + self.after.children_user
                 - self.before.children_user
             )
-            SYStime: float = (
+            sys_time: float = (
                 self.after.system
                 - self.before.system
                 + self.after.children_system
@@ -103,7 +103,7 @@ class LinuxTimeCM:
                 "+",
                 self.after.children_user - self.before.children_user,
                 "=",
-                USERtime,
+                user_time,
                 "[s]",
             )
             print(
@@ -112,10 +112,16 @@ class LinuxTimeCM:
                 "+",
                 self.after.children_system - self.before.children_system,
                 "=",
-                SYStime,
+                sys_time,
                 "[s]",
             )
-            print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+            print(
+                "real: ",
+                wall_time,
+                "[s] beeing",
+                100 * (user_time + sys_time) / wall_time,
+                "% load",
+            )
         ic("Ended to run with Timing -> __exit__")
         return True
 
@@ -181,14 +187,14 @@ else:
                 and self.before
                 and self.after
             ):
-                WALLtime: float = self.after - self.before
-                USERtime: float = (
+                wall_time: float = self.after - self.before
+                user_time: float = (
                     self.selfafter.ru_utime
                     - self.selfbefore.ru_utime
                     + self.childafter.ru_utime
                     - self.childbefore.ru_utime
                 )
-                SYStime: float = (
+                sys_time: float = (
                     self.selfafter.ru_stime
                     - self.selfbefore.ru_stime
                     + self.childafter.ru_stime
@@ -200,7 +206,7 @@ else:
                     "+",
                     self.childafter.ru_utime - self.childbefore.ru_utime,
                     "=",
-                    USERtime,
+                    user_time,
                     "[s]",
                 )
                 print(
@@ -209,14 +215,14 @@ else:
                     "+",
                     self.childafter.ru_stime - self.childbefore.ru_stime,
                     "=",
-                    SYStime,
+                    sys_time,
                     "[s]",
                 )
                 print(
                     "real: ",
-                    WALLtime,
+                    wall_time,
                     "[s] beeing",
-                    100 * (USERtime + SYStime) / WALLtime,
+                    100 * (user_time + sys_time) / wall_time,
                     "% load",
                 )
             ic("Ended to run with Timing -> __exit__")
