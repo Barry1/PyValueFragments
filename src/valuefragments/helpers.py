@@ -8,6 +8,7 @@ import asyncio
 import concurrent.futures
 import math
 import os
+import random
 import string
 import sys
 import warnings
@@ -35,13 +36,6 @@ if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
 
 
-def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
-    """Recursivly return paths for all files in basepath."""
-    for root, _dirs, files in os.walk(thebasepath, topdown=False):
-        for filename in files:
-            yield os.path.join(root, filename)
-
-
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
@@ -56,6 +50,33 @@ OtherElementsT = TypeVarTuple("OtherElementsT")
 
 _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
+
+
+def pi_for_cpu_load(numiter: int = 10**7) -> float:
+    """Calculate pi by simulation just for CPU-load."""
+    #    random.seed("4478")
+    n: int = 0
+    n_in: int = 0
+    for _ in range(numiter):
+        x: float = random.uniform(0, 1)
+        y: float = random.uniform(0, 1)
+        n += 1
+        if x**2 + y**2 < 1:
+            n_in += 1
+    return 4 * n_in / n
+
+
+__all__.append("pi_for_cpu_load")
+
+
+def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
+    """Recursivly return paths for all files in basepath."""
+    for root, _dirs, files in os.walk(thebasepath, topdown=False):
+        for filename in files:
+            yield os.path.join(root, filename)
+
+
+__all__.append("recurse_files_in_folder")
 
 
 def basic_auth(
