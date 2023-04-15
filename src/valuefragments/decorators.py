@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import sys
 import time
 from functools import wraps
@@ -65,7 +66,11 @@ def logdecorate(
     @wraps(func)
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
         thelogger.info("LogDecorated Start")
+        begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
+        endtimings: os.times_result = os.times()
+        count: int = len(begintimings)
+        thelogger.info("%f " * count % tuple(b - a for (a, b) in zip(begintimings, endtimings)))
         thelogger.info("LogDecorated End")
         return res
 
@@ -78,8 +83,8 @@ __all__.append("logdecorate")
 
 
 def timing_wall(
-    func: Callable[_FunParamType, _FunCallResultT]
-) -> Callable[_FunParamType, _FunCallResultT]:
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
     """Measure WALL-Clock monotonic."""
 
     @wraps(func)
@@ -102,8 +107,8 @@ __all__.append("timing_wall")
 
 
 def linuxtime(
-    func: Callable[_FunParamType, _FunCallResultT]
-) -> Callable[_FunParamType, _FunCallResultT]:
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
     """Measure like unix/linux time command."""
 
     @wraps(func)
@@ -117,9 +122,11 @@ def linuxtime(
         after: os.times_result = os.times()
         if before and after:
             print("time function\t", func.__name__)
-            WALLtime: float = after.elapsed - before.elapsed
-            USERtime: float = after.user - before.user + after.children_user - before.children_user
-            SYStime: float = (
+            wall_time: float = after.elapsed - before.elapsed
+            user_time: float = (
+                after.user - before.user + after.children_user - before.children_user
+            )
+            sys_time: float = (
                 after.system - before.system + after.children_system - before.children_system
             )
             print(
@@ -128,7 +135,7 @@ def linuxtime(
                 "+",
                 after.children_user - before.children_user,
                 "=",
-                USERtime,
+                user_time,
                 "[s]",
             )
             print(
@@ -137,12 +144,10 @@ def linuxtime(
                 "+",
                 after.children_system - before.children_system,
                 "=",
-                SYStime,
+                sys_time,
                 "[s]",
             )
-            print(
-                "real: ", WALLtime, "[s] beeing", 100 * (USERtime + SYStime) / WALLtime, "% load"
-            )
+            print(f"real: {wall_time:.3} [s]\t {(user_time + sys_time) / wall_time} % load")
         return retval
 
     return wrapped
@@ -159,8 +164,8 @@ except ImportError:
 else:
 
     def linuxtime_resource(
-        func: Callable[_FunParamType, _FunCallResultT]
-    ) -> Callable[_FunParamType, _FunCallResultT]:
+        func: Callable[_FunParamT, _FunCallResultT]
+    ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measure like unix/linux time command."""
 
         @wraps(func)
@@ -178,14 +183,14 @@ else:
             after: float | Literal[0] = time.monotonic()
             if childbefore and selfbefore and selfafter and childafter and before and after:
                 print("time function\t", func.__name__)
-                WALLtime: float = after - before
-                USERtime: float = (
+                wall_time: float = after - before
+                user_time: float = (
                     selfafter.ru_utime
                     - selfbefore.ru_utime
                     + childafter.ru_utime
                     - childbefore.ru_utime
                 )
-                SYStime: float = (
+                sys_time: float = (
                     selfafter.ru_stime
                     - selfbefore.ru_stime
                     + childafter.ru_stime
@@ -197,7 +202,7 @@ else:
                     "+",
                     childafter.ru_utime - childbefore.ru_utime,
                     "=",
-                    USERtime,
+                    user_time,
                     "[s]",
                 )
                 print(
@@ -206,10 +211,10 @@ else:
                     "+",
                     childafter.ru_stime - childbefore.ru_stime,
                     "=",
-                    SYStime,
+                    sys_time,
                     "[s]",
                 )
-                print("real: ", WALLtime, "[s] beeing", (USERtime + SYStime) / WALLtime, "% load")
+                print(f"real: {wall_time:.3} [s]\t {(user_time + sys_time) / wall_time} % load")
             return retval
 
         return wrapped
@@ -217,8 +222,8 @@ else:
     __all__.append("linuxtime_resource")
 
     def timing_resource(
-        func: Callable[_FunParamType, _FunCallResultT]
-    ) -> Callable[_FunParamType, _FunCallResultT]:
+        func: Callable[_FunParamT, _FunCallResultT]
+    ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measure execution times by resource."""
 
         @wraps(func)
@@ -247,8 +252,8 @@ except ImportError:
 else:
 
     def timing_psutil(
-        func: Callable[_FunParamType, _FunCallResultT]
-    ) -> Callable[_FunParamType, _FunCallResultT]:
+        func: Callable[_FunParamT, _FunCallResultT]
+    ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measures execution times by psutil."""
 
         @wraps(func)
@@ -270,8 +275,8 @@ else:
 
 
 def timing_thread_time(
-    func: Callable[_FunParamType, _FunCallResultT]
-) -> Callable[_FunParamType, _FunCallResultT]:
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
     """Measures execution times by time (thread)."""
 
     @wraps(func)
@@ -293,8 +298,8 @@ __all__.append("timing_thread_time")
 
 
 def timing_process_time(
-    func: Callable[_FunParamType, _FunCallResultT]
-) -> Callable[_FunParamType, _FunCallResultT]:
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
     """Measures execution times by time (process)."""
 
     @wraps(func)

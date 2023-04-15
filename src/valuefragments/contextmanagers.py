@@ -132,7 +132,7 @@ except ImportError:
     ic("resource is not available")
 else:
 
-    class LinuxTimeCM_resource:
+    class LinuxTimeResourceCM:
         """
         Use this as a context manager for getting timing details like with linux time.
 
@@ -152,7 +152,7 @@ else:
             """Prepare (type) variables."""
             ic("Prepared to run with LinuxTime -> __init__")
 
-        def __enter__(self: LinuxTimeCM_resource) -> LinuxTimeCM_resource:
+        def __enter__(self: LinuxTimeResourceCM) -> LinuxTimeResourceCM:
             """Save startup timing information."""
             self.before = time.monotonic()
             self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)
@@ -161,7 +161,7 @@ else:
             return self
 
         def __exit__(
-            self: LinuxTimeCM_resource,
+            self: LinuxTimeResourceCM,
             _exc_type: Optional[Type[BaseException]],
             _exc_value: Optional[BaseException],
             _exc_traceback: Optional[TracebackType],

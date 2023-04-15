@@ -20,6 +20,7 @@ from typing import (
     TYPE_CHECKING,
     Callable,
     Generator,
+    Literal,
     Protocol,
     SupportsInt,
     TypedDict,
