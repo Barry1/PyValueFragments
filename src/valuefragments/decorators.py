@@ -70,18 +70,17 @@ def logdecorate(
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
+        title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
+        info_line_format = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
         thelogger.info(
-            "%11.11s|" * 5 + "%8.8s",
-            "user",
-            "system",
-            "child_user",
-            "child_system",
-            "elapsed",
-            "LOAD",
+            title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
         )
         thelogger.info(
-            "%7.2f [s]|" * begintimings.n_fields,
+            info_line_format,
             *tuple(b - a for (a, b) in zip(begintimings, endtimings)),
+            100
+            * (sum(endtimings[0:4] - sum(begintimings[0:4])))
+            / (endtimings.elapsed - begintimings.elapsed),
         )
         thelogger.debug("LogDecorated End")
         return res
