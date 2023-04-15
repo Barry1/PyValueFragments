@@ -79,8 +79,7 @@ def logdecorate(
         thelogger.info(
             info_line_format,
             *timingdiffs,
-            #            100 * sum(timingdiffs[:4]) / timingdiffs[:4] if timingdiffs[:4] else 0,
-            50,
+            100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
         )
         thelogger.debug("LogDecorated End")
         return res
