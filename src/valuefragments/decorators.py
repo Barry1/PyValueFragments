@@ -90,7 +90,7 @@ def logdecorate(
 
     @wraps(func)
     async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
-        thelogger.debug("LogDecorated Start")
+        thelogger.debug("LogDecorated ASYNC Start")
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = await func(*args, **kwargs)
         endtimings: os.times_result = os.times()
@@ -105,12 +105,10 @@ def logdecorate(
             *timingdiffs,
             100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
         )
-        thelogger.debug("LogDecorated End")
+        thelogger.debug("LogDecorated ASYNC End")
         return res
 
-    if asyncio.iscoroutinefunction(func):
-        return awrapped
-    return wrapped
+    return awrapped if asyncio.iscoroutinefunction(func) else wrapped
 
 
 __all__.append("logdecorate")
