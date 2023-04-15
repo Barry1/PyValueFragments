@@ -70,7 +70,7 @@ def logdecorate(
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
         thelogger.info(
-            "%11.11s|%11.11s|%11.11s|%11.11s|%11.11s",
+            "%11.11s|" * 5,
             "user",
             "system",
             "child_user",
