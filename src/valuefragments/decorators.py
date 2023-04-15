@@ -71,9 +71,8 @@ def logdecorate(
         endtimings: os.times_result = os.times()
         thelogger.info("user\t\tsystem\t\tchildren_user\tchildren_system\telapsed")
         thelogger.info(
-            "%.2f [s]\t"
-            * begintimings.n_fields
-            % tuple(b - a for (a, b) in zip(begintimings, endtimings))
+            "%.2f [s]\t" * begintimings.n_fields,
+            *tuple(b - a for (a, b) in zip(begintimings, endtimings)),
         )
         thelogger.info("LogDecorated End")
         return res
