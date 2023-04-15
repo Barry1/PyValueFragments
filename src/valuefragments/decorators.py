@@ -1,6 +1,7 @@
 """module holding decorators."""
 from __future__ import annotations
 
+import logging
 import sys
 import time
 from functools import wraps
@@ -12,7 +13,10 @@ from typing import Callable, Literal, NamedTuple, TypeVar, cast
 from typing_extensions import TypeVarTuple, Unpack
 
 # from typing_extensions import Self
-from .helpers import ic  # pylint: disable=relative-beyond-top-level
+from .helpers import (  # pylint: disable=relative-beyond-top-level
+    ic,
+    thread_native_id_filter,
+)
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
@@ -23,24 +27,67 @@ else:
         ParamSpecArgs,
         ParamSpecKwargs,
     )
-ParamType = ParamSpec("ParamType")
-ResultT = TypeVar("ResultT")
 InstanceObjectT = TypeVar("InstanceObjectT")
+_FunCallResultT = TypeVar("_FunCallResultT")
+_FunParamT = ParamSpec("_FunParamT")
 __all__: list[str] = []
+
+
+def logdecorate(
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
+    """Decorator to log start and stop into file 'decorated.log' with logging."""
+    thelogger: logging.Logger = logging.getLogger("logdecorate")
+    the_format: str = "|".join(
+        [
+            "%(asctime)s",
+            #            "%(name)s",#name of the logger
+            #            "%(funcName)s",#not working, decorator
+            func.__name__,
+            #            "%(levelname)s",
+            #            "%(processName)s (%(process)d)",
+            "PID %(process)d",
+            #            "%(threadName)s (%(thread_native)d)",
+            "ThID %(thread_native)d",
+            "%(message)s",
+        ]
+    )
+    logformatter: logging.Formatter = logging.Formatter(the_format)
+    logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
+    logfilehandler.setFormatter(logformatter)
+    logfilehandler.addFilter(thread_native_id_filter)
+    thelogger.addHandler(logfilehandler)
+    if __debug__:
+        thelogger.setLevel(logging.DEBUG)
+    else:
+        thelogger.setLevel(logging.INFO)
+
+    @wraps(func)
+    def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
+        thelogger.info("LogDecorated Start")
+        res: _FunCallResultT = func(*args, **kwargs)
+        thelogger.info("LogDecorated End")
+        return res
+
+    return wrapped
+
+
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
 
-def timing_wall(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+def timing_wall(
+    func: Callable[_FunParamType, _FunCallResultT]
+) -> Callable[_FunParamType, _FunCallResultT]:
     """Measure WALL-Clock monotonic."""
 
     @wraps(func)
     def wrapped(
         *args: ParamSpecArgs,
         **kwargs: ParamSpecKwargs,
-    ) -> ResultT:
+    ) -> _FunCallResultT:
         """Run with timing."""
         before: float | Literal[0] = time.monotonic()
-        retval: ResultT = func(*args, **kwargs)
+        retval: _FunCallResultT = func(*args, **kwargs)
         after: float | Literal[0] = time.monotonic()
         if before and after:
             print(func.__name__, float(after) - before)
@@ -52,17 +99,19 @@ def timing_wall(func: Callable[ParamType, ResultT]) -> Callable[ParamType, Resul
 __all__.append("timing_wall")
 
 
-def linuxtime(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+def linuxtime(
+    func: Callable[_FunParamType, _FunCallResultT]
+) -> Callable[_FunParamType, _FunCallResultT]:
     """Measure like unix/linux time command."""
 
     @wraps(func)
     def wrapped(
         *args: ParamSpecArgs,
         **kwargs: ParamSpecKwargs,
-    ) -> ResultT:
+    ) -> _FunCallResultT:
         """Run with timing."""
         before: os.times_result = os.times()
-        retval: ResultT = func(*args, **kwargs)
+        retval: _FunCallResultT = func(*args, **kwargs)
         after: os.times_result = os.times()
         if before and after:
             print("time function\t", func.__name__)
@@ -107,19 +156,21 @@ except ImportError:
     ic("resource is not available")
 else:
 
-    def linuxtime_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+    def linuxtime_resource(
+        func: Callable[_FunParamType, _FunCallResultT]
+    ) -> Callable[_FunParamType, _FunCallResultT]:
         """Measure like unix/linux time command."""
 
         @wraps(func)
         def wrapped(
             *args: ParamSpecArgs,
             **kwargs: ParamSpecKwargs,
-        ) -> ResultT:
+        ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
             childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
             selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
-            retval: ResultT = func(*args, **kwargs)
+            retval: _FunCallResultT = func(*args, **kwargs)
             selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
             childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
             after: float | Literal[0] = time.monotonic()
@@ -163,17 +214,19 @@ else:
 
     __all__.append("linuxtime_resource")
 
-    def timing_resource(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+    def timing_resource(
+        func: Callable[_FunParamType, _FunCallResultT]
+    ) -> Callable[_FunParamType, _FunCallResultT]:
         """Measure execution times by resource."""
 
         @wraps(func)
         def wrapped(
             *args: ParamSpecArgs,
             **kwargs: ParamSpecKwargs,
-        ) -> ResultT:
+        ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
-            retval: ResultT = func(*args, **kwargs)
+            retval: _FunCallResultT = func(*args, **kwargs)
             after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
                 print(func.__name__, float(after) - before)
@@ -191,17 +244,19 @@ except ImportError:
     ic("psutil is not available")
 else:
 
-    def timing_psutil(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+    def timing_psutil(
+        func: Callable[_FunParamType, _FunCallResultT]
+    ) -> Callable[_FunParamType, _FunCallResultT]:
         """Measures execution times by psutil."""
 
         @wraps(func)
         def wrapped(
             *args: ParamSpecArgs,
             **kwargs: ParamSpecKwargs,
-        ) -> ResultT:
+        ) -> _FunCallResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
-            retval: ResultT = func(*args, **kwargs)
+            retval: _FunCallResultT = func(*args, **kwargs)
             after: NamedTuple = psutil.Process().cpu_times()
             delta: list[float] = [end - start for start, end in zip(before, after)]
             print(func.__name__, delta, sum(delta))
@@ -212,17 +267,19 @@ else:
     __all__.append("timing_psutil")
 
 
-def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+def timing_thread_time(
+    func: Callable[_FunParamType, _FunCallResultT]
+) -> Callable[_FunParamType, _FunCallResultT]:
     """Measures execution times by time (thread)."""
 
     @wraps(func)
     def wrapped(
         *args: ParamSpecArgs,
         **kwargs: ParamSpecKwargs,
-    ) -> ResultT:
+    ) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.thread_time()
-        retval: ResultT = func(*args, **kwargs)
+        retval: _FunCallResultT = func(*args, **kwargs)
         after: float = time.thread_time()
         print(func.__name__, after - before)
         return retval
@@ -233,14 +290,16 @@ def timing_thread_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType
 __all__.append("timing_thread_time")
 
 
-def timing_process_time(func: Callable[ParamType, ResultT]) -> Callable[ParamType, ResultT]:
+def timing_process_time(
+    func: Callable[_FunParamType, _FunCallResultT]
+) -> Callable[_FunParamType, _FunCallResultT]:
     """Measures execution times by time (process)."""
 
     @wraps(func)
-    def wrapped(*args: ParamSpecArgs, **kwargs: ParamSpecKwargs) -> ResultT:
+    def wrapped(*args: ParamSpecArgs, **kwargs: ParamSpecKwargs) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.process_time()
-        retval: ResultT = func(*args, **kwargs)
+        retval: _FunCallResultT = func(*args, **kwargs)
         after: float = time.process_time()
         print(func.__name__, after - before)
         return retval
@@ -270,17 +329,17 @@ class LazyProperty(property):
         self: LazyProperty,
         getterfunction: Callable[
             [InstanceObjectT],  # pyright: ignore[reportInvalidTypeVarUse]
-            ResultT,  # pyright: ignore[reportInvalidTypeVarUse]
+            _FunCallResultT,  # pyright: ignore[reportInvalidTypeVarUse]
         ],
     ) -> None:
         """Initialize special attribute and rest from super."""
         attr_name: str = f"_lazy_{getterfunction.__name__}"
 
-        def _lazy_getterfunction(instanceobj: InstanceObjectT) -> ResultT:
+        def _lazy_getterfunction(instanceobj: InstanceObjectT) -> _FunCallResultT:
             """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))
-            return cast(ResultT, getattr(instanceobj, attr_name))
+            return cast(_FunCallResultT, getattr(instanceobj, attr_name))
 
         super().__init__(_lazy_getterfunction)
 
@@ -291,17 +350,17 @@ ParameterTupleT = TypeVarTuple("ParameterTupleT")
 
 
 def memoize(
-    func: Callable[[Unpack[ParameterTupleT]], ResultT]
-) -> Callable[[Unpack[ParameterTupleT]], ResultT]:
+    func: Callable[[Unpack[ParameterTupleT]], _FunCallResultT]
+) -> Callable[[Unpack[ParameterTupleT]], _FunCallResultT]:
     """decorater for caching calls
     thanks to
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
     <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
     """
-    cache: dict[tuple[Unpack[ParameterTupleT]], ResultT] = {}
+    cache: dict[tuple[Unpack[ParameterTupleT]], _FunCallResultT] = {}
 
     @wraps(func)
-    def wrapper(*args: Unpack[ParameterTupleT]) -> ResultT:
+    def wrapper(*args: Unpack[ParameterTupleT]) -> _FunCallResultT:
         if args in cache:
             return cache[args]
         result = func(*args)

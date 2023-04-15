@@ -11,6 +11,7 @@ import os
 import random
 import string
 import sys
+import threading
 import warnings
 from base64 import b64encode
 from importlib.util import find_spec
@@ -52,9 +53,20 @@ _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
 
 
-def pi_for_cpu_load(numiter: int = 10**7) -> float:
+def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
+    """Inject thread_id to log records"""
+    record.thread_native: int = threading.get_native_id()
+    return record
+
+
+__all__.append("thread_native_id_filter")
+
+
+def pi_for_cpu_load(
+    numiter: int = 10**7, theseed: None | int | float | str | bytes | bytearray = None
+) -> float:
     """Calculate pi by simulation just for CPU-load."""
-    #    random.seed("4478")
+    random.seed(theseed)
     n: int = 0
     n_in: int = 0
     for _ in range(numiter):

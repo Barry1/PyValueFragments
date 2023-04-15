@@ -4,8 +4,22 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
     hashfile,
+    pi_for_cpu_load,
     stringtovalidfilename,
 )
+
+
+def test_pi_for_cpu_load() -> None:
+    """Check if pi calculation works in priciple."""
+    assert pi_for_cpu_load(10, 4478) == 3.2
+    assert pi_for_cpu_load(100, 4478) == 3.32
+    assert pi_for_cpu_load(1000, 4478) == 3.176
+    assert pi_for_cpu_load(10000, 4478) == 3.1276
+    assert pi_for_cpu_load(100000, 4478) == 3.13836
+    assert pi_for_cpu_load(1000000, 4478) == 3.140568
+    assert pi_for_cpu_load(10000000, 4478) == 3.1413716
+    assert pi_for_cpu_load(100000000, 4478) == 3.14188636
+    assert pi_for_cpu_load(1000000000, 4478) == 3.14188636
 
 
 def test_stringtovalidfilename() -> None:
