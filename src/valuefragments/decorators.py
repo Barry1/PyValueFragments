@@ -69,8 +69,12 @@ def logdecorate(
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
-        count: int = len(begintimings)
-        thelogger.info("%f " * count % tuple(b - a for (a, b) in zip(begintimings, endtimings)))
+        thelogger.info("user\tsystem\tchildren_user\tchildren_system\telapsed")
+        thelogger.info(
+            "%.3f [s]\t"
+            * begintimings.n_fields
+            % tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        )
         thelogger.info("LogDecorated End")
         return res
 
