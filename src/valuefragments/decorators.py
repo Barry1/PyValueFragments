@@ -108,7 +108,7 @@ def logdecorate(
         thelogger.debug("LogDecorated ASYNC End")
         return res
 
-    return awrapped if asyncio.iscoroutinefunction(func) or asyncio.iscoroutine(func) else wrapped
+    return awrapped if asyncio.iscoroutinefunction(func) else wrapped
 
 
 __all__.append("logdecorate")
