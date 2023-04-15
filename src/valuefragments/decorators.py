@@ -58,6 +58,7 @@ def logdecorate(
     logfilehandler.setFormatter(logformatter)
     logfilehandler.addFilter(thread_native_id_filter)
     thelogger.addHandler(logfilehandler)
+    # https://docs.python.org/3/library/logging.html#levels
     if __debug__:
         thelogger.setLevel(logging.DEBUG)
     else:
@@ -65,23 +66,24 @@ def logdecorate(
 
     @wraps(func)
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
-        thelogger.info("LogDecorated Start")
+        thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
         thelogger.info(
-            "%11.11s|" * 5,
+            "%11.11s|" * 5 + "%8.8s",
             "user",
             "system",
             "child_user",
             "child_system",
             "elapsed",
+            "LOAD",
         )
         thelogger.info(
             "%7.2f [s]|" * begintimings.n_fields,
             *tuple(b - a for (a, b) in zip(begintimings, endtimings)),
         )
-        thelogger.info("LogDecorated End")
+        thelogger.debug("LogDecorated End")
         return res
 
     return wrapped
