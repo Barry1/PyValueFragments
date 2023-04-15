@@ -9,7 +9,7 @@ from functools import wraps
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, NamedTuple, TypeVar, cast
+from typing import Callable, Literal, LiteralString, NamedTuple, TypeVar, cast
 
 from typing_extensions import TypeVarTuple, Unpack
 
@@ -71,7 +71,7 @@ def logdecorate(
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
         title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
-        info_line_format = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
+        info_line_format: LiteralString = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
         thelogger.info(
             title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
         )
@@ -79,7 +79,7 @@ def logdecorate(
             info_line_format,
             *tuple(b - a for (a, b) in zip(begintimings, endtimings)),
             100
-            * (sum(endtimings[0:4] - sum(begintimings[0:4])))
+            * (sum(endtimings[:4]) - sum(begintimings[:4]))
             / (endtimings.elapsed - begintimings.elapsed),
         )
         thelogger.debug("LogDecorated End")
