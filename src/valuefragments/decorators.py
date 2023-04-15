@@ -75,12 +75,11 @@ def logdecorate(
         thelogger.info(
             title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
         )
+        timingdiffs: tuple[float] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
         thelogger.info(
             info_line_format,
-            *tuple(b - a for (a, b) in zip(begintimings, endtimings)),
-            100
-            * (sum(endtimings[:4]) - sum(begintimings[:4]))
-            / (endtimings.elapsed - begintimings.elapsed),
+            *timingdiffs,
+            100 * sum(timingdiffs[:4]) / timingdiffs[:4] if timingdiffs[:4] else 0,
         )
         thelogger.debug("LogDecorated End")
         return res
