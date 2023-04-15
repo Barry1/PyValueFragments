@@ -1,6 +1,7 @@
 """module holding decorators."""
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import sys
@@ -32,6 +33,9 @@ InstanceObjectT = TypeVar("InstanceObjectT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 _FunParamT = ParamSpec("_FunParamT")
 __all__: list[str] = []
+
+# Maybe different if async or not
+# https://stackoverflow.com/a/68746329/617339
 
 
 def logdecorate(
@@ -84,6 +88,28 @@ def logdecorate(
         thelogger.debug("LogDecorated End")
         return res
 
+    @wraps(func)
+    async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
+        thelogger.debug("LogDecorated Start")
+        begintimings: os.times_result = os.times()
+        res: _FunCallResultT = await func(*args, **kwargs)
+        endtimings: os.times_result = os.times()
+        title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
+        info_line_format: LiteralString = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
+        thelogger.info(
+            title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
+        )
+        timingdiffs: tuple[float] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        thelogger.info(
+            info_line_format,
+            *timingdiffs,
+            100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
+        )
+        thelogger.debug("LogDecorated End")
+        return res
+
+    if asyncio.iscoroutinefunction(func):
+        return awrapped
     return wrapped
 
 
