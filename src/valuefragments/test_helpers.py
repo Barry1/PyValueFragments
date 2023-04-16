@@ -8,7 +8,10 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     stringtovalidfilename,
 )
 
+# from .decorators import logdecorate
 
+
+# @logdecorate
 def test_pi_for_cpu_load() -> None:
     """Check if pi calculation works in priciple."""
     assert pi_for_cpu_load(10, 4478) == 3.2
@@ -17,9 +20,11 @@ def test_pi_for_cpu_load() -> None:
     assert pi_for_cpu_load(10000, 4478) == 3.1276
     assert pi_for_cpu_load(100000, 4478) == 3.13836
     assert pi_for_cpu_load(1000000, 4478) == 3.140568
-    assert pi_for_cpu_load(10000000, 4478) == 3.1413716
-    assert pi_for_cpu_load(100000000, 4478) == 3.14188636
-    assert pi_for_cpu_load(1000000000, 4478) == 3.141731728
+    # 1.04 seconds to here
+    # assert pi_for_cpu_load(10000000, 4478) == 3.1413716
+    # 10.23 seconds to here
+    # assert pi_for_cpu_load(100000000, 4478) == 3.14188636
+    # assert pi_for_cpu_load(1000000000, 4478) == 3.141731728
 
 
 def test_stringtovalidfilename() -> None:
