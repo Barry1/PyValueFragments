@@ -10,24 +10,56 @@ from functools import wraps
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from typing import Callable, Literal, LiteralString, NamedTuple, TypeVar, cast
-
-from typing_extensions import TypeVarTuple, Unpack
-
-# from typing_extensions import Self
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
     thread_native_id_filter,
 )
 
+if False:
+    if sys.version_info >= (3, 8):
+        from typing import Literal
+    else:
+        from typing_extensions import Literal
+
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
-    from typing_extensions import ParamSpec, ParamSpecArgs, ParamSpecKwargs
-else:
-    from typing import (  # pylint: disable=no-name-in-module
+    from typing import Callable, NamedTuple, TypeVar, cast
+
+    from typing_extensions import (
+        Literal,
+        LiteralString,
         ParamSpec,
         ParamSpecArgs,
         ParamSpecKwargs,
+        TypeVarTuple,
+        Unpack,
+    )
+elif sys.version_info < (3, 11):
+    from typing import (
+        Callable,
+        Literal,
+        NamedTuple,
+        ParamSpec,
+        ParamSpecArgs,
+        ParamSpecKwargs,
+        TypeVar,
+        cast,
+    )
+
+    from typing_extensions import LiteralString, TypeVarTuple, Unpack
+else:
+    from typing import (
+        Callable,
+        Literal,
+        LiteralString,
+        NamedTuple,
+        ParamSpec,
+        ParamSpecArgs,
+        ParamSpecKwargs,
+        TypeVar,
+        TypeVarTuple,
+        Unpack,
+        cast,
     )
 InstanceObjectT = TypeVar("InstanceObjectT")
 _FunCallResultT = TypeVar("_FunCallResultT")
