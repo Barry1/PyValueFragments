@@ -322,7 +322,7 @@ else:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             # nosec  # Compliant
-            file_hash: hashlib._hashlib.HASH = hashlib.md5()
+            file_hash: hashlib._hashlib.HASH = hashlib.md5(usedforsecurity=False)
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
         # deepcode ignore InsecureHash: for file identification
