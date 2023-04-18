@@ -50,7 +50,7 @@ formatters:
 	poetry run black $(pyobjs)
 
 bandit:
-	poetry run bandit --verbose $$(find src -regex .*\.pyi? -not -name test*)
+	poetry run bandit --verbose $$(find src -regex .*\.pyi? -not -name test\*)
 
 pytest:
 	@echo "==========" "$@" "=========="
