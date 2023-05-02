@@ -1544,19 +1544,19 @@ vulture = ["vulture"]
 
 [[package]]
 name = "pyleft"
-version = "1.1.4"
+version = "1.1.5"
 description = "Python type annotation existence checker"
 category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "pyleft-1.1.4-py3-none-any.whl", hash = "sha256:b5e74e5ac64a94ac47638f723e3a6d0aa00bcc0121f90dc67fbc6cd04a0468c2"},
-    {file = "pyleft-1.1.4.tar.gz", hash = "sha256:2c7e82c72ef548274e8b1fbe24ad4eff775fdf4dbbdc00e229e22200d4d9b8be"},
+    {file = "pyleft-1.1.5-py3-none-any.whl", hash = "sha256:f697a8f93781de46607ed6531392a8205c83fa8a7530cef24a857916900e26cf"},
+    {file = "pyleft-1.1.5.tar.gz", hash = "sha256:045a8ed9462053d4b35537e076978b325ff81db729636c71ab32d1be43b3dc81"},
 ]
 
 [package.dependencies]
 pathspec = ">=0.9.0"
-tomli = ">=1.1.0"
+tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "pylint"
