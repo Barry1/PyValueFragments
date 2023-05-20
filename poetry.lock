@@ -1254,22 +1254,22 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "prospector"
-version = "1.10.0"
+version = "1.10.1"
 description = "Prospector is a tool to analyse Python code by aggregating the result of other tools."
 optional = false
 python-versions = ">=3.7.2,<4.0"
 files = [
-    {file = "prospector-1.10.0-py3-none-any.whl", hash = "sha256:ee7faf1fefcb3535212ae57b53c6cb3a10fc8ca70c9c605d24b6b3a61a5132aa"},
-    {file = "prospector-1.10.0.tar.gz", hash = "sha256:25a58b5b843d25c2c6710e2811472a8a2ac43a22dddcb5a375490c8b974e5c77"},
+    {file = "prospector-1.10.1-py3-none-any.whl", hash = "sha256:1d290e655ed20c0a4a321d05a4bda91ca3f031dd3cc864654fbfeab3595511d8"},
+    {file = "prospector-1.10.1.tar.gz", hash = "sha256:952d12642af3fdca5a13f4cf55eace05de6e7e3a9c86ed6d0e651f66f8d84a1e"},
 ]
 
 [package.dependencies]
-bandit = {version = ">=1.5.1", optional = true, markers = "extra == \"with_bandit\" or extra == \"with_everything\""}
+bandit = {version = ">=1.5.1", optional = true, markers = "extra == \"with-bandit\" or extra == \"with-everything\""}
 dodgy = ">=0.2.1,<0.3.0"
 flake8 = "<6.0.0"
 GitPython = ">=3.1.27,<4.0.0"
 mccabe = ">=0.7.0,<0.8.0"
-mypy = {version = ">=0.600", optional = true, markers = "extra == \"with_mypy\" or extra == \"with_everything\""}
+mypy = {version = ">=0.600", optional = true, markers = "extra == \"with-mypy\" or extra == \"with-everything\""}
 packaging = "*"
 pep8-naming = ">=0.3.3,<=0.10.0"
 pycodestyle = ">=2.9.0"
@@ -1280,12 +1280,12 @@ pylint-celery = "0.3"
 pylint-django = ">=2.5,<2.6"
 pylint-flask = "0.6"
 pylint-plugin-utils = ">=0.7,<0.8"
-pyroma = {version = ">=2.4", optional = true, markers = "extra == \"with_pyroma\" or extra == \"with_everything\""}
+pyroma = {version = ">=2.4", optional = true, markers = "extra == \"with-pyroma\" or extra == \"with-everything\""}
 PyYAML = "*"
 requirements-detector = ">=1.2.0"
 setoptconf-tmp = ">=0.3.1,<0.4.0"
 toml = ">=0.10.2,<0.11.0"
-vulture = {version = ">=1.5", optional = true, markers = "extra == \"with_vulture\" or extra == \"with_everything\""}
+vulture = {version = ">=1.5", optional = true, markers = "extra == \"with-vulture\" or extra == \"with-everything\""}
 
 [package.extras]
 with-bandit = ["bandit (>=1.5.1)"]
@@ -1880,13 +1880,13 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "requirements-detector"
-version = "1.2.1"
+version = "1.2.2"
 description = "Python tool to find and list requirements of a Python project"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "requirements_detector-1.2.1-py3-none-any.whl", hash = "sha256:ae4aa170106e8940482fd450e0fafbae1e3627b0ea15b852a191c509e6f8c4db"},
-    {file = "requirements_detector-1.2.1.tar.gz", hash = "sha256:3c3f2eaf40f86337b07826be65ee2a413a6337da2484a887523c816a921f04b6"},
+    {file = "requirements_detector-1.2.2-py3-none-any.whl", hash = "sha256:d7c60493bf166da3dd59de0e6cb25765e0e32a1931aeae92614034e5786d0bd0"},
+    {file = "requirements_detector-1.2.2.tar.gz", hash = "sha256:3642cd7a5b261d79536c36bb7ecacf2adabd902d2e0e42bfb2ba82515da10501"},
 ]
 
 [package.dependencies]
