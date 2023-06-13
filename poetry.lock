@@ -673,6 +673,25 @@ files = [
 networkx = ">=2"
 
 [[package]]
+name = "importlib-metadata"
+version = "6.6.0"
+description = "Read metadata from Python packages"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "importlib_metadata-6.6.0-py3-none-any.whl", hash = "sha256:43dd286a2cd8995d5eaef7fee2066340423b818ed3fd70adf0bad5f1fac53fed"},
+    {file = "importlib_metadata-6.6.0.tar.gz", hash = "sha256:92501cdf9cc66ebd3e612f1b4f0c0765dfa42f0fa38ffb319b6bd84dd675d705"},
+]
+
+[package.dependencies]
+zipp = ">=0.5"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+perf = ["ipython"]
+testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)"]
+
+[[package]]
 name = "importlib-resources"
 version = "5.12.0"
 description = "Read resources from Python packages"
@@ -915,13 +934,13 @@ restructuredtext = ["rst2ansi"]
 
 [[package]]
 name = "markdown-it-py"
-version = "2.2.0"
+version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "markdown-it-py-2.2.0.tar.gz", hash = "sha256:7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1"},
-    {file = "markdown_it_py-2.2.0-py3-none-any.whl", hash = "sha256:5a35f8d1870171d9acc47b99612dc146129b631baf04970128b568f190d0cc30"},
+    {file = "markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"},
+    {file = "markdown_it_py-3.0.0-py3-none-any.whl", hash = "sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1"},
 ]
 
 [package.dependencies]
@@ -934,7 +953,7 @@ compare = ["commonmark (>=0.9,<1.0)", "markdown (>=3.4,<4.0)", "mistletoe (>=1.0
 linkify = ["linkify-it-py (>=1,<3)"]
 plugins = ["mdit-py-plugins"]
 profiling = ["gprof2dot"]
-rtd = ["attrs", "myst-parser", "pyyaml", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinx_book_theme"]
+rtd = ["jupyter_sphinx", "mdit-py-plugins", "myst-parser", "pyyaml", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinx_book_theme"]
 testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions"]
 
 [[package]]
@@ -1501,13 +1520,13 @@ vulture = ["vulture"]
 
 [[package]]
 name = "pyleft"
-version = "1.2.1"
+version = "1.2.2"
 description = "Python type annotation existence checker"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "pyleft-1.2.1-py3-none-any.whl", hash = "sha256:821d727d64079b442c958dc4f686d45027e2297d8370e4fe7f35a11ae9c5a53b"},
-    {file = "pyleft-1.2.1.tar.gz", hash = "sha256:8a2959194aec6069a1ab617133f5c8eca3e4c63a268fe873884dac645969f769"},
+    {file = "pyleft-1.2.2-py3-none-any.whl", hash = "sha256:59deb7dffdf9877f4782b65f6695bb6b20c0f5cb529a3721aade29fbb48f009c"},
+    {file = "pyleft-1.2.2.tar.gz", hash = "sha256:37999f57bcda4fb984697e5e2f999e6077d35d878cbddaba1fba225909def7e7"},
 ]
 
 [package.dependencies]
@@ -1977,17 +1996,17 @@ test = ["covdefaults (>=2)", "pytest (>=6)", "pytest-cov (>=3)"]
 
 [[package]]
 name = "rich"
-version = "13.4.1"
+version = "13.4.2"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "rich-13.4.1-py3-none-any.whl", hash = "sha256:d204aadb50b936bf6b1a695385429d192bc1fdaf3e8b907e8e26f4c4e4b5bf75"},
-    {file = "rich-13.4.1.tar.gz", hash = "sha256:76f6b65ea7e5c5d924ba80e322231d7cb5b5981aa60bfc1e694f1bc097fe6fe1"},
+    {file = "rich-13.4.2-py3-none-any.whl", hash = "sha256:8f87bc7ee54675732fa66a05ebfe489e27264caeeff3728c945d25971b6485ec"},
+    {file = "rich-13.4.2.tar.gz", hash = "sha256:d653d6bccede5844304c605d5aac802c7cf9621efd700b46c7ec2b51ea914898"},
 ]
 
 [package.dependencies]
-markdown-it-py = ">=2.2.0,<3.0.0"
+markdown-it-py = ">=2.2.0"
 pygments = ">=2.13.0,<3.0.0"
 
 [package.extras]
@@ -2273,13 +2292,13 @@ test = ["mypy", "pytest", "typing-extensions"]
 
 [[package]]
 name = "types-psutil"
-version = "5.9.5.13"
+version = "5.9.5.15"
 description = "Typing stubs for psutil"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-psutil-5.9.5.13.tar.gz", hash = "sha256:3374c06ff92436f57c72e5df1e8fa08480af3e846f78d72498ddc7181985ac85"},
-    {file = "types_psutil-5.9.5.13-py3-none-any.whl", hash = "sha256:692213804a926bf88eeaef40dc3c7d3e01926eb5282de4655c4bf8af1ba0b675"},
+    {file = "types-psutil-5.9.5.15.tar.gz", hash = "sha256:943a5f9556c1995097c89f50274330dd8d71d17bd73cbc6b09c61dbf4e114cc6"},
+    {file = "types_psutil-5.9.5.15-py3-none-any.whl", hash = "sha256:7f183072d1fdb4e092fd6dd88ea017b957056bf10e58eafcdca26bf4372c0742"},
 ]
 
 [[package]]
@@ -2494,17 +2513,34 @@ files = [
 
 [[package]]
 name = "yapf"
-version = "0.33.0"
+version = "0.40.0"
 description = "A formatter for Python code."
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "yapf-0.33.0-py2.py3-none-any.whl", hash = "sha256:4c2b59bd5ffe46f3a7da48df87596877189148226ce267c16e8b44240e51578d"},
-    {file = "yapf-0.33.0.tar.gz", hash = "sha256:da62bdfea3df3673553351e6246abed26d9fe6780e548a5af9e70f6d2b4f5b9a"},
+    {file = "yapf-0.40.0-py3-none-any.whl", hash = "sha256:63386557876c2686cb29d8c422b2d1e484f29f7a278821f91515b5c5adf569a7"},
+    {file = "yapf-0.40.0.tar.gz", hash = "sha256:7eeb8c404e386f16e24cbd785103dbc573f51cbb68e65a35f4392e0233f3d7bc"},
 ]
 
 [package.dependencies]
+importlib-metadata = ">=6.6.0"
+platformdirs = ">=3.5.1"
 tomli = ">=2.0.1"
+
+[[package]]
+name = "zipp"
+version = "3.15.0"
+description = "Backport of pathlib-compatible object wrapper for zip files"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "zipp-3.15.0-py3-none-any.whl", hash = "sha256:48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556"},
+    {file = "zipp-3.15.0.tar.gz", hash = "sha256:112929ad649da941c23de50f356a2b5570c954b65150642bccdd66bf194d224b"},
+]
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
 
 [extras]
 allfeatures = ["cpu-load-generator", "hashlib", "icecream", "psutil"]
