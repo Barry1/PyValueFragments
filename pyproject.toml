@@ -103,6 +103,7 @@ optional = true
 
 [tool.poetry.dependencies.hashlib]
 version = "*"
+python = "2.*"
 optional = true
 
 [tool.poetry.dependencies.icecream]

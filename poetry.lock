@@ -621,16 +621,6 @@ files = [
 gitdb = ">=4.0.1,<5"
 
 [[package]]
-name = "hashlib"
-version = "20081119"
-description = "Secure hash and message digest algorithm library"
-optional = true
-python-versions = "*"
-files = [
-    {file = "hashlib-20081119.zip", hash = "sha256:419de2fd10ae71ed9c6adcb55903f116abd1d8acc8c814dfd5f839b4d5013e38"},
-]
-
-[[package]]
 name = "icecream"
 version = "2.1.3"
 description = "Never use print() to debug again; inspect variables, expressions, and program execution with a single, simple function call."
@@ -1690,13 +1680,13 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.313"
+version = "1.1.314"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.313-py3-none-any.whl", hash = "sha256:1aeed72d5563e97461cb9d17847bfa918f7ec0cf79912bb3d2432fbe014daa23"},
-    {file = "pyright-1.1.313.tar.gz", hash = "sha256:95fa963337e2cfd4900601197d0f866d8c51732dea6c0bb12f962f92a79c77e3"},
+    {file = "pyright-1.1.314-py3-none-any.whl", hash = "sha256:5008a2e04b71e35c5f1b78b16adae9d012601197442ae6c798e9bb3456d1eecb"},
+    {file = "pyright-1.1.314.tar.gz", hash = "sha256:bd104c206fe40eaf5f836efa9027f07cc0efcbc452e6d22dfae36759c5fd28b3"},
 ]
 
 [package.dependencies]
@@ -2040,13 +2030,13 @@ files = [
 
 [[package]]
 name = "semver"
-version = "3.0.0"
+version = "3.0.1"
 description = "Python helper for Semantic Versioning (https://semver.org)"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "semver-3.0.0-py3-none-any.whl", hash = "sha256:ab4f69fb1d1ecfb5d81f96411403d7a611fa788c45d252cf5b408025df3ab6ce"},
-    {file = "semver-3.0.0.tar.gz", hash = "sha256:94df43924c4521ec7d307fc86da1531db6c2c33d9d5cdc3e64cca0eb68569269"},
+    {file = "semver-3.0.1-py3-none-any.whl", hash = "sha256:2a23844ba1647362c7490fe3995a86e097bb590d16f0f32dfc383008f19e4cdf"},
+    {file = "semver-3.0.1.tar.gz", hash = "sha256:9ec78c5447883c67b97f98c3b6212796708191d22e4ad30f4570f840171cbce1"},
 ]
 
 [[package]]
@@ -2405,12 +2395,12 @@ trailrunner = ">=1.0"
 
 [[package]]
 name = "vermin"
-version = "1.5.1"
+version = "1.5.2"
 description = "Concurrently detect the minimum Python versions needed to run code"
 optional = false
 python-versions = ">=2.7"
 files = [
-    {file = "vermin-1.5.1-py2.py3-none-any.whl", hash = "sha256:420995de564ac0c31e2157220259d7ac82556e8fa69c112d8005b78c14b0caf5"},
+    {file = "vermin-1.5.2-py2.py3-none-any.whl", hash = "sha256:c1566ad4e1c8e1b0e98cf5f7d69b691d44a578e2ce9c5aa1d418736bc4944b32"},
 ]
 
 [[package]]
@@ -2548,4 +2538,4 @@ allfeatures = ["cpu-load-generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f87e7a251baa43046a92695d8644e86287e6fdbc02eca63bd5d47e75a33e0fd7"
+content-hash = "2d64c0aac938f6a71aff0335646f9fa183dab8ff5bedbdadc9fc7bdc28f25957"
