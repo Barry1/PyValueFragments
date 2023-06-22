@@ -2,14 +2,14 @@
 
 [[package]]
 name = "aenum"
-version = "3.1.12"
+version = "3.1.14"
 description = "Advanced Enumerations (compatible with Python's stdlib Enum), NamedTuples, and NamedConstants"
 optional = false
 python-versions = "*"
 files = [
-    {file = "aenum-3.1.12-py2-none-any.whl", hash = "sha256:8d79c9e3ec997220e355b96b322e672fb56a53e61744138ed838407e3a07b610"},
-    {file = "aenum-3.1.12-py3-none-any.whl", hash = "sha256:2d544ef7323c088d68abf9a84b9f3f6db0d516fec685e15678b5f84fdb7b8ba0"},
-    {file = "aenum-3.1.12.tar.gz", hash = "sha256:3e531c91860a81f885f7e6e97d219ae9772cb899580084788935dad7d9742ef0"},
+    {file = "aenum-3.1.14-py2-none-any.whl", hash = "sha256:93ba417f1c461d2aab6d107204110381d1b3e53561193ae53df3a17701821777"},
+    {file = "aenum-3.1.14-py3-none-any.whl", hash = "sha256:1d60e15f2e2d4ba66371c19c691edb085ecf82027e773309a9c4291b5cbccc17"},
+    {file = "aenum-3.1.14.tar.gz", hash = "sha256:7c4b04b5c9621533d6311e6ca23ea2ee213c7a992ed0be79a2b944cdaf2a45ec"},
 ]
 
 [[package]]
@@ -1279,13 +1279,13 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-
 
 [[package]]
 name = "pluggy"
-version = "1.0.0"
+version = "1.2.0"
 description = "plugin and hook calling mechanisms for python"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
-    {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
+    {file = "pluggy-1.2.0-py3-none-any.whl", hash = "sha256:c2fd55a7d7a3863cba1a013e4e2414658b1d07b6bc57b3919e0c63c9abb99849"},
+    {file = "pluggy-1.2.0.tar.gz", hash = "sha256:d12f0c4b579b15f5e054301bb226ee85eeeba08ffec228092f8defbaa3a4c4b3"},
 ]
 
 [package.extras]
@@ -1680,13 +1680,13 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.314"
+version = "1.1.315"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.314-py3-none-any.whl", hash = "sha256:5008a2e04b71e35c5f1b78b16adae9d012601197442ae6c798e9bb3456d1eecb"},
-    {file = "pyright-1.1.314.tar.gz", hash = "sha256:bd104c206fe40eaf5f836efa9027f07cc0efcbc452e6d22dfae36759c5fd28b3"},
+    {file = "pyright-1.1.315-py3-none-any.whl", hash = "sha256:262744daa7455f6056f6d6609b6278258e2fd7bd100d8937203516ee71d0eb93"},
+    {file = "pyright-1.1.315.tar.gz", hash = "sha256:f124400a1a72ccc5fd04836e7e48ed235e8f7929bcc42b270a571fb34df17979"},
 ]
 
 [package.dependencies]
