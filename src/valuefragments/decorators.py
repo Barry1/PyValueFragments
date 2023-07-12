@@ -39,6 +39,7 @@ elif sys.version_info < (3, 11):
         Callable,
         Literal,
         NamedTuple,
+        Optional,
         ParamSpec,
         ParamSpecArgs,
         ParamSpecKwargs,
