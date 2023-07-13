@@ -368,13 +368,13 @@ files = [
 
 [[package]]
 name = "click"
-version = "8.1.4"
+version = "8.1.5"
 description = "Composable command line interface toolkit"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "click-8.1.4-py3-none-any.whl", hash = "sha256:2739815aaa5d2c986a88f1e9230c55e17f0caad3d958a5e13ad0797c166db9e3"},
-    {file = "click-8.1.4.tar.gz", hash = "sha256:b97d0c74955da062a7d4ef92fadb583806a585b2ea81958a81bd72726cbb8e37"},
+    {file = "click-8.1.5-py3-none-any.whl", hash = "sha256:e576aa487d679441d7d30abb87e1b43d24fc53bffb8758443b1a9e1cee504548"},
+    {file = "click-8.1.5.tar.gz", hash = "sha256:4be4b1af8d665c6d942909916d31a213a106800c47d0eeba73d34da3cbc11367"},
 ]
 
 [package.dependencies]
@@ -1719,31 +1719,28 @@ testing = ["coverage (>=6.2)", "flaky (>=3.5.0)", "hypothesis (>=5.7.1)", "mypy 
 
 [[package]]
 name = "pytype"
-version = "2023.5.8"
+version = "2023.7.12"
 description = "Python type inferencer"
 optional = false
-python-versions = "<3.11,>=3.7"
+python-versions = "<3.11,>=3.8"
 files = [
-    {file = "pytype-2023.5.8-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:d3ecca1ca147aa0eafa0a0dadf4050c66d39283da4184372e2cb7e6385f1f646"},
-    {file = "pytype-2023.5.8-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2f46c7fbc1c348dbf0c3b1e8b14201aafdd3950ad27b5ad2b7fecc7436941032"},
-    {file = "pytype-2023.5.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d644b2b54ab79af91cdf22ad8ed2202877ce61a1c313dd267584701f560c393c"},
-    {file = "pytype-2023.5.8-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:9b17843c668bcc21d1b550fb171ab24c2f47410e2a6aa5a7d480e7e48bafade3"},
-    {file = "pytype-2023.5.8-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e4fec458575af2133fda67ed951b11176d58de5cc02a97db335de8af7e794d9d"},
-    {file = "pytype-2023.5.8-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:54d87a3cb4310fdd8a30ffa9cc1d1f75c40feaefeb5e246260c8c071cc0ca922"},
-    {file = "pytype-2023.5.8-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:142f3348aca6e5dcabf15edd8a2e961124b3fc68e8b305c164915c1338fe71c2"},
-    {file = "pytype-2023.5.8-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4455febf23b98533ee8a9a64b853ec8daf3698ca39024bb62bb4ab83ad5cc352"},
-    {file = "pytype-2023.5.8-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6d1e535454420ff615e1bb7b3c641288748201a0b67ec1fe30008f6acc5f9f5c"},
-    {file = "pytype-2023.5.8-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:225ac55b15480c8e7f87bcf6da923011f026aa47832b23be81d5432ecf88ba3d"},
-    {file = "pytype-2023.5.8-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bc43cea948bf0885af30db74ab0c3c912d8275078bedd116012e1014c6bc2778"},
-    {file = "pytype-2023.5.8-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7b27299f9b4175a6691f6793aeee8c92da28bc3f0c0559789b62c0e4051ebfa2"},
-    {file = "pytype-2023.5.8.tar.gz", hash = "sha256:69bd26d3b0599acb7ebf4867db3f22239f8a7e4c58c8f9839b75b99216360d40"},
+    {file = "pytype-2023.7.12-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:9da5b34ec78d467e5deed054f62bcaa95d071cde8461eabfa01920e4b5d863ae"},
+    {file = "pytype-2023.7.12-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b1ebd82b6122cd1ad516acb42631db55bad2106853a5f102c3054f545034c1c5"},
+    {file = "pytype-2023.7.12-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4e96562eb82274725e758c953318bd8d57ab62634439adbb0a47e5bd88a6669c"},
+    {file = "pytype-2023.7.12-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:2724e3249802abcd34e9a8fba04de38db8208f98bb19377ae74251b6ebcbc222"},
+    {file = "pytype-2023.7.12-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a00ccdc2593b46879cf52bd7379598ce6b8b8b7b74bbc2d637ac5502cff9fa31"},
+    {file = "pytype-2023.7.12-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:706276803fd69cd52127ed683cd6bc99f27bbdfb75a00b8e453406fc305b0df9"},
+    {file = "pytype-2023.7.12-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:ef92dd99d5938da0c8d45e239d3323ed2ec42fbef1ac1b489a6d3e450f270bf8"},
+    {file = "pytype-2023.7.12-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7e193df0c310c6754b16fe028be51c7ca99aca430755329ddf9918bfa79ff263"},
+    {file = "pytype-2023.7.12-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:004bc4753e3901033394fad5f0f2a6fe0701980fab41f882a84ae49e9cb106a8"},
+    {file = "pytype-2023.7.12.tar.gz", hash = "sha256:7455e41750561a9e749c2f3f68a749faca6c83ee1d3d904179f16e646a5876fc"},
 ]
 
 [package.dependencies]
 attrs = ">=21.4.0"
 importlab = ">=0.8"
 jinja2 = ">=3.1.2"
-libcst = ">=0.4.9"
+libcst = ">=1.0.1"
 networkx = "<3.2"
 ninja = ">=1.10.0.post2"
 pydot = ">=1.4.2"
@@ -2494,13 +2491,13 @@ tomli = ">=2.0.1"
 
 [[package]]
 name = "zipp"
-version = "3.16.0"
+version = "3.16.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "zipp-3.16.0-py3-none-any.whl", hash = "sha256:5dadc3ad0a1f825fe42ce1bce0f2fc5a13af2e6b2d386af5b0ff295bc0a287d3"},
-    {file = "zipp-3.16.0.tar.gz", hash = "sha256:1876cb065531855bbe83b6c489dcf69ecc28f1068d8e95959fe8bbc77774c941"},
+    {file = "zipp-3.16.1-py3-none-any.whl", hash = "sha256:0b37c326d826d5ca35f2b9685cd750292740774ef16190008b00a0227c256fe0"},
+    {file = "zipp-3.16.1.tar.gz", hash = "sha256:857b158da2cbf427b376da1c24fd11faecbac5a4ac7523c3607f8a01f94c2ec0"},
 ]
 
 [package.extras]
