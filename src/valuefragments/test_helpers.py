@@ -3,6 +3,7 @@
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
+    file_exists_current,
     hashfile,
     pi_for_cpu_load,
     stringtovalidfilename,
@@ -11,7 +12,14 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
 # from .decorators import logdecorate
 
 
+def test_file_actual_current() -> None:
+    assert file_exists_current("./ThisFileWillNeverExist.SURE") == False
+    assert file_exists_current("/", 100 * 366 * 24 * 60 * 60) == True
+
+
 # @logdecorate
+
+
 def test_pi_for_cpu_load() -> None:
     """Check if pi calculation works in priciple."""
     assert pi_for_cpu_load(10, 4478) == 3.2

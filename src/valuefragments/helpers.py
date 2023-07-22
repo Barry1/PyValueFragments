@@ -12,6 +12,7 @@ import random
 import string
 import sys
 import threading
+import time
 import warnings
 from base64 import b64encode
 from importlib.util import find_spec
@@ -35,7 +36,7 @@ else:
     from typing import Unpack  # pylint: disable=no-name-in-module
 
 if TYPE_CHECKING:
-    from _typeshed import ReadableBuffer, SupportsTrunc
+    from _typeshed import ReadableBuffer, Supports, SupportsTrunc
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -48,10 +49,19 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 
 FirstElementT = TypeVar("FirstElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
-
-
 _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
+
+
+def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:
+    # Check if given file exists and is not older than max_age_seconds.
+    return (
+        os.path.exists(filepathname)
+        and time.time() - os.path.getmtime(filepathname) < max_age_seconds
+    )
+
+
+__all__.append("file_exists_current")
 
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
