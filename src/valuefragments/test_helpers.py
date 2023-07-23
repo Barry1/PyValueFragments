@@ -13,8 +13,8 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
 
 
 def test_file_actual_current() -> None:
-    assert file_exists_current("./ThisFileWillNeverExist.SURE") == False
-    assert file_exists_current("/", 100 * 366 * 24 * 60 * 60) == True
+    assert not file_exists_current("/ThisFileWillNeverExist.SURE")
+    assert file_exists_current("/", 100 * 366 * 24 * 60 * 60)
 
 
 # @logdecorate
