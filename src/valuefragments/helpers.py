@@ -16,6 +16,8 @@ import time
 import warnings
 from base64 import b64encode
 from importlib.util import find_spec
+from io import IOBase
+from shutil import copyfileobj
 from typing import (
     IO,
     TYPE_CHECKING,
@@ -62,6 +64,24 @@ def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 *
 
 
 __all__.append("file_exists_current")
+
+
+def filecache(
+    filepathname: str,
+    genupdmeth: Callable[[], IOBase],
+    procmeth: Callable[[str], _FunCallResultT],
+    max_age_seconds: int = 60 * 60 * 24 * 7,
+) -> _FunCallResultT:
+    """Check if cachefile exists and current. Updates if neccesary. Returns processed content."""
+    if not file_exists_current(filepathname, max_age_seconds):
+        with open(filepathname, "wb") as thefile:
+            with genupdmeth() as thesrc:
+                copyfileobj(thesrc, thefile)
+        print("Aktualisiert")
+    return procmeth(filepathname)
+
+
+__all__.append("filecache")
 
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
