@@ -2,7 +2,7 @@ from .process_executor import ProcessPoolExecutor
 
 __all__ = ["get_reusable_executor"]
 _executor_lock = threading.RLock()
-from typing import Tuple, Dict, Callable, Any
+from typing import Any, Callable, Dict, Tuple
 
 def get_reusable_executor(
     max_workers: int = None,

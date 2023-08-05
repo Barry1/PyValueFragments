@@ -7,6 +7,10 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
+actsuperlinter:
+	act --graph
+	act --job run-lint
+
 typings/joblib/joblib/externals/loky/process_executor.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py  --createstub joblib.externals.loky.process_executor
 
