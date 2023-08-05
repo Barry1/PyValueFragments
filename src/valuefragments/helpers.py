@@ -38,7 +38,7 @@ else:
     from typing import Unpack  # pylint: disable=no-name-in-module
 
 if TYPE_CHECKING:
-    from _typeshed import ReadableBuffer, Supports, SupportsTrunc
+    from _typeshed import ReadableBuffer, SupportsTrunc
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -193,6 +193,20 @@ KwargsForPrint = TypedDict(
     {"sep": str, "end": str, "file": IO[str], "flush": bool},
     total=False,
 )
+
+
+def closeifrunningloky() -> None:
+    """Check if any (loky) backend is still open and if, close."""
+    try:
+        # pylint: disable=import-outside-toplevel
+        from joblib.externals.loky import get_reusable_executor
+    except ModuleNotFoundError:
+        pass
+    else:
+        get_reusable_executor().shutdown()
+
+
+__all__.append("closeifrunningloky")
 
 
 async def to_inner_task(

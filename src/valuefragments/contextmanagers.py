@@ -9,7 +9,10 @@ from types import TracebackType
 from typing import Any, Literal, Optional, TextIO, Type
 
 # from typing_extensions import Self
-from .helpers import ic  # pylint: disable=relative-beyond-top-level]
+from .helpers import (  # pylint: disable=relative-beyond-top-level]
+    closeifrunningloky,
+    ic,
+)
 
 
 class NoOutput(TextIO, ABC):
@@ -73,15 +76,7 @@ class LinuxTimeCM:
         _exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
-        # Check if any (loky) backend is still open and if, close
-
-        try:
-            # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import get_reusable_executor
-        except ModuleNotFoundError:
-            pass
-        else:
-            get_reusable_executor().shutdown()
+        closeifrunningloky()
         self.after = os.times()
         if self.before and self.after:
             wall_time: float = self.after.elapsed - self.before.elapsed
@@ -167,15 +162,7 @@ else:
             _exc_traceback: Optional[TracebackType],
         ) -> Optional[bool]:
             """Retrieve end timing information and print."""
-            # Check if any (loky) backend is still open and if, close
-
-            try:
-                # pylint: disable=import-outside-toplevel
-                from joblib.externals.loky import get_reusable_executor
-            except ModuleNotFoundError:
-                pass
-            else:
-                get_reusable_executor().shutdown()
+            closeifrunningloky()
             self.selfafter = resource.getrusage(resource.RUSAGE_SELF)
             self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
             self.after = time.monotonic()
@@ -265,15 +252,7 @@ class TimingCM:  # pyre-ignore[13]
         _exc_traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         """Retrieve end timing information and print."""
-        # Check if any (loky) backend is still open and if, close
-
-        try:
-            # pylint: disable=import-outside-toplevel
-            from joblib.externals.loky import get_reusable_executor
-        except ModuleNotFoundError:
-            pass
-        else:
-            get_reusable_executor().shutdown()
+        closeifrunningloky()
         self.endtimes = os.times()
         timedelta: list[float] = [e - a for (a, e) in zip(self.starttimes, self.endtimes)]
         print(
