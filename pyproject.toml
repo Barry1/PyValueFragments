@@ -12,7 +12,7 @@ authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.poetry.group.dev.dependencies]
-pyanalyze = "^0.9.0"
+pyanalyze = "^0.10.1"
 types-psutil = "^5.9.5.11"
 ruff = "^0.0.260"
 retype = "^22.8.0"
@@ -126,7 +126,7 @@ joblib = "^1.2.0"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
-pyanalyze = "^0.9.0"
+pyanalyze = "^0.10.1"
 pycodestyle = ">2.9"
 pydocstyle = ">=6.3.0"
 pyflakes = ">2"
