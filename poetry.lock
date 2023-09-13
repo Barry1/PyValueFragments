@@ -641,17 +641,20 @@ smmap = ">=3.0.1,<6"
 
 [[package]]
 name = "gitpython"
-version = "3.1.35"
+version = "3.1.36"
 description = "GitPython is a Python library used to interact with Git repositories"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "GitPython-3.1.35-py3-none-any.whl", hash = "sha256:c19b4292d7a1d3c0f653858db273ff8a6614100d1eb1528b014ec97286193c09"},
-    {file = "GitPython-3.1.35.tar.gz", hash = "sha256:9cbefbd1789a5fe9bcf621bb34d3f441f3a90c8461d377f84eda73e721d9b06b"},
+    {file = "GitPython-3.1.36-py3-none-any.whl", hash = "sha256:8d22b5cfefd17c79914226982bb7851d6ade47545b1735a9d010a2a4c26d8388"},
+    {file = "GitPython-3.1.36.tar.gz", hash = "sha256:4bb0c2a6995e85064140d31a33289aa5dce80133a23d36fcd372d716c54d3ebf"},
 ]
 
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
+
+[package.extras]
+test = ["black", "coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mypy", "pre-commit", "pytest", "pytest-cov", "pytest-sugar", "virtualenv"]
 
 [[package]]
 name = "icecream"
@@ -1780,21 +1783,21 @@ testing = ["coverage (>=6.2)", "flaky (>=3.5.0)", "hypothesis (>=5.7.1)", "mypy 
 
 [[package]]
 name = "pytype"
-version = "2023.8.31"
+version = "2023.9.11"
 description = "Python type inferencer"
 optional = false
 python-versions = "<3.11,>=3.8"
 files = [
-    {file = "pytype-2023.8.31-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:3f67ba0fd23dcf133b576dd064756e93d28a7640c54365c867b58a3d461280c1"},
-    {file = "pytype-2023.8.31-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c13ba266b6ce94ccd4300f3f51e28b37c45f87710ccbe9c9d02bc50923e8aec6"},
-    {file = "pytype-2023.8.31-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:020d7f6d7806b0728ea5d9c42a41fceb0b32ef29652394cbfb83f2a787593bc8"},
-    {file = "pytype-2023.8.31-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:49141455182f0fa045ada675b36ca4e9fb777b413943a659ac5ad6f385edb859"},
-    {file = "pytype-2023.8.31-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3c8ca06b83df5fb632c99e18af2f4374d805d44f97efd2908613238c5d58354a"},
-    {file = "pytype-2023.8.31-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d10dc8b669eb068d6c0338c3f57cc49a8cdb81802f5e022bc87bb84dff2900d3"},
-    {file = "pytype-2023.8.31-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:5f54f8f40e2b299a570b0fe6393e68e27fd6c94b8eed98bce9013ea4166d45c3"},
-    {file = "pytype-2023.8.31-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2fbdd1866ec9991167e92eaa2014973e04e2daa8710a295ba9274dbad6aafe5e"},
-    {file = "pytype-2023.8.31-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:42662cbf3b458ff9fcf340ff36685be3c8703bf4d712093434391990e3fa284a"},
-    {file = "pytype-2023.8.31.tar.gz", hash = "sha256:02c4823018c106389f5f0aa4e6555d657d024bd31a181f207105ebdda20e06dc"},
+    {file = "pytype-2023.9.11-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:8614a5cf432d833da51483e239509b21ad20ce4bc02d6293b35aa73f5b01ec76"},
+    {file = "pytype-2023.9.11-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:becdc1b35abafd8a269884d120b2da73c0d840626568da975a05e706036a4131"},
+    {file = "pytype-2023.9.11-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3235237af4f6a287245d7f55e25ae61e998b3c2cd000297322770934e8091083"},
+    {file = "pytype-2023.9.11-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:4b9295c32bcb721f5aa051eb50456409dc306ad482061b5e297d9bd6ab1e2724"},
+    {file = "pytype-2023.9.11-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:62486057e648dbf6c1297b92565c70c7b2301e9f141639014e874e58c6cd0b97"},
+    {file = "pytype-2023.9.11-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e43c6bc64953aab0390d95aaa10852bba5d49484f5c49fdcf95b6ac2532905d4"},
+    {file = "pytype-2023.9.11-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:85a12bee6a771e98bc08ad578a2b817fb074b69b746fe478f2d3a11435d1002b"},
+    {file = "pytype-2023.9.11-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:170ffe9f54feb3de8e9bdf60900fdad625b04e5705843367e2e52cfcb658fda9"},
+    {file = "pytype-2023.9.11-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d1e152a56c74e7479c2c13fe279e32c67464946ca07483e07e14973277e62529"},
+    {file = "pytype-2023.9.11.tar.gz", hash = "sha256:cb64b861346e51fb118e1dd0492c7bc7304ad1d53594353502ed9aed1f18089f"},
 ]
 
 [package.dependencies]
@@ -2068,13 +2071,13 @@ yaml = ["pyyaml"]
 
 [[package]]
 name = "setuptools"
-version = "68.2.1"
+version = "68.2.2"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "setuptools-68.2.1-py3-none-any.whl", hash = "sha256:eff96148eb336377ab11beee0c73ed84f1709a40c0b870298b0d058828761bae"},
-    {file = "setuptools-68.2.1.tar.gz", hash = "sha256:56ee14884fd8d0cd015411f4a13f40b4356775a0aefd9ebc1d3bfb9a1acb32f1"},
+    {file = "setuptools-68.2.2-py3-none-any.whl", hash = "sha256:b454a35605876da60632df1a60f736524eb73cc47bbc9f3f1ef1b644de74fd2a"},
+    {file = "setuptools-68.2.2.tar.gz", hash = "sha256:4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87"},
 ]
 
 [package.extras]
