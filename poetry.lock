@@ -2338,13 +2338,13 @@ files = [
 
 [[package]]
 name = "typeshed-client"
-version = "2.3.0"
+version = "2.4.0"
 description = "A library for accessing stubs in typeshed."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typeshed_client-2.3.0-py3-none-any.whl", hash = "sha256:27976287e0682be3005233f08f6f3cedf0c496413bcb213378f46e08798988c4"},
-    {file = "typeshed_client-2.3.0.tar.gz", hash = "sha256:e2734755f93a0b6c1da8daad11670c75a36583d889d4d7b110eb882765b8bced"},
+    {file = "typeshed_client-2.4.0-py3-none-any.whl", hash = "sha256:5358cab27cf2d7b1cd1e77dd92a3ac3cd9cd31df9eb2e958bd280a38160a3219"},
+    {file = "typeshed_client-2.4.0.tar.gz", hash = "sha256:b4e4e3e40dca91ce1a667d2eb0eb350a0a2c0d80e18a232d18857aa61bed3492"},
 ]
 
 [package.dependencies]
