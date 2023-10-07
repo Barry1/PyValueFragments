@@ -1700,13 +1700,13 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.330"
+version = "1.1.330.post0"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.330-py3-none-any.whl", hash = "sha256:d4b0e7341579c528067f89529440a1b73457137205452cf5a6d1615eac60f3fd"},
-    {file = "pyright-1.1.330.tar.gz", hash = "sha256:6a0652ef09a59bd1d427955bc2ddcc71ee45478b9b50fcbf1c25b49f1e6b0250"},
+    {file = "pyright-1.1.330.post0-py3-none-any.whl", hash = "sha256:2e9e0878298685b66485b340a0aaa16342129eb03ff9ed0e3c1ab66b8bfbe914"},
+    {file = "pyright-1.1.330.post0.tar.gz", hash = "sha256:8e5b09cc5d1cfa0bcbf8824b0316d21c43fe229da7cef0a09cd12fcf6cb3eedd"},
 ]
 
 [package.dependencies]
