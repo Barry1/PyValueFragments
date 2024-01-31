@@ -59,8 +59,13 @@ __all__: list[str] = []
 def int2bin(number, digits) -> str:
     # string with binary represantation of number without 0b
     # following <https://stackoverflow.com/a/75668709>
-    # return f'{number:0{digits}b}'
     return f"{number:b}".zfill(digits)
+
+    # return bin(number)[2:].zfill(digits)
+    # return f'{number:0{digits}b}'
+
+
+__all__.append("int2bin")
 
 
 def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:
