@@ -1,4 +1,5 @@
 """helper functions and code snippets which are not decorators."""
+
 from __future__ import annotations
 
 # https://docs.python.org/3/library/__future__.html
@@ -53,6 +54,13 @@ FirstElementT = TypeVar("FirstElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
+
+
+def int2bin(number, digits) -> str:
+    # string with binary represantation of number without 0b
+    # following <https://stackoverflow.com/a/75668709>
+    # return f'{number:0{digits}b}'
+    return f"{number:b}".zfill(digits)
 
 
 def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:

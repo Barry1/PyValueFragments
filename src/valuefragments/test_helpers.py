@@ -5,6 +5,7 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     basic_auth,
     file_exists_current,
     hashfile,
+    int2bin,
     pi_for_cpu_load,
     stringtovalidfilename,
 )
@@ -33,6 +34,17 @@ def test_pi_for_cpu_load() -> None:
     # 10.23 seconds to here
     # assert pi_for_cpu_load(100000000, 4478) == 3.14188636
     # assert pi_for_cpu_load(1000000000, 4478) == 3.141731728
+
+
+def test_int2bin() -> None:
+    """Check binary representations of numbers and digits."""
+    assert int2bin(5, 8) == "00000101"
+    assert int2bin(5, 7) == "0000101"
+    assert int2bin(5, 6) == "000101"
+    assert int2bin(5, 5) == "00101"
+    assert int2bin(4478, 14) == "01000101111110"
+    assert int2bin(4478, 13) == "1000101111110"
+    assert int2bin(4478, 12) == "1000101111110"
 
 
 def test_stringtovalidfilename() -> None:
