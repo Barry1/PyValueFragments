@@ -57,7 +57,7 @@ __all__: list[str] = []
 
 
 def int2bin(number: int, digits: int) -> str:
-    # string with binary represantation of number without 0b
+    """string with binary represantation of number without 0b"""
     # following <https://stackoverflow.com/a/75668709>
     return f"{number:b}".zfill(digits)
 
@@ -69,7 +69,7 @@ __all__.append("int2bin")
 
 
 def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:
-    # Check if given file exists and is not older than max_age_seconds.
+    """Check if given file exists and is not older than max_age_seconds."""
     return (
         os.path.exists(filepathname)
         and time.time() - os.path.getmtime(filepathname) < max_age_seconds
