@@ -56,7 +56,7 @@ _FunCallResultT = TypeVar("_FunCallResultT")
 __all__: list[str] = []
 
 
-def int2bin(number, digits) -> str:
+def int2bin(number: int, digits: int) -> str:
     # string with binary represantation of number without 0b
     # following <https://stackoverflow.com/a/75668709>
     return f"{number:b}".zfill(digits)
