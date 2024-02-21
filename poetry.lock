@@ -1742,13 +1742,13 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.350"
+version = "1.1.351"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.350-py3-none-any.whl", hash = "sha256:f1dde6bcefd3c90aedbe9dd1c573e4c1ddbca8c74bf4fa664dd3b1a599ac9a66"},
-    {file = "pyright-1.1.350.tar.gz", hash = "sha256:a8ba676de3a3737ea4d8590604da548d4498cc5ee9ee00b1a403c6db987916c6"},
+    {file = "pyright-1.1.351-py3-none-any.whl", hash = "sha256:83b44b25396ae20661fc5f133c3fce30928ff1296d4f2e5ff0bca5fcf03eb89d"},
+    {file = "pyright-1.1.351.tar.gz", hash = "sha256:01124099714eebd7f6525d8cbfa350626b56dfaf771cfcd55c03e69f0f1efbbd"},
 ]
 
 [package.dependencies]
@@ -2424,13 +2424,13 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "ufmt"
-version = "2.3.0"
+version = "2.4.0"
 description = "Safe, atomic formatting with black and µsort"
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "ufmt-2.3.0-py3-none-any.whl", hash = "sha256:8aa76874b6d72282e26b3582fb6cbbc22208c51060526f73202b0251bff91740"},
-    {file = "ufmt-2.3.0.tar.gz", hash = "sha256:ced3e572263d1fb5d6c3655d46b78194a11e8cf1294af9a814128a498b4506bb"},
+    {file = "ufmt-2.4.0-py3-none-any.whl", hash = "sha256:d2717dfb397ecc08afc82f8f058565820f45a453706cb342614058ba95dcacb8"},
+    {file = "ufmt-2.4.0.tar.gz", hash = "sha256:6ec6db79d1b4dab2f1436e928b10a545fb00fa46cb4cb4b35919acc900dd4850"},
 ]
 
 [package.dependencies]
@@ -2444,8 +2444,9 @@ typing-extensions = ">=4.0"
 usort = ">=1.0"
 
 [package.extras]
-dev = ["attribution (==1.6.2)", "black (==23.10.0)", "coverage (==7.3.2)", "flake8 (==6.1.0)", "flit (==3.9.0)", "mypy (==1.6.1)", "usort (==1.0.7)"]
-docs = ["sphinx (==7.1.1)", "sphinx-mdinclude (==0.5.3)"]
+dev = ["attribution (==1.7.0)", "black (==24.2.0)", "coverage (==7.4.1)", "flake8 (==7.0.0)", "flit (==3.9.0)", "mypy (==1.8.0)", "ruff-api (==0.0.3)", "usort (==1.0.8.post1)"]
+docs = ["sphinx (==7.2.6)", "sphinx-mdinclude (==0.5.3)"]
+ruff = ["ruff-api (>=0.0.1)"]
 
 [[package]]
 name = "urllib3"
