@@ -2297,13 +2297,13 @@ docs = ["sphinx (==6.1.3)", "sphinx-mdinclude (==0.5.3)"]
 
 [[package]]
 name = "trove-classifiers"
-version = "2024.1.31"
+version = "2024.2.22"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
 optional = false
 python-versions = "*"
 files = [
-    {file = "trove-classifiers-2024.1.31.tar.gz", hash = "sha256:bfdfe60bbf64985c524416afb637ecc79c558e0beb4b7f52b0039e01044b0229"},
-    {file = "trove_classifiers-2024.1.31-py3-none-any.whl", hash = "sha256:854aba3358f3cf10e5c0916aa533f5a39e27aadd8ade26a54cdc2a93257e39c4"},
+    {file = "trove-classifiers-2024.2.22.tar.gz", hash = "sha256:458650355240a16a98bb430ddac088412af48a86093d400206f09030eb595e8a"},
+    {file = "trove_classifiers-2024.2.22-py3-none-any.whl", hash = "sha256:42d63b69107462dfbfb2b0ce01f8738ca7900b89cfa7dc5478f0ce557ca22adb"},
 ]
 
 [[package]]
