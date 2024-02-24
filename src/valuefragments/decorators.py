@@ -1,4 +1,5 @@
 """module holding decorators."""
+
 from __future__ import annotations
 
 import asyncio
@@ -171,6 +172,40 @@ def timing_wall(
 
 
 __all__.append("timing_wall")
+
+
+def portable_timing_wall(func):
+    """Like TIME Command."""
+
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        """Run with timing."""
+        before = [time.perf_counter_ns(), os.times()]
+        retval = func(*args, **kwargs)
+        after = [time.perf_counter_ns(), os.times()]
+        if before and after:
+            WALLdiff = (after[0] - before[0]) / 1e9
+            USERdiff = (
+                after[1].user - before[1].user + after[1].children_user - before[1].children_user
+            )
+            SYSTEMdiff = (
+                after[1].system
+                - before[1].system
+                + after[1].children_system
+                - before[1].children_system
+            )
+            print(
+                f"{func.__name__:10}",
+                f"\t{WALLdiff:8.3} [s]",
+                f"\t(User: {USERdiff:8.3} [s]," f"\tSystem {SYSTEMdiff:8.3} [s])",
+                f"{100*(USERdiff+SYSTEMdiff)/WALLdiff:6.2f}% Load",
+            )
+        return retval
+
+    return wrapped  # cast(FunctionTypeVar, wrapped)
+
+
+__all__.append("portable_timing_wall")
 
 
 def linuxtime(
