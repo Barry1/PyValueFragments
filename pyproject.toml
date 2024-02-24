@@ -8,6 +8,9 @@ version = "0.3.28"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
+[tool.poetry.urls]
+repository = "https://github.com/Barry1/PyValueFragments"
+
 [tool.poetry.extras]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
@@ -19,6 +22,7 @@ retype = "^22.8.0"
 infer-types = "^1.0.0"
 pyannotate = "^1.2.0"
 pytest-asyncio = "^0.21.0"
+darker = "^1.7.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
