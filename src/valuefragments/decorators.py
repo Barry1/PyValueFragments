@@ -174,7 +174,7 @@ def timing_wall(
 __all__.append("timing_wall")
 
 
-def portable_timing_wall(func):
+def portable_timing(func):
     """Like TIME Command."""
 
     @wraps(func)
@@ -205,7 +205,7 @@ def portable_timing_wall(func):
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-__all__.append("portable_timing_wall")
+__all__.append("portable_timing")
 
 
 def linuxtime(
