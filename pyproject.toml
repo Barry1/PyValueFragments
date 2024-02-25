@@ -57,7 +57,7 @@ jobs = 0
 line-length = 99
 target-version = ['py311'] #'py37', 'py38',
 color = true
-safe = true
+# safe = true
 
 #force-exlude = ".*/venv/.*"
 [tool.darker]
