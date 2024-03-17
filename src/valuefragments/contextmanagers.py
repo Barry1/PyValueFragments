@@ -16,7 +16,7 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level]
 )
 
 
-class NoOutput(TextIO, ABC):
+class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
