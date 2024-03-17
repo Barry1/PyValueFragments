@@ -6,7 +6,7 @@ import os
 import sys
 import time
 from types import TracebackType
-from typing import Any, Literal, Optional, TextIO, Type
+from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
 # from typing_extensions import Self
 from .helpers import (  # pylint: disable=relative-beyond-top-level]
@@ -45,6 +45,31 @@ class NoOutput(TextIO):
 
     def flush(self: NoOutput) -> None:
         """Flush attribute: Needed but does nothing."""
+
+    #   buffer  |   |  encoding |   |  errors |  |  line_buffering  newlines
+
+    @property
+    def buffer(self: NoOutput) -> BinaryIO:
+        """Buffer: Needed but does nothing."""
+        return self.buffer
+
+    @property
+    def encoding(self: NoOutput) -> str:
+        """Encoding: Needed but does nothing."""
+        return ""
+
+    @property
+    def errors(self: NoOutput) -> None:
+        """Errors: Needed but does nothing."""
+
+    @property
+    def line_buffering(self: NoOutput) -> int:
+        """Line_buffering: Needed but does nothing."""
+        return 0
+
+    @property
+    def newlines(self: NoOutput) -> None:
+        """Newlines: Needed but does nothing."""
 
 
 class LinuxTimeCM:
