@@ -14,15 +14,6 @@ repository = "https://github.com/Barry1/PyValueFragments"
 [tool.poetry.extras]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
-[tool.poetry.group.dev.dependencies]
-pyanalyze = "^0.9.0"
-types-psutil = "^5.9.5.11"
-ruff = "^0.0.260"
-retype = "^22.8.0"
-infer-types = "^1.0.0"
-pyannotate = "^1.2.0"
-pytest-asyncio = "^0.21.0"
-darker = "^1.7.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -118,55 +109,63 @@ optional = true
 version = "*"
 optional = true
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 autopep8 = "*"
 bandit = "^1.7.4"
 build = "*"
 cpu-load-generator = "*"
+darker = "^1.7.2"
 flake8 = ">5"
 icecream = "*"
+infer-types = "^1.0.0"
 interrogate = ">=1.5"
 joblib = "^1.2.0"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
 pyanalyze = "^0.9.0"
+pyannotate = "^1.2.0"
 pycodestyle = ">2.9"
 pydocstyle = ">=6.3.0"
 pyflakes = ">2"
 pyleft = "*"
 pylint = "*"
+pylyzer = "^0.0.51"
 pyre-check = "*"
 pyright = "*"
 pyroma = "^4.1"
 pytest = "*"
+pytest-asyncio = "^0.21.0"
 radon = "*"
+retype = "^22.8.0"
+ruff = "^0.3.7"
 setuptools = ">=65.5.1"
 toml = "*"
+types-psutil = "^5.9.5.11"
 ufmt = "*"
 vermin = ">=1.5"
 yapf = "*"
 
-[tool.poetry.dev-dependencies.black]
+[tool.poetry.group.dev.dependencies.black]
 version = ">22"
 allow-prereleases = true
 
-[tool.poetry.dev-dependencies.pylama]
+[tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
 version = ">8.4"
 
-[tool.poetry.dev-dependencies.isort]
+[tool.poetry.group.dev.dependencies.isort]
 version = "*"
 extras = ["colors"]
 
 [tool.prospector]
 without_tool = "django"
 
-# [tool.poetry.dev-dependencies.mypy]
+# [tool.poetry.group.dev.dependencies.mypy]
 # git = "https://github.com/python/mypy.git"
 # version = "^1"
 # allow-prereleases = true
-[tool.poetry.dev-dependencies.prospector]
+[tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
 # better see <https://prospector.landscape.io/en/master/supported_tools.html>
@@ -178,7 +177,7 @@ extras = [
   "with_bandit",
 ]
 
-[tool.poetry.dev-dependencies.pytype]
+[tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
 python = "~3.10"
 
