@@ -870,13 +870,13 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "joblib"
-version = "1.4.0"
+version = "1.4.2"
 description = "Lightweight pipelining with Python functions"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "joblib-1.4.0-py3-none-any.whl", hash = "sha256:42942470d4062537be4d54c83511186da1fc14ba354961a2114da91efa9a4ed7"},
-    {file = "joblib-1.4.0.tar.gz", hash = "sha256:1eb0dc091919cd384490de890cb5dfd538410a6d4b3b54eef09fb8c50b409b1c"},
+    {file = "joblib-1.4.2-py3-none-any.whl", hash = "sha256:06d478d5674cbc267e7496a410ee875abd68e4340feff4490bcb7afb88060ae6"},
+    {file = "joblib-1.4.2.tar.gz", hash = "sha256:2382c5816b2636fbd20a09e0f4e9dad4736765fdfb7dca582943b9c1366b3f0e"},
 ]
 
 [[package]]
@@ -1077,13 +1077,13 @@ files = [
 
 [[package]]
 name = "marshmallow"
-version = "3.21.1"
+version = "3.21.2"
 description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "marshmallow-3.21.1-py3-none-any.whl", hash = "sha256:f085493f79efb0644f270a9bf2892843142d80d7174bbbd2f3713f2a589dc633"},
-    {file = "marshmallow-3.21.1.tar.gz", hash = "sha256:4e65e9e0d80fc9e609574b9983cf32579f305c718afb30d7233ab818571768c3"},
+    {file = "marshmallow-3.21.2-py3-none-any.whl", hash = "sha256:70b54a6282f4704d12c0a41599682c5c5450e843b9ec406308653b47c59648a1"},
+    {file = "marshmallow-3.21.2.tar.gz", hash = "sha256:82408deadd8b33d56338d2182d455db632c6313aa2af61916672146bb32edc56"},
 ]
 
 [package.dependencies]
@@ -1091,7 +1091,7 @@ packaging = ">=17.0"
 
 [package.extras]
 dev = ["marshmallow[tests]", "pre-commit (>=3.5,<4.0)", "tox"]
-docs = ["alabaster (==0.7.16)", "autodocsumm (==0.2.12)", "sphinx (==7.2.6)", "sphinx-issues (==4.0.0)", "sphinx-version-warning (==1.1.2)"]
+docs = ["alabaster (==0.7.16)", "autodocsumm (==0.2.12)", "sphinx (==7.3.7)", "sphinx-issues (==4.1.0)", "sphinx-version-warning (==1.1.2)"]
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
@@ -2531,13 +2531,13 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "ufmt"
-version = "2.5.1"
+version = "2.6.0"
 description = "Safe, atomic formatting with black and µsort"
 optional = false
-python-versions = ">= 3.8"
+python-versions = ">=3.8"
 files = [
-    {file = "ufmt-2.5.1-py3-none-any.whl", hash = "sha256:3f8eb5b3f0183bf5380860691f0173e4b958cdc6921980db95fa44d98cbcb705"},
-    {file = "ufmt-2.5.1.tar.gz", hash = "sha256:af53400cbc0498d5d57f79bdf8c0e13df67f384ab38ab9881b15e4ceb04c5d64"},
+    {file = "ufmt-2.6.0-py3-none-any.whl", hash = "sha256:d9be63ab9d7e4d7cbce7394f3ec7859148b655b4c75f4dd694a141c4cb953491"},
+    {file = "ufmt-2.6.0.tar.gz", hash = "sha256:8d6e520699455cd2ff2714640c16af2ae8f305a747e17524b44625038ca41226"},
 ]
 
 [package.dependencies]
@@ -2551,9 +2551,9 @@ typing-extensions = ">=4.0"
 usort = ">=1.0"
 
 [package.extras]
-dev = ["attribution (==1.7.0)", "black (==24.2.0)", "coverage (==7.4.1)", "flake8 (==7.0.0)", "flit (==3.9.0)", "mypy (==1.8.0)", "ruff-api (==0.0.3)", "usort (==1.0.8.post1)"]
-docs = ["sphinx (==7.2.6)", "sphinx-mdinclude (==0.5.3)"]
-ruff = ["ruff-api (>=0.0.1)"]
+dev = ["attribution (==1.7.1)", "black (==24.4.2)", "coverage (==7.5.0)", "flake8 (==7.0.0)", "flit (==3.9.0)", "mypy (==1.10.0)", "ruff-api (==0.0.5)", "usort (==1.0.8.post1)"]
+docs = ["sphinx (==7.3.7)", "sphinx-mdinclude (==0.6.0)"]
+ruff = ["ruff-api (>=0.0.5)"]
 
 [[package]]
 name = "urllib3"
