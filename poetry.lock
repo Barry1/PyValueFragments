@@ -14,13 +14,13 @@ files = [
 
 [[package]]
 name = "ast-decompiler"
-version = "0.7.0"
+version = "0.8.0"
 description = "Python module to decompile AST to Python code"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 files = [
-    {file = "ast_decompiler-0.7.0-py3-none-any.whl", hash = "sha256:5ebd37ba129227484daff4a15dd6056d87c488fa372036dd004ee84196b207d3"},
-    {file = "ast_decompiler-0.7.0.tar.gz", hash = "sha256:efc3a507e5f8963ec7b4b2ce2ea693e3755c2f52b741c231bc344a4526738337"},
+    {file = "ast_decompiler-0.8.0-py3-none-any.whl", hash = "sha256:bc2449883f153788d89b842967dbe871d6db14f53a178bf7ec601f393fe1e1bb"},
+    {file = "ast_decompiler-0.8.0.tar.gz", hash = "sha256:daef5ca5c2bcb9ba7cf72a9308c7cd596c092d7201c0bbaf28947c721ce26441"},
 ]
 
 [[package]]
