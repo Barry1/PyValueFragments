@@ -1517,13 +1517,12 @@ six = "*"
 
 [[package]]
 name = "pycnite"
-version = "2023.10.11"
+version = "2024.5.27"
 description = "Python bytecode utilities"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pycnite-2023.10.11-py3-none-any.whl", hash = "sha256:7d02eb0ec4b405d8812ce053434dacfc2335dcd458ab58a1a8bf64f72d40bd76"},
-    {file = "pycnite-2023.10.11.tar.gz", hash = "sha256:ad8616982beecc39f2090999aa8fe0b044b1f6733ec39484cb5e0900b3c88aa1"},
+    {file = "pycnite-2024.5.27-py3-none-any.whl", hash = "sha256:9274c95373663749323714bfc7e845d6ea0a793abc0d33dfc6932d660b7669a9"},
 ]
 
 [[package]]
