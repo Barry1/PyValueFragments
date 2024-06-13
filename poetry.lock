@@ -184,13 +184,13 @@ tomli = "*"
 
 [[package]]
 name = "bandit"
-version = "1.7.8"
+version = "1.7.9"
 description = "Security oriented static analyser for python code."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "bandit-1.7.8-py3-none-any.whl", hash = "sha256:509f7af645bc0cd8fd4587abc1a038fc795636671ee8204d502b933aee44f381"},
-    {file = "bandit-1.7.8.tar.gz", hash = "sha256:36de50f720856ab24a24dbaa5fee2c66050ed97c1477e0a1159deab1775eab6b"},
+    {file = "bandit-1.7.9-py3-none-any.whl", hash = "sha256:52077cb339000f337fb25f7e045995c4ad01511e716e5daac37014b9752de8ec"},
+    {file = "bandit-1.7.9.tar.gz", hash = "sha256:7c395a436743018f7be0a4cbb0a4ea9b902b6d87264ddecf8cfdc73b4f78ff61"},
 ]
 
 [package.dependencies]
@@ -1517,12 +1517,13 @@ six = "*"
 
 [[package]]
 name = "pycnite"
-version = "2024.5.27"
+version = "2024.6.13"
 description = "Python bytecode utilities"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pycnite-2024.5.27-py3-none-any.whl", hash = "sha256:9274c95373663749323714bfc7e845d6ea0a793abc0d33dfc6932d660b7669a9"},
+    {file = "pycnite-2024.6.13-py3-none-any.whl", hash = "sha256:7346099b2313894db65ffca177f9e6eb3251fdfedb019eb6da02822c2ff8c1e1"},
+    {file = "pycnite-2024.6.13.tar.gz", hash = "sha256:301c5d7e2e2f61e5535d0af7c4486f3ea4f5083c4808a7645a55ddb45cb25027"},
 ]
 
 [[package]]
