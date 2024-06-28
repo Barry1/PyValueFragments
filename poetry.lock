@@ -1536,13 +1536,13 @@ six = "*"
 
 [[package]]
 name = "pycnite"
-version = "2024.6.13"
+version = "2024.6.28"
 description = "Python bytecode utilities"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pycnite-2024.6.13-py3-none-any.whl", hash = "sha256:7346099b2313894db65ffca177f9e6eb3251fdfedb019eb6da02822c2ff8c1e1"},
-    {file = "pycnite-2024.6.13.tar.gz", hash = "sha256:301c5d7e2e2f61e5535d0af7c4486f3ea4f5083c4808a7645a55ddb45cb25027"},
+    {file = "pycnite-2024.6.28-py3-none-any.whl", hash = "sha256:228b2cfae86fecc82e1bddb2b44b4890b337e0a778c1521a56546642dd28bfe4"},
+    {file = "pycnite-2024.6.28.tar.gz", hash = "sha256:e3f1f9697b49af8d4edc0e0d228b23fdfc56acc7878bc64378e46ddf8150d3a8"},
 ]
 
 [[package]]
