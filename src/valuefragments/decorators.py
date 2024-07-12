@@ -193,9 +193,9 @@ def portable_timing(func):
                 + after[1].children_system
                 - before[1].children_system
             )
+            print(f"{func.__name__:10} {args} {kwargs}")
             print(
-                f"{func.__name__:10} {args} {kwargs}",
-                f"\t{WALLdiff:8.3f} [s]",
+                f"{WALLdiff:8.3f} [s]",
                 f"\t(User: {USERdiff:8.3f} [s]," f"\tSystem {SYSTEMdiff:8.3f} [s])",
                 f"{100*(USERdiff+SYSTEMdiff)/WALLdiff:6.2f}% Load",
             )
