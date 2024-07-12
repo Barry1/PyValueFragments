@@ -40,7 +40,6 @@ elif sys.version_info < (3, 11):
         Callable,
         Literal,
         NamedTuple,
-        Optional,
         ParamSpec,
         ParamSpecArgs,
         ParamSpecKwargs,
@@ -196,8 +195,8 @@ def portable_timing(func):
             )
             print(
                 f"{func.__name__:10} {args} {kwargs}",
-                f"\t{WALLdiff:8.3} [s]",
-                f"\t(User: {USERdiff:8.3} [s]," f"\tSystem {SYSTEMdiff:8.3} [s])",
+                f"\t{WALLdiff:8.3f} [s]",
+                f"\t(User: {USERdiff:8.3f} [s]," f"\tSystem {SYSTEMdiff:8.3f} [s])",
                 f"{100*(USERdiff+SYSTEMdiff)/WALLdiff:6.2f}% Load",
             )
         return retval
