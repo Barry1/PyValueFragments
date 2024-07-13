@@ -446,30 +446,30 @@ def easybisect(
     lowerbound: Tinput,
     upperbound: Tinput,
     targetval: Toutput,
+    maxiter: int = 20,
+    relerror: float = 0.01,
 ) -> Tinput:
     """Simple Bisection for scalar functions."""
-    data: list[list[Tinput, Toutput]] = []
+    data: list[tuple[Tinput, Toutput]] = []
     assert lowerbound < upperbound
     lowind: int = len(data)
-    data.append([lowerbound, fun(lowerbound)])
+    data.append((lowerbound, fun(lowerbound)))
     highind: int = len(data)
-    data.append([upperbound, fun(upperbound)])
-    candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
-        data[highind][1] - data[lowind][1]
-    ) * (data[highind][0] - data[lowind][0])
-    candidateval: Toutput = fun(candidate)
-    while abs(candidateval - targetval) > 1e-4:
-        if candidateval < targetval:
-            lowind = len(data)
-        else:
-            highind = len(data)
-        data.append([candidate, candidateval])
+    data.append((upperbound, fun(upperbound)))
+    for _ in range(maxiter):
         candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
         candidateval: Toutput = fun(candidate)
-    for entry in data:
-        print(entry)
+        if candidateval < targetval:
+            lowind = len(data)
+        else:
+            highind = len(data)
+        data.append((candidate, candidateval))
+        if abs(candidateval < targetval) <= relerror * targetval:
+            break
+    #    for entry in data:
+    #        print(entry)
     return candidate, candidateval
 
 
