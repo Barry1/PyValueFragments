@@ -3,6 +3,7 @@
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
+    easybisect,
     file_exists_current,
     hashfile,
     int2bin,
@@ -71,3 +72,12 @@ def test_humanreadable() -> None:
     assert format(HumanReadAble(2**20)) == "1.0 MiB"
     assert format(HumanReadAble(10**6, "baud")) == "976.5625 Kibaud"
     assert format(HumanReadAble(123456789), "10.2f") == "    117.74 MiB"
+
+
+def test_easybisect() -> None:
+    """Check Bisection method."""
+    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130177346728433, 6.955885095010905)
+    assert easybisect(lambda x: x**x, 2, 3, 7, 30, 0.001) == (
+        2.3161170287184474,
+        6.995648896293349,
+    )
