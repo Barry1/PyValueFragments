@@ -27,4 +27,5 @@ __all__: list[str] = [
     "loadonecore",
     "loadallcores",
     "stringtovalidfilename",
+    "easybisect",
 ]

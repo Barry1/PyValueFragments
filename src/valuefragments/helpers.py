@@ -40,6 +40,8 @@ else:
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
+Tinput = TypeVar("Tinput")
+Toutput = TypeVar("Toutput")
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -437,3 +439,38 @@ def stringtovalidfilename2(inputstring: str) -> str:
 
 
 __all__.append("stringtovalidfilename2")
+
+
+def easybisect(
+    fun: Callable[[Tinput], Toutput],
+    lowerbound: Tinput,
+    upperbound: Tinput,
+    targetval: Toutput,
+) -> Tinput:
+    """Simple Bisection for scalar functions."""
+    data: list[list[Tinput, Toutput]] = []
+    assert lowerbound < upperbound
+    lowind: int = len(data)
+    data.append([lowerbound, fun(lowerbound)])
+    highind: int = len(data)
+    data.append([upperbound, fun(upperbound)])
+    candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
+        data[highind][1] - data[lowind][1]
+    ) * (data[highind][0] - data[lowind][0])
+    candidateval: Toutput = fun(candidate)
+    while abs(candidateval - targetval) > 1e-4:
+        if candidateval < targetval:
+            lowind = len(data)
+        else:
+            highind = len(data)
+        data.append([candidate, candidateval])
+        candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
+            data[highind][1] - data[lowind][1]
+        ) * (data[highind][0] - data[lowind][0])
+        candidateval: Toutput = fun(candidate)
+    for entry in data:
+        print(entry)
+    return candidate, candidateval
+
+
+__all__.append("easybisect")
