@@ -7,6 +7,7 @@ from __future__ import annotations
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
+import logging
 import math
 import os
 import random
@@ -44,6 +45,8 @@ if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
+
+theLogger: logging.Logger = logging.getLogger(__name__)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -452,13 +455,15 @@ def easybisect(
     relerror: float = 0.01,
 ) -> Tinput:
     """Simple Bisection for scalar functions."""
+    theLogger.debug("easybisect started")
+    theLogger.debug("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[Tinput, Toutput]] = []
     assert lowerbound < upperbound
     lowind: int = len(data)
     data.append((lowerbound, fun(lowerbound)))
     highind: int = len(data)
     data.append((upperbound, fun(upperbound)))
-    for _ in range(maxiter):
+    for actiter in range(maxiter):
         candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
@@ -470,6 +475,7 @@ def easybisect(
             highind = len(data)
         data.append((candidate, candidateval))
         if abs(candidatediff) <= relerror * targetval:
+            logging.debug("Early end of loop at iteration %i.", actiter)
             break
     #    for entry in data:
     #        print(entry)
