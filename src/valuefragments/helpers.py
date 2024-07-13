@@ -461,12 +461,13 @@ def easybisect(
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
         candidateval: Toutput = fun(candidate)
-        if candidateval < targetval:
+        candidatediff: Toutput = candidateval - targetval
+        if candidatediff < 0:
             lowind = len(data)
         else:
             highind = len(data)
         data.append((candidate, candidateval))
-        if abs(candidateval < targetval) <= relerror * targetval:
+        if abs(candidatediff) <= relerror * targetval:
             break
     #    for entry in data:
     #        print(entry)
