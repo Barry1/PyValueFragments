@@ -22,6 +22,7 @@ from shutil import copyfileobj
 from typing import (
     IO,
     TYPE_CHECKING,
+    Any,
     Callable,
     Generator,
     Literal,
@@ -42,7 +43,7 @@ else:
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
 Tinput = TypeVar("Tinput")
-Toutput = TypeVar("Toutput", bound=SupportsAbs)
+Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
