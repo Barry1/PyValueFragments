@@ -26,6 +26,7 @@ from typing import (
     Generator,
     Literal,
     Protocol,
+    SupportsAbs,
     SupportsInt,
     TypedDict,
     TypeVar,
@@ -41,7 +42,7 @@ else:
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
 Tinput = TypeVar("Tinput")
-Toutput = TypeVar("Toutput")
+Toutput = TypeVar("Toutput", bound=SupportsAbs)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
