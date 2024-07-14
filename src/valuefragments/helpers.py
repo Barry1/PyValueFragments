@@ -45,7 +45,6 @@ if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
-
 thelogger: logging.Logger = logging.getLogger(__name__)
 
 
@@ -97,7 +96,7 @@ def filecache(
         with open(filepathname, "wb") as thefile:
             with genupdmeth() as thesrc:
                 copyfileobj(thesrc, thefile)
-        print("Aktualisiert")
+        thelogger.info("File %s refreshed.", filepathname)
     return procmeth(filepathname)
 
 
@@ -106,7 +105,7 @@ __all__.append("filecache")
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
     """Inject thread_id to log records"""
-    record.thread_native: int = threading.get_native_id()
+    record.thread_native = threading.get_native_id()
     return record
 
 
@@ -455,8 +454,8 @@ def easybisect(
     relerror: float = 0.01,
 ) -> Tinput:
     """Simple Bisection for scalar functions."""
-    thelogger.debug("easybisect started")
-    thelogger.debug("Maximum %i iterations for relative error %f", maxiter, relerror)
+    thelogger.info("easybisect started")
+    thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[Tinput, Toutput]] = []
     assert lowerbound < upperbound
     lowind: int = len(data)
@@ -475,14 +474,17 @@ def easybisect(
             highind = len(data)
         data.append((candidate, candidateval))
         if abs(candidatediff) <= relerror * targetval:
-            thelogger.debug(
+            thelogger.info(
                 "Early end of loop at iteration %i with relerr %6.3f%%.",
                 actiter,
                 candidatediff * 100 / targetval,
             )
             break
-    #    for entry in data:
-    #        print(entry)
+        thelogger.debug(
+            "Iteration %i with relative error %6.3f%%", actiter, candidatediff * 100 / targetval
+        )
+    for entry in data:
+        thelogger.debug(entry)
     return candidate, candidateval
 
 
