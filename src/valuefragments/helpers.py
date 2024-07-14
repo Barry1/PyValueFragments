@@ -46,7 +46,7 @@ if TYPE_CHECKING:
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 
-theLogger: logging.Logger = logging.getLogger(__name__)
+thelogger: logging.Logger = logging.getLogger(__name__)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -455,8 +455,8 @@ def easybisect(
     relerror: float = 0.01,
 ) -> Tinput:
     """Simple Bisection for scalar functions."""
-    theLogger.debug("easybisect started")
-    theLogger.debug("Maximum %i iterations for relative error %f", maxiter, relerror)
+    thelogger.debug("easybisect started")
+    thelogger.debug("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[Tinput, Toutput]] = []
     assert lowerbound < upperbound
     lowind: int = len(data)
@@ -475,7 +475,11 @@ def easybisect(
             highind = len(data)
         data.append((candidate, candidateval))
         if abs(candidatediff) <= relerror * targetval:
-            logging.debug("Early end of loop at iteration %i.", actiter)
+            thelogger.debug(
+                "Early end of loop at iteration %i with relerr %6.3f%%.",
+                actiter,
+                candidatediff * 100 / targetval,
+            )
             break
     #    for entry in data:
     #        print(entry)
