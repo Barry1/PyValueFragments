@@ -71,6 +71,20 @@ __all__: list[str] = []
 # https://stackoverflow.com/a/68746329/617339
 
 
+def moduleexport(class_or_function: InstanceObjectT) -> InstanceObjectT:
+    """Adds function or class magical to module's __all__."""
+    # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
+    module: sys.ModuleType = sys.modules[class_or_function.__module__]
+    ic(class_or_function.__name__ + " in " + class_or_function.__module__)
+    if hasattr(module, "__all__"):
+        if class_or_function.__name__ not in module.__all__:
+            module.__all__.append(class_or_function.__name__)
+    else:
+        module.__all__ = [class_or_function.__name__]
+    return class_or_function
+
+
+@moduleexport
 def logdecorate(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -143,8 +157,6 @@ def logdecorate(
 
     return awrapped if asyncio.iscoroutinefunction(func) else wrapped
 
-
-__all__.append("logdecorate")
 
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
