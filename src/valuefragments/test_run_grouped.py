@@ -8,10 +8,8 @@ import sys
 import pytest
 
 if sys.version_info >= (3, 11):
-    import asyncio
     from functools import partial
 
-    from .contextmanagers import LinuxTimeCM
     from .helpers import pi_for_cpu_load, run_grouped
 
     tasklist: list[partial[float]] = [partial(pi_for_cpu_load, 10000, 4478) for _ in range(5)]
