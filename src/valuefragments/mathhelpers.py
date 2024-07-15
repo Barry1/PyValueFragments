@@ -1,14 +1,29 @@
 """Module with small helpers for mathematical questions."""
 
 from logging import Logger, getLogger
-from typing import Any, Callable, SupportsAbs, TypeVar
+from typing import Callable, TypeVar
 
 from .decorators import moduleexport
 
 thelogger: Logger = getLogger(__name__)
+Tinput = TypeVar("Tinput", int, float)
+Toutput = TypeVar("Toutput", bound=float)
 
-Tinput = TypeVar("Tinput")
-Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
+
+def determinant(
+    cola: tuple[float, float, float],
+    colb: tuple[float, float, float],
+    colc: tuple[float, float, float],
+) -> float:
+    """Returns Determinant of 3x3-Matrix given in ColumnTuples"""
+    return (
+        cola[0] * colb[1] * colc[2]
+        + cola[1] * colb[2] * colc[0]
+        + cola[2] * colb[0] * colc[1]
+        - cola[2] * colb[1] * colc[0]
+        - cola[1] * colb[0] * colc[2]
+        - cola[0] * colb[2] * colc[1]
+    )
 
 
 @moduleexport
@@ -16,41 +31,20 @@ def intp(
     x: tuple[Tinput, Tinput, Tinput], y: tuple[Tinput, Tinput, Tinput]
 ) -> tuple[Tinput, Tinput, Tinput]:
     """Returns coefficients for interpolation by second order polynom along three given pairs."""
-    d: Tinput = (
-        x[0] ** 2 * x[1]
-        + x[1] ** 2 * x[2]
-        + x[2] ** 2 * x[0]
-        - x[2] ** 2 * x[1]
-        - x[1] ** 2 * x[0]
-        - x[0] ** 2 * x[2]
-    )
-    da: Tinput = y[0] * x[1] + y[1] * x[2] + y[2] * x[0] - y[2] * x[1] - y[1] * x[0] - y[0] * x[2]
-    db: Tinput = (
-        x[0] ** 2 * y[1]
-        + x[1] ** 2 * y[2]
-        + x[2] ** 2 * y[0]
-        - x[2] ** 2 * y[1]
-        - x[1] ** 2 * y[0]
-        - x[0] ** 2 * y[2]
-    )
-    dc: Tinput = (
-        x[0] ** 2 * x[1] * y[2]
-        + x[1] ** 2 * x[2] * y[0]
-        + x[2] ** 2 * x[0] * y[1]
-        - x[2] ** 2 * x[1] * y[0]
-        - x[1] ** 2 * x[0] * y[2]
-        - x[0] ** 2 * x[2] * y[1]
-    )
+    d: Tinput = determinant([val**2 for val in x], x, [1, 1, 1])
+    da: Tinput = determinant(y, x, [1, 1, 1])
+    db: Tinput = determinant([val**2 for val in x], y, [1, 1, 1])
+    dc: Tinput = determinant([val**2 for val in x], x, y)
     return (da / d, db / d, dc / d)
 
 
 @moduleexport
-def polyroot(coeffs: tuple[Tinput, Tinput, Tinput], val: Tinput = 0) -> Tinput:
+def polyroot(coeffs: tuple[Tinput, Tinput, Tinput], val: Tinput = 0) -> tuple[Tinput, Tinput]:
     """Returns root of second order polynom given in its coefficients."""
     val1: Tinput = ((coeffs[1] ** 2 - 4 * coeffs[0] * (coeffs[2] - val)) / 4 / coeffs[0] ** 2) ** (
         1 / 2
     )
-    val2: Tinput = coeffs[1] / 2 / coeffs[0]
+    val2: Tinput = coeffs[1] / (2 * coeffs[0])
     return (-val1 - val2, val1 - val2)
 
 
@@ -62,7 +56,7 @@ def easybisect(
     targetval: Toutput,
     maxiter: int = 20,
     relerror: float = 0.01,
-) -> Tinput:
+) -> tuple[Tinput, Toutput]:
     """Simple Bisection for scalar functions."""
     thelogger.info("easybisect started")
     thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)

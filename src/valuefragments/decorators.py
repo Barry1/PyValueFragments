@@ -84,6 +84,9 @@ def moduleexport(class_or_function: InstanceObjectT) -> InstanceObjectT:
     return class_or_function
 
 
+__all__.append("moduleexport")
+
+
 @moduleexport
 def logdecorate(
     func: Callable[_FunParamT, _FunCallResultT]
