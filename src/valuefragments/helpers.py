@@ -7,6 +7,7 @@ from __future__ import annotations
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
+import logging
 import math
 import os
 import random
@@ -22,10 +23,12 @@ from shutil import copyfileobj
 from typing import (
     IO,
     TYPE_CHECKING,
+    Any,
     Callable,
     Generator,
     Literal,
     Protocol,
+    SupportsAbs,
     SupportsInt,
     TypedDict,
     TypeVar,
@@ -40,6 +43,9 @@ else:
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
+Tinput = TypeVar("Tinput")
+Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
+thelogger: logging.Logger = logging.getLogger(__name__)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -90,7 +96,7 @@ def filecache(
         with open(filepathname, "wb") as thefile:
             with genupdmeth() as thesrc:
                 copyfileobj(thesrc, thefile)
-        print("Aktualisiert")
+        thelogger.info("File %s refreshed.", filepathname)
     return procmeth(filepathname)
 
 
@@ -99,7 +105,7 @@ __all__.append("filecache")
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
     """Inject thread_id to log records"""
-    record.thread_native: int = threading.get_native_id()
+    record.thread_native = threading.get_native_id()
     return record
 
 
@@ -437,3 +443,49 @@ def stringtovalidfilename2(inputstring: str) -> str:
 
 
 __all__.append("stringtovalidfilename2")
+
+
+def easybisect(
+    fun: Callable[[Tinput], Toutput],
+    lowerbound: Tinput,
+    upperbound: Tinput,
+    targetval: Toutput,
+    maxiter: int = 20,
+    relerror: float = 0.01,
+) -> Tinput:
+    """Simple Bisection for scalar functions."""
+    thelogger.info("easybisect started")
+    thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
+    data: list[tuple[Tinput, Toutput]] = []
+    assert lowerbound < upperbound
+    lowind: int = len(data)
+    data.append((lowerbound, fun(lowerbound)))
+    highind: int = len(data)
+    data.append((upperbound, fun(upperbound)))
+    for actiter in range(maxiter):
+        candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
+            data[highind][1] - data[lowind][1]
+        ) * (data[highind][0] - data[lowind][0])
+        candidateval: Toutput = fun(candidate)
+        candidatediff: Toutput = candidateval - targetval
+        if candidatediff < 0:
+            lowind = len(data)
+        else:
+            highind = len(data)
+        data.append((candidate, candidateval))
+        if abs(candidatediff) <= relerror * targetval:
+            thelogger.info(
+                "Early end of loop at iteration %i with relerr %6.3f%%.",
+                actiter,
+                candidatediff * 100 / targetval,
+            )
+            break
+        thelogger.debug(
+            "Iteration %i with relative error %6.3f%%", actiter, candidatediff * 100 / targetval
+        )
+    for entry in data:
+        thelogger.debug(entry)
+    return candidate, candidateval
+
+
+__all__.append("easybisect")

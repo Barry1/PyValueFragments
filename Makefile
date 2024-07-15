@@ -110,3 +110,6 @@ requirements.txt: poetry.lock
 
 pytype:
 	poetry run pytype --keep-going --jobs 4 $(pyobjs)
+
+ruff:
+	poetry run ruff check --fix src/valuefragments/[dch]*.py

@@ -1,8 +1,17 @@
 """Identifier file for package and building namespace."""
 
+import logging
+
 from .contextmanagers import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 from .decorators import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 from .helpers import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
+
+# <https://docs.python.org/3/howto/logging.html#library-config>
+
+
+thelogger: logging.Logger = logging.getLogger(__name__)
+thelogger.addHandler(logging.NullHandler())
+thelogger.info("valuefragments __init__")
 
 __all__: list[str] = [
     "NoOutput",
@@ -27,4 +36,5 @@ __all__: list[str] = [
     "loadonecore",
     "loadallcores",
     "stringtovalidfilename",
+    "easybisect",
 ]
