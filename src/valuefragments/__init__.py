@@ -5,6 +5,7 @@ import logging
 from .contextmanagers import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 from .decorators import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
 from .helpers import *  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
+from .mathhelpers import *
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
 
@@ -14,27 +15,30 @@ thelogger.addHandler(logging.NullHandler())
 thelogger.info("valuefragments __init__")
 
 __all__: list[str] = [
-    "NoOutput",
-    "TimingCM",
-    "LinuxTimeCM",
-    "timing_wall",
-    "timing_resource",
-    "timing_psutil",
-    "timing_thread_time",
-    "timing_process_time",
-    "memoize",
-    "recurse_files_in_folder",
-    "basic_auth",
-    "to_inner_task",
-    "run_grouped_in_tpe",
-    "run_grouped_in_ppe",
-    "eprint",
-    "ic",
     "backgroundme",
-    "hashfile",
-    "linuxtime",
-    "loadonecore",
-    "loadallcores",
-    "stringtovalidfilename",
+    "basic_auth",
     "easybisect",
+    "eprint",
+    "hashfile",
+    "ic",
+    "intp",
+    "linuxtime",
+    "LinuxTimeCM",
+    "loadallcores",
+    "loadonecore",
+    "memoize",
+    "NoOutput",
+    "polyroot",
+    "portable_timing",
+    "recurse_files_in_folder",
+    "run_grouped_in_ppe",
+    "run_grouped_in_tpe",
+    "stringtovalidfilename",
+    "timing_process_time",
+    "timing_psutil",
+    "timing_resource",
+    "timing_thread_time",
+    "timing_wall",
+    "TimingCM",
+    "to_inner_task",
 ]
