@@ -8,6 +8,7 @@ import os
 import sys
 import time
 from functools import wraps
+from typing import Callable
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
@@ -24,7 +25,7 @@ if False:
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
-    from typing import Callable, NamedTuple, TypeVar, cast
+    from typing import NamedTuple, TypeVar, cast
 
     from typing_extensions import (
         Literal,
@@ -37,7 +38,6 @@ if sys.version_info < (3, 10):
     )
 elif sys.version_info < (3, 11):
     from typing import (
-        Callable,
         Literal,
         NamedTuple,
         ParamSpec,
@@ -50,7 +50,6 @@ elif sys.version_info < (3, 11):
     from typing_extensions import LiteralString, TypeVarTuple, Unpack
 else:
     from typing import (
-        Callable,
         Literal,
         LiteralString,
         NamedTuple,
@@ -71,7 +70,9 @@ __all__: list[str] = []
 # https://stackoverflow.com/a/68746329/617339
 
 
-def moduleexport(class_or_function: InstanceObjectT) -> InstanceObjectT:
+def moduleexport(
+    class_or_function: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
     module: sys.ModuleType = sys.modules[class_or_function.__module__]

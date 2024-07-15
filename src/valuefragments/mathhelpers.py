@@ -1,19 +1,20 @@
 """Module with small helpers for mathematical questions."""
 
 from logging import Logger, getLogger
-from typing import Callable, TypeVar
+from typing import Callable
 
 from .decorators import moduleexport
 
 thelogger: Logger = getLogger(__name__)
-Tinput = TypeVar("Tinput", int, float)
-Toutput = TypeVar("Toutput", bound=float)
+# <https://stackoverflow.com/a/50928627>
+Tfloatthreevec = tuple[float, float, float]
 
 
+@moduleexport
 def determinant(
-    cola: tuple[float, float, float],
-    colb: tuple[float, float, float],
-    colc: tuple[float, float, float],
+    cola: Tfloatthreevec,
+    colb: Tfloatthreevec,
+    colc: Tfloatthreevec,
 ) -> float:
     """Returns Determinant of 3x3-Matrix given in ColumnTuples"""
     return (
@@ -27,51 +28,50 @@ def determinant(
 
 
 @moduleexport
-def intp(
-    x: tuple[Tinput, Tinput, Tinput], y: tuple[Tinput, Tinput, Tinput]
-) -> tuple[Tinput, Tinput, Tinput]:
+def intp(x: Tfloatthreevec, y: Tfloatthreevec) -> Tfloatthreevec:
     """Returns coefficients for interpolation by second order polynom along three given pairs."""
-    d: Tinput = determinant([val**2 for val in x], x, [1, 1, 1])
-    da: Tinput = determinant(y, x, [1, 1, 1])
-    db: Tinput = determinant([val**2 for val in x], y, [1, 1, 1])
-    dc: Tinput = determinant([val**2 for val in x], x, y)
-    return (da / d, db / d, dc / d)
+    d: float = determinant([val**2 for val in x], x, [1, 1, 1])
+    return (
+        determinant(y, x, [1, 1, 1]) / d,
+        determinant([val**2 for val in x], y, [1, 1, 1]) / d,
+        determinant([val**2 for val in x], x, y) / d,
+    )
 
 
 @moduleexport
-def polyroot(coeffs: tuple[Tinput, Tinput, Tinput], val: Tinput = 0) -> tuple[Tinput, Tinput]:
+def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
     """Returns root of second order polynom given in its coefficients."""
-    val1: Tinput = ((coeffs[1] ** 2 - 4 * coeffs[0] * (coeffs[2] - val)) / 4 / coeffs[0] ** 2) ** (
+    val1: float = ((coeffs[1] ** 2 - 4 * coeffs[0] * (coeffs[2] - val)) / 4 / coeffs[0] ** 2) ** (
         1 / 2
     )
-    val2: Tinput = coeffs[1] / (2 * coeffs[0])
+    val2: float = coeffs[1] / (2 * coeffs[0])
     return (-val1 - val2, val1 - val2)
 
 
 @moduleexport
 def easybisect(
-    fun: Callable[[Tinput], Toutput],
-    lowerbound: Tinput,
-    upperbound: Tinput,
-    targetval: Toutput,
+    fun: Callable[[float], float],
+    lowerbound: float,
+    upperbound: float,
+    targetval: float,
     maxiter: int = 20,
     relerror: float = 0.01,
-) -> tuple[Tinput, Toutput]:
+) -> tuple[float, float]:
     """Simple Bisection for scalar functions."""
     thelogger.info("easybisect started")
     thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
-    data: list[tuple[Tinput, Toutput]] = []
+    data: list[tuple[float, float]] = []
     assert lowerbound < upperbound
     lowind: int = len(data)
     data.append((lowerbound, fun(lowerbound)))
     highind: int = len(data)
     data.append((upperbound, fun(upperbound)))
     for actiter in range(maxiter):
-        candidate: Tinput = data[lowind][0] + (targetval - data[lowind][1]) / (
+        candidate: float = data[lowind][0] + (targetval - data[lowind][1]) / (
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
-        candidateval: Toutput = fun(candidate)
-        candidatediff: Toutput = candidateval - targetval
+        candidateval: float = fun(candidate)
+        candidatediff: float = candidateval - targetval
         if candidatediff < 0:
             lowind = len(data)
         else:
