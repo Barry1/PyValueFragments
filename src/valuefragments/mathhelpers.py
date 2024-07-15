@@ -30,11 +30,12 @@ def determinant(
 @moduleexport
 def intp(x: Tfloatthreevec, y: Tfloatthreevec) -> Tfloatthreevec:
     """Returns coefficients for interpolation by second order polynom along three given pairs."""
-    d: float = determinant([val**2 for val in x], x, [1, 1, 1])
+    xpowtwo: Tfloatthreevec = (x[0] ** 2, x[1] ** 2, x[2] ** 2)
+    d: float = determinant(xpowtwo, x, (1, 1, 1))
     return (
-        determinant(y, x, [1, 1, 1]) / d,
-        determinant([val**2 for val in x], y, [1, 1, 1]) / d,
-        determinant([val**2 for val in x], x, y) / d,
+        determinant(y, x, (1, 1, 1)) / d,
+        determinant(xpowtwo, y, (1, 1, 1)) / d,
+        determinant(xpowtwo, x, y) / d,
     )
 
 
@@ -89,4 +90,4 @@ def easybisect(
         )
     for entry in data:
         thelogger.debug(entry)
-    return candidate, candidateval
+    return data[-1]
