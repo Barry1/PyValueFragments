@@ -3,7 +3,7 @@
   "files.autoSave": "onFocusChange",
   "editor.formatOnSave": false,
   "python.analysis.typeCheckingMode": "strict",
-  "python.languageServer": "Pylance",
+  "python.languageServer": "Default",
   "code-runner.clearPreviousOutput": false,
   "vsintellicode.features.python.deepLearning": "enabled",
   "python.analysis.autoImportCompletions": true,
@@ -12,7 +12,7 @@
   "python.testing.pytestEnabled": true,
   "pythonTestExplorer.testFramework": "pytest",
   "python.defaultInterpreterPath": "/home/ebeling/GitHub/PyValueFragments/.venv/bin/python",
-  "isort.interpreter": [
-    "/home/ebeling/GitHub/PyValueFragments/.venv/bin/python"
-  ]
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.completeFunctionParens": true
 }
