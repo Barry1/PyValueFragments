@@ -339,7 +339,7 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 __all__.append("eprint")
 
 if __debug__ and find_spec(name="icecream"):
-    from icecream import ic
+    from icecream import ic # type: ignore
 else:
     # <https://stackoverflow.com/a/73738408>
     def ic(
