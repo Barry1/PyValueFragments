@@ -82,7 +82,7 @@ def moduleexport(
         if class_or_function.__name__ not in module.__all__:
             module.__all__.append(class_or_function.__name__)
     else:
-        setattr(module,'__all__',[class_or_function.__name__])        
+        setattr(module, "__all__", [class_or_function.__name__])
     return class_or_function
 
 
@@ -173,8 +173,8 @@ def timing_wall(
 
     @wraps(func)
     def wrapped(
-        *args: ParamSpecArgs,
-        **kwargs: ParamSpecKwargs,
+        *args: _FunParamT.args,
+        **kwargs: _FunParamT.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: float | Literal[0] = time.monotonic()
@@ -190,21 +190,26 @@ def timing_wall(
 __all__.append("timing_wall")
 
 
-def portable_timing(func):
-    """Like TIME Command."""
+def portable_timing(
+    func: Callable[_FunParamT, _FunCallResultT]
+) -> Callable[_FunParamT, _FunCallResultT]:
+    """Like LINUX-TIME Command."""
 
     @wraps(func)
-    def wrapped(*args, **kwargs):
+    def wrapped(
+        *args: _FunParamT.args,
+        **kwargs: _FunParamT.kwargs,
+    ) -> _FunCallResultT:
         """Run with timing."""
-        before = [time.perf_counter_ns(), os.times()]
-        retval = func(*args, **kwargs)
-        after = [time.perf_counter_ns(), os.times()]
+        before: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+        retval: _FunCallResultT = func(*args, **kwargs)
+        after: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
         if before and after:
-            WALLdiff = (after[0] - before[0]) / 1e9
-            USERdiff = (
+            wall_diff = (after[0] - before[0]) / 1e9
+            user_diff = (
                 after[1].user - before[1].user + after[1].children_user - before[1].children_user
             )
-            SYSTEMdiff = (
+            system_diff = (
                 after[1].system
                 - before[1].system
                 + after[1].children_system
@@ -212,9 +217,9 @@ def portable_timing(func):
             )
             print(f"{func.__name__:10} {args} {kwargs}")
             print(
-                f"{WALLdiff:8.3f} [s]",
-                f"\t(User: {USERdiff:8.3f} [s]," f"\tSystem {SYSTEMdiff:8.3f} [s])",
-                f"{100*(USERdiff+SYSTEMdiff)/WALLdiff:6.2f}% Load",
+                f"{wall_diff:8.3f} [s]",
+                f"\t(User: {user_diff:8.3f} [s]," f"\tSystem {system_diff:8.3f} [s])",
+                f"{100*(user_diff+system_diff)/wall_diff:6.2f}% Load",
             )
         return retval
 
