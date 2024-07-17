@@ -18,12 +18,6 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     thread_native_id_filter,
 )
 
-if False:
-    if sys.version_info >= (3, 8):
-        from typing import Literal
-    else:
-        from typing_extensions import Literal
-
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
     from typing import NamedTuple, TypeVar, cast
@@ -236,8 +230,8 @@ def linuxtime(
 
     @wraps(func)
     def wrapped(
-        *args: ParamSpecArgs,
-        **kwargs: ParamSpecKwargs,
+        *args: _FunParamT.args,
+        **kwargs: _FunParamT.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: os.times_result = os.times()
@@ -278,13 +272,8 @@ def linuxtime(
 
 __all__.append("linuxtime")
 
-
-try:
-    # noinspection PyUnresolvedReferences
+if os.name != "nt":
     import resource
-except ImportError:
-    ic("resource is not available")
-else:
 
     def linuxtime_resource(
         func: Callable[_FunParamT, _FunCallResultT]
@@ -381,8 +370,8 @@ else:
 
         @wraps(func)
         def wrapped(
-            *args: ParamSpecArgs,
-            **kwargs: ParamSpecKwargs,
+            *args: _FunParamT.args,
+            **kwargs: _FunParamT.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
@@ -404,8 +393,8 @@ def timing_thread_time(
 
     @wraps(func)
     def wrapped(
-        *args: ParamSpecArgs,
-        **kwargs: ParamSpecKwargs,
+        *args: _FunParamT.args,
+        **kwargs: _FunParamT.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.thread_time()
@@ -426,7 +415,7 @@ def timing_process_time(
     """Measures execution times by time (process)."""
 
     @wraps(func)
-    def wrapped(*args: ParamSpecArgs, **kwargs: ParamSpecKwargs) -> _FunCallResultT:
+    def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.process_time()
         retval: _FunCallResultT = func(*args, **kwargs)
