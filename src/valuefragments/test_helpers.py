@@ -54,15 +54,13 @@ def test_stringtovalidfilename() -> None:
         stringtovalidfilename("a:/xäü\\?*1__x&%&$§§)§(§/$<>-_,.;:;:)") == "axäü1__x§§)§(§-_,.;;)"
     )
 
-
 def test_basic_auth() -> None:
     """Test if basic_auth does what is expected."""
     assert basic_auth("Aladdin", "open sesame")[6:] == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
 
-if os.name != 'nt':
-    def test_hashfile() -> None:
-        """Pytest routine - md5sum of empty file."""
-        assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
+def test_hashfile() -> None:
+    """Pytest routine - md5sum of empty file."""
+    assert hashfile(filename="/dev/null" if os.name != 'nt' else "NUL") == "d41d8cd98f00b204e9800998ecf8427e"
 
 
 def test_humanreadable() -> None:
