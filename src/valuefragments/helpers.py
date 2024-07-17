@@ -105,7 +105,7 @@ __all__.append("filecache")
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
     """Inject thread_id to log records"""
-    setattr(record,thread_native,threading.get_native_id())
+    setattr(record, "thread_native", threading.get_native_id())
     return record
 
 
@@ -218,18 +218,18 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky import get_reusable_executor
+        from joblib.externals.loky import get_reusable_executor # type: ignore
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()
+        get_reusable_executor().shutdown() # type: ignore
 
 
 __all__.append("closeifrunningloky")
 
 
 async def to_inner_task(
-    funcall: Callable[[None], _FunCallResultT],
+    funcall: Callable[[], _FunCallResultT],
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
@@ -239,13 +239,13 @@ async def to_inner_task(
 if sys.version_info >= (3, 11):
 
     async def run_grouped(
-        the_functioncalls: list[Callable[[None], _FunCallResultT]],
+        the_functioncalls: list[Callable[[], _FunCallResultT]],
         how: Literal["tpe", "ppe", "thread"] = "thread",
     ) -> list[_FunCallResultT]:
         """Execute funcalls async by given method."""
         if how == "thread":
             async with asyncio.TaskGroup() as the_task_group:
-                all_tasks = [
+                all_tasks: list[asyncio.Task[_FunCallResultT]] = [
                     the_task_group.create_task(asyncio.to_thread(funcall))
                     for funcall in the_functioncalls
                 ]
@@ -340,7 +340,7 @@ __all__.append("eprint")
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic
 else:
-    #<https://stackoverflow.com/a/73738408>
+    # <https://stackoverflow.com/a/73738408>
     def ic(
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
     ) -> FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]] | None:
