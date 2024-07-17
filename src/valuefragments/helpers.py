@@ -275,7 +275,7 @@ if sys.version_info >= (3, 11):
 
     ######################################
     async def run_calls_in_executor(
-        the_functioncalls: list[Callable[[None], _FunCallResultT]], the_executor
+        the_functioncalls: list[Callable[[], _FunCallResultT]], the_executor
     ) -> list[asyncio.Task[_FunCallResultT]]:
         """place functioncalls in given executor"""
         warnings.warn(
@@ -290,7 +290,7 @@ if sys.version_info >= (3, 11):
     __all__.append("run_calls_in_executor")
 
     async def run_grouped_in_tpe(
-        the_functioncalls: list[Callable[[None], _FunCallResultT]]
+        the_functioncalls: list[Callable[[], _FunCallResultT]]
     ) -> list[_FunCallResultT]:
         """
         Run functions grouped (asyncio.TaskGroup) in ThreadPoolExecutor.
@@ -310,7 +310,7 @@ if sys.version_info >= (3, 11):
     __all__.append("run_grouped_in_tpe")
 
     async def run_grouped_in_ppe(
-        the_functioncalls: list[Callable[[None], _FunCallResultT]]
+        the_functioncalls: list[Callable[[], _FunCallResultT]]
     ) -> list[_FunCallResultT]:
         """
         Run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor.
