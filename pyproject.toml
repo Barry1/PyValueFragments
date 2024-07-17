@@ -181,7 +181,8 @@ extras = [
 
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
-python = "~3.11"
+python = "^3.11"
+markers = 'sys_platform != "win32"'
 
 #[pylama.pep8]
 #max_line_length = 99

@@ -1551,22 +1551,22 @@ toml = ["tomli (>=1.2.3)"]
 
 [[package]]
 name = "pydot"
-version = "2.0.0"
+version = "3.0.1"
 description = "Python interface to Graphviz's Dot"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "pydot-2.0.0-py3-none-any.whl", hash = "sha256:408a47913ea7bd5d2d34b274144880c1310c4aee901f353cf21fe2e526a4ea28"},
-    {file = "pydot-2.0.0.tar.gz", hash = "sha256:60246af215123fa062f21cd791be67dda23a6f280df09f68919e637a1e4f3235"},
+    {file = "pydot-3.0.1-py3-none-any.whl", hash = "sha256:43f1e878dc1ff7c1c2e3470a6999d4e9e97771c5c862440c2f0af0ba844c231f"},
+    {file = "pydot-3.0.1.tar.gz", hash = "sha256:e18cf7f287c497d77b536a3d20a46284568fea390776dface6eabbdf1b1b5efc"},
 ]
 
 [package.dependencies]
-pyparsing = ">=3"
+pyparsing = ">=3.0.9"
 
 [package.extras]
-dev = ["black", "chardet"]
+dev = ["chardet", "parameterized", "ruff"]
 release = ["zest.releaser[recommended]"]
-tests = ["black", "chardet", "tox"]
+tests = ["chardet", "parameterized", "ruff", "tox", "unittest-parallel"]
 
 [[package]]
 name = "pyflakes"
@@ -1851,13 +1851,13 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyright"
-version = "1.1.371"
+version = "1.1.372"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.371-py3-none-any.whl", hash = "sha256:cce52e42ff73943243e7e5e24f2a59dee81b97d99f4e3cf97370b27e8a1858cd"},
-    {file = "pyright-1.1.371.tar.gz", hash = "sha256:777b508b92dda2db476214c400ce043aad8d8f3dd0e10d284c96e79f298308b5"},
+    {file = "pyright-1.1.372-py3-none-any.whl", hash = "sha256:25b15fb8967740f0949fd35b963777187f0a0404c0bd753cc966ec139f3eaa0b"},
+    {file = "pyright-1.1.372.tar.gz", hash = "sha256:a9f5e0daa955daaa17e3d1ef76d3623e75f8afd5e37b437d3ff84d5b38c15420"},
 ]
 
 [package.dependencies]
@@ -1990,6 +1990,7 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -2473,13 +2474,13 @@ files = [
 
 [[package]]
 name = "typeshed-client"
-version = "2.6.0"
+version = "2.7.0"
 description = "A library for accessing stubs in typeshed."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "typeshed_client-2.6.0-py3-none-any.whl", hash = "sha256:c3eb08c0644899151e7adf9fc44138e83e4d40eebfed71ce7ed59a9bf0d73544"},
-    {file = "typeshed_client-2.6.0.tar.gz", hash = "sha256:aed16dc1030de9b950302f5c129cd88fae118fa9628cef949b5ad036817ed58a"},
+    {file = "typeshed_client-2.7.0-py3-none-any.whl", hash = "sha256:97084e5abc58a76ace2c4618ecaebd625f2d19bbd85aa1b3fb86216bf174bbea"},
+    {file = "typeshed_client-2.7.0.tar.gz", hash = "sha256:e63df1e738588ad39f1226de042f4407ab6a99c456f0837063afd83b1415447c"},
 ]
 
 [package.dependencies]
@@ -2714,4 +2715,4 @@ allfeatures = ["cpu-load-generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c779b083516091c2bd573f327e27f9fc9f7f0bfe48018932093f83237e133e5b"
+content-hash = "1f74840e3265403dfac6740d517da259555ede8289b4d9dc53ade5522f27959d"
