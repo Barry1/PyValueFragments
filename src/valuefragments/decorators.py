@@ -125,7 +125,7 @@ def logdecorate(
         thelogger.info(
             title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
         )
-        timingdiffs: tuple[float] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
         thelogger.info(
             info_line_format,
             *timingdiffs,
@@ -145,7 +145,7 @@ def logdecorate(
         thelogger.info(
             title_line_format, "user", "system", "child_user", "child_system", "elapsed", "LOAD"
         )
-        timingdiffs: tuple[float] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
         thelogger.info(
             info_line_format,
             *timingdiffs,
