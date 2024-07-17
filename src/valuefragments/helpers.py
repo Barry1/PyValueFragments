@@ -7,6 +7,7 @@ from __future__ import annotations
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
+from _hashlib import HASH # type: ignore
 import logging
 import math
 import os
@@ -275,7 +276,7 @@ if sys.version_info >= (3, 11):
 
     ######################################
     async def run_calls_in_executor(
-        the_functioncalls: list[Callable[[], _FunCallResultT]], the_executor
+        the_functioncalls: list[Callable[[], _FunCallResultT]], the_executor:concurrent.futures.Executor
     ) -> list[asyncio.Task[_FunCallResultT]]:
         """place functioncalls in given executor"""
         warnings.warn(
@@ -385,7 +386,7 @@ else:
         """Return md5 hash for file."""
         with open(filename, "rb") as thefile:
             # nosec  # Compliant
-            file_hash: hashlib._hashlib.HASH = hashlib.md5(usedforsecurity=False)
+            file_hash: HASH = hashlib.md5(usedforsecurity=False)
             while chunk := thefile.read(chunklen):
                 file_hash.update(chunk)
         # deepcode ignore InsecureHash: for file identification
