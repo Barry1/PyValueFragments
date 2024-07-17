@@ -1,5 +1,6 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for helpers module."""
+import os
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     HumanReadAble,
     basic_auth,
@@ -58,10 +59,10 @@ def test_basic_auth() -> None:
     """Test if basic_auth does what is expected."""
     assert basic_auth("Aladdin", "open sesame")[6:] == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
 
-
-def test_hashfile() -> None:
-    """Pytest routine - md5sum of empty file."""
-    assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
+if os.name != 'nt':
+    def test_hashfile() -> None:
+        """Pytest routine - md5sum of empty file."""
+        assert hashfile("/dev/null") == "d41d8cd98f00b204e9800998ecf8427e"
 
 
 def test_humanreadable() -> None:
