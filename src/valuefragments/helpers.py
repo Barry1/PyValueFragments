@@ -7,7 +7,6 @@ from __future__ import annotations
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
-from _hashlib import HASH # type: ignore
 import logging
 import math
 import os
@@ -34,7 +33,7 @@ from typing import (
     TypedDict,
     TypeVar,
 )
-
+from _hashlib import HASH  # type: ignore
 from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 
 if sys.version_info < (3, 11):
@@ -219,11 +218,11 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky import get_reusable_executor # type: ignore
+        from joblib.externals.loky import get_reusable_executor  # type: ignore
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown() # type: ignore
+        get_reusable_executor().shutdown()  # type: ignore
 
 
 __all__.append("closeifrunningloky")
@@ -276,7 +275,8 @@ if sys.version_info >= (3, 11):
 
     ######################################
     async def run_calls_in_executor(
-        the_functioncalls: list[Callable[[], _FunCallResultT]], the_executor:concurrent.futures.Executor
+        the_functioncalls: list[Callable[[], _FunCallResultT]],
+        the_executor: concurrent.futures.Executor,
     ) -> list[asyncio.Task[_FunCallResultT]]:
         """place functioncalls in given executor"""
         warnings.warn(
@@ -339,7 +339,7 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 __all__.append("eprint")
 
 if __debug__ and find_spec(name="icecream"):
-    from icecream import ic # type: ignore
+    from icecream import ic  # type: ignore # pylint:disable=import-error
 else:
     # <https://stackoverflow.com/a/73738408>
     def ic(

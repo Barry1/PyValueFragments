@@ -272,8 +272,8 @@ def linuxtime(
 
 __all__.append("linuxtime")
 
-if os.name != "nt":
-    import resource
+if os.name == "posix":
+    import resource # pylint:disable=import-error
 
     def linuxtime_resource(
         func: Callable[_FunParamT, _FunCallResultT]
