@@ -8,6 +8,7 @@ import os
 import sys
 import time
 from functools import wraps
+from types import ModuleType
 from typing import Callable
 
 # typing with the help of
@@ -75,13 +76,13 @@ def moduleexport(
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
-    module: sys.ModuleType = sys.modules[class_or_function.__module__]
+    module: ModuleType = sys.modules[class_or_function.__module__]
     ic(class_or_function.__name__ + " in " + class_or_function.__module__)
     if hasattr(module, "__all__"):
         if class_or_function.__name__ not in module.__all__:
             module.__all__.append(class_or_function.__name__)
     else:
-        module.__all__ = [class_or_function.__name__]
+        setattr(module,'__all__',[class_or_function.__name__])        
     return class_or_function
 
 

@@ -105,7 +105,7 @@ __all__.append("filecache")
 
 def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
     """Inject thread_id to log records"""
-    record.thread_native = threading.get_native_id()
+    setattr(record,thread_native,threading.get_native_id())
     return record
 
 
@@ -337,10 +337,10 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 
 __all__.append("eprint")
 
-if __debug__ and find_spec("icecream"):
+if __debug__ and find_spec(name="icecream"):
     from icecream import ic
 else:
-
+    #<https://stackoverflow.com/a/73738408>
     def ic(
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
     ) -> FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]] | None:
