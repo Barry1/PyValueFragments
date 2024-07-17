@@ -104,10 +104,10 @@ def filecache(
 __all__.append("filecache")
 
 
-def thread_native_id_filter(record: _FunCallResultT) -> _FunCallResultT:
+def thread_native_id_filter(record: object) -> bool:
     """Inject thread_id to log records"""
     setattr(record, "thread_native", threading.get_native_id())
-    return record
+    return True
 
 
 __all__.append("thread_native_id_filter")
