@@ -7,6 +7,7 @@ from __future__ import annotations
 # found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
+import hashlib
 import logging
 import math
 import os
@@ -33,7 +34,7 @@ from typing import (
     TypedDict,
     TypeVar,
 )
-from _hashlib import HASH  # type: ignore
+
 from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 
 if sys.version_info < (3, 11):
@@ -375,24 +376,19 @@ else:
 
     __all__.append("backgroundme")
 
-try:
-    # noinspection PyUnresolvedReferences
-    import hashlib
-except ImportError:
-    ic("hashlib is not available")
-else:
 
-    def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
-        """Return md5 hash for file."""
-        with open(filename, "rb") as thefile:
-            # nosec  # Compliant
-            file_hash: HASH = hashlib.md5(usedforsecurity=False)
-            while chunk := thefile.read(chunklen):
-                file_hash.update(chunk)
-        # deepcode ignore InsecureHash: for file identification
-        return file_hash.hexdigest()
+def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
+    """Return md5 hash for file."""
+    with open(filename, "rb") as thefile:
+        # nosec  # Compliant
+        file_hash = hashlib.md5(usedforsecurity=False)
+        while chunk := thefile.read(chunklen):
+            file_hash.update(chunk)
+    # deepcode ignore InsecureHash: for file identification
+    return file_hash.hexdigest()
 
-    __all__.append("hashfile")
+
+__all__.append("hashfile")
 
 try:
     # noinspection PyUnresolvedReferences

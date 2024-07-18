@@ -8,7 +8,6 @@ import time
 from types import TracebackType
 from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
-# from typing_extensions import Self
 from .helpers import (  # pylint: disable=relative-beyond-top-level]
     closeifrunningloky,
     ic,
@@ -241,7 +240,7 @@ else:
             return True
 
 
-class TimingCM:  # pyre-ignore[13]
+class TimingCM:
     """
     Use this as a context manager for getting timing details.
 

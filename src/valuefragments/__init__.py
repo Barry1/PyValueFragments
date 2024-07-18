@@ -2,11 +2,7 @@
 
 import logging
 
-from .contextmanagers import (
-    TimingCM,
-    LinuxTimeCM,
-    NoOutput,
-)
+from .contextmanagers import LinuxTimeCM, NoOutput, TimingCM
 from .decorators import (
     linuxtime,
     logdecorate,
@@ -17,17 +13,18 @@ from .decorators import (
     timing_thread_time,
     timing_wall,
 )
-from .helpers import (
+from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
     backgroundme,
     basic_auth,
     closeifrunningloky,
     eprint,
     file_exists_current,
     filecache,
+    hashfile,
     int2bin,
     pi_for_cpu_load,
     recurse_files_in_folder,
-)  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
+)
 from .mathhelpers import easybisect, intp, polyroot
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
@@ -42,6 +39,7 @@ __all__: list[str] = [
     "eprint",
     "file_exists_current",
     "filecache",
+    "hashfile",
     "int2bin",
     "intp",
     "linuxtime",
