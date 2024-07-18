@@ -42,7 +42,6 @@ __all__: list[str] = [
     "eprint",
     "file_exists_current",
     "filecache",
-    "ic",
     "int2bin",
     "intp",
     "linuxtime",
