@@ -2,19 +2,20 @@
 
 from __future__ import annotations
 
-# import asyncio # icoroutine
-from asyncio import iscoroutinefunction
 import logging
 import os
 import sys
 import time
+
+# import asyncio # icoroutine
+from asyncio import iscoroutinefunction
 from functools import wraps
 from types import ModuleType
 from typing import Any, Callable, Coroutine
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from helpers import (  # pylint: disable=relative-beyond-top-level
+from .helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
     thread_native_id_filter,
 )
