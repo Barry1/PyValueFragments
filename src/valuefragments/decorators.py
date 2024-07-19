@@ -184,6 +184,9 @@ def logdecorate(
     return wrapped
 
 
+__all__.append("logdecorate")
+
+
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
 
