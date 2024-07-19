@@ -4,6 +4,7 @@ as within threads (tpe and thread) it could not be guaranteed.
 """
 
 import sys
+from typing import Callable
 
 import pytest
 
@@ -12,7 +13,7 @@ if sys.version_info >= (3, 11):
 
     from .helpers import pi_for_cpu_load, run_grouped
 
-    tasklist: list[partial[float]] = [partial(pi_for_cpu_load, 10000, 4478) for _ in range(5)]
+    tasklist: list[Callable[[], float]] = [partial(pi_for_cpu_load, 10000, 4478) for _ in range(5)]
 
     @pytest.mark.asyncio
     async def test_run_grouped_thread() -> None:
@@ -27,7 +28,4 @@ if sys.version_info >= (3, 11):
     @pytest.mark.asyncio
     async def test_run_grouped_tpe() -> None:
         """Fake main routine for async processing."""
-        localtasklist: list[partial[float]] = [
-            partial(pi_for_cpu_load, 10000, 4478) for _ in range(5)
-        ]
-        assert abs(sum(await run_grouped(localtasklist, "tpe"), -15.638000000000002)) <= 0.04
+        assert abs(sum(await run_grouped(tasklist, "tpe"), -15.638000000000002)) <= 0.04

@@ -39,6 +39,8 @@ from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 # found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
 
+__all__: list[str]
+
 if sys.version_info < (3, 11):
     from typing_extensions import Unpack
 else:
@@ -329,7 +331,10 @@ else:
         return (first, *rest) if first and rest else first
 
 
-__all__.append("ic")
+try:
+    __all__.append("ic")
+except NameError:
+    __all__ = ["ic"]
 # moduleexport(ic)
 
 try:
