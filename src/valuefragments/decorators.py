@@ -63,6 +63,7 @@ _FunCallResultT = TypeVar("_FunCallResultT")
 _FunParamT = ParamSpec("_FunParamT")
 __all__: list[str] = []
 
+
 # Maybe different if async or not
 # https://stackoverflow.com/a/68746329/617339
 
@@ -239,7 +240,7 @@ def portable_timing(
             print(
                 f"{wall_diff:8.3f} [s]",
                 f"\t(User: {user_diff:8.3f} [s]," f"\tSystem {system_diff:8.3f} [s])",
-                f"{100*(user_diff+system_diff)/wall_diff:6.2f}% Load",
+                f"{100 * (user_diff + system_diff) / wall_diff:6.2f}% Load",
             )
         return retval
 
@@ -380,7 +381,6 @@ if os.name == "posix":
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
     __all__.append("timing_resource")
-
 
 try:
     # noinspection PyUnresolvedReferences

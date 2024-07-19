@@ -275,6 +275,7 @@ if sys.version_info >= (3, 11):
     __all__.append("run_grouped")
 
     ######################################
+
     async def run_calls_in_executor(
         the_functioncalls: list[Callable[[], _FunCallResultT]],
         the_executor: concurrent.futures.Executor,
