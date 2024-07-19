@@ -46,7 +46,7 @@ def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
         1 / 2
     )
     val2: float = coeffs[1] / (2 * coeffs[0])
-    return (-val1 - val2, val1 - val2)
+    return -val1 - val2, val1 - val2
 
 
 @moduleexport

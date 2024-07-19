@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-# https://docs.python.org/3/library/__future__.html
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-# found on https://stackoverflow.com/a/14981125
 import asyncio
 import concurrent.futures
 import hashlib
@@ -37,6 +34,11 @@ from typing import (
 
 from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 
+# https://docs.python.org/3/library/__future__.html
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
+# found on https://stackoverflow.com/a/14981125
+from .moduletools import moduleexport
+
 if sys.version_info < (3, 11):
     from typing_extensions import Unpack
 else:
@@ -60,9 +62,9 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
 FirstElementT = TypeVar("FirstElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
-__all__: list[str] = []
 
 
+@moduleexport
 def int2bin(number: int, digits: int) -> str:
     """string with binary represantation of number without 0b"""
     # following <https://stackoverflow.com/a/75668709>
@@ -72,9 +74,7 @@ def int2bin(number: int, digits: int) -> str:
     # return f'{number:0{digits}b}'
 
 
-__all__.append("int2bin")
-
-
+@moduleexport
 def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:
     """Check if given file exists and is not older than max_age_seconds."""
     return (
@@ -83,9 +83,7 @@ def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 *
     )
 
 
-__all__.append("file_exists_current")
-
-
+@moduleexport
 def filecache(
     filepathname: str,
     genupdmeth: Callable[[], IOBase],
@@ -101,18 +99,14 @@ def filecache(
     return procmeth(filepathname)
 
 
-__all__.append("filecache")
-
-
+@moduleexport
 def thread_native_id_filter(record: object) -> bool:
     """Inject thread_id to log records"""
     setattr(record, "thread_native", threading.get_native_id())
     return True
 
 
-__all__.append("thread_native_id_filter")
-
-
+@moduleexport
 def pi_for_cpu_load(
     numiter: int = 10**7, theseed: None | int | float | str | bytes | bytearray = None
 ) -> float:
@@ -129,9 +123,7 @@ def pi_for_cpu_load(
     return 4 * n_in / n
 
 
-__all__.append("pi_for_cpu_load")
-
-
+@moduleexport
 def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
     """Recursivly return paths for all files in basepath."""
     for root, _dirs, files in os.walk(thebasepath, topdown=False):
@@ -139,9 +131,7 @@ def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
             yield os.path.join(root, filename)
 
 
-__all__.append("recurse_files_in_folder")
-
-
+@moduleexport
 def basic_auth(
     user: str,
     passw: str,
@@ -152,9 +142,7 @@ def basic_auth(
     return "Basic " + b64encode(f"{user}:{passw}".encode("utf-8")).decode("ascii")
 
 
-__all__.append("basic_auth")
-
-
+@moduleexport
 class HumanReadAble(int):
     """int like with print in human readable scales."""
 
@@ -207,7 +195,6 @@ class HumanReadAble(int):
         return f"{self.__class__.__name__}({super().__repr__()})"
 
 
-__all__.append("HumanReadAble")
 KwargsForPrint = TypedDict(
     "KwargsForPrint",
     {"sep": str, "end": str, "file": IO[str], "flush": bool},
@@ -215,6 +202,7 @@ KwargsForPrint = TypedDict(
 )
 
 
+@moduleexport
 def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
@@ -224,9 +212,6 @@ def closeifrunningloky() -> None:
         pass
     else:
         get_reusable_executor().shutdown()  # type: ignore
-
-
-__all__.append("closeifrunningloky")
 
 
 async def to_inner_task(
@@ -239,6 +224,7 @@ async def to_inner_task(
 
 if sys.version_info >= (3, 11):
 
+    @moduleexport
     async def run_grouped(
         the_functioncalls: list[Callable[[], _FunCallResultT]],
         how: Literal["tpe", "ppe", "thread"] = "thread",
@@ -272,10 +258,9 @@ if sys.version_info >= (3, 11):
             "how was '", how, "' but needs to be one of {'thread','tpe','ppe'}."
         )
 
-    __all__.append("run_grouped")
-
     ######################################
 
+    @moduleexport
     async def run_calls_in_executor(
         the_functioncalls: list[Callable[[], _FunCallResultT]],
         the_executor: concurrent.futures.Executor,
@@ -289,8 +274,6 @@ if sys.version_info >= (3, 11):
                 the_task_group.create_task(to_inner_task(funcall, the_executor))
                 for funcall in the_functioncalls
             ]
-
-    __all__.append("run_calls_in_executor")
 
     async def run_grouped_in_tpe(
         the_functioncalls: list[Callable[[], _FunCallResultT]]
@@ -310,8 +293,6 @@ if sys.version_info >= (3, 11):
                 for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
             ]
 
-    __all__.append("run_grouped_in_tpe")
-
     async def run_grouped_in_ppe(
         the_functioncalls: list[Callable[[], _FunCallResultT]]
     ) -> list[_FunCallResultT]:
@@ -330,15 +311,12 @@ if sys.version_info >= (3, 11):
                 for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
             ]
 
-    __all__.append("run_grouped_in_ppe")
 
-
+@moduleexport
 def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
     """Print to stderr and ignores kwargs."""
     print(*args, file=sys.stderr)
 
-
-__all__.append("eprint")
 
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic  # type: ignore # pylint:disable=import-error
@@ -352,6 +330,7 @@ else:
 
 
 __all__.append("ic")
+# moduleexport(ic)
 
 try:
     # noinspection PyUnresolvedReferences
@@ -360,6 +339,7 @@ except ImportError:
     ic("psutil is not available")
 else:
 
+    @moduleexport
     def backgroundme() -> None:
         """Give this process background priority."""
         if psutil.WINDOWS:
@@ -375,9 +355,8 @@ else:
         else:
             psutil.Process().nice(19)
 
-    __all__.append("backgroundme")
 
-
+@moduleexport
 def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
     """Return md5 hash for file."""
     with open(filename, "rb") as thefile:
@@ -389,8 +368,6 @@ def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
     return file_hash.hexdigest()
 
 
-__all__.append("hashfile")
-
 try:
     # noinspection PyUnresolvedReferences
     from cpu_load_generator import (  # type: ignore[attr-defined]
@@ -401,6 +378,7 @@ except ImportError:
     pass
 else:
 
+    @moduleexport
     def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
         """Generate load on one given core."""
         load_single_core(
@@ -409,15 +387,13 @@ else:
             target_load=theload,
         )
 
-    __all__.append("loadonecore")
-
+    @moduleexport
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
         load_all_cores(duration_s=loadduration, target_load=theload)
 
-    __all__.append("loadallcores")
 
-
+@moduleexport
 def stringtovalidfilename(inputstring: str) -> str:
     """Return only valid characters of string for use in filenames.
 
@@ -427,9 +403,7 @@ def stringtovalidfilename(inputstring: str) -> str:
     return "".join(thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$')
 
 
-__all__.append("stringtovalidfilename")
-
-
+@moduleexport
 def stringtovalidfilename2(inputstring: str) -> str:
     """Return only valid characters of string for use in filenames."""
 
@@ -438,6 +412,3 @@ def stringtovalidfilename2(inputstring: str) -> str:
         for thechar in inputstring
         if thechar in f"-_.{string.ascii_letters}{string.digits}"
     )
-
-
-__all__.append("stringtovalidfilename2")

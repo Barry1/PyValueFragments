@@ -10,7 +10,6 @@ import time
 # import asyncio # icoroutine
 from asyncio import iscoroutinefunction
 from functools import wraps
-from types import ModuleType
 from typing import Any, Callable, Coroutine
 
 # typing with the help of
@@ -19,6 +18,7 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
     thread_native_id_filter,
 )
+from .moduletools import moduleexport
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 if sys.version_info < (3, 10):
@@ -61,29 +61,8 @@ else:
 InstanceObjectT = TypeVar("InstanceObjectT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 _FunParamT = ParamSpec("_FunParamT")
-__all__: list[str] = []
-
-
 # Maybe different if async or not
 # https://stackoverflow.com/a/68746329/617339
-
-
-def moduleexport(
-    class_or_function: Callable[_FunParamT, _FunCallResultT]
-) -> Callable[_FunParamT, _FunCallResultT]:
-    """Adds function or class magical to module's __all__."""
-    # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
-    module: ModuleType = sys.modules[class_or_function.__module__]
-    ic(class_or_function.__name__ + " in " + class_or_function.__module__)
-    if hasattr(module, "__all__"):
-        if class_or_function.__name__ not in module.__all__:
-            module.__all__.append(class_or_function.__name__)
-    else:
-        setattr(module, "__all__", [class_or_function.__name__])
-    return class_or_function
-
-
-__all__.append("moduleexport")
 
 
 @moduleexport
@@ -184,12 +163,10 @@ def logdecorate(
     return wrapped
 
 
-__all__.append("logdecorate")
-
-
 # Good info for timing measurement <https://stackoverflow.com/a/62115793>
 
 
+@moduleexport
 def timing_wall(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -211,9 +188,7 @@ def timing_wall(
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-__all__.append("timing_wall")
-
-
+@moduleexport
 def portable_timing(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -250,9 +225,7 @@ def portable_timing(
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-__all__.append("portable_timing")
-
-
+@moduleexport
 def linuxtime(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -300,11 +273,10 @@ def linuxtime(
     return wrapped
 
 
-__all__.append("linuxtime")
-
 if os.name == "posix":
     import resource  # pylint:disable=import-error
 
+    @moduleexport
     def linuxtime_resource(
         func: Callable[_FunParamT, _FunCallResultT]
     ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -361,8 +333,7 @@ if os.name == "posix":
 
         return wrapped
 
-    __all__.append("linuxtime_resource")
-
+    @moduleexport
     def timing_resource(
         func: Callable[_FunParamT, _FunCallResultT]
     ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -383,7 +354,6 @@ if os.name == "posix":
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
-    __all__.append("timing_resource")
 
 try:
     # noinspection PyUnresolvedReferences
@@ -392,6 +362,7 @@ except ImportError:
     ic("psutil is not available")
 else:
 
+    @moduleexport
     def timing_psutil(
         func: Callable[_FunParamT, _FunCallResultT]
     ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -412,9 +383,8 @@ else:
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
 
-    __all__.append("timing_psutil")
 
-
+@moduleexport
 def timing_thread_time(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -435,9 +405,7 @@ def timing_thread_time(
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-__all__.append("timing_thread_time")
-
-
+@moduleexport
 def timing_process_time(
     func: Callable[_FunParamT, _FunCallResultT]
 ) -> Callable[_FunParamT, _FunCallResultT]:
@@ -455,9 +423,7 @@ def timing_process_time(
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
-__all__.append("timing_process_time")
-
-
+@moduleexport
 class LazyProperty(property):
     """
     Decorator for properties, which will be only evaluated if needed.
@@ -492,11 +458,10 @@ class LazyProperty(property):
         super().__init__(_lazy_getterfunction)
 
 
-__all__.append("LazyProperty")
-
 ParameterTupleT = TypeVarTuple("ParameterTupleT")
 
 
+@moduleexport
 def memoize(
     func: Callable[[Unpack[ParameterTupleT]], _FunCallResultT]
 ) -> Callable[[Unpack[ParameterTupleT]], _FunCallResultT]:
@@ -516,6 +481,3 @@ def memoize(
         return result
 
     return wrapper
-
-
-__all__.append("memoize")

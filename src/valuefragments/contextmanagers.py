@@ -8,12 +8,14 @@ import time
 from types import TracebackType
 from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
+from .decorators import moduleexport
 from .helpers import (  # pylint: disable=relative-beyond-top-level]
     closeifrunningloky,
     ic,
 )
 
 
+@moduleexport
 class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
@@ -57,6 +59,7 @@ class NoOutput(TextIO):
         """Encoding: Needed but does nothing."""
         return ""
 
+    # noinspection PyPropertyDefinition
     @property
     def errors(self: NoOutput) -> None:
         """Errors: Needed but does nothing."""
@@ -66,11 +69,13 @@ class NoOutput(TextIO):
         """Line_buffering: Needed but does nothing."""
         return 0
 
+    # noinspection PyPropertyDefinition
     @property
     def newlines(self: NoOutput) -> None:
         """Newlines: Needed but does nothing."""
 
 
+@moduleexport
 class LinuxTimeCM:
     """
     Use this as a context manager for getting timing details like with linux time.
@@ -151,6 +156,7 @@ except ImportError:
     ic("resource is not available")
 else:
 
+    @moduleexport
     class LinuxTimeResourceCM:
         """
         Use this as a context manager for getting timing details like with linux time.
@@ -240,6 +246,7 @@ else:
             return True
 
 
+@moduleexport
 class TimingCM:
     """
     Use this as a context manager for getting timing details.
