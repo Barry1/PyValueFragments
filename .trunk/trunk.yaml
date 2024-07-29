@@ -28,8 +28,7 @@ lint:
     - git-diff-check
     - mypy@1.11.0
   disabled:
-    - bandit@1.7.9
-
+    - bandit
 runtimes:
   enabled:
     - python@3.10.8
