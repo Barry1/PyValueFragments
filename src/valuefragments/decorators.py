@@ -284,8 +284,8 @@ if os.name == "posix":
 
         @wraps(func)
         def wrapped(
-            *args: ParamSpecArgs,
-            **kwargs: ParamSpecKwargs,
+            *args: _FunParamT.args,
+            **kwargs: _FunParamT.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
@@ -341,8 +341,8 @@ if os.name == "posix":
 
         @wraps(func)
         def wrapped(
-            *args: ParamSpecArgs,
-            **kwargs: ParamSpecKwargs,
+            *args: _FunParamT.args,
+            **kwargs: _FunParamT.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
@@ -352,7 +352,7 @@ if os.name == "posix":
                 print(func.__name__, float(after) - before)
             return retval
 
-        return wrapped  # cast(FunctionTypeVar, wrapped)
+        return wrapped
 
 
 try:

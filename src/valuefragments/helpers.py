@@ -18,6 +18,7 @@ from base64 import b64encode
 from importlib.util import find_spec
 from io import IOBase
 from shutil import copyfileobj
+from types import ModuleType
 from typing import (
     IO,
     TYPE_CHECKING,
@@ -329,7 +330,7 @@ def exists_variable(varname: str) -> bool:
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic
 
-    module: sys.ModuleType = sys.modules["valuefragments.helpers"]
+    module: ModuleType = sys.modules["valuefragments.helpers"]
     if hasattr(module, "__all__"):
         if "ic" not in module.__all__:
             module.__all__.append("ic")

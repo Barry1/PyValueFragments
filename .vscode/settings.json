@@ -14,5 +14,6 @@
   "python.defaultInterpreterPath": "/home/ebeling/GitHub/PyValueFragments/.venv/bin/python",
   "python.analysis.inlayHints.pytestParameters": true,
   "python.analysis.autoFormatStrings": true,
-  "python.analysis.completeFunctionParens": true
+  "python.analysis.completeFunctionParens": true,
+  "editor.defaultFormatter": "ms-python.black-formatter"
 }
