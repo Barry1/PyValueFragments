@@ -327,13 +327,14 @@ def exists_variable(varname: str) -> bool:
 
 
 if __debug__ and find_spec(name="icecream"):
-    from icecream import ic  # type: ignore # pylint:disable=import-error
+    from icecream import ic
 
-    # moduleexport is not working with icecream, as realized as a class and not a function
-    if exists_variable("__all__"):
-        __all__.append("ic")  # pylint: disable=E0601
+    module: sys.ModuleType = sys.modules["valuefragments.helpers"]
+    if hasattr(module, "__all__"):
+        if "ic" not in module.__all__:
+            module.__all__.append("ic")
     else:
-        __all__ = ["ic"]
+        setattr(module, "__all__", ["ic"])
 else:
     # <https://stackoverflow.com/a/73738408>
     @moduleexport
