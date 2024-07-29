@@ -28,21 +28,11 @@ if sys.version_info < (3, 10):
         Literal,
         LiteralString,
         ParamSpec,
-        ParamSpecArgs,
-        ParamSpecKwargs,
         TypeVarTuple,
         Unpack,
     )
 elif sys.version_info < (3, 11):
-    from typing import (
-        Literal,
-        NamedTuple,
-        ParamSpec,
-        ParamSpecArgs,
-        ParamSpecKwargs,
-        TypeVar,
-        cast,
-    )
+    from typing import Literal, NamedTuple, ParamSpec, TypeVar, cast
 
     from typing_extensions import LiteralString, TypeVarTuple, Unpack
 else:
@@ -51,8 +41,6 @@ else:
         LiteralString,
         NamedTuple,
         ParamSpec,
-        ParamSpecArgs,
-        ParamSpecKwargs,
         TypeVar,
         TypeVarTuple,
         Unpack,
