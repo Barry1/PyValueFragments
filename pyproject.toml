@@ -190,6 +190,7 @@ markers = 'sys_platform != "win32"'
 jobs = 0
 py-version = "3.11"
 output-format = "colorized"
+#init-hook ='import sys; sys.path.append(".")'
 
 [tool.pylint.basic]
 include-naming-hint = "y"

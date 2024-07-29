@@ -1,3 +1,5 @@
+"""Just a module for tools around module usage."""
+
 import sys
 from types import ModuleType
 from typing import Callable, ParamSpec, TypeVar
