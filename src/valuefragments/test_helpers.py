@@ -2,7 +2,7 @@
 """Test functions for helpers module."""
 import os
 
-from .helpers import (  # pylint: disable=relative-beyond-top-level
+from .helpers import (
     HumanReadAble,
     basic_auth,
     file_exists_current,

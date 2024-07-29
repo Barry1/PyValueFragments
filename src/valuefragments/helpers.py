@@ -320,22 +320,29 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
     print(*args, file=sys.stderr)
 
 
+@moduleexport
+def exists_variable(varname: str) -> bool:
+    "Check if variable is in use - global or local."
+    return varname in globals() or varname in locals()
+
+
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic  # type: ignore # pylint:disable=import-error
+
+    # moduleexport is not working with icecream, as realized as a class and not a function
+    if exists_variable("__all__"):
+        __all__.append("ic")  # pylint: disable=E0601
+    else:
+        __all__ = ["ic"]
 else:
     # <https://stackoverflow.com/a/73738408>
+    @moduleexport
     def ic(
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> FirstElementT | tuple[FirstElementT, Unpack[OtherElementsT]] | None:
+    ) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
 
-
-try:
-    __all__.append("ic")
-except NameError:
-    __all__ = ["ic"]
-# moduleexport(ic)
 
 try:
     # noinspection PyUnresolvedReferences

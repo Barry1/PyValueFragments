@@ -8,11 +8,8 @@ import time
 from types import TracebackType
 from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
-from .decorators import moduleexport
-from .helpers import (  # pylint: disable=relative-beyond-top-level]
-    closeifrunningloky,
-    ic,
-)
+from .helpers import closeifrunningloky, ic
+from .moduletools import moduleexport
 
 
 @moduleexport
