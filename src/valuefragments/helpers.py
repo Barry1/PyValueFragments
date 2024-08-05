@@ -384,7 +384,7 @@ def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
 
 try:
     # noinspection PyUnresolvedReferences
-    from cpu_load_generator import (  # type: ignore[attr-defined]
+    from cpu_load_generator import (  # type: ignore[attr-defined,import-untyped]
         load_all_cores,
         load_single_core,
     )
