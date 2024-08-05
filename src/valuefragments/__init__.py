@@ -24,6 +24,7 @@ from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
     int2bin,
     pi_for_cpu_load,
     recurse_files_in_folder,
+    run_grouped,
 )
 from .mathhelpers import easybisect, intp, polyroot
 
@@ -52,6 +53,7 @@ __all__: list[str] = [
     "polyroot",
     "portable_timing",
     "recurse_files_in_folder",
+    "run_grouped",
     "timing_process_time",
     "timing_thread_time",
     "timing_wall",
