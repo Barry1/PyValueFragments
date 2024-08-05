@@ -1,11 +1,12 @@
 from .process_executor import ProcessPoolExecutor
+import threading
 
 __all__ = ["get_reusable_executor"]
 _executor_lock = threading.RLock()
 from typing import Any, Callable, Dict, Tuple
 
 def get_reusable_executor(
-    max_workers: int = None,
+    max_workers: int | None = None,
     context=Any,
     timeout: int = 10,
     kill_workers: bool = False,
