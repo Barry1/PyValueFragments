@@ -64,7 +64,7 @@ def logdecorate(
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
 ):
     """Decorator to log start and stop into file 'decorated.log' with logging."""
-    thelogger: logging.Logger = logging.getLogger("logdecorate." + func.__name__)
+    thelogger: logging.Logger = logging.getLogger(f"logdecorate.{func.__name__}")
     the_format: str = "|".join(
         [
             "%(asctime)s",
