@@ -240,7 +240,7 @@ addopts = [
 [tool.mypy]
 python_version = "3.11"
 warn_unused_configs = true
-enable_incomplete_feature = ["TypeVarTuple", "Unpack"]
+#enable_incomplete_feature = ["TypeVarTuple", "Unpack"]
 pretty = true
 show_error_codes = true
 show_error_context = true
