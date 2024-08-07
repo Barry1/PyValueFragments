@@ -1483,13 +1483,13 @@ files = [
 
 [[package]]
 name = "pyanalyze"
-version = "0.9.0"
+version = "0.12.0"
 description = "A static analyzer for Python"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "pyanalyze-0.9.0-py3-none-any.whl", hash = "sha256:6e7e4eac6bdb6a83bbca9fec3c0540c923d501c485db318002fb11f97bd16687"},
-    {file = "pyanalyze-0.9.0.tar.gz", hash = "sha256:4930dbe9f1d1d9113baf44e043983e09dcc5588032f01f1b3eea5426cb1f5aef"},
+    {file = "pyanalyze-0.12.0-py3-none-any.whl", hash = "sha256:d33b9fa78f77d4231b9ef0188a781d34f55cb70514f83f20b9d5bf3abdccb522"},
+    {file = "pyanalyze-0.12.0.tar.gz", hash = "sha256:42db061d254ad830641ab892f7c456d53deffbc7327136647ed730016df056b7"},
 ]
 
 [package.dependencies]
@@ -1501,7 +1501,9 @@ qcore = ">=0.5.1"
 tomli = ">=1.1.0"
 typeshed-client = ">=2.1.0"
 typing-extensions = ">=4.1.0"
-typing-inspect = ">=0.7.0"
+
+[package.extras]
+tests = ["annotated-types", "attrs", "mypy-extensions", "pydantic", "pytest"]
 
 [[package]]
 name = "pyannotate"
@@ -2726,4 +2728,4 @@ allfeatures = ["cpu-load-generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "1f74840e3265403dfac6740d517da259555ede8289b4d9dc53ade5522f27959d"
+content-hash = "8725acca12be9e73270de7a641248ea384482db034844d56ff39737d3d653378"
