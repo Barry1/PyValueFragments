@@ -1,5 +1,7 @@
 """Module with small helpers for mathematical questions."""
 
+from __future__ import annotations
+
 from logging import Logger, getLogger
 from typing import Callable
 

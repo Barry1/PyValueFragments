@@ -323,7 +323,7 @@ def exists_variable(varname: str) -> bool:
 
 
 def _backupic(
-    first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
+    first: FirstElementT | None, *rest: Unpack[OtherElementsT]
 ) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
     """Just in case icecream is not available: For logging purposes."""
     return (first, *rest) if first and rest else first

@@ -1,5 +1,7 @@
 """Just a module for tools around module usage."""
 
+from __future__ import annotations
+
 import sys
 from types import ModuleType
 from typing import Callable, ParamSpec, TypeVar
