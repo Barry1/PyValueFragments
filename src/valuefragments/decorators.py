@@ -4,13 +4,31 @@ from __future__ import annotations
 
 import logging
 import os
-import sys
+
+# import sys
 import time
 
 # import asyncio # icoroutine
+# from inspect import iscoroutinefunction
 from asyncio import iscoroutinefunction
 from functools import wraps
-from typing import Any, Callable, Coroutine
+from typing import (  # TypeGuard,
+    Any,
+    Awaitable,
+    Callable,
+    Coroutine,
+    Literal,
+    LiteralString,
+    NamedTuple,
+    ParamSpec,
+    TypeVar,
+    TypeVarTuple,
+    Unpack,
+    assert_type,
+    cast,
+)
+
+from typing_extensions import TypeIs
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
@@ -21,36 +39,36 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
 from .moduletools import moduleexport
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
-if sys.version_info < (3, 10):
-    from typing import NamedTuple, TypeVar, cast
-
-    from typing_extensions import (
-        Literal,
-        LiteralString,
-        ParamSpec,
-        TypeVarTuple,
-        Unpack,
-    )
-elif sys.version_info < (3, 11):
-    from typing import Literal, NamedTuple, ParamSpec, TypeVar, cast
-
-    from typing_extensions import LiteralString, TypeVarTuple, Unpack
-else:
-    from typing import (
-        Literal,
-        LiteralString,
-        NamedTuple,
-        ParamSpec,
-        TypeVar,
-        TypeVarTuple,
-        Unpack,
-        cast,
-    )
 InstanceObjectT = TypeVar("InstanceObjectT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 _FunParamT = ParamSpec("_FunParamT")
 # Maybe different if async or not
 # https://stackoverflow.com/a/68746329/617339
+
+
+# @overload
+# def logdecorate(
+#    func: Callable[_FunParamT, Awaitable[_FunCallResultT]]
+# ) -> Callable[_FunParamT, Awaitable[_FunCallResultT]]: ...
+#
+#
+# @overload
+# def logdecorate(
+#    func: Callable[_FunParamT, _FunCallResultT]
+# ) -> Callable[_FunParamT, _FunCallResultT]: ...
+
+# <https://stackoverflow.com/q/78206137>
+
+
+# https://rednafi.com/python/typeguard_vs_typeis/
+# https://peps.python.org/pep-0742/
+
+
+def istypedcoroutinefunction(
+    func: Callable[_FunParamT, _FunCallResultT] | Callable[_FunParamT, Awaitable[_FunCallResultT]]
+) -> TypeIs[Callable[_FunParamT, Awaitable[_FunCallResultT]]]:
+    """Checks if the argument is an awaitable function with given return type following PEP-0742."""
+    return iscoroutinefunction(func)
 
 
 @moduleexport
@@ -89,8 +107,13 @@ def logdecorate(
         thelogger.setLevel(logging.DEBUG)
     else:
         thelogger.setLevel(logging.INFO)
-
-    if iscoroutinefunction(func):
+    thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
+    if istypedcoroutinefunction(func):
+        # assert_type(func, Callable[_FunParamT, Awaitable[_FunCallResultT]])
+        thelogger.debug("%s is a coro", func)
+        #        thelogger.info("%s",type(func))
+        #        thelogger.info("%s",dir(func))
+        #        thelogger.info("%s",func.__annotations__)
 
         @wraps(wrapped=func)
         async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
@@ -121,8 +144,10 @@ def logdecorate(
             return res
 
         return awrapped
+    # assert_type(func, Callable[_FunParamT, _FunCallResultT])
+    thelogger.debug("%s is a synchronous function (no coro)", func)
 
-    @wraps(func)
+    @wraps(wrapped=func)
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
         thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()

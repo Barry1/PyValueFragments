@@ -22,8 +22,6 @@ def test_file_actual_current() -> None:
 
 
 # @logdecorate
-
-
 def test_pi_for_cpu_load() -> None:
     """Check if pi calculation works in priciple."""
     assert pi_for_cpu_load(10, 4478) == 3.2
