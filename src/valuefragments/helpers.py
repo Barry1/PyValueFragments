@@ -41,7 +41,7 @@ from typing_extensions import SupportsIndex, TypeVarTuple, Unpack  # Self,
 # found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
 
-__all__: list[str]
+# __all__: list[str]
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
@@ -235,7 +235,7 @@ def exists_variable(varname: str) -> bool:
 
 try:
     from icecream import ic
-except ImportError as ie:
+except ImportError:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
     def ic(
