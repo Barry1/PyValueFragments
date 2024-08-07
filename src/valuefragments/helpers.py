@@ -232,13 +232,6 @@ def exists_variable(varname: str) -> bool:
     return varname in globals() or varname in locals()
 
 
-def _backupic(
-    first: FirstElementT | None, *rest: Unpack[OtherElementsT]
-) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
-    """Just in case icecream is not available: For logging purposes."""
-    return (first, *rest) if first and rest else first
-
-
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic
 
@@ -250,7 +243,14 @@ if __debug__ and find_spec(name="icecream"):
         setattr(module, "__all__", ["ic"])
 else:
     # <https://stackoverflow.com/a/73738408>
-    ic = _backupic
+    # pylint: disable-next=keyword-arg-before-vararg
+    def ic(
+        first: FirstElementT | None = None, *rest: *OtherElementsT
+    ) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
+        """Just in case icecream is not available: For logging purposes."""
+        return (first, *rest) if first and rest else first
+
+
 try:
     # noinspection PyUnresolvedReferences
     import psutil
