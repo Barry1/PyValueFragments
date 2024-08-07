@@ -7,18 +7,26 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
+trunkchkfmt:
+	trunk check \
+	    src/valuefragments/contextmanagers.py\
+		src/valuefragments/decorators.py\
+		src/valuefragments/helpers.py\
+		src/valuefragments/mathhelpers.py\
+		src/valuefragments/moduletools.py
+
 actsuperlinter:
 	act --graph
 	act --job run-lint
 
 typings/joblib/joblib/externals/loky/process_executor.pyi:
-	poetry run pyright src/valuefragments/contextmanagers.py  --createstub joblib.externals.loky.process_executor
+	poetry run pyright src/valuefragments/contextmanagers.py --createstub joblib.externals.loky.process_executor
 
 typings/joblib/joblib/externals/loky/reusable_executor.pyi:
-	poetry run pyright src/valuefragments/contextmanagers.py  --createstub joblib.externals.loky.reusable_executor 
+	poetry run pyright src/valuefragments/contextmanagers.py --createstub joblib.externals.loky.reusable_executor 
 
 typings/cpu_load_generator/_interface.pyi:
-	poetry run pyright src/valuefragments/contextmanagers.py  --createstub cpu_load_generator
+	poetry run pyright src/valuefragments/contextmanagers.py --createstub cpu_load_generator
 
 stubs:
 	poetry run pyright --createstub joblib

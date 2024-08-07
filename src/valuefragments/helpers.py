@@ -31,9 +31,10 @@ from typing import (
     SupportsInt,
     TypedDict,
     TypeVar,
+    Union,
 )
 
-from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
+from typing_extensions import SupportsIndex, TypeVarTuple, Unpack  # Self,
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
@@ -41,11 +42,6 @@ from typing_extensions import SupportsIndex, TypeVarTuple  # Self,
 from .moduletools import moduleexport
 
 __all__: list[str]
-
-if sys.version_info < (3, 11):
-    from typing_extensions import Unpack
-else:
-    from typing import Unpack  # pylint: disable=no-name-in-module
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
@@ -341,7 +337,7 @@ else:
     @moduleexport
     def ic(
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
+    ) -> Union[FirstElementT, tuple[FirstElementT, *OtherElementsT], None]:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
 

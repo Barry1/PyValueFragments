@@ -18,17 +18,13 @@ from typing import (  # TypeGuard,
     Callable,
     Coroutine,
     Literal,
-    LiteralString,
     NamedTuple,
     ParamSpec,
     TypeVar,
-    TypeVarTuple,
-    Unpack,
-    assert_type,
     cast,
 )
 
-from typing_extensions import TypeIs
+from typing_extensions import LiteralString, TypeIs, TypeVarTuple, Unpack
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
@@ -67,7 +63,7 @@ _FunParamT = ParamSpec("_FunParamT")
 def istypedcoroutinefunction(
     func: Callable[_FunParamT, _FunCallResultT] | Callable[_FunParamT, Awaitable[_FunCallResultT]]
 ) -> TypeIs[Callable[_FunParamT, Awaitable[_FunCallResultT]]]:
-    """Checks if the argument is an awaitable function with given return type following PEP-0742."""
+    """Is the argument an awaitable function with given return type following PEP-0742."""
     return iscoroutinefunction(func)
 
 
@@ -82,31 +78,55 @@ def logdecorate(
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
 ):
     """Decorator to log start and stop into file 'decorated.log' with logging."""
-    thelogger: logging.Logger = logging.getLogger(f"logdecorate.{func.__name__}")
-    the_format: str = "|".join(
-        [
-            "%(asctime)s",
-            #            "%(name)s",#name of the logger
-            #            "%(funcName)s",#not working, decorator
-            func.__name__,
-            #            "%(levelname)s",
-            #            "%(processName)s (%(process)d)",
-            "PID %(process)d",
-            #            "%(threadName)s (%(thread_native)d)",
-            "ThID %(thread_native)d",
-            "%(message)s",
-        ]
-    )
-    logformatter: logging.Formatter = logging.Formatter(the_format)
-    logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
-    logfilehandler.setFormatter(logformatter)
-    logfilehandler.addFilter(thread_native_id_filter)
-    thelogger.addHandler(logfilehandler)
+
+    def setuplogger(funcname: str) -> logging.Logger:
+        thelogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
+        the_format: str = "|".join(
+            [
+                "%(asctime)s",
+                #            "%(name)s",#name of the logger
+                #            "%(funcName)s",#not working, decorator
+                func.__name__,
+                #            "%(levelname)s",
+                #            "%(processName)s (%(process)d)",
+                "PID %(process)d",
+                #            "%(threadName)s (%(thread_native)d)",
+                "ThID %(thread_native)d",
+                "%(message)s",
+            ]
+        )
+        logformatter: logging.Formatter = logging.Formatter(the_format)
+        logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
+        logfilehandler.setFormatter(logformatter)
+        logfilehandler.addFilter(thread_native_id_filter)
+        thelogger.addHandler(logfilehandler)
+        if __debug__:
+            thelogger.setLevel(logging.DEBUG)
+        else:
+            thelogger.setLevel(logging.INFO)
+        return thelogger
+
+    def logtiminglines(begintimings: os.times_result, endtimings: os.times_result) -> None:
+        title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
+        info_line_format: LiteralString = "%7.2f [s]|" * 5 + "%7.2f%%|"
+        timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        thelogger.info(
+            title_line_format,
+            "user",
+            "system",
+            "child_user",
+            "child_system",
+            "elapsed",
+            "LOAD",
+        )
+        thelogger.info(
+            info_line_format,
+            *timingdiffs,
+            100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
+        )
+
     # https://docs.python.org/3/library/logging.html#levels
-    if __debug__:
-        thelogger.setLevel(logging.DEBUG)
-    else:
-        thelogger.setLevel(logging.INFO)
+    thelogger: logging.Logger = setuplogger(func.__name__)
     thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
     if istypedcoroutinefunction(func):
         # assert_type(func, Callable[_FunParamT, Awaitable[_FunCallResultT]])
@@ -117,29 +137,14 @@ def logdecorate(
 
         @wraps(wrapped=func)
         async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
+            # Pre-Execution
             thelogger.debug("LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
+            # Execution
             res: _FunCallResultT = await func(*args, **kwargs)
+            # Post-Execution
             endtimings: os.times_result = os.times()
-            title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
-            info_line_format: LiteralString = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
-            thelogger.info(
-                title_line_format,
-                "user",
-                "system",
-                "child_user",
-                "child_system",
-                "elapsed",
-                "LOAD",
-            )
-            timingdiffs: tuple[float, ...] = tuple(
-                b - a for (a, b) in zip(begintimings, endtimings)
-            )
-            thelogger.info(
-                info_line_format,
-                *timingdiffs,
-                100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
-            )
+            logtiminglines(begintimings, endtimings)
             thelogger.debug(msg="LogDecorated ASYNC End")
             return res
 
@@ -153,23 +158,7 @@ def logdecorate(
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
-        title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
-        info_line_format: LiteralString = "%7.2f [s]|" * begintimings.n_fields + "%7.2f%%|"
-        thelogger.info(
-            title_line_format,
-            "user",
-            "system",
-            "child_user",
-            "child_system",
-            "elapsed",
-            "LOAD",
-        )
-        timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
-        thelogger.info(
-            info_line_format,
-            *timingdiffs,
-            100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
-        )
+        logtiminglines(begintimings, endtimings)
         thelogger.debug("LogDecorated End")
         return res
 
