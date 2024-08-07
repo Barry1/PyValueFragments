@@ -245,8 +245,8 @@ else:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
     def ic(
-        first: FirstElementT | None = None, *rest: *OtherElementsT
-    ) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
+        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
+    ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
 
