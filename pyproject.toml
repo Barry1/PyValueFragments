@@ -202,6 +202,7 @@ reportMissingImports = true
 reportMissingTypeStubs = false
 include = ["src/valuefragments"]
 exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+extraPaths = ["src/valuefragments"]
 #ignore = ["src/oldstuff"]
 #defineConstant = { DEBUG = true }
 #stubPath = "src/stubs"
