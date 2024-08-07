@@ -157,7 +157,7 @@ def logdecorate(
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
         thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()
-        res: _FunCallResultT = func(*args, **kwargs)
+        res: _FunCallResultT = reveal_type(func(*args, **kwargs))
         endtimings: os.times_result = os.times()
         logtiminglines(begintimings, endtimings)
         thelogger.debug("LogDecorated End")
@@ -298,7 +298,7 @@ if os.name == "posix":
             selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
             childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
             after: float | Literal[0] = time.monotonic()
-            if childbefore and selfbefore and selfafter and childafter and before and after:
+            if all((childbefore, selfbefore, selfafter, childafter, before, after)):
                 print("time function\t", func.__name__)
                 wall_time: float = after - before
                 user_time: float = (
