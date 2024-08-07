@@ -116,6 +116,7 @@ build = "*"
 cpu-load-generator = "*"
 darker = "^1.7.2"
 flake8 = ">5"
+flynt = ">1"
 icecream = "*"
 infer-types = "^1.0.0"
 interrogate = ">=1.5"
@@ -148,24 +149,20 @@ yapf = "*"
 
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"
-allow-prereleases = true
+#allow-prereleases = true
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
 version = ">8.4"
 
+[tool.poetry.group.dev.dependencies.mypy]
+# git = "https://github.com/python/mypy.git"
+version = "^1"
+# allow-prereleases = true
+
 [tool.poetry.group.dev.dependencies.isort]
 version = "*"
 extras = ["colors"]
-
-[tool.prospector]
-without_tool = "django"
-
-# [tool.poetry.group.dev.dependencies.mypy]
-# git = "https://github.com/python/mypy.git"
-# version = "^1"
-# allow-prereleases = true
-
 
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
@@ -178,6 +175,9 @@ extras = [
   "with_mypy",
   "with_bandit",
 ]
+
+[tool.prospector]
+without_tool = "django"
 
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
@@ -201,16 +201,16 @@ typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
 include = ["src/valuefragments"]
-exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
-extraPaths = ["src/valuefragments"]
-#ignore = ["src/oldstuff"]
-#defineConstant = { DEBUG = true }
-#stubPath = "src/stubs"
-#venv = "env367"
+#exclude=['.venv']
+#exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+#extraPaths = ["src", "src/valuefragments"]
 pythonVersion = "3.11"
 pythonPlatform = "Linux"
 verboseOutput = true
-executionEnvironments = [{ root = "src/valuefragments" }]
+#executionEnvironments = [{ root = "src",extraPaths=["src/valuefragments"] }]
+stubPath = "src"
+venvPath = '.'
+venv = ".venv"
 
 [tool.pylama]
 linters = [""] # means all

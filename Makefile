@@ -7,6 +7,9 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
+flynt:
+	poetry run flynt src/valuefragments
+
 trunkchkfmt:
 	trunk check \
 	    src/valuefragments/contextmanagers.py\
