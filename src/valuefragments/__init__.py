@@ -13,8 +13,7 @@ from .decorators import (
     timing_thread_time,
     timing_wall,
 )
-from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
-    backgroundme,
+from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611; backgroundme,
     basic_auth,
     closeifrunningloky,
     eprint,
@@ -33,7 +32,7 @@ thevaluefragmentslogger: logging.Logger = logging.getLogger(name=__name__)
 thevaluefragmentslogger.addHandler(hdlr=logging.NullHandler())
 thevaluefragmentslogger.info(msg="valuefragments __init__")
 __all__: list[str] = [
-    "backgroundme",
+    #    "backgroundme",
     "basic_auth",
     "closeifrunningloky",
     "easybisect",

@@ -15,7 +15,8 @@ import threading
 import time
 import warnings
 from base64 import b64encode
-from importlib.util import find_spec
+
+# from importlib.util import find_spec
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
@@ -232,16 +233,9 @@ def exists_variable(varname: str) -> bool:
     return varname in globals() or varname in locals()
 
 
-if __debug__ and find_spec(name="icecream"):
+try:
     from icecream import ic
-
-    module: ModuleType = sys.modules["valuefragments.helpers"]
-    if hasattr(module, "__all__"):
-        if "ic" not in module.__all__:
-            module.__all__.append("ic")
-    else:
-        setattr(module, "__all__", ["ic"])
-else:
+except ImportError as ie:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
     def ic(
@@ -249,6 +243,14 @@ else:
     ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
+
+else:
+    module: ModuleType = sys.modules["valuefragments.helpers"]
+    if hasattr(module, "__all__"):
+        if "ic" not in module.__all__:
+            module.__all__.append("ic")
+    else:
+        setattr(module, "__all__", ["ic"])
 
 
 try:
