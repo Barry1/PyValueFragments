@@ -31,7 +31,6 @@ from typing import (
     SupportsInt,
     TypedDict,
     TypeVar,
-    Union,
 )
 
 from typing_extensions import SupportsIndex, TypeVarTuple, Unpack  # Self,
@@ -323,6 +322,13 @@ def exists_variable(varname: str) -> bool:
     return varname in globals() or varname in locals()
 
 
+def _backupic(
+    first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
+) -> tuple[FirstElementT, *OtherElementsT] | FirstElementT | None:
+    """Just in case icecream is not available: For logging purposes."""
+    return (first, *rest) if first and rest else first
+
+
 if __debug__ and find_spec(name="icecream"):
     from icecream import ic
 
@@ -334,13 +340,7 @@ if __debug__ and find_spec(name="icecream"):
         setattr(module, "__all__", ["ic"])
 else:
     # <https://stackoverflow.com/a/73738408>
-    @moduleexport
-    def ic(
-        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> Union[FirstElementT, tuple[FirstElementT, *OtherElementsT], None]:
-        """Just in case icecream is not available: For logging purposes."""
-        return (first, *rest) if first and rest else first
-
+    ic = _backupic
 
 try:
     # noinspection PyUnresolvedReferences
