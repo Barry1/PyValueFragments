@@ -22,6 +22,7 @@ from typing import (  # TypeGuard,
     ParamSpec,
     TypeVar,
     cast,
+    reveal_type,
 )
 
 from typing_extensions import LiteralString, TypeIs, TypeVarTuple, Unpack
@@ -141,7 +142,7 @@ def logdecorate(
             thelogger.debug("LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
             # Execution
-            res: _FunCallResultT = await func(*args, **kwargs)
+            res: _FunCallResultT = await reveal_type(func(*args, **kwargs))
             # Post-Execution
             endtimings: os.times_result = os.times()
             logtiminglines(begintimings, endtimings)
