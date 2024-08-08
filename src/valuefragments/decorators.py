@@ -24,6 +24,7 @@ from typing import (
     reveal_type,
 )
 
+# noinspection PyProtectedMember
 from typing_extensions import LiteralString, TypeIs, TypeVarTuple, Unpack
 
 # typing with the help of
