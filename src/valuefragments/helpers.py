@@ -111,15 +111,15 @@ def pi_for_cpu_load(
 ) -> float:
     """Calculate pi by simulation just for CPU-load."""
     random.seed(theseed)
-    n: int = 0
+    n_all: int = 0
     n_in: int = 0
     for _ in range(numiter):
-        x: float = random.uniform(0, 1)
-        y: float = random.uniform(0, 1)
-        n += 1
-        if x**2 + y**2 < 1:
+        _x: float = random.uniform(0, 1)
+        _y: float = random.uniform(0, 1)
+        n_all += 1
+        if _x**2 + _y**2 < 1:
             n_in += 1
-    return 4 * n_in / n
+    return 4 * n_in / n_all
 
 
 @moduleexport
@@ -238,7 +238,7 @@ try:
 except ImportError:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
-    def ic(
+    def ic(  # pylint: disable=invalid-name
         first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
     ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""

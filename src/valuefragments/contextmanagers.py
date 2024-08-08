@@ -193,13 +193,13 @@ else:
             self.selfafter = resource.getrusage(resource.RUSAGE_SELF)
             self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
             self.after = time.monotonic()
-            if (
-                self.childbefore
-                and self.selfbefore
-                and self.selfafter
-                and self.childafter
-                and self.before
-                and self.after
+            if all(
+                self.childbefore,
+                self.selfbefore,
+                self.selfafter,
+                self.childafter,
+                self.before,
+                self.after,
             ):
                 wall_time: float = self.after - self.before
                 user_time: float = (

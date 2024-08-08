@@ -30,14 +30,14 @@ def determinant(
 
 
 @moduleexport
-def intp(x: Tfloatthreevec, y: Tfloatthreevec) -> Tfloatthreevec:
+def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
     """Returns coefficients for interpolation by second order polynom along three given pairs."""
-    xpowtwo: Tfloatthreevec = (x[0] ** 2, x[1] ** 2, x[2] ** 2)
-    d: float = determinant(xpowtwo, x, (1, 1, 1))
+    xpowtwo: Tfloatthreevec = (x_values[0] ** 2, x_values[1] ** 2, x_values[2] ** 2)
+    majordeterminant: float = determinant(xpowtwo, x_values, (1, 1, 1))
     return (
-        determinant(y, x, (1, 1, 1)) / d,
-        determinant(xpowtwo, y, (1, 1, 1)) / d,
-        determinant(xpowtwo, x, y) / d,
+        determinant(y_values, x_values, (1, 1, 1)) / majordeterminant,
+        determinant(xpowtwo, y_values, (1, 1, 1)) / majordeterminant,
+        determinant(xpowtwo, x_values, y_values) / majordeterminant,
     )
 
 
@@ -52,7 +52,7 @@ def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
 
 
 @moduleexport
-def easybisect(
+def easybisect(  # pylint: disable=too-many-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,
