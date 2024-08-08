@@ -13,7 +13,7 @@ lint:
     - checkov@3.2.219
     - osv-scanner@1.8.3
     - trivy@0.54.1
-    - trufflehog@3.81.6
+    - trufflehog@3.81.7
     - ruff@0.5.6
     - yamllint@1.35.1
     - isort@5.13.2

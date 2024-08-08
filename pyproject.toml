@@ -4,7 +4,7 @@
 #https://peps.python.org/pep-0621/
 [tool.poetry]
 name = "valuefragments"
-version = "0.3.42"
+version = "0.3.43"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
@@ -178,6 +178,7 @@ extras = [
 
 [tool.prospector]
 without_tool = "django"
+
 
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
