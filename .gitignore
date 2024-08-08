@@ -7,5 +7,5 @@ dist/
 interrogate_badge.svg
 valuefragments.egg-info/
 /typings/
-
+__pycache__
 megalinter-reports/
