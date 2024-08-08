@@ -235,9 +235,6 @@ pretty = true
 show_error_codes = true
 show_error_context = true
 #strict = true
-#install_types = true
-#non_interactive = true
-
 [[tool.mypy.overrides]]
 module = 'cpu_load_generator'
 ignore_missing_imports = true
@@ -252,8 +249,8 @@ module = [
 ignore_missing_imports = true
 implicit_reexport = true
 
-[tool.pylint."MESSAGES CONTROL"]
-disable = "duplicate-code"
+#[tool.pylint."MESSAGES CONTROL"]
+#disable = "duplicate-code"
 
 [tool.pylint.main]
 #init-hook ='import sys; sys.path.append(".")'
@@ -652,7 +649,7 @@ disable = [
   "useless-suppression",
   "deprecated-pragma",
   "use-symbolic-message-instead",
-  "duplicate-code",
+  #  "duplicate-code",
 ]
 
 # Enable the message, report, category or checker with the given id(s). You can
