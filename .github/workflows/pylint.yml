@@ -1,7 +1,9 @@
 ---
 name: Pylint
 
-on: workflow_dispatch
+on:
+  - workflow_dispatch
+  - push
 #  push:
 #    branches: ["main", "master"]
 #  pull_request:
