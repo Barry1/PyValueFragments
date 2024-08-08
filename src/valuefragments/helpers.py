@@ -99,7 +99,7 @@ def filecache(
 
 
 @moduleexport
-def thread_native_id_filter(record: object) -> bool:
+def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
     setattr(record, "thread_native", threading.get_native_id())
     return True
