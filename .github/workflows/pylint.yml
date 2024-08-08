@@ -15,7 +15,8 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
         # "3.13-dev" not available
     steps:
-      - uses: actions/checkout@v3.2.0
+#      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@latest
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
