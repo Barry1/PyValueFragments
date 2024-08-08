@@ -12,9 +12,8 @@ import time
 # from inspect import iscoroutinefunction
 from asyncio import iscoroutinefunction
 from functools import wraps
-from typing import (  # TypeGuard,
+from typing import (
     Any,
-    Awaitable,
     Callable,
     Coroutine,
     Literal,
@@ -62,9 +61,12 @@ _FunParamT = ParamSpec("_FunParamT")
 
 
 def istypedcoroutinefunction(
-    func: Callable[_FunParamT, _FunCallResultT] | Callable[_FunParamT, Awaitable[_FunCallResultT]]
-) -> TypeIs[Callable[_FunParamT, Awaitable[_FunCallResultT]]]:
-    """Is the argument an awaitable function with given return type following PEP-0742."""
+    func: (
+        Callable[_FunParamT, _FunCallResultT]
+        | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
+    )
+) -> TypeIs[Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]]:
+    """Is the argument an awaitable function with given return type following PEP-0742?"""
     return iscoroutinefunction(func)
 
 
@@ -131,18 +133,18 @@ def logdecorate(
     thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
     if istypedcoroutinefunction(func):
         # assert_type(func, Callable[_FunParamT, Awaitable[_FunCallResultT]])
-        thelogger.debug("%s is a coro", func)
+        thelogger.debug("%s is a coro", reveal_type(func))
+
         #        thelogger.info("%s",type(func))
         #        thelogger.info("%s",dir(func))
         #        thelogger.info("%s",func.__annotations__)
-
         @wraps(wrapped=func)
         async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
             # Pre-Execution
             thelogger.debug("LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
             # Execution
-            res: _FunCallResultT = await reveal_type(func(*args, **kwargs))
+            res: _FunCallResultT = await func(*args, **kwargs)
             # Post-Execution
             endtimings: os.times_result = os.times()
             logtiminglines(begintimings, endtimings)
@@ -151,13 +153,13 @@ def logdecorate(
 
         return awrapped
     # assert_type(func, Callable[_FunParamT, _FunCallResultT])
-    thelogger.debug("%s is a synchronous function (no coro)", func)
+    thelogger.debug("%s is a synchronous function (no coro)", reveal_type(func))
 
     @wraps(wrapped=func)
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
         thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()
-        res: _FunCallResultT = reveal_type(func(*args, **kwargs))
+        res: _FunCallResultT = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
         logtiminglines(begintimings, endtimings)
         thelogger.debug("LogDecorated End")

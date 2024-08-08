@@ -9,17 +9,18 @@ from types import TracebackType
 from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
 from .helpers import closeifrunningloky, ic
-from .moduletools import moduleexport
+
+# from .moduletools import moduleexport # only working for functions - problem with classes
 
 
-@moduleexport
+# @moduleexport
 class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
     stdout: TextIO
     stderr: TextIO
 
-    def __enter__(self: NoOutput) -> NoOutput:
+    def __enter__(self: "NoOutput") -> "NoOutput":
         """Enter/start context. Save and replace Streams."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
@@ -72,7 +73,7 @@ class NoOutput(TextIO):
         """Newlines: Needed but does nothing."""
 
 
-@moduleexport
+# @moduleexport
 class LinuxTimeCM:
     """
     Use this as a context manager for getting timing details like with linux time.
@@ -153,7 +154,7 @@ except ImportError:
     ic("resource is not available")
 else:
 
-    @moduleexport
+    # @moduleexport
     class LinuxTimeResourceCM:
         """
         Use this as a context manager for getting timing details like with linux time.
@@ -194,12 +195,14 @@ else:
             self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
             self.after = time.monotonic()
             if all(
-                self.childbefore,
-                self.selfbefore,
-                self.selfafter,
-                self.childafter,
-                self.before,
-                self.after,
+                (
+                    self.selfbefore,
+                    self.selfafter,
+                    self.childbefore,
+                    self.childafter,
+                    self.before,
+                    self.after,
+                )
             ):
                 wall_time: float = self.after - self.before
                 user_time: float = (
@@ -243,7 +246,7 @@ else:
             return True
 
 
-@moduleexport
+# @moduleexport
 class TimingCM:
     """
     Use this as a context manager for getting timing details.

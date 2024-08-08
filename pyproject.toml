@@ -202,12 +202,13 @@ reportMissingImports = true
 reportMissingTypeStubs = false
 include = ["src/valuefragments"]
 #exclude=['.venv']
-#exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
-#extraPaths = ["src", "src/valuefragments"]
+exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
+extraPaths = ["src", "src/valuefragments"]
 pythonVersion = "3.11"
 pythonPlatform = "Linux"
 verboseOutput = true
-#executionEnvironments = [{ root = "src",extraPaths=["src/valuefragments"] }]
+#executionEnvironments = [{ root = "src", extraPaths = ["src/valuefragments"]}]
+#executionEnvironments = [{ root = "src" }]
 stubPath = "src"
 venvPath = '.'
 venv = ".venv"
