@@ -21,11 +21,7 @@ from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
 
-# https://docs.python.org/3/library/__future__.html
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-# found on https://stackoverflow.com/a/14981125
-from .moduletools import moduleexport
-from .valuetyping import (
+from typing_extensions import (
     IO,
     TYPE_CHECKING,
     Any,
@@ -41,6 +37,11 @@ from .valuetyping import (
     TypeVarTuple,
     Unpack,
 )
+
+# https://docs.python.org/3/library/__future__.html
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
+# found on https://stackoverflow.com/a/14981125
+from .moduletools import moduleexport
 
 # __all__: list[str]
 

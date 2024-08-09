@@ -1,4 +1,11 @@
+#!/usr/bin/env -S pytest
 """Version specific tests if import mechanism is working."""
+
+"""Should run in any environment after
+python -m pip install --upgrade typing_extensions pytest pip pytest-asyncio
+pytest
+"""
+
 
 from sys import version_info
 
@@ -32,3 +39,21 @@ if version_info[:2] == (3, 12):
         assert TypeIs.__module__ == "typing_extensions"
         assert TypeAliasType.__module__ == "typing"
         assert override.__module__ == "typing"
+
+
+if version_info[:2] == (3, 13):
+    # <https://docs.python.org/3/whatsnew/3.12.html#typing>
+
+    def test_pythreethirtee() -> None:
+        """In 3.13 ."""
+        """
+        import typing
+        import typing_extensions
+        t1=set(dir(typing))
+        t2=set(dir(typing_extensions))
+        t2,difference(t1)
+        """
+        from valuefragments.valuetyping import CapsuleType, TypeIs
+
+        assert CapsuleType.__module__ == "typing_extensions"
+        assert TypeIs.__module__ == "typing"

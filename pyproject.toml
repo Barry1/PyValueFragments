@@ -214,7 +214,7 @@ max_line_length = 99
 [tool.pytest.ini_options]
 minversion = "6.2"
 testpaths = ["src"]
-required_plugins = ["typeguard", "pylama"]
+#required_plugins = ["typeguard", "pylama"]
 addopts = [
   "--verbose",
   #    "--pylama",

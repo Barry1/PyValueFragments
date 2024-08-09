@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from logging import Logger, getLogger
 
+from typing_extensions import Callable
+
 from .decorators import moduleexport
-from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
 # <https://stackoverflow.com/a/50928627>
