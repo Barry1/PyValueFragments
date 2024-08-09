@@ -1,7 +1,5 @@
 from sys import version_info
 
-import valuefragments.valuetyping
-
 if version_info[:2] == (3, 11):
 
     def test_pythreeeleven() -> None:
