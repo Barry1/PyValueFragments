@@ -20,7 +20,12 @@ from base64 import b64encode
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
-from typing import (
+
+# https://docs.python.org/3/library/__future__.html
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
+# found on https://stackoverflow.com/a/14981125
+from .moduletools import moduleexport
+from .valuetyping import (
     IO,
     TYPE_CHECKING,
     Any,
@@ -29,17 +34,13 @@ from typing import (
     Literal,
     Protocol,
     SupportsAbs,
+    SupportsIndex,
     SupportsInt,
     TypedDict,
     TypeVar,
+    TypeVarTuple,
+    Unpack,
 )
-
-from typing_extensions import SupportsIndex, TypeVarTuple, Unpack  # Self,
-
-# https://docs.python.org/3/library/__future__.html
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-# found on https://stackoverflow.com/a/14981125
-from .moduletools import moduleexport
 
 # __all__: list[str]
 

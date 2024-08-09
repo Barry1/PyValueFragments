@@ -12,20 +12,6 @@ import time
 # from inspect import iscoroutinefunction
 from asyncio import iscoroutinefunction
 from functools import wraps
-from typing import (
-    Any,
-    Callable,
-    Coroutine,
-    Literal,
-    NamedTuple,
-    ParamSpec,
-    TypeVar,
-    cast,
-    reveal_type,
-)
-
-# noinspection PyProtectedMember
-from typing_extensions import LiteralString, TypeIs, TypeVarTuple, Unpack
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
@@ -34,6 +20,21 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     thread_native_id_filter,
 )
 from .moduletools import moduleexport
+from .valuetyping import (
+    Any,
+    Callable,
+    Coroutine,
+    Literal,
+    LiteralString,
+    NamedTuple,
+    ParamSpec,
+    TypeIs,
+    TypeVar,
+    TypeVarTuple,
+    Unpack,
+    cast,
+    reveal_type,
+)
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 InstanceObjectT = TypeVar("InstanceObjectT")

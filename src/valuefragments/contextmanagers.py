@@ -6,9 +6,9 @@ import os
 import sys
 import time
 from types import TracebackType
-from typing import Any, BinaryIO, Literal, Optional, TextIO, Type
 
 from .helpers import closeifrunningloky, ic
+from .valuetyping import Any, BinaryIO, Literal, Optional, TextIO, Type
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 
