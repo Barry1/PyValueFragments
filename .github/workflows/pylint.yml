@@ -25,6 +25,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install build prerequisites
+        run: sudo apt install libxml2 libxslt
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
