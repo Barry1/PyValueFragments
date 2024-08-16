@@ -430,10 +430,10 @@ if sys.version_info >= (3, 11):
 @moduleexport
 def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
-    theselector: str = '//a/@href[contains(string(), "fileadmin/ergebnisse/2024")]',
+    thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
 ) -> list[str]:
-    """Parse HTML from URL for a-href matches by XPATH"""
+    """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
         thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=thetimeout)
@@ -448,5 +448,5 @@ def getselectedhreflinks(
         thesourcehtml.reason,
     )
     the_html: HtmlElement = fromstring(html=thesourcehtml.content)
-    the_urls: list[str] = the_html.xpath(theselector)
+    the_urls: list[str] = the_html.xpath(f'//a/@href[contains(string(), "{thesubstring}")]')
     return the_urls
