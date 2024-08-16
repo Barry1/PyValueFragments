@@ -84,7 +84,9 @@ profile = 'black'
 
 [tool.poetry.dependencies]
 python = "^3.11"
+lxml = "*"
 typing-extensions = "*"
+requests = "*"
 
 [tool.poetry.dependencies.joblib]
 version = "*"
@@ -119,7 +121,6 @@ icecream = "*"
 infer-types = "^1.0.0"
 interrogate = ">=1.5"
 joblib = "^1.2.0"
-lxml = "*"
 mccabe = "*"
 pep257 = "*"
 pep8 = "*"
@@ -137,7 +138,6 @@ pyroma = "^4.1"
 pytest = "*"
 pytest-asyncio = "^0.21.0"
 radon = "*"
-requests = "*"
 retype = "^22.8.0"
 ruff = "^0.3.7"
 setuptools = ">=65.5.1"
