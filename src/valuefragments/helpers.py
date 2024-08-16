@@ -431,11 +431,12 @@ if sys.version_info >= (3, 11):
 def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
     theselector: str = '//a/@href[contains(string(), "fileadmin/ergebnisse/2024")]',
+    thetimeout: int | tuple[int, int] = (5, 10),
 ) -> list[str]:
     """Parse HTML from URL for a-href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
-        thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=(5, 10))
+        thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=thetimeout)
     except requests.exceptions.Timeout:
         thelogger.error("timeout exception while fetching %s", thebaseurl)
     # Connect Timeout 5s, 10s for transmission
