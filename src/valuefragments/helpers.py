@@ -430,10 +430,10 @@ if sys.version_info >= (3, 11):
 @moduleexport
 def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
-    theselector: str = '//a/@href[contains(string(), "fileadmin/ergebnisse/2024")]',  # https://stackoverflow.com/q/78877951
+    theselector: str = '//a/@href[contains(string(), "fileadmin/ergebnisse/2024")]',
 ) -> list[str]:
     """Parse HTML from URL for a-href matches by XPATH"""
-    # <https://devhints.io/xpath>
+    # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=(5, 10))
     # Connect Timeout 5s, 10s for transmission
     thelogger.debug(
