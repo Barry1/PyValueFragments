@@ -20,20 +20,16 @@ from base64 import b64encode
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
+from typing import IO, Callable, Generator, SupportsAbs, SupportsInt
 
 import requests
 from lxml.html import HtmlElement, fromstring
 from typing_extensions import (
-    IO,
     TYPE_CHECKING,
     Any,
-    Callable,
-    Generator,
     Literal,
     Protocol,
-    SupportsAbs,
     SupportsIndex,
-    SupportsInt,
     TypedDict,
     TypeVar,
     TypeVarTuple,

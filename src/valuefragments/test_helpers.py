@@ -6,6 +6,7 @@ from .helpers import (
     HumanReadAble,
     basic_auth,
     file_exists_current,
+    getselectedhreflinks,
     hashfile,
     int2bin,
     pi_for_cpu_load,
@@ -75,3 +76,7 @@ def test_humanreadable() -> None:
     assert format(HumanReadAble(2**20)) == "1.0 MiB"
     assert format(HumanReadAble(10**6, "baud")) == "976.5625 Kibaud"
     assert format(HumanReadAble(123456789), "10.2f") == "    117.74 MiB"
+
+
+def test_() -> None:
+    assert getselectedhreflinks("https://python.org", "status") == ["https://status.python.org/"]

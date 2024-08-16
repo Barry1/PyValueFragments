@@ -12,10 +12,10 @@ import time
 # from inspect import iscoroutinefunction
 from asyncio import iscoroutinefunction
 from functools import wraps
+from typing import Callable
 
 from typing_extensions import (
     Any,
-    Callable,
     Coroutine,
     Literal,
     LiteralString,

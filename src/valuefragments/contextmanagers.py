@@ -6,8 +6,9 @@ import os
 import sys
 import time
 from types import TracebackType
+from typing import BinaryIO, Optional, TextIO
 
-from typing_extensions import Any, BinaryIO, Literal, Optional, TextIO, Type
+from typing_extensions import Any, Literal, Type
 
 from .helpers import closeifrunningloky, ic
 
