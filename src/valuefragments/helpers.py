@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from lxml.html import fromstring, HtmlElement
-import requests
 import asyncio
 import concurrent.futures
 import hashlib
@@ -23,6 +21,8 @@ from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
 
+import requests
+from lxml.html import HtmlElement, fromstring
 from typing_extensions import (
     IO,
     TYPE_CHECKING,
@@ -425,6 +425,7 @@ if sys.version_info >= (3, 11):
                 ready_task.result()
                 for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
             ]
+
 
 @moduleexport
 def getselectedhreflinks(
