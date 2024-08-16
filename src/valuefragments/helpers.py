@@ -439,6 +439,7 @@ def getselectedhreflinks(
         thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=thetimeout)
     except requests.exceptions.Timeout:
         thelogger.error("timeout exception while fetching %s", thebaseurl)
+        return []
     # Connect Timeout 5s, 10s for transmission
     thelogger.debug(
         "Request to %s with Status %i and Reason %s",
