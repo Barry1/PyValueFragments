@@ -78,5 +78,5 @@ def test_humanreadable() -> None:
     assert format(HumanReadAble(123456789), "10.2f") == "    117.74 MiB"
 
 
-def test_() -> None:
+def test_getselectedhreflinks() -> None:
     assert getselectedhreflinks("https://python.org", "status") == ["https://status.python.org/"]
