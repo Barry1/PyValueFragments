@@ -24,17 +24,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Prepare running environment
+      - name: Install build prerequisites (for 3.14)
+        run: sudo apt install libxml2-dev libxslt-dev
+      - name: Prepare running environment (dependencies)
         run: |
           pip install --upgrade poetry poetry-plugin-export
           poetry export --without-hashes --output=requirements.txt
-          pip install --upgrade pylint -r requirements.txt
-      #      - name: Install build prerequisites
-      #        run: sudo apt install libxml2-dev libxslt-dev
-      #      - name: Install dependencies
-      #        run: |
-      #          python -m pip install --upgrade pip
-      #          pip install pylint typing-extensions icecream psutil requests lxml
+          pip install --upgrade pylint --requirement requirements.txt
       - name: Analysing the code with pylint
         run: |
           # shellcheck disable=SC2035,SC2046
