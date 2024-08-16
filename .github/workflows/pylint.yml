@@ -17,7 +17,6 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12", 3.13-dev, 3.14-dev]
         # 3.10 no longer compatible
-        # "3.13-dev" not available
     steps:
       - uses: actions/checkout@v4
       #      - uses: actions/checkout@latest # latest not callable
@@ -29,7 +28,7 @@ jobs:
         run: |
           pip install --upgrade poetry poetry-plugin-export
           poetry export --without-hashes --output=requirements.txt
-          pip install -r requirements.txt
+          pip install --upgrade pylint -r requirements.txt
       #      - name: Install build prerequisites
       #        run: sudo apt install libxml2-dev libxslt-dev
       #      - name: Install dependencies
