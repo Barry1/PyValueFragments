@@ -434,7 +434,8 @@ def getselectedhreflinks(
 ) -> list[str]:
     """Parse HTML from URL for a-href matches by XPATH"""
     # <https://devhints.io/xpath>
-    thesourcehtml: requests.Response = requests.get(url=thebaseurl)
+    thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=(5, 10))
+    # Connect Timeout 5s, 10s for transmission
     thelogger.debug(
         "Request to %s with Status %i and Reason %s",
         thebaseurl,
