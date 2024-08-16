@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from lxml.html import fromstring, HtmlElement
+import requests
 import asyncio
 import concurrent.futures
 import hashlib
@@ -423,3 +425,21 @@ if sys.version_info >= (3, 11):
                 ready_task.result()
                 for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
             ]
+
+@moduleexport
+def getselectedhreflinks(
+    thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
+    theselector: str = '//a[contains(@href, "fileadmin/ergebnisse/2024")]/@href',  # https://stackoverflow.com/q/78877951
+) -> list[str]:
+    """Parse HTML from URL for a-href matches by XPATH"""
+    # <https://devhints.io/xpath>
+    thesourcehtml: requests.Response = requests.get(url=thebaseurl)
+    thelogger.debug(
+        "Request to %s with Status %i and Reason %s",
+        thebaseurl,
+        thesourcehtml.status_code,
+        thesourcehtml.reason,
+    )
+    the_html: HtmlElement = fromstring(html=thesourcehtml.content)
+    the_urls: list[str] = the_html.xpath(theselector)
+    return the_urls
