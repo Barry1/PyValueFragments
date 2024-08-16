@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pylint typing-extensions icecream psutil
+          pip install pylint typing-extensions icecream psutil requests lxml
       - name: Analysing the code with pylint
         run: |
           # shellcheck disable=SC2035,SC2046
