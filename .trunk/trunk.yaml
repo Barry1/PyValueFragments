@@ -31,7 +31,7 @@ lint:
     - bandit
 runtimes:
   enabled:
-    - python@3.10.8
+    - python@3.11.6
     - go@1.21.0
     - node@18.12.1
 actions:
@@ -42,16 +42,28 @@ actions:
     - trunk-upgrade-available
 tools:
   definitions:
+    - name: mypy
+      runtime: python
+      package: mypy
+      shims: [mypy]
+      extra_packages:
+        - typing_extensions
+        - psutil
+        - requests
+        - types-requests
+        - lxml
+        - icecream
+  definitions:
     - name: pyright
       runtime: python
       package: pyright
       shims: [pyright]
       extra_packages:
-        - types-requests
-        - icecream
-        - requests
-        - lxml
         - typing_extensions
-        - /home/ebeling/GitHub/PyValueFragments
+        - psutil
+        - requests
+        - types-requests
+        - lxml
+        - icecream
 ---
 
