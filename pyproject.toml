@@ -146,6 +146,7 @@ types-psutil = "^5.9.5.11"
 ufmt = "*"
 vermin = ">=1.5"
 yapf = "*"
+sourcery = "^1.22.0"
 
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"

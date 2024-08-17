@@ -9,8 +9,8 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   enabled:
-    - pyright@1.1.376
     - checkov@3.2.228
+    - pyright@1.1.376
     - osv-scanner@1.8.3
     - trivy@0.54.1
     - trufflehog@3.81.9
@@ -40,5 +40,18 @@ actions:
     - trunk-fmt-pre-commit
     - trunk-announce
     - trunk-upgrade-available
+tools:
+  definitions:
+    - name: pyright
+      runtime: python
+      package: pyright
+      shims: [pyright]
+      extra_packages:
+        - types-requests
+        - icecream
+        - requests
+        - lxml
+        - typing_extensions
+        - /home/ebeling/GitHub/PyValueFragments
 ---
 
