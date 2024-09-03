@@ -387,7 +387,7 @@ if sys.version_info >= (3, 11):
             ]
 
     async def run_grouped_in_tpe(
-        the_functioncalls: list[Callable[[], _FunCallResultT]]
+        the_functioncalls: list[Callable[[], _FunCallResultT]],
     ) -> list[_FunCallResultT]:
         """
         Run functions grouped (asyncio.TaskGroup) in ThreadPoolExecutor.
@@ -405,7 +405,7 @@ if sys.version_info >= (3, 11):
             ]
 
     async def run_grouped_in_ppe(
-        the_functioncalls: list[Callable[[], _FunCallResultT]]
+        the_functioncalls: list[Callable[[], _FunCallResultT]],
     ) -> list[_FunCallResultT]:
         """
         Run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor.

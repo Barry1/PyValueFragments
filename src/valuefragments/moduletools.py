@@ -14,7 +14,7 @@ _FunParamT = ParamSpec("_FunParamT")
 
 
 def moduleexport(
-    class_or_function: Callable[_FunParamT, _FunCallResultT]
+    class_or_function: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>

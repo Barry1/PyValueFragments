@@ -1,13 +1,13 @@
 #!/usr/bin/env -S pytest
 """Version specific tests if import mechanism is working."""
 
+from sys import version_info
+
 """Should run in any environment after
 python -m pip install --upgrade typing_extensions pytest pip pytest-asyncio
 pytest
 """
 
-
-from sys import version_info
 
 if version_info[:2] == (3, 11):
     # <https://docs.python.org/3/whatsnew/3.11.html#typing>

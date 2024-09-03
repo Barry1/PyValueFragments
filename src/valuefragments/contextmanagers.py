@@ -6,9 +6,9 @@ import os
 import sys
 import time
 from types import TracebackType
-from typing import BinaryIO, Optional, TextIO
+from typing import AnyStr, BinaryIO, Optional, TextIO
 
-from typing_extensions import Any, Literal, Type
+from typing_extensions import Literal, Type
 
 from .helpers import closeifrunningloky, ic
 
@@ -40,14 +40,12 @@ class NoOutput(TextIO):
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: NoOutput, s: Any) -> int:  # pylint: disable=invalid-name,unused-argument
+    def write(self: NoOutput, s: AnyStr) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
     def flush(self: NoOutput) -> None:
         """Flush attribute: Needed but does nothing."""
-
-    #   buffer  |   |  encoding |   |  errors |  |  line_buffering  newlines
 
     @property
     def buffer(self: NoOutput) -> BinaryIO:
@@ -73,6 +71,66 @@ class NoOutput(TextIO):
     @property
     def newlines(self: NoOutput) -> None:
         """Newlines: Needed but does nothing."""
+
+    def __iter__(self: NoOutput) -> NoOutput:
+        """Only needed for mypy."""
+        pass
+
+    def __next__(self: NoOutput) -> str:
+        """Only needed for mypy."""
+        pass
+
+    def close(self: NoOutput):
+        """Only needed for mypy."""
+        pass
+
+    def fileno(self: NoOutput) -> int:
+        """Only needed for mypy."""
+        pass
+
+    def read(self: NoOutput) -> str:
+        """Only needed for mypy."""
+        return ""
+
+    def isatty(self: NoOutput) -> bool:
+        """Only needed for mypy."""
+        return False
+
+    def readable(self: NoOutput) -> bool:
+        """Only needed for mypy."""
+        return False
+
+    def readline(self: NoOutput, limit: int = -1) -> AnyStr:
+        """Only needed for mypy."""
+        return ""
+
+    def readlines(self: NoOutput, limit: int = -1) -> list[AnyStr]:
+        """Only needed for mypy."""
+        return []
+
+    def seek(self, offset: int, whence: int = 0):
+        """Only needed for mypy."""
+        pass
+
+    def writelines(self, lines: list[AnyStr]):
+        """Only needed for mypy."""
+        pass
+
+    def seekable(self: NoOutput) -> bool:
+        """Only needed for mypy."""
+        return False
+
+    def truncate(self: NoOutput):
+        """Only needed for mypy."""
+        pass
+
+    def writable(self: NoOutput) -> bool:
+        """Only needed for mypy."""
+        return True
+
+    def tell(self: NoOutput):
+        """Only needed for mypy."""
+        pass
 
 
 # @moduleexport
@@ -155,7 +213,6 @@ try:
 except ImportError:
     ic("resource is not available")
 else:
-
     # @moduleexport
     class LinuxTimeResourceCM:
         """

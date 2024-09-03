@@ -67,7 +67,7 @@ def istypedcoroutinefunction(
     func: (
         Callable[_FunParamT, _FunCallResultT]
         | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
-    )
+    ),
 ) -> TypeIs[Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]]:
     """Is the argument an awaitable function with given return type following PEP-0742?"""
     return iscoroutinefunction(func)
@@ -78,7 +78,7 @@ def logdecorate(
     func: (
         Callable[_FunParamT, _FunCallResultT]
         | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
-    )
+    ),
 ) -> (
     Callable[_FunParamT, _FunCallResultT]
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
@@ -176,7 +176,7 @@ def logdecorate(
 
 @moduleexport
 def timing_wall(
-    func: Callable[_FunParamT, _FunCallResultT]
+    func: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Measure WALL-Clock monotonic."""
 
@@ -198,7 +198,7 @@ def timing_wall(
 
 @moduleexport
 def portable_timing(
-    func: Callable[_FunParamT, _FunCallResultT]
+    func: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Like LINUX-TIME Command."""
 
@@ -235,7 +235,7 @@ def portable_timing(
 
 @moduleexport
 def linuxtime(
-    func: Callable[_FunParamT, _FunCallResultT]
+    func: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Measure like unix/linux time command."""
 
@@ -286,7 +286,7 @@ if os.name == "posix":
 
     @moduleexport
     def linuxtime_resource(
-        func: Callable[_FunParamT, _FunCallResultT]
+        func: Callable[_FunParamT, _FunCallResultT],
     ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measure like unix/linux time command."""
 
@@ -343,7 +343,7 @@ if os.name == "posix":
 
     @moduleexport
     def timing_resource(
-        func: Callable[_FunParamT, _FunCallResultT]
+        func: Callable[_FunParamT, _FunCallResultT],
     ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measure execution times by resource."""
 
@@ -372,7 +372,7 @@ else:
 
     @moduleexport
     def timing_psutil(
-        func: Callable[_FunParamT, _FunCallResultT]
+        func: Callable[_FunParamT, _FunCallResultT],
     ) -> Callable[_FunParamT, _FunCallResultT]:
         """Measures execution times by psutil."""
 
@@ -394,7 +394,7 @@ else:
 
 @moduleexport
 def timing_thread_time(
-    func: Callable[_FunParamT, _FunCallResultT]
+    func: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Measures execution times by time (thread)."""
 
@@ -415,7 +415,7 @@ def timing_thread_time(
 
 @moduleexport
 def timing_process_time(
-    func: Callable[_FunParamT, _FunCallResultT]
+    func: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Measures execution times by time (process)."""
 
@@ -471,7 +471,7 @@ ParameterTupleT = TypeVarTuple("ParameterTupleT")
 
 @moduleexport
 def memoize(
-    func: Callable[[Unpack[ParameterTupleT]], _FunCallResultT]
+    func: Callable[[Unpack[ParameterTupleT]], _FunCallResultT],
 ) -> Callable[[Unpack[ParameterTupleT]], _FunCallResultT]:
     """decorater for caching calls
     thanks to

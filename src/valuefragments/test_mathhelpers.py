@@ -1,5 +1,6 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for mathhelpers module."""
+
 from .mathhelpers import easybisect
 
 
