@@ -74,11 +74,11 @@ class NoOutput(TextIO):
 
     def __iter__(self: NoOutput) -> NoOutput:
         """Only needed for mypy."""
-        # pass
+        return self
 
     def __next__(self: NoOutput) -> str:
         """Only needed for mypy."""
-        # pass
+        return ""
 
     def close(self: NoOutput):
         """Only needed for mypy."""
@@ -86,9 +86,9 @@ class NoOutput(TextIO):
 
     def fileno(self: NoOutput) -> int:
         """Only needed for mypy."""
-        # pass
+        return -1
 
-    def read(self: NoOutput) -> str:
+    def read(self: NoOutput, n: int = -1) -> str:
         """Only needed for mypy."""
         return ""
 
@@ -100,7 +100,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return False
 
-    def readline(self: NoOutput, _limit: int = -1) -> AnyStr:
+    def readline(self: NoOutput, _limit: int = -1) -> str:
         """Only needed for mypy."""
         return ""
 
@@ -120,7 +120,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return False
 
-    def truncate(self: NoOutput, size: Optional[int] = None) -> int:
+    def truncate(self: NoOutput, _size: Optional[int] = None) -> int:
         """Only needed for mypy."""
         return 0
 
@@ -128,9 +128,9 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return True
 
-    def tell(self: NoOutput):
+    def tell(self: NoOutput) -> int:
         """Only needed for mypy."""
-        # pass
+        return 0
 
 
 # @moduleexport
