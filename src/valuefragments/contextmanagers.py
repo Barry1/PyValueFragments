@@ -59,7 +59,7 @@ class NoOutput(TextIO):
 
     # noinspection PyPropertyDefinition
     @property
-    def errors(self: NoOutput) -> None:
+    def errors(self: NoOutput) -> Optional[str]:
         """Errors: Needed but does nothing."""
 
     @property
@@ -108,11 +108,11 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return []
 
-    def seek(self, offset: int, whence: int = 0):
+    def seek(self: NoOutput, offset: int, whence: int = 0):
         """Only needed for mypy."""
         # pass
 
-    def writelines(self, lines: list[AnyStr]):
+    def writelines(self: NoOutput, lines: list[AnyStr]) -> None:
         """Only needed for mypy."""
         # pass
 
