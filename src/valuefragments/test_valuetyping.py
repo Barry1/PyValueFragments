@@ -9,11 +9,14 @@ pytest
 """
 
 
+# Should run in any environment after
+# python -m pip install --upgrade typing_extensions pytest pip pytest-asyncio
+# pytest
 if version_info[:2] == (3, 11):
     # <https://docs.python.org/3/whatsnew/3.11.html#typing>
 
     def test_pythreeeleven() -> None:
-        """In 3.11 LiteralString was introduced but TypIs not yet."""
+        """In 3.11 LiteralString was introduced but TypeIs not yet."""
         from valuefragments.valuetyping import (
             LiteralString,
             TypeIs,
