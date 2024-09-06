@@ -120,9 +120,9 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return False
 
-    def truncate(self: NoOutput):
+    def truncate(self: NoOutput, size: Optional[int] = None) -> int:
         """Only needed for mypy."""
-        # pass
+        return 0
 
     def writable(self: NoOutput) -> bool:
         """Only needed for mypy."""
