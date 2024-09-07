@@ -88,7 +88,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return -1
 
-    def read(self: NoOutput, n: int = -1) -> str:
+    def read(self: NoOutput, _n: int = -1) -> str:
         """Only needed for mypy."""
         return ""
 
@@ -108,7 +108,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return []
 
-    def seek(self: NoOutput, offset: int, whence: int = 0) -> int:
+    def seek(self: NoOutput, _offset: int, _whence: int = 0) -> int:
         """Only needed for mypy."""
         return 0
 
