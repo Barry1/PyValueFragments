@@ -6,7 +6,7 @@ import os
 import sys
 import time
 from types import TracebackType
-from typing import AnyStr, BinaryIO, Optional, TextIO
+from typing import AnyStr, BinaryIO, Iterable, Optional, TextIO
 
 from typing_extensions import Literal, Type
 
@@ -104,15 +104,15 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return ""
 
-    def readlines(self: NoOutput, _limit: int = -1) -> list[AnyStr]:
+    def readlines(self: NoOutput, _limit: int = -1) -> list[str]:
         """Only needed for mypy."""
         return []
 
-    def seek(self: NoOutput, offset: int, whence: int = 0):
+    def seek(self: NoOutput, offset: int, whence: int = 0) -> int:
         """Only needed for mypy."""
-        # pass
+        return 0
 
-    def writelines(self: NoOutput, lines: list[AnyStr]) -> None:
+    def writelines(self: NoOutput, lines: Iterable[str]) -> None:
         """Only needed for mypy."""
         # pass
 
