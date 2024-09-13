@@ -85,6 +85,7 @@ def logdecorate(
     """Decorator to log start and stop into file 'decorated.log' with logging."""
 
     def setuplogger(funcname: str) -> logging.Logger:
+        """ """
         thelogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
         the_format: str = "|".join(
             [
@@ -112,6 +113,7 @@ def logdecorate(
         return thelogger
 
     def logtiminglines(begintimings: os.times_result, endtimings: os.times_result) -> None:
+        """ """
         title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
         info_line_format: LiteralString = "%7.2f [s]|" * 5 + "%7.2f%%|"
         timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
@@ -142,6 +144,7 @@ def logdecorate(
         #        thelogger.info("%s",func.__annotations__)
         @wraps(wrapped=func)
         async def awrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
+            """ """
             # Pre-Execution
             thelogger.debug("LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
@@ -159,6 +162,7 @@ def logdecorate(
 
     @wraps(wrapped=func)
     def wrapped(*args: _FunParamT.args, **kwargs: _FunParamT.kwargs) -> _FunCallResultT:
+        """ """
         thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()
         res: _FunCallResultT = func(*args, **kwargs)
@@ -481,6 +485,7 @@ def memoize(
 
     @wraps(func)
     def wrapper(*args: Unpack[ParameterTupleT]) -> _FunCallResultT:
+        """ """
         if args in cache:
             return cache[args]
         result = func(*args)

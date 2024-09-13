@@ -22,7 +22,8 @@ from shutil import copyfileobj
 from types import ModuleType
 
 import requests
-from lxml.html import HtmlElement, fromstring
+from lxml.etree import _Element  # pyright: ignore[reportPrivateUsage]
+from lxml.html import fromstring  # HtmlElement
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
@@ -233,7 +234,7 @@ def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
 
 @moduleexport
 def exists_variable(varname: str) -> bool:
-    "Check if variable is in use - global or local."
+    """Check if variable is in use - global or local."""
     return varname in globals() or varname in locals()
 
 
@@ -448,6 +449,6 @@ def getselectedhreflinks(
         thesourcehtml.status_code,
         thesourcehtml.reason,
     )
-    the_html: HtmlElement = fromstring(html=thesourcehtml.content)
+    the_html: _Element = fromstring(html=thesourcehtml.content)
     the_urls: list[str] = the_html.xpath(f'//a/@href[contains(string(), "{thesubstring}")]')
     return the_urls
