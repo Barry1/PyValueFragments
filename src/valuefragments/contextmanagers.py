@@ -80,7 +80,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return ""
 
-    def close(self: NoOutput):
+    def close(self: NoOutput) -> None:
         """Only needed for mypy."""
         # pass
 

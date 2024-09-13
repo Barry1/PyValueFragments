@@ -22,7 +22,7 @@ from shutil import copyfileobj
 from types import ModuleType
 
 import requests
-from lxml.etree import _Element  # pyright: ignore[reportPrivateUsage]
+from lxml.etree import _Element, _XPathObject  # pyright: ignore[reportPrivateUsage]
 from lxml.html import fromstring  # HtmlElement
 
 # https://docs.python.org/3/library/__future__.html
@@ -44,6 +44,7 @@ from .valuetyping import (
     TypeVar,
     TypeVarTuple,
     Unpack,
+    reveal_type,
 )
 
 # __all__: list[str]
@@ -211,11 +212,11 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky import get_reusable_executor  # type: ignore
+        from joblib.externals.loky import get_reusable_executor
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()  # type: ignore
+        get_reusable_executor().shutdown()
 
 
 async def to_inner_task(
@@ -434,7 +435,7 @@ def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
     thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
-) -> list[str]:
+) -> _XPathObject:
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
@@ -449,6 +450,6 @@ def getselectedhreflinks(
         thesourcehtml.status_code,
         thesourcehtml.reason,
     )
-    the_html: _Element = fromstring(html=thesourcehtml.content)
-    the_urls: list[str] = the_html.xpath(f'//a/@href[contains(string(), "{thesubstring}")]')
+    the_html: _Element = reveal_type(fromstring(html=thesourcehtml.content))
+    the_urls: _XPathObject = the_html.xpath(f'//a/@href[contains(string(), "{thesubstring}")]')
     return the_urls
