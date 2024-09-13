@@ -14,7 +14,14 @@ from asyncio import iscoroutinefunction
 from functools import wraps
 from typing import Callable
 
-from typing_extensions import (
+# typing with the help of
+# <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
+from .helpers import (  # pylint: disable=relative-beyond-top-level
+    ic,
+    thread_native_id_filter,
+)
+from .moduletools import moduleexport
+from .valuetyping import (
     Any,
     Coroutine,
     Literal,
@@ -28,14 +35,6 @@ from typing_extensions import (
     cast,
     reveal_type,
 )
-
-# typing with the help of
-# <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from .helpers import (  # pylint: disable=relative-beyond-top-level
-    ic,
-    thread_native_id_filter,
-)
-from .moduletools import moduleexport
 
 # https://docs.python.org/3.10/library/typing.html#typing.ParamSpec
 InstanceObjectT = TypeVar("InstanceObjectT")

@@ -20,26 +20,30 @@ from base64 import b64encode
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
-from typing import IO, Callable, Generator, SupportsAbs, SupportsInt
 
 import requests
 from lxml.html import HtmlElement, fromstring
-from typing_extensions import (
-    TYPE_CHECKING,
-    Any,
-    Literal,
-    Protocol,
-    SupportsIndex,
-    TypedDict,
-    TypeVar,
-    TypeVarTuple,
-    Unpack,
-)
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
+from .valuetyping import (
+    IO,
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Generator,
+    Literal,
+    Protocol,
+    SupportsAbs,
+    SupportsIndex,
+    SupportsInt,
+    TypedDict,
+    TypeVar,
+    TypeVarTuple,
+    Unpack,
+)
 
 # __all__: list[str]
 
@@ -336,11 +340,12 @@ def stringtovalidfilename2(inputstring: str) -> str:
 
 
 if sys.version_info >= (3, 11):
+    HowType = Literal["tpe", "ppe", "thread"]
 
     @moduleexport
     async def run_grouped(
         the_functioncalls: list[Callable[[], _FunCallResultT]],
-        how: Literal["tpe", "ppe", "thread"] = "thread",
+        how: HowType = "thread",
     ) -> list[_FunCallResultT]:
         """Execute funcalls async by given method."""
         if how == "thread":
