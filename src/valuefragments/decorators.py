@@ -21,6 +21,8 @@ from .helpers import (  # pylint: disable=relative-beyond-top-level
     thread_native_id_filter,
 )
 from .moduletools import moduleexport
+
+# noinspection PyUnresolvedReferences
 from .valuetyping import (
     Any,
     Coroutine,

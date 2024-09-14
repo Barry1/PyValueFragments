@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from logging import Logger, getLogger
 
-from .decorators import moduleexport
+from .moduletools import moduleexport
 from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)

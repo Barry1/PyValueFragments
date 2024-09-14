@@ -149,6 +149,7 @@ yapf = "*"
 sourcery = "^1.22.0"
 lxml-stubs = "^0.5.1"
 types-requests = "^2.32.0.20240905"
+pysocks = "^1.7.1"
 
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"

@@ -36,7 +36,7 @@ if version_info[:2] == (3, 12):
     # <https://docs.python.org/3/whatsnew/3.12.html#typing>
 
     def test_pythreetwelve() -> None:
-        """In 3.12 TypeAliasType was introduced but TypIs not yet."""
+        """In 3.12 TypeAliasType was introduced but TypeIs not yet."""
         from valuefragments.valuetyping import TypeAliasType, TypeIs, override
 
         assert TypeIs.__module__ == "typing_extensions"

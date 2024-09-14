@@ -14,8 +14,9 @@ from .helpers import closeifrunningloky, ic
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 
+__all__ = []
 
-# @moduleexport
+
 class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
@@ -131,6 +132,9 @@ class NoOutput(TextIO):
     def tell(self: NoOutput) -> int:
         """Only needed for mypy."""
         return 0
+
+
+__all__.append("NoOutput")
 
 
 # @moduleexport
