@@ -26,8 +26,8 @@ import requests
 
 # noinspection PyProtectedMember
 # pylint: disable-next=no-name-in-module
-from lxml.etree import _XPathObject  # pyright: ignore[reportPrivateUsage]
-from lxml.html import fromstring  # pyright: ignore[reportUnknownVariableType]
+# pyright: ignore[reportAttributeAccessIssue,reportUnknownVariableType]
+from lxml.html import fromstring
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
@@ -432,7 +432,7 @@ def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
     thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
-) -> _XPathObject:
+) -> list:
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
