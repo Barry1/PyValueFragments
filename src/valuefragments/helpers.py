@@ -432,7 +432,7 @@ def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
     thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
-) -> list:
+) -> list[str]:
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
