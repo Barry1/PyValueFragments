@@ -26,8 +26,8 @@ import requests
 
 # noinspection PyProtectedMember
 # pylint: disable-next=no-name-in-module
-from lxml.etree import _Element  # pyright: ignore[reportPrivateUsage]
-from lxml.html import fromstring  # HtmlElement
+from lxml.etree import _XPathObject  # pyright: ignore[reportPrivateUsage]
+from lxml.html import fromstring  # pyright: ignore[reportUnknownVariableType]
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
@@ -375,7 +375,7 @@ if sys.version_info >= (3, 11):
                             for funcall in the_functioncalls
                         ]
                 return [ready_task.result() for ready_task in all_tasks]
-            case _:
+            case _:  # pyright: ignore[reportUnnecessaryComparison]
                 print("how was '", how, "' but needs to be one of {'thread','tpe','ppe'}.")
                 raise NotImplementedError(
                     "how was '", how, "' but needs to be one of {'thread','tpe','ppe'}."
@@ -432,7 +432,7 @@ def getselectedhreflinks(
     thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
     thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
-):
+) -> _XPathObject:
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
@@ -447,6 +447,8 @@ def getselectedhreflinks(
         thesourcehtml.status_code,
         thesourcehtml.reason,
     )
-    the_html: _Element = reveal_type(fromstring(html=thesourcehtml.content))
-    the_urls = reveal_type(the_html.xpath(f'//a/@href[contains(string(), "{thesubstring}")]'))
-    return the_urls
+    return reveal_type(
+        fromstring(html=thesourcehtml.content).xpath(
+            f'//a/@href[contains(string(), "{thesubstring}")]'
+        )
+    )
