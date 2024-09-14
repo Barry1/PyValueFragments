@@ -7,7 +7,6 @@ from .decorators import (
     linuxtime,
     logdecorate,
     memoize,
-    moduleexport,
     portable_timing,
     timing_process_time,
     timing_thread_time,
@@ -27,6 +26,7 @@ from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611; backg
     run_grouped,
 )
 from .mathhelpers import easybisect, intp, polyroot
+from .moduletools import moduleexport
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
 thevaluefragmentslogger: logging.Logger = logging.getLogger(name=__name__)
