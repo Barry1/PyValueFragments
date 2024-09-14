@@ -25,6 +25,7 @@ from warnings import warn
 import requests
 
 # noinspection PyProtectedMember
+# pylint: disable-next=no-name-in-module
 from lxml.etree import _Element  # pyright: ignore[reportPrivateUsage]
 from lxml.html import fromstring  # HtmlElement
 
