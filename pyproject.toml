@@ -106,7 +106,7 @@ version = "*"
 optional = true
 
 [tool.poetry.dependencies.psutil]
-version = "*"
+version = ">=6"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
@@ -131,7 +131,7 @@ pydocstyle = ">=6.3.0"
 pyflakes = ">2"
 pyleft = "*"
 pylint = "*"
-pylyzer = "^0.0.51"
+#pylyzer = "^0.0.51"
 pyre-check = "*"
 pyright = "*"
 pyroma = "^4.1"
@@ -141,7 +141,7 @@ radon = "*"
 retype = "^22.8.0"
 ruff = "^0.3.7"
 setuptools = ">=65.5.1"
-toml = "*"
+toml = ">=0.10"
 types-psutil = "^5.9.5.11"
 ufmt = "*"
 vermin = ">=1.5"
