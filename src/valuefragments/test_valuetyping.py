@@ -47,7 +47,7 @@ if version_info[:2] == (3, 12):
 if version_info[:2] == (3, 13):
     # <https://docs.python.org/3/whatsnew/3.12.html#typing>
 
-    def test_pythreethirtee() -> None:
+    def test_pythreethirteen() -> None:
         """In 3.13 ."""
         """
         import typing
@@ -58,5 +58,5 @@ if version_info[:2] == (3, 13):
         """
         from valuefragments.valuetyping import CapsuleType, TypeIs
 
-        assert CapsuleType.__module__ == "typing_extensions"
+        assert CapsuleType.__module__ == "builtins"
         assert TypeIs.__module__ == "typing"
