@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from types import ModuleType
 
 from .valuetyping import Callable, ParamSpec, TypeVar
@@ -17,7 +16,7 @@ def moduleexport(
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
-    module: ModuleType = sys.modules[class_or_function.__module__]
+    module: ModuleType = __import__("sys").modules[class_or_function.__module__]
     # ic(class_or_function.__name__ + " in " + class_or_function.__module__)
     # ic(dir(module))
     if hasattr(module, "__all__"):

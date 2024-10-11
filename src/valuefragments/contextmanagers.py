@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 import sys
-import time
+from time import monotonic
 from types import TracebackType
 from typing import AnyStr, BinaryIO, Iterable, Optional, TextIO
 
@@ -240,7 +240,7 @@ else:
 
         def __enter__(self: LinuxTimeResourceCM) -> LinuxTimeResourceCM:
             """Save startup timing information."""
-            self.before = time.monotonic()
+            self.before = monotonic()
             self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)
             self.selfbefore = resource.getrusage(resource.RUSAGE_SELF)
             ic("Prepared to run with LinuxTime -> __enter__")
@@ -256,7 +256,7 @@ else:
             closeifrunningloky()
             self.selfafter = resource.getrusage(resource.RUSAGE_SELF)
             self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
-            self.after = time.monotonic()
+            self.after = monotonic()
             if all(
                 (
                     self.selfbefore,

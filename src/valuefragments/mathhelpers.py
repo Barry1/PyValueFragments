@@ -88,7 +88,9 @@ def easybisect(  # pylint: disable=too-many-arguments
             )
             break
         thelogger.debug(
-            "Iteration %i with relative error %6.3f%%", actiter, candidatediff * 100 / targetval
+            "Iteration %i with relative error %6.3f%%",
+            actiter,
+            candidatediff * 100 / targetval,
         )
     for entry in data:
         thelogger.debug(entry)

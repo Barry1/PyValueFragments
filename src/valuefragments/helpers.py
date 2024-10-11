@@ -12,11 +12,7 @@ import os
 import random
 import string
 import sys
-import threading
 import time
-from base64 import b64encode
-
-# from importlib.util import find_spec
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
@@ -109,7 +105,7 @@ def filecache(
 @moduleexport
 def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
-    setattr(record, "thread_native", threading.get_native_id())
+    setattr(record, "thread_native", __import__("threading").get_native_id())
     return True
 
 
@@ -146,7 +142,9 @@ def basic_auth(
     """Build String for Basic AUTH."""
     # Authorization token: we need to base 64 encode it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + b64encode(f"{user}:{passw}".encode("utf-8")).decode("ascii")
+    return "Basic " + __import__("base64").b64encode(f"{user}:{passw}".encode("utf-8")).decode(
+        "ascii"
+    )
 
 
 @moduleexport
@@ -387,7 +385,10 @@ if sys.version_info >= (3, 11):
         the_executor: concurrent.futures.Executor,
     ) -> list[asyncio.Task[_FunCallResultT]]:
         """place functioncalls in given executor"""
-        warn("Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning)
+        warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped",
+            DeprecationWarning,
+        )
         async with asyncio.TaskGroup() as the_task_group:
             return [
                 the_task_group.create_task(to_inner_task(funcall, the_executor))
@@ -403,7 +404,10 @@ if sys.version_info >= (3, 11):
         as for now the functions needs to be without parameters, prepare your calls
         with functools.partial
         """
-        warn("Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning)
+        warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped",
+            DeprecationWarning,
+        )
         with concurrent.futures.ThreadPoolExecutor() as pool_executor:
             return [
                 ready_task.result()
@@ -419,7 +423,10 @@ if sys.version_info >= (3, 11):
         as for now the functions needs to be without parameters, prepare your calls
         with functools.partial
         """
-        warn("Will be removed from v0.4 on, use valuefragments.run_grouped", DeprecationWarning)
+        warn(
+            "Will be removed from v0.4 on, use valuefragments.run_grouped",
+            DeprecationWarning,
+        )
         with concurrent.futures.ProcessPoolExecutor() as pool_executor:
             return [
                 ready_task.result()

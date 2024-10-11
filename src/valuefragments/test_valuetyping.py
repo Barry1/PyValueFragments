@@ -54,7 +54,7 @@ if version_info[:2] == (3, 13):
         import typing_extensions
         t1=set(dir(typing))
         t2=set(dir(typing_extensions))
-        t2,difference(t1)
+        t2.difference(t1)
         """
         from valuefragments.valuetyping import CapsuleType, TypeIs
 
