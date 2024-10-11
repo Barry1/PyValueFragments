@@ -9,25 +9,27 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   enabled:
-    - checkov@3.2.256
-    - pyright@1.1.383
-    - osv-scanner@1.9.0
-    - trivy@0.55.2
-    - trufflehog@3.82.6
-    - ruff@0.6.8
-    - yamllint@1.35.1
-    - isort@5.13.2
-    - autopep8@2.3.1
-    - gitleaks@8.20.0
-    - prettier@3.3.3
+    - sourcery@1.23.0
+    - sql-formatter@15.4.3
     - actionlint@1.7.3
-    - markdownlint@0.42.0
-    - taplo@0.9.3
-    - black@24.8.0
+    - autopep8@2.3.1
+    - black@24.10.0
+    - checkov@3.2.257
     - flake8@7.1.1
     - git-diff-check
+    - gitleaks@8.20.1
+    - isort@5.13.2
+    - markdownlint@0.42.0
     - mypy@1.11.2
+    - osv-scanner@1.9.0
+    - prettier@3.3.3
+    - ruff@0.6.9
+    - taplo@0.9.3
+    - trivy@0.56.2
+    - trufflehog@3.82.8
+    - yamllint@1.35.1
   disabled:
+    - pyright
     - bandit
 runtimes:
   enabled:
@@ -41,22 +43,15 @@ actions:
     - trunk-announce
     - trunk-upgrade-available
 tools:
+  enabled:
+    - poetry@1.8.3
+  disabled:
+    - pyright
   definitions:
     - name: mypy
       runtime: python
       package: mypy
       shims: [mypy]
-      extra_packages:
-        - typing_extensions
-        - psutil
-        - requests
-        - types-requests
-        - lxml
-        - icecream
-    - name: pyright
-      runtime: python
-      package: pyright
-      shims: [pyright]
       extra_packages:
         - typing_extensions
         - psutil
