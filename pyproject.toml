@@ -151,6 +151,7 @@ sourcery = "^1.22.0"
 types-requests = "^2.32.0.20240905"
 pysocks = "^1.7.1"
 types-lxml = "^2024.8.7"
+pytest-sugar = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies.black]
 version = ">22"
