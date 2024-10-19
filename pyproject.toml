@@ -16,7 +16,7 @@ allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]
-env_list = ["py311", "py312", "py313", "bastipytest"]
+env_list = ["py311", "py312", "py313", "py314-dev", "bastipytest"]
 minversion = "4.22.0"
 
 [tool.tox.env.bastipytest]
@@ -25,7 +25,7 @@ package = "wheel"
 wheel_build_env = ".pkg"
 parallel_show_output = true
 platform = "linux"
-deps = ["pytest>=6", "pytest-sugar"]
+deps = ["pytest>=6", "pytest-sugar", "pytest-asyncio"]
 commands = [["pytest", "{tty:--color=yes}", "{posargs}"]]
 
 [build-system]
