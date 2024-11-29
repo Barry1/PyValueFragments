@@ -8,6 +8,7 @@ import time
 from asyncio import iscoroutinefunction
 from functools import wraps
 from typing import Callable
+
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (  # pylint: disable=relative-beyond-top-level
