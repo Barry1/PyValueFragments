@@ -207,7 +207,7 @@ def portable_timing(
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
 ):
     """Like LINUX-TIME Command."""
-    if iscoroutinefunction(func):
+    if istypedcoroutinefunction(func):
 
         @wraps(func)
         async def awrapped(
