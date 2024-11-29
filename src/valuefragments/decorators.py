@@ -4,16 +4,10 @@ from __future__ import annotations
 
 import logging
 import os
-
-# import sys
 import time
-
-# import asyncio # icoroutine
-# from inspect import iscoroutinefunction
 from asyncio import iscoroutinefunction
 from functools import wraps
 from typing import Callable
-
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (  # pylint: disable=relative-beyond-top-level
@@ -203,9 +197,49 @@ def timing_wall(
 
 @moduleexport
 def portable_timing(
-    func: Callable[_FunParamT, _FunCallResultT],
-) -> Callable[_FunParamT, _FunCallResultT]:
+    func: (
+        Callable[_FunParamT, _FunCallResultT]
+        | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
+    )
+) -> (
+    Callable[_FunParamT, _FunCallResultT]
+    | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
+):
     """Like LINUX-TIME Command."""
+    if iscoroutinefunction(func):
+
+        @wraps(func)
+        async def awrapped(
+            *args: _FunParamT.args,
+            **kwargs: _FunParamT.kwargs,
+        ) -> _FunCallResultT:
+            """Run with timing."""
+            before: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+            retval: _FunCallResultT = await func(*args, **kwargs)
+            after: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+            if before and after:
+                wall_diff = (after[0] - before[0]) / 1e9
+                user_diff = (
+                    after[1].user
+                    - before[1].user
+                    + after[1].children_user
+                    - before[1].children_user
+                )
+                system_diff = (
+                    after[1].system
+                    - before[1].system
+                    + after[1].children_system
+                    - before[1].children_system
+                )
+                print(f"{func.__name__:10} {args} {kwargs}")
+                print(
+                    f"{wall_diff:8.3f} [s]",
+                    f"\t(User: {user_diff:8.3f} [s]," f"\tSystem {system_diff:8.3f} [s])",
+                    f"{100 * (user_diff + system_diff) / wall_diff:6.2f}% Load",
+                )
+            return retval
+
+        return awrapped
 
     @wraps(func)
     def wrapped(
@@ -235,7 +269,7 @@ def portable_timing(
             )
         return retval
 
-    return wrapped  # cast(FunctionTypeVar, wrapped)
+    return wrapped
 
 
 @moduleexport
