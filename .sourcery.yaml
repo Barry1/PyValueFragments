@@ -66,6 +66,7 @@ clone_detection:
   min_lines: 3
   min_duplicates: 2
   identical_clones_only: false
+
 # proxy:
 #   url:
 #   ssl_certs_file:
