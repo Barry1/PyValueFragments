@@ -1,6 +1,6 @@
+---
 # MegaLinter GitHub Action configuration file
 # More info at https://megalinter.io
----
 name: MegaLinter
 
 # Trigger mega-linter at every push. Action will also be visible from
@@ -182,3 +182,5 @@ jobs:
           commit_message: "[MegaLinter] Apply linters fixes"
           commit_user_name: megalinter-bot
           commit_user_email: nicolas.vuillamy@ox.security
+---
+

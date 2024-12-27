@@ -10,3 +10,5 @@ updates:
     schedule:
       interval: "daily"
       time: 12:34
+---
+

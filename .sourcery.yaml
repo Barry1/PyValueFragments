@@ -1,3 +1,4 @@
+---
 # 🪄 This is your project's Sourcery configuration file.
 
 # You can use it to get Sourcery working in the way you want, such as
@@ -79,3 +80,5 @@ rule_settings:
 # coding_assistant:
 #   project_description: ''
 #   enabled: true
+---
+
