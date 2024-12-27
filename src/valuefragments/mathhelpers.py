@@ -51,7 +51,7 @@ def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
 
 
 @moduleexport
-def easybisect(  # pylint: disable=too-many-arguments
+def easybisect(  # pylint: disable=too-many-positional-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,
