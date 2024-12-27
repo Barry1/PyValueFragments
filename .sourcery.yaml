@@ -62,11 +62,10 @@ rule_settings:
 #   request_review: author
 #   sourcery_branch: sourcery/{base_branch}
 
-# clone_detection:
-#   min_lines: 3
-#   min_duplicates: 2
-#   identical_clones_only: false
-
+clone_detection:
+  min_lines: 3
+  min_duplicates: 2
+  identical_clones_only: false
 # proxy:
 #   url:
 #   ssl_certs_file:
