@@ -8,7 +8,6 @@ on:
 #    branches: ["main", "master"]
 #  pull_request:
 #    branches: ["main", "master"]
-
 jobs:
   build:
     permissions: read-all
@@ -36,5 +35,3 @@ jobs:
           # shellcheck disable=SC2035,SC2046
           # pylint --verbose --jobs 0 $(git ls-files *.py *.pyi)
           pylint --verbose --jobs 0 src/valuefragments/[cdhm]*.py
----
-
