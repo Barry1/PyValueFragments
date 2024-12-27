@@ -1,4 +1,3 @@
----
 # MegaLinter GitHub Action configuration file
 # More info at https://megalinter.io
 name: MegaLinter
@@ -182,5 +181,5 @@ jobs:
           commit_message: "[MegaLinter] Apply linters fixes"
           commit_user_name: megalinter-bot
           commit_user_email: nicolas.vuillamy@ox.security
----
+
 
