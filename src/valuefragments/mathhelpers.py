@@ -8,7 +8,6 @@ from .moduletools import moduleexport
 from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
-# <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
 
 
