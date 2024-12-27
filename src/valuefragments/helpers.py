@@ -227,7 +227,7 @@ try:
 except ImportError:
 
     def ic(  # pylint: disable=invalid-name
-        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
+        *rest: Unpack[OtherElementsT], first: FirstElementT | None = None
     ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (first, *rest) if first and rest else first
