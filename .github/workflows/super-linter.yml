@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", 3.12-dev]
+        python-version: ["3.11", "3.12", "3.13", 3.14-dev]
     steps:
       # https://github.com/marketplace/actions/checkout
       - name: Checkout code
@@ -47,6 +47,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
+          FILTER_REGEX_INCLUDE: ^src/
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
           PYTHON_BLACK_CONFIG_FILE: ./pyproject.toml
