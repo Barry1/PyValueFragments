@@ -23,7 +23,7 @@ For easy testing, I'll recommend doing an [`editable`](https://pip.pypa.io/en/st
 install via
 
 ```bash
-python3 - m pip install --upgrade --user --editable .
+python3 -m pip install --upgrade --user --editable .
 ```
 
 or `make install`.

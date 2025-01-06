@@ -8,7 +8,6 @@ from .moduletools import moduleexport
 from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
-# <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
 
 
@@ -52,7 +51,7 @@ def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
 
 
 @moduleexport
-def easybisect(  # pylint: disable=too-many-arguments
+def easybisect(  # pylint: disable=too-many-arguments,too-many-positional-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,

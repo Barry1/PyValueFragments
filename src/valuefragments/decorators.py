@@ -8,6 +8,7 @@ import time
 from asyncio import iscoroutinefunction
 from functools import wraps
 from typing import Callable
+
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (  # pylint: disable=relative-beyond-top-level
@@ -206,7 +207,7 @@ def portable_timing(
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
 ):
     """Like LINUX-TIME Command."""
-    if iscoroutinefunction(func):
+    if istypedcoroutinefunction(func):
 
         @wraps(func)
         async def awrapped(
