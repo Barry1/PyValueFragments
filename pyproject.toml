@@ -98,7 +98,6 @@ profile = 'black'
 [tool.poetry.dependencies]
 python = "^3.11"
 lxml = "*"
-typing-extensions = "*"
 requests = "*"
 
 [tool.poetry.dependencies.joblib]
@@ -156,6 +155,7 @@ ruff = "^0.3.7"
 setuptools = ">=65.5.1"
 toml = ">=0.10"
 types-psutil = "^5.9.5.11"
+typing-extensions = "*"
 ufmt = "*"
 vermin = ">=1.5"
 yapf = "*"
