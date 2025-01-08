@@ -14,7 +14,7 @@ from .helpers import closeifrunningloky, ic
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 
-__all__ = []
+__all__: list[str] = []
 
 
 class NoOutput(TextIO):
@@ -217,7 +217,7 @@ try:
 except ImportError:
     ic("resource is not available")
 else:
-    # @moduleexport
+
     class LinuxTimeResourceCM:
         """
         Use this as a context manager for getting timing details like with linux time.
@@ -309,7 +309,6 @@ else:
             return True
 
 
-# @moduleexport
 class TimingCM:
     """
     Use this as a context manager for getting timing details.
