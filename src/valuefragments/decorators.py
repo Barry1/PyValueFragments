@@ -525,7 +525,7 @@ def memoize(
         """ """
         if args in cache:
             return cache[args]
-        result = func(*args)
+        result: _FunCallResultT = func(*args)
         cache[args] = result
         return result
 
