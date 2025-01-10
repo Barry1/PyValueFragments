@@ -56,7 +56,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-FirstElementT = TypeVar("FirstElementT")
+LastElementT = TypeVar("LastElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 
@@ -226,10 +226,10 @@ try:
 except ImportError:
 
     def ic(  # pylint: disable=invalid-name
-        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
+        *rest: Unpack[OtherElementsT], last: LastElementT | None = None, **_kwargs: KwargsForPrint
+    ) -> tuple[Unpack[OtherElementsT], LastElementT] | LastElementT | None:
         """Just in case icecream is not available: For logging purposes."""
-        return (first, *rest) if first and rest else first
+        return (*rest, last) if last and rest else last
 
 else:
     module: ModuleType = sys.modules["valuefragments.helpers"]
