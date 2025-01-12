@@ -1,4 +1,4 @@
-from typing import TypeVar, TypedDict
+from typing import TypeVar, TypedDict, IO
 
 from typing_extensions import TypeVarTuple, Unpack
 
