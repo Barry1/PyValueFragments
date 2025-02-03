@@ -14,8 +14,7 @@ import string
 import sys
 import time
 from io import IOBase
-
-# from shutil import copyfileobj
+from shutil import copyfileobj
 from types import ModuleType
 from warnings import warn
 
@@ -57,7 +56,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-FirstElementT = TypeVar("FirstElementT")
+LastElementT = TypeVar("LastElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 
@@ -88,7 +87,7 @@ def filecache(
     if not file_exists_current(filepathname, max_age_seconds):
         with open(filepathname, "wb") as thefile:
             with genupdmeth() as thesrc:
-                __import__("shutil").copyfileobj(thesrc, thefile)
+                copyfileobj(thesrc, thefile)
         thelogger.info("File %s refreshed.", filepathname)
     return procmeth(filepathname)
 
@@ -195,11 +194,11 @@ KwargsForPrint = TypedDict(
 def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
-        _loky: ModuleType = __import__("joblib.externals.loky", fromlist=["get_reusable_executor"])
+        from joblib.externals.loky import get_reusable_executor  # type: ignore
     except ModuleNotFoundError:
         pass
     else:
-        _loky.get_reusable_executor().shutdown()
+        get_reusable_executor().shutdown()
 
 
 async def to_inner_task(
@@ -227,10 +226,10 @@ try:
 except ImportError:
 
     def ic(  # pylint: disable=invalid-name
-        *rest: Unpack[OtherElementsT], first: FirstElementT | None = None
-    ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
+        *rest: Unpack[OtherElementsT], last: LastElementT | None = None, **_kwargs: KwargsForPrint
+    ) -> tuple[Unpack[OtherElementsT], LastElementT] | LastElementT | None:
         """Just in case icecream is not available: For logging purposes."""
-        return (first, *rest) if first and rest else first
+        return (*rest, last) if last and rest else last
 
 else:
     module: ModuleType = sys.modules["valuefragments.helpers"]
