@@ -19,7 +19,7 @@ from types import ModuleType
 from warnings import warn
 
 import requests
-from lxml.html import fromstring
+from lxml.html import fromstring  # type: ignore
 
 from .moduletools import moduleexport
 from .valuetyping import (
@@ -199,7 +199,7 @@ def closeifrunningloky() -> None:
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()
+        get_reusable_executor().shutdown()  # type: ignore
 
 
 async def to_inner_task(
@@ -223,7 +223,7 @@ def exists_variable(varname: str) -> bool:
 
 
 try:
-    from icecream import ic
+    from icecream import ic  # type: ignore
 except ImportError:
 
     def ic(  # pylint: disable=invalid-name
@@ -274,7 +274,7 @@ def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
 
 
 try:
-    from cpu_load_generator import load_all_cores, load_single_core
+    from cpu_load_generator import load_all_cores, load_single_core  # type: ignore
 except ImportError:
     pass
 else:
