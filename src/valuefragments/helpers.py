@@ -194,6 +194,7 @@ KwargsForPrint = TypedDict(
 def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
+        # pylint: disable-next=import-outside-toplevel
         from joblib.externals.loky import get_reusable_executor  # type: ignore
     except ModuleNotFoundError:
         pass
