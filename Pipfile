@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+lxml = "*"
+pytest-asyncio = "*"
+
+[dev-packages]
+pytype = "*"
+pyright = "*"
+mypy = "*"
+pytest = "*"
+black = "*"
+pylama = "*"
+pylint = "*"
+pydocstyle = "*"
+prospector = "*"
+flynt = "*"
+vermin = "*"
+darker = "*"
+ruff = "*"
+bandit = "*"
+
+[requires]
+python_version = "3.12"
+
