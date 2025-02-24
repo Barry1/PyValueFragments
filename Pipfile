@@ -4,26 +4,28 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-requests = "*"
 lxml = "*"
 pytest-asyncio = "*"
+requests = "*"
 
 [dev-packages]
-pytype = "*"
-pyright = "*"
-mypy = "*"
-pytest = "*"
+bandit = "*"
 black = "*"
+darker = "*"
+flynt = "*"
+mypy = "*"
+prospector = "*"
+pyanalyze = "*"
+pydocstyle = "*"
 pylama = "*"
 pylint = "*"
-pydocstyle = "*"
-prospector = "*"
-flynt = "*"
-vermin = "*"
-darker = "*"
+pyre = "*"
+pyright = "*"
+pytest = "*"
+pytype = "*"
 ruff = "*"
-bandit = "*"
+sourcery = "*"
+vermin = "*"
 
 [requires]
 python_version = "3.12"
-
