@@ -184,7 +184,7 @@ class LinuxTimeCM:
                 - self.before.children_system
             )
             print(
-                "user: ",
+                "User: ",
                 self.after.user - self.before.user,
                 "+",
                 self.after.children_user - self.before.children_user,
@@ -193,7 +193,7 @@ class LinuxTimeCM:
                 "[s]",
             )
             print(
-                "system",
+                "System: ",
                 self.after.system - self.before.system,
                 "+",
                 self.after.children_system - self.before.children_system,
@@ -202,7 +202,7 @@ class LinuxTimeCM:
                 "[s]",
             )
             print(
-                "real: ",
+                "Real: ",
                 wall_time,
                 "[s] beeing",
                 100 * (user_time + sys_time) / wall_time,

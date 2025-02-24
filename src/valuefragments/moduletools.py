@@ -9,6 +9,7 @@ from .valuetyping import Callable, ParamSpec, TypeVar
 _FunCallResultT = TypeVar("_FunCallResultT")
 _FunParamT = ParamSpec("_FunParamT")
 
+
 def moduleexport(
     class_or_function: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
