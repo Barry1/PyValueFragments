@@ -201,7 +201,7 @@ def portable_timing(
     func: (
         Callable[_FunParamT, _FunCallResultT]
         | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
-    )
+    ),
 ) -> (
     Callable[_FunParamT, _FunCallResultT]
     | Callable[_FunParamT, Coroutine[Any, Any, _FunCallResultT]]
