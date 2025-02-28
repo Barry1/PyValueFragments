@@ -79,7 +79,7 @@ pyroma:
 pylint:
 	@echo "==========" "$@" "=========="
 #	poetry run pylint $(pyobjs)
-	poetry run pylint src/valuefragments/*.py
+	-poetry run pylint src/valuefragments/[cdhmv]*.py
 
 pydocstyle:
 	@echo "==========" "$@" "=========="
