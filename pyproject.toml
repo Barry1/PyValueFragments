@@ -200,8 +200,6 @@ extras = [
 without_tool = "django"
 
 
-
-
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
 python = "^3.11,<3.13"
