@@ -1,16 +1,10 @@
-from typing import TypeVar, TypedDict, IO
+# icecream.pyi is a stub file for icecream.py
+# It is used to provide type hints for icecream.py
+# icecream.pyi is not a part of the icecream package
 
-from typing_extensions import TypeVarTuple, Unpack
-
-LastElementT = TypeVar("LastElementT")
-OtherElementsT = TypeVarTuple("OtherElementsT")
-KwargsForPrint = TypedDict(
-    "KwargsForPrint",
-    {"sep": str, "end": str, "file": IO[str], "flush": bool},
-    total=False,
-)
+from valuefragments.valuetyping import LastElementT, OtherElementsT, KwargsForPrint
 
 def ic(  # pylint: disable=invalid-name
-    *rest: Unpack[OtherElementsT], last: LastElementT | None = None, **_kwargs: KwargsForPrint
-) -> tuple[Unpack[OtherElementsT], LastElementT] | LastElementT | None:
+    *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
+) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
     """typing template"""
