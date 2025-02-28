@@ -8,6 +8,7 @@ from .moduletools import moduleexport
 from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
+# <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
 
 
@@ -43,16 +44,15 @@ def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
 @moduleexport
 def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
     """Returns root of second order polynom given in its coefficients."""
-    assert (
-        coeffs[1] ** 2 >= 4 * (coeffs[0] - val) * coeffs[2]
-    ), "No real roots as discriminant negative."
+    val1: float = ((coeffs[1] ** 2 - 4 * coeffs[0] * (coeffs[2] - val)) / 4 / coeffs[0] ** 2) ** (
+        1 / 2
+    )
     val2: float = coeffs[1] / (2 * coeffs[0])
-    val1: float = (val2**2 - (coeffs[2] - val) / coeffs[0]) ** (1 / 2)
     return -val1 - val2, val1 - val2
 
 
 @moduleexport
-def easybisect(  # pylint: disable=too-many-arguments, too-many-positional-arguments
+def easybisect(  # pylint: disable=too-many-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,
