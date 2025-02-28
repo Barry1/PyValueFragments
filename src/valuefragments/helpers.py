@@ -19,8 +19,15 @@ from types import ModuleType
 from warnings import warn
 
 import requests
-from lxml.html import fromstring  # type: ignore
 
+# noinspection PyProtectedMember
+# pylint: disable-next=no-name-in-module
+# pyright: ignore[reportAttributeAccessIssue,reportUnknownVariableType]
+from lxml.html import fromstring
+
+# https://docs.python.org/3/library/__future__.html
+# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
+# found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
 from .valuetyping import (
     IO,
@@ -42,7 +49,6 @@ from .valuetyping import (
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
-
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 thelogger: logging.Logger = logging.getLogger(__name__)
@@ -56,7 +62,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-LastElementT = TypeVar("LastElementT")
+FirstElementT = TypeVar("FirstElementT")
 OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 
@@ -64,7 +70,11 @@ _FunCallResultT = TypeVar("_FunCallResultT")
 @moduleexport
 def int2bin(number: int, digits: int) -> str:
     """string with binary represantation of number without 0b"""
+    # following <https://stackoverflow.com/a/75668709>
     return f"{number:b}".zfill(digits)
+
+    # return bin(number)[2:].zfill(digits)
+    # return f'{number:0{digits}b}'
 
 
 @moduleexport
@@ -130,6 +140,8 @@ def basic_auth(
     passw: str,
 ) -> str:
     """Build String for Basic AUTH."""
+    # Authorization token: we need to base 64 encode it
+    # and then decode it to acsii as python 3 stores it as a byte string
     return "Basic " + __import__("base64").b64encode(f"{user}:{passw}".encode("utf-8")).decode(
         "ascii"
     )
@@ -139,6 +151,7 @@ def basic_auth(
 class HumanReadAble(int):
     """int like with print in human readable scales."""
 
+    # <https://pypi.python.org/pypi/humanize>
     def __new__(
         cls,
         __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
@@ -154,11 +167,14 @@ class HumanReadAble(int):
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
         self.unit: str = __baseunit
+        #        self.scaler: int = math.floor(math.log2(self) / 10)
+        #        self.scaler: int = math.floor(math.log10(self) / 3)
         self.scaler: int = 1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
         """Implement format-method human readable."""
+        # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
             1: "Ki",
             2: "Mi",
@@ -169,6 +185,7 @@ class HumanReadAble(int):
             7: "Zi",
             8: "Yi",
         }
+        #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
             f"{self / (1024 ** self.scaler):{format_spec}} "
             f'{scalerdict.get(self.scaler, "")}{self.unit}'
@@ -194,12 +211,12 @@ KwargsForPrint = TypedDict(
 def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
-        # pylint: disable-next=import-outside-toplevel
+        # pylint: disable=import-outside-toplevel
         from joblib.externals.loky import get_reusable_executor  # type: ignore
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()  # type: ignore
+        get_reusable_executor().shutdown()
 
 
 async def to_inner_task(
@@ -223,14 +240,15 @@ def exists_variable(varname: str) -> bool:
 
 
 try:
-    from icecream import ic  # type: ignore
+    from icecream import ic
 except ImportError:
-
+    # <https://stackoverflow.com/a/73738408>
+    # pylint: disable-next=keyword-arg-before-vararg
     def ic(  # pylint: disable=invalid-name
-        *rest: Unpack[OtherElementsT], last: LastElementT | None = None, **_kwargs: KwargsForPrint
-    ) -> tuple[Unpack[OtherElementsT], LastElementT] | LastElementT | None:
+        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
+    ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
         """Just in case icecream is not available: For logging purposes."""
-        return (*rest, last) if last and rest else last
+        return (first, *rest) if first and rest else first
 
 else:
     module: ModuleType = sys.modules["valuefragments.helpers"]
@@ -242,7 +260,9 @@ else:
 finally:
     __all__.append("ic")
 
+
 try:
+    # noinspection PyUnresolvedReferences
     import psutil
 except ImportError:
     ic("psutil is not available")
@@ -253,9 +273,11 @@ else:
         """Give this process background priority."""
         if psutil.WINDOWS:
             try:
+                # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
                 psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
+                    # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
                     ic("Prozess was already in background mode.")
                 else:
                     print(theerr)
@@ -267,14 +289,17 @@ else:
 def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
     """Return md5 hash for file."""
     with open(filename, "rb") as thefile:
+        # nosec  # Compliant
         file_hash = hashlib.md5(usedforsecurity=False)
         while chunk := thefile.read(chunklen):
             file_hash.update(chunk)
+    # deepcode ignore InsecureHash: for file identification
     return file_hash.hexdigest()
 
 
 try:
-    from cpu_load_generator import load_all_cores, load_single_core  # type: ignore
+    # noinspection PyUnresolvedReferences
+    from cpu_load_generator import load_all_cores, load_single_core
 except ImportError:
     pass
 else:
@@ -307,6 +332,7 @@ def stringtovalidfilename(inputstring: str) -> str:
 @moduleexport
 def stringtovalidfilename2(inputstring: str) -> str:
     """Return only valid characters of string for use in filenames."""
+
     return "".join(
         thechar
         for thechar in inputstring
@@ -415,11 +441,13 @@ def getselectedhreflinks(
     thetimeout: int | tuple[int, int] = (5, 10),
 ) -> list[str]:
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
+    # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
         thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=thetimeout)
     except requests.exceptions.Timeout:
         thelogger.error("timeout exception while fetching %s", thebaseurl)
         return []
+    # Connect Timeout 5s, 10s for transmission
     thelogger.debug(
         "Request to %s with Status %i and Reason %s",
         thebaseurl,
