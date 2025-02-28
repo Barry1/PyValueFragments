@@ -35,15 +35,15 @@ from .valuetyping import (
     Any,
     Callable,
     Generator,
+    LastElementT,
     Literal,
+    OtherElementsT,
     Protocol,
     SupportsAbs,
     SupportsIndex,
     SupportsInt,
     TypedDict,
     TypeVar,
-    TypeVarTuple,
-    Unpack,
     reveal_type,
 )
 
@@ -62,8 +62,6 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-FirstElementT = TypeVar("FirstElementT")
-OtherElementsT = TypeVarTuple("OtherElementsT")
 _FunCallResultT = TypeVar("_FunCallResultT")
 
 
@@ -244,11 +242,14 @@ try:
 except ImportError:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
-    def ic(  # pylint: disable=invalid-name
-        first: FirstElementT | None = None, *rest: Unpack[OtherElementsT]
-    ) -> tuple[FirstElementT, Unpack[OtherElementsT]] | FirstElementT | None:
+    #    def ic(  # pylint: disable=invalid-name
+    #        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
+    #    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
+    def ic(
+        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
+    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
         """Just in case icecream is not available: For logging purposes."""
-        return (first, *rest) if first and rest else first
+        return (*firsts, last) if last and firsts else last
 
 else:
     module: ModuleType = sys.modules["valuefragments.helpers"]
