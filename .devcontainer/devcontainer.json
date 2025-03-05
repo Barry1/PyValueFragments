@@ -3,5 +3,6 @@
 	"features": {
 		"ghcr.io/trunk-io/devcontainer-feature/trunk:1": {},
 		"ghcr.io/devcontainers-extra/features/poetry:2": {}
-	}
+	},
+	"postCreateCommand": "python -m pip install --upgrade pip poetry; poetry update"
 }
