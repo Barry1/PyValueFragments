@@ -4,7 +4,7 @@
 #https://peps.python.org/pep-0621/
 [tool.poetry]
 name = "valuefragments"
-version = "0.3.49"
+version = "0.3.50"
 description = "Testing installation of Package"
 authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
 
@@ -59,7 +59,7 @@ jobs = 0
 # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 [tool.black]
 line-length = 99
-target-version = ['py311'] #'py37', 'py38',
+target-version = ['py312'] #'py37', 'py38',
 color = true
 # safe = true
 
@@ -91,12 +91,12 @@ verbose = 2
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/options
 #extend_skip = ["venv"]
-py_version = 311
+py_version = 312
 color_output = true
 profile = 'black'
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 lxml = "*"
 requests = "*"
 typing-extensions = "*"
@@ -200,6 +200,8 @@ extras = [
 without_tool = "django"
 
 
+
+
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
 python = "^3.11,<3.13"
@@ -217,7 +219,7 @@ include = ["src/valuefragments"]
 #exclude=['.venv']
 exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 extraPaths = ["src", "src/valuefragments"]
-pythonVersion = "3.11"
+pythonVersion = "3.12"
 pythonPlatform = "Linux"
 verboseOutput = true
 #executionEnvironments = [{ root = "src", extraPaths = ["src/valuefragments"]}]
@@ -250,7 +252,7 @@ addopts = [
 
 #https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 warn_unused_configs = true
 #enable_incomplete_feature = ["TypeVarTuple", "Unpack"]
 pretty = true
@@ -356,7 +358,7 @@ persistent = true
 
 # Minimum Python version to use for version dependent checks. Will default to the
 # version used to run pylint.
-py-version = "3.11"
+py-version = "3.12"
 
 # Discover python modules and packages in the file system subtree.
 # recursive =
