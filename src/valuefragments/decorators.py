@@ -11,6 +11,9 @@ from functools import wraps
 # from types import CoroutineType
 from typing import Callable
 
+# https://docs.python.org/3/reference/compound_stmts.html#type-params
+# This shows, how to use type params in functions and classes.
+
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (  # pylint: disable=relative-beyond-top-level
@@ -50,9 +53,7 @@ from .valuetyping import (
 # <https://stackoverflow.com/q/78206137>
 
 
-def istypedcoroutinefunction[
-    **_fun_param_type, _FunCallResultT
-](
+def istypedcoroutinefunction[**_fun_param_type, _FunCallResultT](
     func: (
         Callable[_fun_param_type, Coroutine[Any, Any, _FunCallResultT]]
         | Callable[_fun_param_type, _FunCallResultT]
@@ -65,9 +66,7 @@ def istypedcoroutinefunction[
 
 
 @moduleexport
-def logdecorate[
-    **_fun_param_type, _FunCallResultT
-](
+def logdecorate[**_fun_param_type, _FunCallResultT](
     func: (
         Callable[_fun_param_type, _FunCallResultT]
         | Callable[_fun_param_type, Coroutine[Any, Any, _FunCallResultT]]
@@ -174,9 +173,9 @@ def logdecorate[
 
 
 @moduleexport
-def timing_wall[
-    **_fun_param_type, _FunCallResultT
-](func: Callable[_fun_param_type, _FunCallResultT],) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_wall[**_fun_param_type, _FunCallResultT](
+    func: Callable[_fun_param_type, _FunCallResultT],
+) -> Callable[_fun_param_type, _FunCallResultT]:
     """Measure WALL-Clock monotonic."""
 
     @wraps(func)
@@ -196,9 +195,7 @@ def timing_wall[
 
 
 @moduleexport
-def portable_timing[
-    **_fun_param_type, _FunCallResultT
-](
+def portable_timing[**_fun_param_type, _FunCallResultT](
     func: (
         Callable[_fun_param_type, _FunCallResultT]
         | Callable[_fun_param_type, Coroutine[Any, Any, _FunCallResultT]]
@@ -275,9 +272,9 @@ def portable_timing[
 
 
 @moduleexport
-def linuxtime[
-    **_fun_param_type, _FunCallResultT
-](func: Callable[_fun_param_type, _FunCallResultT],) -> Callable[_fun_param_type, _FunCallResultT]:
+def linuxtime[**_fun_param_type, _FunCallResultT](
+    func: Callable[_fun_param_type, _FunCallResultT],
+) -> Callable[_fun_param_type, _FunCallResultT]:
     """Measure like unix/linux time command."""
 
     @wraps(func)
@@ -326,13 +323,9 @@ if os.name == "posix":
     import resource  # pylint:disable=import-error
 
     @moduleexport
-    def linuxtime_resource[
-        **_fun_param_type, _FunCallResultT
-    ](
+    def linuxtime_resource[**_fun_param_type, _FunCallResultT](
         func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[
-        _fun_param_type, _FunCallResultT
-    ]:
+    ) -> Callable[_fun_param_type, _FunCallResultT]:
         """Measure like unix/linux time command."""
 
         @wraps(func)
@@ -387,13 +380,9 @@ if os.name == "posix":
         return wrapped
 
     @moduleexport
-    def timing_resource[
-        **_fun_param_type, _FunCallResultT
-    ](
+    def timing_resource[**_fun_param_type, _FunCallResultT](
         func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[
-        _fun_param_type, _FunCallResultT
-    ]:
+    ) -> Callable[_fun_param_type, _FunCallResultT]:
         """Measure execution times by resource."""
 
         @wraps(func)
@@ -420,13 +409,9 @@ except ImportError:
 else:
 
     @moduleexport
-    def timing_psutil[
-        **_fun_param_type, _FunCallResultT
-    ](
+    def timing_psutil[**_fun_param_type, _FunCallResultT](
         func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[
-        _fun_param_type, _FunCallResultT
-    ]:
+    ) -> Callable[_fun_param_type, _FunCallResultT]:
         """Measures execution times by psutil."""
 
         @wraps(func)
@@ -446,9 +431,9 @@ else:
 
 
 @moduleexport
-def timing_thread_time[
-    **_fun_param_type, _FunCallResultT
-](func: Callable[_fun_param_type, _FunCallResultT],) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_thread_time[**_fun_param_type, _FunCallResultT](
+    func: Callable[_fun_param_type, _FunCallResultT],
+) -> Callable[_fun_param_type, _FunCallResultT]:
     """Measures execution times by time (thread)."""
 
     @wraps(func)
@@ -467,9 +452,9 @@ def timing_thread_time[
 
 
 @moduleexport
-def timing_process_time[
-    **_fun_param_type, _FunCallResultT
-](func: Callable[_fun_param_type, _FunCallResultT],) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_process_time[**_fun_param_type, _FunCallResultT](
+    func: Callable[_fun_param_type, _FunCallResultT],
+) -> Callable[_fun_param_type, _FunCallResultT]:
     """Measures execution times by time (process)."""
 
     @wraps(func)
@@ -517,13 +502,9 @@ class LazyProperty[InstanceObjectT, _FunCallResultT](property):
 
 
 @moduleexport
-def memoize[
-    *_parameter_tuple_type, _FunCallResultT
-](
+def memoize[*_parameter_tuple_type, _FunCallResultT](
     func: Callable[[*_parameter_tuple_type], _FunCallResultT],
-) -> Callable[
-    [*_parameter_tuple_type], _FunCallResultT
-]:
+) -> Callable[[*_parameter_tuple_type], _FunCallResultT]:
     """decorater for caching calls
     thanks to
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
