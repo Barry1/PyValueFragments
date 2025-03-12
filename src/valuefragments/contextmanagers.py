@@ -352,7 +352,7 @@ class TimingCM:
             f"{timedelta[0] + timedelta[2]:8.2f} [s] User",
             f"{timedelta[1] + timedelta[3]:8.2f} [s] System",
             f"{timedelta[4]:8.2f} [s] Wall",
-            f"{sum(timedelta[:4]) / timedelta[4] * 100 :8.2f} [%] Load",
+            f"{sum(timedelta[:4]) / timedelta[4] * 100:8.2f} [%] Load",
         )
         ic("Ended to run with Timing -> __exit__")
         return True

@@ -185,8 +185,8 @@ class HumanReadAble(int):
         }
         #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
-            f"{self / (1024 ** self.scaler):{format_spec}} "
-            f'{scalerdict.get(self.scaler, "")}{self.unit}'
+            f"{self / (1024**self.scaler):{format_spec}} "
+            f"{scalerdict.get(self.scaler, '')}{self.unit}"
         )
 
     def __str__(self) -> str:
