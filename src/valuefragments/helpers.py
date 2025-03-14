@@ -29,15 +29,13 @@ from lxml.html import fromstring
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
-from .valuetyping import (
+from .valuetyping import (  # LastElementT,; OtherElementsT,
     IO,
     TYPE_CHECKING,
     Any,
     Callable,
     Generator,
-    LastElementT,
     Literal,
-    OtherElementsT,
     Protocol,
     SupportsAbs,
     SupportsIndex,
@@ -245,9 +243,9 @@ except ImportError:
     #    def ic(  # pylint: disable=invalid-name
     #        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
     #    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
-    def ic(
-        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
-    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
+    def ic[*OthersT, LastT](
+        *firsts: *OthersT, last: LastT | None = None, **_kwargs: KwargsForPrint
+    ) -> tuple[*OthersT, LastT] | LastT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (*firsts, last) if last and firsts else last
 
