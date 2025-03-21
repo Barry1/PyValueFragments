@@ -16,7 +16,6 @@ import time
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
-from warnings import warn
 
 import requests
 
@@ -29,26 +28,21 @@ from lxml.html import fromstring
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
-from .valuetyping import (  # LastElementT,; OtherElementsT,
+from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
     IO,
     TYPE_CHECKING,
-    Any,
     Callable,
     Generator,
     Literal,
     Protocol,
-    SupportsAbs,
     SupportsIndex,
     SupportsInt,
     TypedDict,
-    TypeVar,
     reveal_type,
 )
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
-Tinput = TypeVar("Tinput")
-Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 thelogger: logging.Logger = logging.getLogger(__name__)
 
 
@@ -60,7 +54,7 @@ class Printable(Protocol):  # pylint: disable=too-few-public-methods
         ...  # pylint: disable=unnecessary-ellipsis
 
 
-_FunCallResultT = TypeVar("_FunCallResultT")
+# _FunCallResultT = TypeVar("_FunCallResultT")
 
 
 @moduleexport
@@ -83,7 +77,7 @@ def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 *
 
 
 @moduleexport
-def filecache(
+def filecache[_FunCallResultT](
     filepathname: str,
     genupdmeth: Callable[[], IOBase],
     procmeth: Callable[[str], _FunCallResultT],
@@ -215,7 +209,7 @@ def closeifrunningloky() -> None:
         get_reusable_executor().shutdown()
 
 
-async def to_inner_task(
+async def to_inner_task[_FunCallResultT](
     funcall: Callable[[], _FunCallResultT],
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
@@ -343,7 +337,7 @@ if sys.version_info >= (3, 11):
     HowType = Literal["tpe", "ppe", "thread"]
 
     @moduleexport
-    async def run_grouped(
+    async def run_grouped[_FunCallResultT](
         the_functioncalls: list[Callable[[], _FunCallResultT]],
         how: HowType = "thread",
     ) -> list[_FunCallResultT]:
@@ -377,60 +371,6 @@ if sys.version_info >= (3, 11):
                 raise NotImplementedError(
                     "how was '", how, "' but needs to be one of {'thread','tpe','ppe'}."
                 )
-
-    @moduleexport
-    async def run_calls_in_executor(
-        the_functioncalls: list[Callable[[], _FunCallResultT]],
-        the_executor: concurrent.futures.Executor,
-    ) -> list[asyncio.Task[_FunCallResultT]]:
-        """place functioncalls in given executor"""
-        warn(
-            "Will be removed from v0.4 on, use valuefragments.run_grouped",
-            DeprecationWarning,
-        )
-        async with asyncio.TaskGroup() as the_task_group:
-            return [
-                the_task_group.create_task(to_inner_task(funcall, the_executor))
-                for funcall in the_functioncalls
-            ]
-
-    async def run_grouped_in_tpe(
-        the_functioncalls: list[Callable[[], _FunCallResultT]],
-    ) -> list[_FunCallResultT]:
-        """
-        Run functions grouped (asyncio.TaskGroup) in ThreadPoolExecutor.
-
-        as for now the functions needs to be without parameters, prepare your calls
-        with functools.partial
-        """
-        warn(
-            "Will be removed from v0.4 on, use valuefragments.run_grouped",
-            DeprecationWarning,
-        )
-        with concurrent.futures.ThreadPoolExecutor() as pool_executor:
-            return [
-                ready_task.result()
-                for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
-            ]
-
-    async def run_grouped_in_ppe(
-        the_functioncalls: list[Callable[[], _FunCallResultT]],
-    ) -> list[_FunCallResultT]:
-        """
-        Run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor.
-
-        as for now the functions needs to be without parameters, prepare your calls
-        with functools.partial
-        """
-        warn(
-            "Will be removed from v0.4 on, use valuefragments.run_grouped",
-            DeprecationWarning,
-        )
-        with concurrent.futures.ProcessPoolExecutor() as pool_executor:
-            return [
-                ready_task.result()
-                for ready_task in await run_calls_in_executor(the_functioncalls, pool_executor)
-            ]
 
 
 @moduleexport
