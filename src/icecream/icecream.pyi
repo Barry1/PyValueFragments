@@ -4,7 +4,10 @@
 
 from valuefragments.valuetyping import KwargsForPrint
 
-def ic[*OthersT, LastT,](  # pylint: disable=invalid-name
+def ic[
+    *OthersT,
+    LastT,
+](  # pylint: disable=invalid-name
     *firsts: *OthersT, last: LastT | None = None, **_kwargs: KwargsForPrint
 ) -> tuple[*OthersT, LastT] | LastT | None:
     """typing template"""
