@@ -2179,17 +2179,17 @@ files = [
 
 [[package]]
 name = "stdlibs"
-version = "2024.12.3"
+version = "2025.4.4"
 description = "List of packages in the stdlib"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "stdlibs-2024.12.3-py3-none-any.whl", hash = "sha256:51be16dce7cac80c836eb0413b9397093e68857fa13eb53893b0d8c042565f93"},
-    {file = "stdlibs-2024.12.3.tar.gz", hash = "sha256:b88cf600ac0b80e3d0de0ad6f2be786786db063bccd14b897547fcd9bd7169be"},
+    {file = "stdlibs-2025.4.4-py3-none-any.whl", hash = "sha256:df358ef5556a9e3ac78d6ec04213ee6f10903db2b6da25f273a10de148c4f165"},
+    {file = "stdlibs-2025.4.4.tar.gz", hash = "sha256:bb327c1369434c453ef68f3d0ac37d707f568e498f19d7a88f483843b99338e1"},
 ]
 
 [package.extras]
-dev = ["attribution (==1.8.0)", "black (==24.10.0)", "build (>=1)", "coverage (==7.6.8)", "fissix (==24.4.24)", "flake8 (==7.1.1)", "flit (==3.10.1)", "mypy (==1.13.0)", "packaging (==24.2)", "ufmt (==2.8.0)", "usort (==1.0.8.post1)"]
+dev = ["attribution (==1.8.0)", "black (==25.1.0)", "build (>=1)", "coverage (==7.8.0)", "fissix (==24.4.24)", "flake8 (==7.2.0)", "flit (==3.12.0)", "mypy (==1.15.0)", "packaging (==24.2)", "ufmt (==2.8.0)", "usort (==1.0.8.post1)"]
 docs = ["sphinx (==8.1.3)", "sphinx-mdinclude (==0.6.2)"]
 
 [[package]]
