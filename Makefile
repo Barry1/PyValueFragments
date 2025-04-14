@@ -1,4 +1,4 @@
-.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer pytype prospector
+.PHONY = default build buildprep install pyre pyreanalyse pyrecheck pyreinfer pytype prospector sourcery
 #should max-load be num-cpus?
 MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #https://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html
@@ -6,6 +6,9 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell tree -if | egrep .pyi?$$)
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
+
+sourcery:
+	poetry run sourcery review src/valuefragments --fix --summary --verbose
 
 flynt:
 	poetry run flynt src/valuefragments
