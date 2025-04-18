@@ -120,6 +120,7 @@ version = ">=6"
 optional = true
 
 [tool.poetry.group.dev.dependencies.pyleft]
+version = "*"
 python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
@@ -199,6 +200,9 @@ python = "^3.12"
 [tool.prospector]
 without_tool = "django"
 
+[tool.poetry.group.dev.dependencies.pylint-django]
+version = "*"
+python = "^3.9"
 
 [tool.poetry.group.dev.dependencies.pytype]
 version = ">=2022.09.27"
