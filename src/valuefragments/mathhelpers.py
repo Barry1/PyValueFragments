@@ -19,14 +19,10 @@ def determinant(
     colc: Tfloatthreevec,
 ) -> float:
     """Returns Determinant of 3x3-Matrix given in ColumnTuples"""
-    return (
-        cola[0] * colb[1] * colc[2]
-        + cola[1] * colb[2] * colc[0]
-        + cola[2] * colb[0] * colc[1]
-        - cola[2] * colb[1] * colc[0]
-        - cola[1] * colb[0] * colc[2]
-        - cola[0] * colb[2] * colc[1]
-    )
+    a1, a2, a3 = cola
+    b1, b2, b3 = colb
+    c1, c2, c3 = colc
+    return a1 * (b2 * c3 - b3 * c2) - a2 * (b1 * c3 - b3 * c1) + a3 * (b1 * c2 - b2 * c1)
 
 
 @moduleexport
@@ -50,8 +46,8 @@ def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
     if discriminant < 0:
         raise ValueError("Polynomial has no real roots.")
     sqrt_discriminant: float = discriminant**0.5
-    root1 = (-b - sqrt_discriminant) / (2 * a)
-    root2 = (-b + sqrt_discriminant) / (2 * a)
+    root1: float = (-b - sqrt_discriminant) / (2 * a)
+    root2: float = (-b + sqrt_discriminant) / (2 * a)
     return root1, root2
 
 
