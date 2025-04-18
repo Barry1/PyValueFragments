@@ -44,11 +44,15 @@ def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
 @moduleexport
 def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
     """Returns root of second order polynom given in its coefficients."""
-    val1: float = ((coeffs[1] ** 2 - 4 * coeffs[0] * (coeffs[2] - val)) / 4 / coeffs[0] ** 2) ** (
-        1 / 2
-    )
-    val2: float = coeffs[1] / (2 * coeffs[0])
-    return -val1 - val2, val1 - val2
+    a, b, c = coeffs
+    c -= val
+    discriminant: float = b**2 - 4 * a * c
+    if discriminant < 0:
+        raise ValueError("Polynomial has no real roots.")
+    sqrt_discriminant: float = discriminant**0.5
+    root1 = (-b - sqrt_discriminant) / (2 * a)
+    root2 = (-b + sqrt_discriminant) / (2 * a)
+    return root1, root2
 
 
 @moduleexport
