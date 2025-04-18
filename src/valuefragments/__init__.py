@@ -26,7 +26,7 @@ from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611; backg
     run_grouped,
     thread_native_id_filter,
 )
-from .mathhelpers import easybisect, intp, polyroot, probneeds
+from .mathhelpers import easybisect, intp, polyroot, probneeds_rec
 from .moduletools import moduleexport
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
@@ -54,7 +54,7 @@ __all__: list[str] = [
     "pi_for_cpu_load",
     "polyroot",
     "portable_timing",
-    "probneeds",
+    "probneeds_rec",
     "recurse_files_in_folder",
     "run_grouped",
     "timing_process_time",
