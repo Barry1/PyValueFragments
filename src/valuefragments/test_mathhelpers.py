@@ -1,7 +1,7 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for mathhelpers module."""
 
-from .mathhelpers import easybisect, polyroot, probneeds_rec
+from .mathhelpers import easybisect, polyroot, probneeds, probneeds_rec
 
 
 def test_easybisect() -> None:
@@ -19,6 +19,16 @@ def test_polyroot() -> None:
     assert polyroot((1, -1, -2)) == (-1, 2)
     assert polyroot((1, -1, 0)) == (0, 1)
     assert polyroot((1, 0, 0)) == (0, 0)
+
+
+def test_probneeds() -> None:
+    """Check probability calculation for benoulli cases."""
+    assert probneeds(needs=[3], probs=[0.6], avails=2) == 0.4
+    assert probneeds(needs=[3], probs=[0.6], avails=3) == 1
+    assert probneeds(needs=[], probs=[]) == 1
+    assert probneeds(needs=[], probs=[], avails=4) == 1
+    assert probneeds(needs=[2, 3], probs=[0.4, 0.6], avails=2) == 0.4
+    assert probneeds(needs=[2, 3], probs=[0.4, 0.6], avails=3) == 0.76
 
 
 def test_probneeds_rec() -> None:
