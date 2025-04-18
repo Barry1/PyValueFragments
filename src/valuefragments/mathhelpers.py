@@ -99,7 +99,7 @@ def easybisect(  # pylint: disable=too-many-arguments
 
 @moduleexport
 def probneeds_rec(needs: list[int], probs: list[float], avails: None | float = None) -> float:
-    """Returns the probability of for an available number beein sufficient for bernoulli cases."""
+    """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
     if __debug__:
@@ -112,6 +112,32 @@ def probneeds_rec(needs: list[int], probs: list[float], avails: None | float = N
             print(f"avails set to expectation value {avails}")
     if len(needs) == 1:
         return 1 if avails >= needs[0] else 1 - probs[0]
-    return probs[0] * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails - needs[0]) + (
-        1 - probs[0]
-    ) * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails)
+    return (
+        probs[0] * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails - needs[0])
+        + (1 - probs[0]) * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails)
+        if avails >= needs[0]
+        else (1 - probs[0]) * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails)
+    )
+
+
+@moduleexport
+def probneeds(needs: list[int], probs: list[float], avails: None | int = None) -> float:
+    """Returns the probability for an available number beein sufficient for bernoulli cases."""
+    if len(needs) != len(probs):
+        raise ValueError("needs and probs must have the same length")
+    if avails is None:
+        avails = sum(needs)
+        thelogger.debug("avails set to overall need value %i", avails)
+    stock: dict[int, float] = {avails: 1}
+    for need, prob in zip(needs, probs):
+        stocktemp: dict[int, float] = {}
+        for stockcount, stockprob in stock.items():
+            if stockcount - need >= 0:
+                stocktemp[stockcount - need] = (
+                    stocktemp.get(stockcount - need, 0) + stockprob * prob
+                )
+            stocktemp[stockcount] = stocktemp.get(stockcount, 0) + stockprob * (1 - prob)
+        stock = stocktemp
+    thelogger.debug(stock)
+    thelogger.info("%i will be sufficient in %f%% of all cases", avails, sum(stock.values()) * 100)
+    return sum(stock.values())
