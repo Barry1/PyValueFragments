@@ -2,16 +2,19 @@
 # Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
 #https://setuptools.readthedocs.io/en/latest/build_meta.html
 #https://peps.python.org/pep-0621/
-[tool.poetry]
+[project]
+description = "Testing installation of Package"
 name = "valuefragments"
 version = "0.4.0"
-description = "Testing installation of Package"
-authors = ["Ebeling, Dr. Bastian <bastian.ebeling@web.de>"]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
+dependencies = ["lxml", "requests", "typing-extensions"]
 
-[tool.poetry.urls]
+[project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
 
-[tool.poetry.extras]
+[project.optional-dependencies]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.tox]
@@ -94,12 +97,6 @@ verbose = 2
 py_version = 312
 color_output = true
 profile = 'black'
-
-[tool.poetry.dependencies]
-python = "^3.12"
-lxml = "*"
-requests = "*"
-typing-extensions = "*"
 
 [tool.poetry.dependencies.joblib]
 version = "*"
@@ -198,10 +195,6 @@ extras = [
 
 [tool.prospector]
 without_tool = "django"
-
-
-
-
 
 
 [tool.poetry.group.dev.dependencies.pytype]
