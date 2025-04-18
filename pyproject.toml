@@ -7,7 +7,7 @@ description = "Testing installation of Package"
 name = "valuefragments"
 version = "0.4.0"
 readme = "README.md"
-requires-python = ">=3.12,<4.0"
+requires-python = ">=3.11"                                                     #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 dependencies = ["lxml", "requests", "typing-extensions"]
 
@@ -119,6 +119,9 @@ optional = true
 version = ">=6"
 optional = true
 
+[tool.poetry.group.dev.dependencies.pyleft]
+python = "^3.12"
+
 [tool.poetry.group.dev.dependencies]
 autopep8 = "*"
 bandit = "^1.7.4"
@@ -139,7 +142,6 @@ pyannotate = "^1.2.0"
 pycodestyle = ">2.9"
 pydocstyle = ">=6.3.0"
 pyflakes = ">2"
-pyleft = "*"
 pylint = "*"
 #pylyzer = "^0.0.51"
 pyre-check = "*"
@@ -192,6 +194,7 @@ extras = [
   "with_mypy",
   "with_bandit",
 ]
+python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
