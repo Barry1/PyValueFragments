@@ -100,14 +100,17 @@ def easybisect(  # pylint: disable=too-many-arguments
 @moduleexport
 def probneeds_rec(probs: list[float], needs: list[int], avails: None | float = None) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
-    if len(needs) != len(probs):
+    if (lenneeds := len(needs)) != (lenprobs := len(probs)):
+        thelogger.error(
+            "len of needs is %i und len of props is %i but it needs to match.", lenneeds, lenprobs
+        )
         raise ValueError("needs and probs must have the same length")
-    thelogger.debug("needs=%s , probs=%s, avails=%i",needs,probs,avails)
+    thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
     if not needs:
         return 1
     if avails is None:
         avails = sum(n * p for n, p in zip(needs, probs))
-        thelogger.debug("avails set to expectation value %f",avails)
+        thelogger.debug("avails set to expectation value %f", avails)
     if len(needs) == 1:
         return 1 if avails >= needs[0] else 1 - probs[0]
     return (
