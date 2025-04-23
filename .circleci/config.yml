@@ -33,7 +33,7 @@ jobs:
     # - below will use a python 3.9 container
     # Change the version below to your required version of python
     docker:
-      - image: cimg/python:3.11
+      - image: cimg/python:3.13
     # Checkout the code as the first step. This is a dedicated CircleCI step.
     # The python orb's install-packages step will install the dependencies
     # from a Pipfile via Pipenv by default.
@@ -46,9 +46,15 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run:
-          name: Run tests
+          name: Run PyTest
           # This assumes pytest is installed via the install-package step above
-          command: |
-            poetry run pytest
-            #poetry run pylama
-# VS Code Extension Version: 1.5.1
+          command: poetry run pytest
+      - run:
+          name: Run mypy
+          command: find . -name "*.py" -not -name "test*" | xargs poetry run mypy 
+      - run:
+          name: Run pylint
+          command: find . -name "*.py" -not -name "test*" | xargs poetry run pylint
+      - run:
+          name: Run pyright
+          command: find . -name "*.py" -not -name "test*" | xargs poetry run pyright
