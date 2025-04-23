@@ -230,7 +230,9 @@ def exists_variable(varname: str) -> bool:
 
 
 try:
-    from icecream import ic # type: ignore[attr-defined]
+    #from icecream import ic # type: ignore[attr-defined]
+    #ic=__import__("icecream").ic
+    ic=__import__("icecream").icecream.IceCreamDebugger()
 except ImportError:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
