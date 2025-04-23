@@ -66,6 +66,7 @@ def istypedcoroutinefunction[T, **P](
 def is_coroutine_function[T, **P](
     func: Callable[P, T] | Callable[P, Coroutine[Any, Any, T]],
 ) -> TypeIs[Callable[P, Coroutine[Any, Any, T]]]:
+    """Is the argument an awaitable function with given return type following PEP-0742?"""
     return (
         isinstance(func, FunctionType)
         and hasattr(func, "__code__")
