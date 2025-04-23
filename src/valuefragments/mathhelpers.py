@@ -102,14 +102,12 @@ def probneeds_rec(probs: list[float], needs: list[int], avails: None | float = N
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
-    if __debug__:
-        print(f"{needs=}, {probs=}, {avails=}")
+    thelogger.debug("needs=%s , probs=%s, avails=%i",needs,probs,avails)
     if not needs:
         return 1
     if avails is None:
         avails = sum(n * p for n, p in zip(needs, probs))
-        if __debug__:
-            print(f"avails set to expectation value {avails}")
+        thelogger.debug("avails set to expectation value %f",avails)
     if len(needs) == 1:
         return 1 if avails >= needs[0] else 1 - probs[0]
     return (
