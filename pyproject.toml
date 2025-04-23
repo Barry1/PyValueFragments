@@ -5,7 +5,7 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.4.2"
+version = "0.5.0"
 readme = "README.md"
 requires-python = ">=3.11"                                                     #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
@@ -199,6 +199,10 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
+
+
+
+
 
 
 
