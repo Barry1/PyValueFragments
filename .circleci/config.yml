@@ -53,9 +53,6 @@ jobs:
           name: Run mypy
           command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run mypy 
       - run:
-          name: Run pylint
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylint
-      - run:
           name: Run pyleft
           command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pyleft
       - run:
@@ -67,3 +64,6 @@ jobs:
       - run:
           name: Run pytype
           command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pytype
+      - run:
+          name: Run pylint
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylint
