@@ -336,11 +336,11 @@ if os.name == "posix":
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
-            childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
-            selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
+            childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN) # type: ignore[attr-defined,name-defined]
+            selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF) # type: ignore[attr-defined,name-defined]
             retval: _FunCallResultT = func(*args, **kwargs)
-            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
-            childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
+            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF) # type: ignore[attr-defined,name-defined]
+            childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN) # type: ignore[attr-defined,name-defined]
             after: float | Literal[0] = time.monotonic()
             if all((childbefore, selfbefore, selfafter, childafter, before, after)):
                 print("time function\t", func.__name__)
@@ -392,9 +392,9 @@ if os.name == "posix":
             **kwargs: _fun_param_type.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
-            before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2]) # type: ignore[attr-defined]
             retval: _FunCallResultT = func(*args, **kwargs)
-            after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2]) # type: ignore[attr-defined]
             if before and after:
                 print(func.__name__, float(after) - before)
             return retval
