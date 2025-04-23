@@ -105,13 +105,13 @@ def probneeds_rec(probs: list[float], needs: list[int], avails: None | float = N
             "len of needs is %i und len of props is %i but it needs to match.", lenneeds, lenprobs
         )
         raise ValueError("needs and probs must have the same length")
-    thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
     if not needs:
         return 1
     if avails is None:
         avails = sum(n * p for n, p in zip(needs, probs))
         thelogger.debug("avails set to expectation value %f", avails)
-    if len(needs) == 1:
+    thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
+    if lenneeds == 1:
         return 1 if avails >= needs[0] else 1 - probs[0]
     return (
         probs[0] * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails - needs[0])
