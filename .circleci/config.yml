@@ -46,9 +46,9 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run:
-          name: Run tests
+          name: Run PyTest
           # This assumes pytest is installed via the install-package step above
-          command: |
-            poetry run pytest
-            #poetry run pylama
-# VS Code Extension Version: 1.5.1
+          command: poetry run pytest
+      - run:
+          name: Run mypy
+          command: poetry run mypy src/valuefragments
