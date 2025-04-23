@@ -52,3 +52,9 @@ jobs:
       - run:
           name: Run mypy
           command: poetry run mypy src/valuefragments
+      - run:
+          name: Run pylint
+          command: poetry run pylint src/valuefragments
+      - run:
+          name: Run pyright
+          command: poetry run pyright src/valuefragments
