@@ -140,5 +140,9 @@ def probneeds(probs: list[float], needs: list[int], avails: None | int = None) -
             stocktemp[stockcount] = stocktemp.get(stockcount, 0) + stockprob * (1 - prob)
         stock = stocktemp
     thelogger.debug(stock)
-    thelogger.info("%i will be sufficient in %f%% of all cases", avails, sum(stock.values()) * 100)
-    return sum(stock.values())
+    thelogger.info(
+        "%i will be sufficient in %f%% of all cases",
+        avails,
+        (availprob := sum(stock.values())) * 100,
+    )
+    return availprob
