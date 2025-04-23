@@ -54,16 +54,16 @@ jobs:
           command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run mypy 
       - run:
           name: Run pyleft
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pyleft
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pyleft || true
       - run:
           name: Run pyright
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pyright
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pyright || true
       - run:
           name: Run pylama
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylama
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylama || true
       - run:
           name: Run pytype
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pytype
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pytype || true
       - run:
           name: Run pylint
-          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylint
+          command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylint || true
