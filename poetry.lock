@@ -1795,6 +1795,22 @@ files = [
 pylint = ">=1.7"
 
 [[package]]
+name = "pylyzer"
+version = "0.0.82"
+description = "A static code analyzer & language server for Python"
+optional = false
+python-versions = ">=3.7"
+groups = ["dev"]
+files = [
+    {file = "pylyzer-0.0.82-py3-none-macosx_11_0_arm64.whl", hash = "sha256:fc2088c87de1d6e8813d356a7f7e42768976b8dc1416fd7fdf088630e757e7e5"},
+    {file = "pylyzer-0.0.82-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2e311b7cf132ebfe3d143e0c19efab9cf1b0628f921601e9794ab15073516fb6"},
+    {file = "pylyzer-0.0.82-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d409ec99edcfbdc38fb12cfb0f22ed4586775e5acff4df269dad1c1029c362f3"},
+    {file = "pylyzer-0.0.82-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:1f0e6d81a291a2b8fa3b85403e4b8b704406e52c8b59025a5f84b885dc9e7f03"},
+    {file = "pylyzer-0.0.82-py3-none-win32.whl", hash = "sha256:919ba92368dd6c43236029c68ec4ab33e21ea62b8bda94c9c4c0f2569c61cf57"},
+    {file = "pylyzer-0.0.82-py3-none-win_amd64.whl", hash = "sha256:80b87c4e24724ef6d94e16e4d7fbe0922b366a77c8f2e88ad64e8d4cf4c70e83"},
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.2.3"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -2732,4 +2748,4 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "98a334bac34191db4373b4b2192a86bf58d50dfd96cad3f764cf59bc900933a0"
+content-hash = "3517d65f45ca67e1785085eb21fbae3e0d729a7f624d73a8a7001ebb0a3fb4ac"

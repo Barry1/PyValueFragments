@@ -228,10 +228,10 @@ else:
         """
 
         before: float | Literal[0]
-        childbefore: resource.struct_rusage
-        selfbefore: resource.struct_rusage
-        selfafter: resource.struct_rusage
-        childafter: resource.struct_rusage
+        childbefore: resource.struct_rusage  # type: ignore[name-defined]
+        selfbefore: resource.struct_rusage  # type: ignore[name-defined]
+        selfafter: resource.struct_rusage  # type: ignore[name-defined]
+        childafter: resource.struct_rusage  # type: ignore[name-defined]
         after: float | Literal[0]
 
         def __init__(self) -> None:  # : TimingCM
@@ -241,8 +241,8 @@ else:
         def __enter__(self: LinuxTimeResourceCM) -> LinuxTimeResourceCM:
             """Save startup timing information."""
             self.before = monotonic()
-            self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)
-            self.selfbefore = resource.getrusage(resource.RUSAGE_SELF)
+            self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)  # type: ignore[attr-defined]
+            self.selfbefore = resource.getrusage(resource.RUSAGE_SELF)  # type: ignore[attr-defined]
             ic("Prepared to run with LinuxTime -> __enter__")
             return self
 
@@ -254,8 +254,8 @@ else:
         ) -> Optional[bool]:
             """Retrieve end timing information and print."""
             closeifrunningloky()
-            self.selfafter = resource.getrusage(resource.RUSAGE_SELF)
-            self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)
+            self.selfafter = resource.getrusage(resource.RUSAGE_SELF)  # type: ignore[attr-defined]
+            self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)  # type: ignore[attr-defined]
             self.after = monotonic()
             if all(
                 (

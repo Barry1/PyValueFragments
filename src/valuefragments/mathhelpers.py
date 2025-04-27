@@ -98,19 +98,20 @@ def easybisect(  # pylint: disable=too-many-arguments
 
 
 @moduleexport
-def probneeds_rec(needs: list[int], probs: list[float], avails: None | float = None) -> float:
+def probneeds_rec(probs: list[float], needs: list[int], avails: None | float = None) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
-    if len(needs) != len(probs):
+    if (lenneeds := len(needs)) != (lenprobs := len(probs)):
+        thelogger.error(
+            "len of needs is %i und len of props is %i but it needs to match.", lenneeds, lenprobs
+        )
         raise ValueError("needs and probs must have the same length")
-    if __debug__:
-        print(f"{needs=}, {probs=}, {avails=}")
     if not needs:
         return 1
     if avails is None:
         avails = sum(n * p for n, p in zip(needs, probs))
-        if __debug__:
-            print(f"avails set to expectation value {avails}")
-    if len(needs) == 1:
+        thelogger.debug("avails set to expectation value %f", avails)
+    thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
+    if lenneeds == 1:
         return 1 if avails >= needs[0] else 1 - probs[0]
     return (
         probs[0] * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails - needs[0])
@@ -121,7 +122,7 @@ def probneeds_rec(needs: list[int], probs: list[float], avails: None | float = N
 
 
 @moduleexport
-def probneeds(needs: list[int], probs: list[float], avails: None | int = None) -> float:
+def probneeds(probs: list[float], needs: list[int], avails: None | int = None) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
@@ -139,5 +140,9 @@ def probneeds(needs: list[int], probs: list[float], avails: None | int = None) -
             stocktemp[stockcount] = stocktemp.get(stockcount, 0) + stockprob * (1 - prob)
         stock = stocktemp
     thelogger.debug(stock)
-    thelogger.info("%i will be sufficient in %f%% of all cases", avails, sum(stock.values()) * 100)
-    return sum(stock.values())
+    thelogger.info(
+        "%i will be sufficient in %f%% of all cases",
+        avails,
+        (availprob := sum(stock.values())) * 100,
+    )
+    return availprob
