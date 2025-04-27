@@ -48,6 +48,7 @@ jobs:
       - run:
           name: Run PyTest
           # This assumes pytest is installed via the install-package step above
+<<<<<<< Updated upstream
           command: poetry run pytest
       - run:
           name: Run mypy
@@ -67,3 +68,10 @@ jobs:
       - run:
           name: Run pylint
           command: find src/valuefragments -name "*.py" -not -name "test*" | xargs poetry run pylint || true
+=======
+          command: |
+            poetry run pytest
+            #poetry run pylama
+
+# VS Code Extension Version: 1.5.1
+>>>>>>> Stashed changes

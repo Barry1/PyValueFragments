@@ -148,7 +148,7 @@ class HumanReadAble(int):
         cls,
         __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
-    ) -> HumanReadAble:
+    ):
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
 
