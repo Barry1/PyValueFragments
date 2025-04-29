@@ -202,32 +202,6 @@ python = "^3.12"
 without_tool = "django"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [tool.poetry.group.dev.dependencies.pylint-django]
 version = "*"
 python = "^3.9"

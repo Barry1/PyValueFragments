@@ -241,8 +241,12 @@ else:
         def __enter__(self: LinuxTimeResourceCM) -> LinuxTimeResourceCM:
             """Save startup timing information."""
             self.before = monotonic()
-            self.childbefore = resource.getrusage(resource.RUSAGE_CHILDREN)  # type: ignore[attr-defined]
-            self.selfbefore = resource.getrusage(resource.RUSAGE_SELF)  # type: ignore[attr-defined]
+            self.childbefore = resource.getrusage(
+                resource.RUSAGE_CHILDREN
+            )  # type: ignore[attr-defined]
+            self.selfbefore = resource.getrusage(
+                resource.RUSAGE_SELF
+            )  # type: ignore[attr-defined]
             ic("Prepared to run with LinuxTime -> __enter__")
             return self
 
@@ -255,7 +259,9 @@ else:
             """Retrieve end timing information and print."""
             closeifrunningloky()
             self.selfafter = resource.getrusage(resource.RUSAGE_SELF)  # type: ignore[attr-defined]
-            self.childafter = resource.getrusage(resource.RUSAGE_CHILDREN)  # type: ignore[attr-defined]
+            self.childafter = resource.getrusage(
+                resource.RUSAGE_CHILDREN
+            )  # type: ignore[attr-defined]
             self.after = monotonic()
             if all(
                 (

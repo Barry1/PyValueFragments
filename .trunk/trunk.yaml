@@ -15,7 +15,7 @@ lint:
     - actionlint@1.7.7
     - autopep8@2.3.2
     - black@25.1.0
-    - checkov@3.2.408
+    - checkov@3.2.411
     - flake8@7.2.0
     - git-diff-check
     - gitleaks@8.24.3
@@ -44,10 +44,17 @@ actions:
     - trunk-announce
     - trunk-upgrade-available
 tools:
+  runtimes:
+    - python
+    - python
   enabled:
+    - circleci@0.1.31632
+    - gh@2.71.2
+    - pylint@3.3.6
+    - pyright@1.1.400
+    - shellcheck@0.10.0
     - poetry@2.1.2
   disabled:
-    - pyright
   definitions:
     - name: mypy
       runtime: python
