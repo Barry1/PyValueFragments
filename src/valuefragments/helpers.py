@@ -77,9 +77,7 @@ def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 *
 
 
 @moduleexport
-def filecache[
-    _FunCallResultT
-](
+def filecache[_FunCallResultT](
     filepathname: str,
     genupdmeth: Callable[[], IOBase],
     procmeth: Callable[[str], _FunCallResultT],
@@ -211,9 +209,7 @@ def closeifrunningloky() -> None:
         get_reusable_executor().shutdown()
 
 
-async def to_inner_task[
-    _FunCallResultT
-](
+async def to_inner_task[_FunCallResultT](
     funcall: Callable[[], _FunCallResultT],
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
@@ -243,11 +239,9 @@ except ImportError:
     #    def ic(  # pylint: disable=invalid-name
     #        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
     #    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
-    def ic[
-        *OthersT, LastT
-    ](*firsts: *OthersT, last: LastT | None = None, **_kwargs: KwargsForPrint) -> (
-        tuple[*OthersT, LastT] | LastT | None
-    ):
+    def ic[*OthersT, LastT](
+        *firsts: *OthersT, last: LastT | None = None, **_kwargs: KwargsForPrint
+    ) -> tuple[*OthersT, LastT] | LastT | None:
         """Just in case icecream is not available: For logging purposes."""
         return (*firsts, last) if last and firsts else last
 
@@ -345,14 +339,10 @@ if sys.version_info >= (3, 11):
     HowType = Literal["tpe", "ppe", "thread"]
 
     @moduleexport
-    async def run_grouped[
-        _FunCallResultT
-    ](
+    async def run_grouped[_FunCallResultT](
         the_functioncalls: list[Callable[[], _FunCallResultT]],
         how: HowType = "thread",
-    ) -> list[
-        _FunCallResultT
-    ]:
+    ) -> list[_FunCallResultT]:
         """Execute funcalls async by given method."""
         match how:
             case "thread":

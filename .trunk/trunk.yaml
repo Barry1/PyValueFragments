@@ -34,9 +34,9 @@ lint:
     - bandit
 runtimes:
   enabled:
-    - python@3.11.9
     - go@1.21.0
     - node@18.20.5
+    - python@3.12.2
 actions:
   enabled:
     - trunk-check-pre-push
@@ -45,7 +45,6 @@ actions:
     - trunk-upgrade-available
 tools:
   runtimes:
-    - python
     - python
   enabled:
     - circleci@0.1.31632
