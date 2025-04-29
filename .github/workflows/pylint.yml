@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12", "3.13", 3.14-dev]
-        # 3.10 no longer compatible
+        python-version: ["3.12", "3.13", 3.14-dev]
+        # 3.11 no longer compatible
     steps:
       - uses: actions/checkout@v4
       #      - uses: actions/checkout@latest # latest not callable
