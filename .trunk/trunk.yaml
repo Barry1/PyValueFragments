@@ -9,6 +9,8 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   enabled:
+    - bandit@1.8.3
+    - pyright@1.1.400
     - hadolint@2.12.1-beta
     - sourcery@1.35.0
     - sql-formatter@15.6.1
@@ -29,9 +31,6 @@ lint:
     - trivy@0.61.1
     - trufflehog@3.88.25
     - yamllint@1.37.0
-  disabled:
-    - pyright
-    - bandit
 runtimes:
   enabled:
     - go@1.21.0
