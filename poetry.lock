@@ -471,7 +471,7 @@ description = "Dodgy: Searches for dodgy looking lines in Python code"
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "dodgy-0.2.1-py3-none-any.whl", hash = "sha256:51f54c0fd886fa3854387f354b19f429d38c04f984f38bc572558b703c0542a6"},
     {file = "dodgy-0.2.1.tar.gz", hash = "sha256:28323cbfc9352139fdd3d316fa17f325cc0e9ac74438cbba51d70f9b48f86c3a"},
@@ -545,7 +545,7 @@ description = "Polyfill package for Flake8 plugins"
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
     {file = "flake8_polyfill-1.0.2-py2.py3-none-any.whl", hash = "sha256:12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9"},
@@ -579,7 +579,7 @@ description = "Git Object Database"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "gitdb-4.0.12-py3-none-any.whl", hash = "sha256:67073e15955400952c6565cc3e707c554a4eea2e428946f7a4c162fab9bd9bcf"},
     {file = "gitdb-4.0.12.tar.gz", hash = "sha256:5ef71f855d191a3326fcfbc0d5da835f26b13fbcba60c32c21091c349ffdb571"},
@@ -595,7 +595,7 @@ description = "GitPython is a Python library used to interact with Git repositor
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "GitPython-3.1.44-py3-none-any.whl", hash = "sha256:9e0e10cda9bed1ee64bc9a6de50e7e38a9c9943241cd7f585f6df3ed28011110"},
     {file = "gitpython-3.1.44.tar.gz", hash = "sha256:c87e30b26253bf5418b01b0660f818967f3c503193838337fe5e573331249269"},
@@ -648,7 +648,7 @@ description = "Immutable wrapper around dictionaries (a fork of frozendict)"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "immutabledict-4.2.1-py3-none-any.whl", hash = "sha256:c56a26ced38c236f79e74af3ccce53772827cef5c3bce7cab33ff2060f756373"},
     {file = "immutabledict-4.2.1.tar.gz", hash = "sha256:d91017248981c72eb66c8ff9834e99c2f53562346f23e7f51e7a5ebcf66a3bcc"},
@@ -661,7 +661,7 @@ description = "A library to calculate python dependency graphs."
 optional = false
 python-versions = ">=3.6.0"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "importlab-0.8.1-py2.py3-none-any.whl", hash = "sha256:124cfa00e8a34fefe8aac1a5e94f56c781b178c9eb61a1d3f60f7e03b77338d3"},
     {file = "importlab-0.8.1.tar.gz", hash = "sha256:b3893853b1f6eb027da509c3b40e6787e95dd66b4b66f1b3613aad77556e1465"},
@@ -774,7 +774,7 @@ description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
     {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
@@ -1047,7 +1047,7 @@ description = "Safely add untrusted strings to HTML/XML markup."
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7e94c425039cde14257288fd61dcfb01963e658efbc0ff54f5306b06054700f8"},
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9e2d922824181480953426608b81967de705c3cef4d1af983af849d7bd619158"},
@@ -1193,7 +1193,7 @@ description = "A fast serialization and validation library, with builtin support
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "msgspec-0.19.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d8dd848ee7ca7c8153462557655570156c2be94e79acec3561cf379581343259"},
     {file = "msgspec-0.19.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0553bbc77662e5708fe66aa75e7bd3e4b0f209709c48b299afd791d711a93c36"},
@@ -1312,7 +1312,7 @@ description = "Python package for creating and manipulating graphs and networks"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "networkx-3.4.2-py3-none-any.whl", hash = "sha256:df5d4365b724cf81b8c6a7312509d0c22386097011ad1abe274afd5e9d3bbc5f"},
     {file = "networkx-3.4.2.tar.gz", hash = "sha256:307c3669428c5362aab27c8a1260aa8f47c4e91d3891f48be0141738d8d053e1"},
@@ -1333,7 +1333,7 @@ description = "Ninja is a small build system with a focus on speed"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "ninja-1.11.1.4-py3-none-macosx_10_9_universal2.whl", hash = "sha256:b33923c8da88e8da20b6053e38deb433f53656441614207e01d283ad02c5e8e7"},
     {file = "ninja-1.11.1.4-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:cede0af00b58e27b31f2482ba83292a8e9171cdb9acc2c867a3b6e40b3353e43"},
@@ -1436,7 +1436,7 @@ description = "Check PEP-8 naming conventions, plugin for flake8"
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "pep8-naming-0.10.0.tar.gz", hash = "sha256:f3b4a5f9dd72b991bf7d8e2a341d2e1aa3a884a769b5aaac4f56825c1763bf3a"},
     {file = "pep8_naming-0.10.0-py2.py3-none-any.whl", hash = "sha256:5d9f1056cb9427ce344e98d1a7f5665710e2f20f748438e308995852cfa24164"},
@@ -1485,7 +1485,7 @@ description = "Prospector is a tool to analyse Python code by aggregating the re
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "prospector-1.16.1-py3-none-any.whl", hash = "sha256:7cb7549aad3219fa6da82962acd6b6871f5a6aa3ab8d0dfcaa5bcb17f05774ff"},
     {file = "prospector-1.16.1.tar.gz", hash = "sha256:a6087287722104788c4366272c7f2095c748cb8968c5aac48c764f9e3eff2fea"},
@@ -1580,7 +1580,7 @@ description = "Python bytecode utilities"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "pycnite-2024.7.31-py3-none-any.whl", hash = "sha256:9ff9c09d35056435b867e14ebf79626ca94b6017923a0bf9935377fa90d4cbb3"},
     {file = "pycnite-2024.7.31.tar.gz", hash = "sha256:5125f1c95aef4a23b9bec3b32fae76873dcd46324fa68e39c10fa852ecdea340"},
@@ -1623,7 +1623,7 @@ description = "Python interface to Graphviz's Dot"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "pydot-3.0.4-py3-none-any.whl", hash = "sha256:bfa9c3fc0c44ba1d132adce131802d7df00429d1a79cc0346b0a5cd374dbe9c6"},
     {file = "pydot-3.0.4.tar.gz", hash = "sha256:3ce88b2558f3808b0376f22bfa6c263909e1c3981e2a7b629b65b451eee4a25d"},
@@ -1704,7 +1704,7 @@ description = "Python type annotation existence checker"
 optional = false
 python-versions = ">=3.7,<4.0"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "pyleft-1.2.2-py3-none-any.whl", hash = "sha256:59deb7dffdf9877f4782b65f6695bb6b20c0f5cb529a3721aade29fbb48f009c"},
     {file = "pyleft-1.2.2.tar.gz", hash = "sha256:37999f57bcda4fb984697e5e2f999e6077d35d878cbddaba1fba225909def7e7"},
@@ -1728,10 +1728,7 @@ files = [
 [package.dependencies]
 astroid = ">=3.3.8,<=3.4.0.dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
-dill = [
-    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
-    {version = ">=0.3.6", markers = "python_version == \"3.11\""},
-]
+dill = {version = ">=0.3.7", markers = "python_version >= \"3.12\""}
 isort = ">=4.2.5,<5.13 || >5.13,<7"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2"
@@ -1748,7 +1745,7 @@ description = "pylint-celery is a Pylint plugin to aid Pylint in recognising and
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "pylint-celery-0.3.tar.gz", hash = "sha256:41e32094e7408d15c044178ea828dd524beedbdbe6f83f712c5e35bde1de4beb"},
 ]
@@ -1817,7 +1814,7 @@ description = "pyparsing module - Classes and methods to define and execute pars
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "pyparsing-3.2.3-py3-none-any.whl", hash = "sha256:a749938e02d6fd0b59b356ca504a24982314bb090c383e3cf201c95ef7e2bfcf"},
     {file = "pyparsing-3.2.3.tar.gz", hash = "sha256:b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be"},
@@ -2022,7 +2019,7 @@ description = "Python type inferencer"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
-markers = "python_version < \"3.13\" and sys_platform != \"win32\""
+markers = "python_version == \"3.12\" and sys_platform != \"win32\""
 files = [
     {file = "pytype-2024.10.11-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:1c5a43b132b19928a38ba1dbcf8f4e3f67a41ea26087ccf26ae371c4076c3809"},
     {file = "pytype-2024.10.11-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:5dd9ecb48aa46ecef14b39f1bbe8ff7e586e499639a056c05bd4436ca0b35d82"},
@@ -2162,7 +2159,7 @@ description = "Python tool to find and list requirements of a Python project"
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "requirements_detector-1.3.2-py3-none-any.whl", hash = "sha256:e7595a32a21e5273dd54d3727bfef4591bbb96de341f6d95c9671981440876ee"},
     {file = "requirements_detector-1.3.2.tar.gz", hash = "sha256:af5a3ea98ca703d14cf7b66751b2aeb3656d02d9e5fc1c97d7d4da02b057b601"},
@@ -2226,7 +2223,7 @@ description = "Python helper for Semantic Versioning (https://semver.org)"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "semver-3.0.4-py3-none-any.whl", hash = "sha256:9c824d87ba7f7ab4a1890799cec8596f15c1241cb473404ea1cb0c55e4b04746"},
     {file = "semver-3.0.4.tar.gz", hash = "sha256:afc7d8c584a5ed0a11033af086e8af226a9c0b206f313e0301f8dd7b6b589602"},
@@ -2239,7 +2236,7 @@ description = "A module for retrieving program settings from various sources in 
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "setoptconf-tmp-0.3.1.tar.gz", hash = "sha256:e0480addd11347ba52f762f3c4d8afa3e10ad0affbc53e3ffddc0ca5f27d5778"},
     {file = "setoptconf_tmp-0.3.1-py3-none-any.whl", hash = "sha256:76035d5cd1593d38b9056ae12d460eca3aaa34ad05c315b69145e138ba80a745"},
@@ -2288,7 +2285,7 @@ description = "A pure Python implementation of a sliding window memory map manag
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version >= \"3.12\" and python_version < \"4.0\""
+markers = "python_version < \"4.0\""
 files = [
     {file = "smmap-5.0.2-py3-none-any.whl", hash = "sha256:b30115f0def7d7531d22a0fb6502488d879e75b260a9db4d0819cfb25403af5e"},
     {file = "smmap-5.0.2.tar.gz", hash = "sha256:26ea65a03958fa0c8a1c7e8c7a58fdc77221b8910f6be2131affade476898ad5"},
@@ -2470,14 +2467,14 @@ docs = ["sphinx (==6.1.3)", "sphinx-mdinclude (==0.5.3)"]
 
 [[package]]
 name = "trove-classifiers"
-version = "2025.4.11.15"
+version = "2025.4.28.22"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
 optional = false
 python-versions = "*"
 groups = ["dev"]
 files = [
-    {file = "trove_classifiers-2025.4.11.15-py3-none-any.whl", hash = "sha256:e7d98983f004df35293caf954bdfe944b139eb402677a97115450e320f0bd855"},
-    {file = "trove_classifiers-2025.4.11.15.tar.gz", hash = "sha256:634728aa6698dc1ae3db161da94d9e4c7597a9a5da2c4410211b36f15fed60fc"},
+    {file = "trove_classifiers-2025.4.28.22-py3-none-any.whl", hash = "sha256:fdb453fefa3a0da9c18b8d390846e6df7e961e8924703559ea9be07ec99c0925"},
+    {file = "trove_classifiers-2025.4.28.22.tar.gz", hash = "sha256:42bef4957a74fe7724b8310dafd4b23e0a71406a4812cf4dfd65e2ee34f1943d"},
 ]
 
 [[package]]
@@ -2747,5 +2744,5 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.11"
-content-hash = "3517d65f45ca67e1785085eb21fbae3e0d729a7f624d73a8a7001ebb0a3fb4ac"
+python-versions = ">=3.12"
+content-hash = "061c0ecec5e8cf84440970c4638197d36f2300fb8540404a92fe4147c5904e67"

@@ -7,7 +7,7 @@ description = "Testing installation of Package"
 name = "valuefragments"
 version = "0.5.7"
 readme = "README.md"
-requires-python = ">=3.11"                                                     #">=3.12,<4.0"
+requires-python = ">=3.12"                                                     #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 dependencies = ["lxml", "requests", "typing-extensions"]
 
