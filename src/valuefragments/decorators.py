@@ -54,18 +54,18 @@ from .valuetyping import (  # Coroutine,; TypeGuard,
 # <https://stackoverflow.com/q/78206137>
 
 
-def istypedcoroutinefunction[T, **P](
-    func: Callable[P, Coroutine[Any, Any, T]] | Callable[P, T],
-) -> TypeIs[Callable[P, Coroutine[Any, Any, T]]]:
+def istypedcoroutinefunction[T, **param](
+    func: Callable[param, Coroutine[Any, Any, T]] | Callable[param, T],
+) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
     """Is the argument an awaitable function with given return type following PEP-0742?"""
     # https://rednafi.com/python/typeguard_vs_typeis/
     # https://peps.python.org/pep-0742/
     return iscoroutinefunction(func)
 
 
-def is_coroutine_function[T, **P](
-    func: Callable[P, T] | Callable[P, Coroutine[Any, Any, T]],
-) -> TypeIs[Callable[P, Coroutine[Any, Any, T]]]:
+def is_coroutine_function[T, **param](
+    func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
+) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
     """Is the argument an awaitable function with given return type following PEP-0742?"""
     return (
         isinstance(func, FunctionType)
@@ -75,9 +75,9 @@ def is_coroutine_function[T, **P](
 
 
 @moduleexport
-def logdecorate[T, **P](
-    func: Callable[P, T] | Callable[P, Coroutine[Any, Any, T]],
-) -> Callable[P, Coroutine[Any, Any, T]] | Callable[P, T]:
+def logdecorate[T, **param](
+    func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
+) -> Callable[param, Coroutine[Any, Any, T]] | Callable[param, T]:
     """Decorator to log start and stop into file 'decorated.log' with logging."""
 
     def setuplogger(funcname: str) -> logging.Logger:
@@ -139,7 +139,7 @@ def logdecorate[T, **P](
         #        thelogger.info("%s",dir(func))
         #        thelogger.info("%s",func.__annotations__)
         # @wraps(wrapped=func)
-        async def awrapped(*args: P.args, **kwargs: P.kwargs) -> T:
+        async def awrapped(*args: param.args, **kwargs: param.kwargs) -> T:
             """ """
             # Pre-Execution
             thelogger.debug("LogDecorated ASYNC Start")
@@ -157,7 +157,7 @@ def logdecorate[T, **P](
     thelogger.debug("%s is a synchronous function (no coro)", reveal_type(func))
 
     # @wraps(wrapped=func)
-    def wrapped(*args: P.args, **kwargs: P.kwargs) -> T:
+    def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:
         """ """
         thelogger.debug("LogDecorated Start")
         begintimings: os.times_result = os.times()
