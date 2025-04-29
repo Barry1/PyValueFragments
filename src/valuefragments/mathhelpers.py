@@ -57,6 +57,7 @@ def easybisect(  # pylint: disable=too-many-arguments
     lowerbound: float,
     upperbound: float,
     targetval: float,
+    *,
     maxiter: int = 20,
     relerror: float = 0.01,
 ) -> tuple[float, float]:
