@@ -1,7 +1,7 @@
 ---
 version: 0.1
 cli:
-  version: 1.22.12
+  version: 1.22.15
 plugins:
   sources:
     - id: trunk
@@ -17,19 +17,19 @@ lint:
     - actionlint@1.7.7
     - autopep8@2.3.2
     - black@25.1.0
-    - checkov@3.2.411
+    - checkov@3.2.413
     - flake8@7.2.0
     - git-diff-check
-    - gitleaks@8.24.3
+    - gitleaks@8.25.1
     - isort@6.0.1
     - markdownlint@0.44.0
     - mypy@1.15.0
-    - osv-scanner@2.0.1
+    - osv-scanner@2.0.2
     - prettier@3.5.3
     - ruff@0.11.7
     - taplo@0.9.3
     - trivy@0.61.1
-    - trufflehog@3.88.25
+    - trufflehog@3.88.26
     - yamllint@1.37.0
 runtimes:
   enabled:
@@ -47,7 +47,7 @@ tools:
     - python
   enabled:
     - circleci@0.1.31632
-    - gh@2.71.2
+    - gh@2.72.0
     - pylint@3.3.6
     - pyright@1.1.400
     - shellcheck@0.10.0
