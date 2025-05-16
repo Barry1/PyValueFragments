@@ -162,7 +162,7 @@ def logdecorate[T, **param](
         begintimings: os.times_result = os.times()
         res: T = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
-        logtiminglines(begintimings, endtimings)
+        logtiminglines(begintimings, endtimings, thelogger)
         thelogger.debug("LogDecorated End")
         return res
 
