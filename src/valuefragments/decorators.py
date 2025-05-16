@@ -81,8 +81,8 @@ def logdecorate[T, **param](
     """Decorator to log start and stop into file 'decorated.log' with logging."""
 
     def setuplogger(funcname: str) -> logging.Logger:
-        """ """
-        thelogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
+        """Setup a new Logger for my needs"""
+        thenewlogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
         the_format: str = "|".join(
             [
                 "%(asctime)s",
@@ -101,19 +101,18 @@ def logdecorate[T, **param](
         logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
         logfilehandler.setFormatter(logformatter)
         logfilehandler.addFilter(thread_native_id_filter)
-        thelogger.addHandler(logfilehandler)
-        if __debug__:
-            thelogger.setLevel(logging.DEBUG)
-        else:
-            thelogger.setLevel(logging.INFO)
-        return thelogger
+        thenewlogger.addHandler(logfilehandler)
+        thenewlogger.setLevel(logging.DEBUG if __debug__ else logging.INFO)
+        return thenewlogger
 
-    def logtiminglines(begintimings: os.times_result, endtimings: os.times_result) -> None:
-        """ """
+    def logtiminglines(
+        begintimings: os.times_result, endtimings: os.times_result, theloggertouse: logging.Logger
+    ) -> None:
+        """log details from timings"""
         title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
         info_line_format: LiteralString = "%7.2f [s]|" * 5 + "%7.2f%%|"
         timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
-        thelogger.info(
+        theloggertouse.info(
             title_line_format,
             "user",
             "system",
@@ -122,7 +121,7 @@ def logdecorate[T, **param](
             "elapsed",
             "LOAD",
         )
-        thelogger.info(
+        theloggertouse.info(
             info_line_format,
             *timingdiffs,
             100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
@@ -140,7 +139,7 @@ def logdecorate[T, **param](
         #        thelogger.info("%s",func.__annotations__)
         # @wraps(wrapped=func)
         async def awrapped(*args: param.args, **kwargs: param.kwargs) -> T:
-            """ """
+            """Wrapped function for the async case."""
             # Pre-Execution
             thelogger.debug("LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
@@ -148,7 +147,7 @@ def logdecorate[T, **param](
             res: T = await func(*args, **kwargs)
             # Post-Execution
             endtimings: os.times_result = os.times()
-            logtiminglines(begintimings, endtimings)
+            logtiminglines(begintimings, endtimings, thelogger)
             thelogger.debug(msg="LogDecorated ASYNC End")
             return res
 
@@ -336,19 +335,11 @@ if os.name == "posix":
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
-            childbefore: resource.struct_rusage = resource.getrusage(
-                resource.RUSAGE_CHILDREN
-            )  # type: ignore[attr-defined,name-defined]
-            selfbefore: resource.struct_rusage = resource.getrusage(
-                resource.RUSAGE_SELF
-            )  # type: ignore[attr-defined,name-defined]
+            childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
+            selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
             retval: _FunCallResultT = func(*args, **kwargs)
-            selfafter: resource.struct_rusage = resource.getrusage(
-                resource.RUSAGE_SELF
-            )  # type: ignore[attr-defined,name-defined]
-            childafter: resource.struct_rusage = resource.getrusage(
-                resource.RUSAGE_CHILDREN
-            )  # type: ignore[attr-defined,name-defined]
+            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
+            childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
             after: float | Literal[0] = time.monotonic()
             if all((childbefore, selfbefore, selfafter, childafter, before, after)):
                 print("time function\t", func.__name__)
@@ -400,13 +391,9 @@ if os.name == "posix":
             **kwargs: _fun_param_type.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
-            before: float | Literal[0] = sum(
-                resource.getrusage(resource.RUSAGE_SELF)[:2]
-            )  # type: ignore[attr-defined]
+            before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             retval: _FunCallResultT = func(*args, **kwargs)
-            after: float | Literal[0] = sum(
-                resource.getrusage(resource.RUSAGE_SELF)[:2]
-            )  # type: ignore[attr-defined]
+            after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
             if before and after:
                 print(func.__name__, float(after) - before)
             return retval

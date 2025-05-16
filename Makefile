@@ -51,7 +51,7 @@ pyanalyze:
 	poetry run python -m pyanalyze src/valuefragments
 
 mypy:
-	poetry run mypy --strict --show-error-codes src
+	poetry run mypy --strict --show-error-codes src/valuefragments
 
 prospector:
 	poetry run prospector src

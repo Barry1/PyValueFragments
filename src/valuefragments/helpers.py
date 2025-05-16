@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Self
+
 __all__: list[str] = []
 import asyncio
 import concurrent.futures
@@ -130,11 +132,9 @@ def basic_auth(
     passw: str,
 ) -> str:
     """Build String for Basic AUTH."""
-    # Authorization token: we need to base 64 encode it
+    # Authorization token: we need to base 64 encode (utf-8) it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + __import__("base64").b64encode(f"{user}:{passw}".encode("utf-8")).decode(
-        "ascii"
-    )
+    return "Basic " + __import__("base64").b64encode(f"{user}:{passw}".encode()).decode("ascii")
 
 
 @moduleexport
@@ -142,11 +142,12 @@ class HumanReadAble(int):
     """int like with print in human readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
+    # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
     def __new__(
         cls,
         __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
-    ):
+    ) -> Self:
         """Build an int object by the super class."""
         return super().__new__(cls, __x)
 
@@ -202,7 +203,7 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky import get_reusable_executor  # type: ignore
+        from joblib.externals.loky import get_reusable_executor
     except ModuleNotFoundError:
         pass
     else:
@@ -214,7 +215,7 @@ async def to_inner_task[_FunCallResultT](
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
-    return await asyncio.get_running_loop().run_in_executor(the_executor, funcall)
+    return await asyncio.get_running_loop().run_in_executor(executor=the_executor, func=funcall)
 
 
 @moduleexport
