@@ -213,7 +213,8 @@ class LinuxTimeCM:
 
 
 try:
-    import resource
+    #    import resource
+    resource = __import__("resource")
 except ImportError:
     ic("resource is not available")
 else:

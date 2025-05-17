@@ -141,13 +141,15 @@ def logdecorate[T, **param](
         async def awrapped(*args: param.args, **kwargs: param.kwargs) -> T:
             """Wrapped function for the async case."""
             # Pre-Execution
-            thelogger.debug("LogDecorated ASYNC Start")
+            thelogger.debug(msg="LogDecorated ASYNC Start")
             begintimings: os.times_result = os.times()
             # Execution
             res: T = await func(*args, **kwargs)
             # Post-Execution
             endtimings: os.times_result = os.times()
-            logtiminglines(begintimings, endtimings, thelogger)
+            logtiminglines(
+                begintimings=begintimings, endtimings=endtimings, theloggertouse=thelogger
+            )
             thelogger.debug(msg="LogDecorated ASYNC End")
             return res
 
@@ -158,12 +160,12 @@ def logdecorate[T, **param](
     # @wraps(wrapped=func)
     def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:
         """ """
-        thelogger.debug("LogDecorated Start")
+        thelogger.debug(msg="LogDecorated Start")
         begintimings: os.times_result = os.times()
         res: T = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
-        logtiminglines(begintimings, endtimings, thelogger)
-        thelogger.debug("LogDecorated End")
+        logtiminglines(begintimings=begintimings, endtimings=endtimings, theloggertouse=thelogger)
+        thelogger.debug(msg="LogDecorated End")
         return res
 
     return wrapped
