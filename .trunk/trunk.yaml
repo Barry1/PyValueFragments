@@ -35,7 +35,7 @@ runtimes:
   enabled:
     - go@1.21.0
     - node@18.20.5
-    - python@3.12.2
+    - python@3.12.10
 actions:
   enabled:
     - trunk-check-pre-push
@@ -46,7 +46,7 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.31687
+    - circleci@0.1.31792
     - gh@2.72.0
     - pylint@3.3.7
     - pyright@1.1.400
@@ -65,3 +65,16 @@ tools:
         - types-requests
         - lxml
         - icecream
+downloads:
+  - name: python
+    downloads:
+      - os:
+          macos: apple-darwin
+          linux: unknown-linux-gnu
+        cpu:
+          x86_64: x86_64
+        #          arm_64: aarch64
+        url: https://github.com/indygreg/python-build-standalone/releases/download/20250517/cpython-${version}+20250517-${cpu}-${os}-install_only.tar.gz
+        #        url: https://github.com/astral-sh/python-build-standalone/releases/download/20240415/cpython-${version}+20240415-${cpu}-${os}-install_only.tar.gz
+        #        version: <=3.11.9
+        strip_components: 1
