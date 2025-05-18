@@ -19,7 +19,7 @@ allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]
-env_list = ["py311", "py312", "py313", "py314-dev", "bastipytest"]
+env_list = ["py312", "py313", "py314-dev", "bastipytest"]
 minversion = "4.22.0"
 
 [tool.tox.env.bastipytest]
