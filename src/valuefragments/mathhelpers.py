@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from logging import Logger, getLogger
 
-from .moduletools import moduleexport
-from .valuetyping import Callable
+from valuefragments.moduletools import moduleexport
+from valuefragments.valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
 # <https://stackoverflow.com/a/50928627>
