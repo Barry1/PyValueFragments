@@ -11,14 +11,14 @@ from types import FunctionType  # , CoroutineType
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from .helpers import (  # pylint: disable=relative-beyond-top-level
+from valuefragments.helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
     thread_native_id_filter,
 )
-from .moduletools import moduleexport
+from valuefragments.moduletools import moduleexport
 
 # noinspection PyUnresolvedReferences
-from .valuetyping import (  # Coroutine,; TypeGuard,
+from valuefragments.valuetyping import (  # Coroutine,; TypeGuard,
     Any,
     Callable,
     Coroutine,

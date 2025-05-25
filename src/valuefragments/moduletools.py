@@ -4,14 +4,16 @@ from __future__ import annotations
 
 from types import ModuleType
 
-from valuefragments.valuetyping import Callable, ParamSpec, TypeVar
+from valuefragments.valuetyping import Callable
 
 # from .helpers import ic
-_FunCallResultT = TypeVar("_FunCallResultT")
-_FunParamT = ParamSpec("_FunParamT")
+# _FunCallResultT = TypeVar("_FunCallResultT")
+# _FunParamT = ParamSpec("_FunParamT")
+# replaced by Type parameter lists
+# <https://docs.python.org/3/reference/compound_stmts.html#type-parameter-lists>
 
 
-def moduleexport(
+def moduleexport[_FunCallResultT, **_FunParamT](
     class_or_function: Callable[_FunParamT, _FunCallResultT],
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""

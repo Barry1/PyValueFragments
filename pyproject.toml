@@ -5,11 +5,19 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.5.9"
+version = "0.5.10"
 readme = "README.md"
-requires-python = ">=3.12"                                                     #">=3.12,<4.0"
+requires-python = ">=3.12" #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
-dependencies = ["lxml", "requests", "typing-extensions"]
+dependencies = [
+  "lxml",
+  "requests",
+  "typing-extensions",
+  "uv (>=0.7.8,<0.8.0)",
+  "ty (>=0.0.1a6,<0.0.2)",
+  "pyanalyze (>=0.13.1,<0.14.0)",
+  "pyrefly (>=0.16.2,<0.17.0)",
+]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
@@ -30,6 +38,14 @@ parallel_show_output = true
 platform = "linux"
 deps = ["pytest>=6", "pytest-sugar", "pytest-asyncio"]
 commands = [["pytest", "{tty:--color=yes}", "{posargs}"]]
+
+[tool.ty]
+#python-version = "3.12"
+#output-format = "full"
+#environment.color= "always"
+terminal.output-format = "full"
+#.color = "always"
+#.color = "always"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -250,6 +266,15 @@ addopts = [
   "--color=yes",
   #    "--typeguard-packages=valuefragments",
 
+]
+[tool.pyrefly]
+python_version = "3.12.10"
+search_path = ["src/valuefragments"]
+replace_imports_with_any = [
+  "cpu_load_generator",
+  "icecream",
+  "joblib.externals.loky",
+  "joblib.externals.loky.process_executor",
 ]
 
 [tool.towncrier]
