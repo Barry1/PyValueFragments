@@ -3,7 +3,7 @@
 
 import time
 
-from src.valuefragments.decorators import (
+from valuefragments.decorators import (
     memoize,  # pylint: disable=relative-beyond-top-level
 )
 

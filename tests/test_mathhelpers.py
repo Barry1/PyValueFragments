@@ -1,7 +1,7 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for mathhelpers module."""
 
-from src.valuefragments.mathhelpers import (
+from valuefragments.mathhelpers import (
     easybisect,
     polyroot,
     probneeds,

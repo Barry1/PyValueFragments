@@ -3,7 +3,7 @@
 
 import os
 
-from src.valuefragments.helpers import (
+from valuefragments.helpers import (
     HumanReadAble,
     basic_auth,
     file_exists_current,
