@@ -139,7 +139,7 @@ def basic_auth(
 
 @moduleexport
 class HumanReadAble(int):
-    """int like with print in human readable scales."""
+    """int like with print in human-readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
     # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
@@ -164,7 +164,7 @@ class HumanReadAble(int):
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
-        """Implement format-method human readable."""
+        """Implement format-method human-readable."""
         # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
             1: "Ki",

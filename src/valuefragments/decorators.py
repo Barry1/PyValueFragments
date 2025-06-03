@@ -82,7 +82,7 @@ def logdecorate[T, **param](
     """Decorator to log start and stop into file 'decorated.log' with logging."""
 
     def setuplogger(funcname: str) -> logging.Logger:
-        """Setup a new Logger for my needs"""
+        """Set up a new Logger for my needs"""
         thenewlogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
         the_format: str = "|".join(
             [
