@@ -65,7 +65,9 @@ def easybisect(  # pylint: disable=too-many-arguments
     thelogger.info("easybisect started")
     thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[float, float]] = []
-    assert lowerbound < upperbound
+    if lowerbound >= upperbound:
+        [lowerbound, upperbound] = [upperbound, lowerbound]
+    # assert lowerbound < upperbound
     lowind: int = len(data)
     data.append((lowerbound, fun(lowerbound)))
     highind: int = len(data)
