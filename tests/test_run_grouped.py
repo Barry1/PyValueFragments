@@ -11,7 +11,7 @@ import pytest
 if sys.version_info >= (3, 11):
     from functools import partial
 
-    from .helpers import pi_for_cpu_load, run_grouped
+    from src.valuefragments.helpers import pi_for_cpu_load, run_grouped
 
     tasklist: list[Callable[[], float]] = [partial(pi_for_cpu_load, 10000, 4478) for _ in range(5)]
 

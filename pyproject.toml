@@ -5,15 +5,11 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.5.10"
+version = "0.5.11"
 readme = "README.md"
-requires-python = ">=3.12" #">=3.12,<4.0"
+requires-python = ">=3.12"                                                     #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
-dependencies = [
-  "lxml",
-  "requests",
-  "typing-extensions",
-]
+dependencies = ["lxml", "requests", "typing-extensions"]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
@@ -136,10 +132,10 @@ version = "*"
 python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
-uv=">=0.7.8,<0.8.0"
-ty=">=0.0.1a6,<0.0.2"
-pyanalyze=">=0.13.1,<0.14.0"
-pyrefly=">=0.16.2,<0.17.0"
+uv = ">=0.7.8,<0.8.0"
+ty = ">=0.0.1a6,<0.0.2"
+pyanalyze = ">=0.13.1,<0.14.0"
+pyrefly = ">=0.16.2,<0.17.0"
 flynt = "^1.0.2"
 pylyzer = "^0.0.82"
 autopep8 = "*"
@@ -256,9 +252,14 @@ concurrent = true
 max_line_length = 99
 
 [tool.pytest.ini_options]
+log_cli = true
+log_date_format = "%Y-%m-%d %H:%M:%S"
+log_file = "tests/pytest.log"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_level = "INFO"
 minversion = "6.2"
-testpaths = ["src"]
-#required_plugins = ["typeguard", "pylama"]
+testpaths = ["tests"]
+pythonpath = "src"
 addopts = [
   "--verbose",
   #    "--pylama",
@@ -267,6 +268,7 @@ addopts = [
   #    "--typeguard-packages=valuefragments",
 
 ]
+#required_plugins = ["typeguard", "pylama"]
 [tool.pyrefly]
 python_version = "3.12.10"
 search_path = ["src/valuefragments"]

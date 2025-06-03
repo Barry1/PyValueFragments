@@ -10,7 +10,7 @@ from typing import AnyStr, BinaryIO, Iterable, Optional, TextIO
 
 from typing_extensions import Literal, Type
 
-from valuefragments.helpers import closeifrunningloky, ic
+from .helpers import closeifrunningloky, ic
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 

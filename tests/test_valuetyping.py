@@ -17,7 +17,7 @@ if version_info[:2] == (3, 11):
 
     def test_pythreeeleven() -> None:
         """In 3.11 LiteralString was introduced but TypeIs not yet."""
-        from valuefragments.valuetyping import (
+        from src.valuefragments.valuetyping import (
             LiteralString,
             TypeIs,
             assert_never,
@@ -37,7 +37,7 @@ if version_info[:2] == (3, 12):
 
     def test_pythreetwelve() -> None:
         """In 3.12 TypeAliasType was introduced but TypeIs not yet."""
-        from valuefragments.valuetyping import TypeIs, override  # TypeAliasType,
+        from src.valuefragments.valuetyping import TypeIs, override  # TypeAliasType,
 
         assert TypeIs.__module__ == "typing_extensions"
         # assert TypeAliasType.__module__ == "typing"

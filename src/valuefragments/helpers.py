@@ -29,8 +29,8 @@ from lxml.html import fromstring
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
-from valuefragments.moduletools import moduleexport
-from valuefragments.valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
+from .moduletools import moduleexport
+from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
     IO,
     TYPE_CHECKING,
     Callable,
