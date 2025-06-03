@@ -8,8 +8,9 @@ plugins:
       ref: v1.7.0
       uri: https://github.com/trunk-io/plugins
 lint:
+  disabled:
+    - ty
   enabled:
-    - ty@0.0.1-alpha.8
     - bandit@1.8.3
     - pyright@1.1.401
     - hadolint@2.12.1-beta
@@ -44,6 +45,8 @@ actions:
     - trunk-announce
     - trunk-upgrade-available
 tools:
+  disabled:
+    - ty
   runtimes:
     - python
   enabled:
