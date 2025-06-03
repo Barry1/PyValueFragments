@@ -257,11 +257,12 @@ log_date_format = "%Y-%m-%d %H:%M:%S"
 log_file = "tests/pytest.log"
 log_format = "%(asctime)s %(levelname)s %(message)s"
 log_level = "INFO"
-minversion = "6.2"
+minversion = "8.4"
 testpaths = ["tests"]
-pythonpath = "src"
+pythonpath = ["src"]
 addopts = [
   "--verbose",
+  "--strict-config",
   #    "--pylama",
   "--cache-clear",
   "--color=yes",
