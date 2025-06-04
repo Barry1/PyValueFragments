@@ -176,6 +176,7 @@ pysocks = "^1.7.1"
 types-lxml = "*"
 pytest-sugar = "^1.0.0"
 tox = "^4.23.0"
+pandas-stubs = "^2.2.3.250527"
 [tool.poetry.group.dev.dependencies.pyleft]
 version = "*"
 python = "^3.12"
