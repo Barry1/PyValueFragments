@@ -86,7 +86,7 @@ pydocstyle:
 pyright: export NODE_OPTIONS = --experimental-worker
 pyright:
 	@echo "==========" "$@" "=========="
-	-poetry run pyright --verbose $(pyobjs)
+#	-poetry run pyright --verbose $(pyobjs)
 	-poetry run pyright src/valuefragments
 #	-poetry run pyright --verifytypes valuefragments
 
