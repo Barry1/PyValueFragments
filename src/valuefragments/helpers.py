@@ -203,11 +203,13 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky.reusable_executor import get_reusable_executor
+        from joblib.externals.loky.reusable_executor import (
+            get_reusable_executor,  # type: ignore
+        )
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()
+        get_reusable_executor().shutdown()  # type: ignore
 
 
 async def to_inner_task[_FunCallResultT](
@@ -259,7 +261,7 @@ finally:
 
 try:
     # noinspection PyUnresolvedReferences
-    import psutil
+    import psutil  # type: ignore
 except ImportError:
     ic("psutil is not available")
 else:

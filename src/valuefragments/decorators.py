@@ -131,10 +131,11 @@ def logdecorate[T, **param](
     # https://docs.python.org/3/library/logging.html#levels
     thelogger: logging.Logger = setuplogger(func.__name__)
     thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
-    if is_coroutine_function(func=func):
+    if istypedcoroutinefunction(func=func):
+        #    if is_coroutine_function(func=func):
         assert_type(func, Callable[param, Coroutine[Any, Any, T]])
         # assert isinstance(func, Callable[param, Coroutine[Any, Any, T]])
-        thelogger.debug("%s is a coro", reveal_type(func))
+        thelogger.debug("%s is a coro: %s", func, reveal_type(func))
         #        thelogger.info("%s",type(func))
         #        thelogger.info("%s",dir(func))
         #        thelogger.info("%s",func.__annotations__)
@@ -158,7 +159,7 @@ def logdecorate[T, **param](
         return awrapped
     assert_type(func, Callable[param, T])
     # assert isinstance(func, Callable[param, T])
-    thelogger.debug("%s is a synchronous function (no coro)", reveal_type(func))
+    thelogger.debug("%s is a synchronous function (no coro): %s", func, reveal_type(func))
 
     # @wraps(wrapped=func)
     def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:
