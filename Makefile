@@ -14,12 +14,7 @@ flynt:
 	poetry run flynt src/valuefragments
 
 trunkchkfmt:
-	trunk check \
-	    src/valuefragments/contextmanagers.py\
-		src/valuefragments/decorators.py\
-		src/valuefragments/helpers.py\
-		src/valuefragments/mathhelpers.py\
-		src/valuefragments/moduletools.py
+	trunk check src/valuefragments
 
 actsuperlinter:
 	act --graph
