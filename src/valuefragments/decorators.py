@@ -11,14 +11,14 @@ from types import FunctionType  # , CoroutineType
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from valuefragments.helpers import (  # pylint: disable=relative-beyond-top-level
+from .helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
     thread_native_id_filter,
 )
-from valuefragments.moduletools import moduleexport
+from .moduletools import moduleexport
 
 # noinspection PyUnresolvedReferences
-from valuefragments.valuetyping import (  # Coroutine,; TypeGuard,
+from .valuetyping import (  # Coroutine,; TypeGuard,
     Any,
     Callable,
     Coroutine,
@@ -26,6 +26,7 @@ from valuefragments.valuetyping import (  # Coroutine,; TypeGuard,
     LiteralString,
     NamedTuple,
     TypeIs,
+    assert_type,
     cast,
     reveal_type,
 )
@@ -81,7 +82,7 @@ def logdecorate[T, **param](
     """Decorator to log start and stop into file 'decorated.log' with logging."""
 
     def setuplogger(funcname: str) -> logging.Logger:
-        """Setup a new Logger for my needs"""
+        """Set up a new Logger for my needs"""
         thenewlogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
         the_format: str = "|".join(
             [
@@ -130,14 +131,16 @@ def logdecorate[T, **param](
     # https://docs.python.org/3/library/logging.html#levels
     thelogger: logging.Logger = setuplogger(func.__name__)
     thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
-    if is_coroutine_function(func):
-        # assert_type(func, Callable[P, Awaitable[R]])
-        thelogger.debug("%s is a coro", reveal_type(func))
-
+    if istypedcoroutinefunction(func=func):
+        #    if is_coroutine_function(func=func):
+        assert_type(func, Callable[param, Coroutine[Any, Any, T]])
+        # assert isinstance(func, Callable[param, Coroutine[Any, Any, T]])
+        thelogger.debug("%s is a coro: %s", func, reveal_type(func))
         #        thelogger.info("%s",type(func))
         #        thelogger.info("%s",dir(func))
         #        thelogger.info("%s",func.__annotations__)
         # @wraps(wrapped=func)
+
         async def awrapped(*args: param.args, **kwargs: param.kwargs) -> T:
             """Wrapped function for the async case."""
             # Pre-Execution
@@ -154,8 +157,9 @@ def logdecorate[T, **param](
             return res
 
         return awrapped
-    # assert_type(func, Callable[P, R])
-    thelogger.debug("%s is a synchronous function (no coro)", reveal_type(func))
+    assert_type(func, Callable[param, T])
+    # assert isinstance(func, Callable[param, T])
+    thelogger.debug("%s is a synchronous function (no coro): %s", func, reveal_type(func))
 
     # @wraps(wrapped=func)
     def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:

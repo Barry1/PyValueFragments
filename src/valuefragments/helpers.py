@@ -29,8 +29,8 @@ from lxml.html import fromstring
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
-from valuefragments.moduletools import moduleexport
-from valuefragments.valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
+from .moduletools import moduleexport
+from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
     IO,
     TYPE_CHECKING,
     Callable,
@@ -139,7 +139,7 @@ def basic_auth(
 
 @moduleexport
 class HumanReadAble(int):
-    """int like with print in human readable scales."""
+    """int like with print in human-readable scales."""
 
     # <https://pypi.python.org/pypi/humanize>
     # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
@@ -164,7 +164,7 @@ class HumanReadAble(int):
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
-        """Implement format-method human readable."""
+        """Implement format-method human-readable."""
         # <https://en.wikipedia.org/wiki/Binary_prefix#Specific_units_of_IEC_60027-2_A.2_and_ISO.2FIEC_80000>
         scalerdict: dict[int, str] = {
             1: "Ki",
@@ -203,11 +203,13 @@ def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky import get_reusable_executor
+        from joblib.externals.loky.reusable_executor import (
+            get_reusable_executor,  # type: ignore
+        )
     except ModuleNotFoundError:
         pass
     else:
-        get_reusable_executor().shutdown()
+        get_reusable_executor().shutdown()  # type: ignore
 
 
 async def to_inner_task[_FunCallResultT](
@@ -259,7 +261,7 @@ finally:
 
 try:
     # noinspection PyUnresolvedReferences
-    import psutil
+    import psutil  # type: ignore
 except ImportError:
     ic("psutil is not available")
 else:

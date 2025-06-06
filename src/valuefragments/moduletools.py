@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from types import ModuleType
 
-from valuefragments.valuetyping import Callable
+from .valuetyping import Callable
 
 # from .helpers import ic
 # _FunCallResultT = TypeVar("_FunCallResultT")
@@ -18,7 +18,7 @@ def moduleexport[_FunCallResultT, **_FunParamT](
 ) -> Callable[_FunParamT, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
-    module: ModuleType = __import__("sys").modules[class_or_function.__module__]
+    module: ModuleType = __import__(name="sys").modules[class_or_function.__module__]
     if hasattr(module, "__all__"):
         if class_or_function.__name__ not in module.__all__:
             module.__all__.append(class_or_function.__name__)

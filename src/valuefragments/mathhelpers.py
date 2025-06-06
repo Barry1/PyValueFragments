@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from logging import Logger, getLogger
 
-from valuefragments.moduletools import moduleexport
-from valuefragments.valuetyping import Callable
+from .moduletools import moduleexport
+from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
 # <https://stackoverflow.com/a/50928627>
@@ -65,7 +65,9 @@ def easybisect(  # pylint: disable=too-many-arguments
     thelogger.info("easybisect started")
     thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[float, float]] = []
-    assert lowerbound < upperbound
+    if lowerbound >= upperbound:
+        [lowerbound, upperbound] = [upperbound, lowerbound]
+    # assert lowerbound < upperbound
     lowind: int = len(data)
     data.append((lowerbound, fun(lowerbound)))
     highind: int = len(data)

@@ -14,12 +14,7 @@ flynt:
 	poetry run flynt src/valuefragments
 
 trunkchkfmt:
-	trunk check \
-	    src/valuefragments/contextmanagers.py\
-		src/valuefragments/decorators.py\
-		src/valuefragments/helpers.py\
-		src/valuefragments/mathhelpers.py\
-		src/valuefragments/moduletools.py
+	trunk check src/valuefragments
 
 actsuperlinter:
 	act --graph
@@ -51,13 +46,13 @@ pyanalyze:
 	poetry run python -m pyanalyze src/valuefragments
 
 mypy:
-	poetry run mypy --strict --show-error-codes src/valuefragments
+	poetry run mypy --strict --show-error-codes src/valuefragments/
 
 prospector:
 	poetry run prospector src
 
 checkminver:
-	poetry run vermin --target=3.11 --lint -vv --eval-annotations --no-parse-comments --backport asyncio --backport typing --backport typing_extensions src
+	poetry run vermin --target=3.12- --lint -vv --eval-annotations --no-parse-comments --backport asyncio --backport typing --backport typing_extensions src
 
 formatters:
 #	@echo "==========" "autopep8" "=========="
@@ -91,7 +86,8 @@ pydocstyle:
 pyright: export NODE_OPTIONS = --experimental-worker
 pyright:
 	@echo "==========" "$@" "=========="
-	-poetry run pyright --verbose $(pyobjs)
+#	-poetry run pyright --verbose $(pyobjs)
+	-poetry run pyright src/valuefragments
 #	-poetry run pyright --verifytypes valuefragments
 
 ./typings/src/valuefragments/contextmanagers.pyi ./typings/src/valuefragments/decorators.pyi ./typings/src/valuefragments/helpers.pyi ./typings/src/valuefragments/test_helpers.pyi ./typings/src/valuefragments/__init__.pyi: src/valuefragments/contextmanagers.py src/valuefragments/decorators.py src/valuefragments/helpers.py src/valuefragments/test_helpers.py src/valuefragments/__init__.py

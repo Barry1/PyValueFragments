@@ -1,7 +1,12 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for mathhelpers module."""
 
-from .mathhelpers import easybisect, polyroot, probneeds, probneeds_rec
+from valuefragments.mathhelpers import (
+    easybisect,
+    polyroot,
+    probneeds,
+    probneeds_rec,
+)
 
 
 def test_easybisect() -> None:

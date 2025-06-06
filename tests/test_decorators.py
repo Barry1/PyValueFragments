@@ -3,7 +3,9 @@
 
 import time
 
-from .decorators import memoize  # pylint: disable=relative-beyond-top-level
+from valuefragments.decorators import (
+    memoize,  # pylint: disable=relative-beyond-top-level
+)
 
 
 def test_memoize() -> None:
