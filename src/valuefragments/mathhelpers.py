@@ -13,6 +13,13 @@ Tfloatthreevec = tuple[float, float, float]
 
 
 @moduleexport
+def loanrate(loan: float, interest: float, duration: float) -> float:
+    monthinterest: float = interest / 12
+    monthduration: float = duration * 12
+    return loan * monthinterest / (1 - 1 / (1 + monthinterest) ** monthduration)
+
+
+@moduleexport
 def determinant(
     cola: Tfloatthreevec,
     colb: Tfloatthreevec,
