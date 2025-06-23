@@ -3,6 +3,7 @@
 
 from valuefragments.mathhelpers import (
     easybisect,
+    loanrate,
     polyroot,
     probneeds,
     probneeds_rec,
@@ -44,3 +45,12 @@ def test_probneeds_rec() -> None:
     assert probneeds_rec(needs=[], probs=[], avails=4) == 1
     assert probneeds_rec(needs=[2, 3], probs=[0.4, 0.6]) == 0.4
     assert probneeds_rec(needs=[2, 3], probs=[0.4, 0.6], avails=3) == 0.76
+
+
+def test_loanrate() -> None:
+    """Check for loanrate calculation."""
+    assert loanrate(250000, 0.03, 15) == 1726.4541006950042
+    assert loanrate(250000, 0.035, 15) == 1787.2063533579324
+    assert loanrate(250000, 0.035, 16) == 1702.3670984009577
+    assert loanrate(250000, 0.035, 17) == 1627.751098914003
+    assert loanrate(250000, 0.04, 15) == 1849.2198140231444
