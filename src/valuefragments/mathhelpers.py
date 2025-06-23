@@ -13,9 +13,9 @@ Tfloatthreevec = tuple[float, float, float]
 
 
 @moduleexport
-def loanrate[Tnumeric](loan: Tnumeric, interest: Tnumeric, duration: Tnumeric) -> Tnumeric:
-    monthinterest: Tnumeric = interest / 12
-    monthduration: Tnumeric = duration * 12
+def loanrate(loan: float, interest: float, duration: float) -> float:
+    monthinterest: float = interest / 12
+    monthduration: float = duration * 12
     return loan * monthinterest / (1 - 1 / (1 + monthinterest) ** monthduration)
 
 
