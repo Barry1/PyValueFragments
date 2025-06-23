@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from logging import Logger, getLogger
+from math import log
 
 from .moduletools import moduleexport
 from .valuetyping import Callable
@@ -13,7 +14,15 @@ Tfloatthreevec = tuple[float, float, float]
 
 
 @moduleexport
+def loanduration(loan: float, interest: float, monthrate: float) -> float:
+    """Derives the duration for a given loan, interest and rate."""
+    monthinterest: float = interest / 12
+    return (log(monthrate) - log(monthrate - loan * monthinterest)) / log(1 + monthinterest) / 12
+
+
+@moduleexport
 def loanrate(loan: float, interest: float, duration: float) -> float:
+    """Derives the monthly rate for a given loan, interest and duration."""
     monthinterest: float = interest / 12
     monthduration: float = duration * 12
     return loan * monthinterest / (1 - 1 / (1 + monthinterest) ** monthduration)
