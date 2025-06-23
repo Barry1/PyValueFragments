@@ -15,23 +15,23 @@ lint:
     - pyright@1.1.402
     - hadolint@2.12.1-beta
     - sourcery@1.37.0
-    - sql-formatter@15.6.5
+    - sql-formatter@15.6.3
     - actionlint@1.7.7
     - autopep8@2.3.2
     - black@25.1.0
-    - checkov@3.2.445
-    - flake8@7.3.0
+    - checkov@3.2.439
+    - flake8@7.2.0
     - git-diff-check
     - gitleaks@8.27.2
     - isort@6.0.1
     - markdownlint@0.45.0
-    - mypy@1.16.1
-    - osv-scanner@2.0.3
-    - prettier@3.6.0
-    - ruff@0.12.0
+    - mypy@1.16.0
+    - osv-scanner@2.0.2
+    - prettier@3.5.3
+    - ruff@0.11.13
     - taplo@0.9.3
     - trivy@0.63.0
-    - trufflehog@3.89.2
+    - trufflehog@3.89.0
     - yamllint@1.37.1
 runtimes:
   enabled:
@@ -51,7 +51,7 @@ tools:
     - python
   enabled:
     - circleci@0.1.32367
-    - gh@2.74.2
+    - gh@2.74.0
     - pylint@3.3.7
     - pyright@1.1.402
     - shellcheck@0.10.0
