@@ -7,6 +7,9 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
+pyrefly:
+	poetry run pyrefly check
+
 sourcery:
 	poetry run sourcery review src/valuefragments --fix --summary --verbose
 
