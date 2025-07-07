@@ -167,14 +167,14 @@ pycodestyle = ">=2.12.0"
 
 [[package]]
 name = "bandit"
-version = "1.8.5"
+version = "1.8.6"
 description = "Security oriented static analyser for python code."
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "bandit-1.8.5-py3-none-any.whl", hash = "sha256:cb2e57524e99e33ced48833c6cc9c12ac78ae970bb6a450a83c4b506ecc1e2f9"},
-    {file = "bandit-1.8.5.tar.gz", hash = "sha256:db812e9c39b8868c0fed5278b77fffbbaba828b4891bc80e34b9c50373201cfd"},
+    {file = "bandit-1.8.6-py3-none-any.whl", hash = "sha256:3348e934d736fcdb68b6aa4030487097e23a501adf3e7827b63658df464dddd0"},
+    {file = "bandit-1.8.6.tar.gz", hash = "sha256:dbfe9c25fc6961c2078593de55fd19f2559f9e45b99f1272341f5b95dea4e56b"},
 ]
 
 [package.dependencies]
@@ -437,14 +437,14 @@ files = [
 
 [[package]]
 name = "click"
-version = "8.2.1"
+version = "8.1.8"
 description = "Composable command line interface toolkit"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.7"
 groups = ["dev"]
 files = [
-    {file = "click-8.2.1-py3-none-any.whl", hash = "sha256:61a3265b914e850b85317d0b3109c7f8cd35a670f963866005d6ef1d5175a12b"},
-    {file = "click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202"},
+    {file = "click-8.1.8-py3-none-any.whl", hash = "sha256:63c132bbbed01578a06712a2d1f497bb62d9c1c0d329b7903a866228027263b2"},
+    {file = "click-8.1.8.tar.gz", hash = "sha256:ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"},
 ]
 
 [package.dependencies]
@@ -2113,25 +2113,27 @@ files = [
 
 [[package]]
 name = "pyre-check"
-version = "0.9.23"
+version = "0.9.25"
 description = "A performant type checker for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pyre-check-0.9.23.tar.gz", hash = "sha256:3f4baf99145e06af416a2444e50b9e90b183585c053ab476004729ed9ba6902c"},
-    {file = "pyre_check-0.9.23-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:71ae076a75293a6fbb9025c3aa1e7a81a4dfd7a6da8a884f4c39deed2e4e3f3a"},
-    {file = "pyre_check-0.9.23-py3-none-manylinux1_x86_64.whl", hash = "sha256:6362f0d8af2d513c90fc863a142009d8d7cbf0aa762ec37cad194684bd962ae5"},
+    {file = "pyre-check-0.9.25.tar.gz", hash = "sha256:0ed3288c4907faf8171d64ceed6fc084ea5aba33a7ef6d00d5d57b58a80981b9"},
+    {file = "pyre_check-0.9.25-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:99d8f6612c0b15c8fec904cebe54069fd1420e9833bb8ef7c04c5214bbf27dce"},
+    {file = "pyre_check-0.9.25-py3-none-manylinux1_x86_64.whl", hash = "sha256:7bcd82c197127e4cad601e4bde62cd3e71abdc13063bb6f8acb72fe19488a07a"},
 ]
 
 [package.dependencies]
-click = ">=8.0"
+click = ">=8.0,<8.2.0"
 dataclasses-json = "0.5.7"
 libcst = "*"
 psutil = "*"
 pyre-extensions = ">=0.0.29"
 tabulate = "*"
 testslide = ">=2.7.0"
+tomli = "*"
+tomli-w = "*"
 typing-extensions = "*"
 typing-inspect = "*"
 
@@ -2153,21 +2155,21 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyrefly"
-version = "0.22.1"
+version = "0.23.0"
 description = "A fast Python type checker written in Rust"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pyrefly-0.22.1-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:9bde1236fe90e967909a0885138b495b46009c8e57db0f7dd12c1732546e8c8e"},
-    {file = "pyrefly-0.22.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:33e5267003e46b7a674508da029577ceeb888dccc35fcc5adeb29495d43d576b"},
-    {file = "pyrefly-0.22.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:36f1177dc2ee502a68b286dc05bd1e0e217ef934dd2f1979e27685f87c39db62"},
-    {file = "pyrefly-0.22.1-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5f89efa1e96212ed333e096bd5c9491e8085fc5e7dde0a0ba068f7addf74d2d0"},
-    {file = "pyrefly-0.22.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4bd78e975c6b3eee5679ec384832e13bd55eeff966b2cd59ddaedd00d92cae2a"},
-    {file = "pyrefly-0.22.1-py3-none-win32.whl", hash = "sha256:99a88b6bbd1828f13f60bb32a314fae912b962795bbedb7c33f1b92823d1a4d9"},
-    {file = "pyrefly-0.22.1-py3-none-win_amd64.whl", hash = "sha256:dbc9cca175df0b32bd1d1979072d06c28611447f7a4e964f8fc27a7cc3086f35"},
-    {file = "pyrefly-0.22.1-py3-none-win_arm64.whl", hash = "sha256:709ccec7f427e0e50dbdc5b6f48d8ae50ca74871eeb64be3d7a4259aeab2db0a"},
-    {file = "pyrefly-0.22.1.tar.gz", hash = "sha256:bf4269347186269d04ed9f4c85e3cc0d3122888b75c182977b096583baa916c9"},
+    {file = "pyrefly-0.23.0-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:1ea2250c1a4b3d19c1d71c2597e697f5d3c1ea6b01ca46ff52b836b3d55126ef"},
+    {file = "pyrefly-0.23.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:a4107bd7213eca35d723c7ccbe74aac9ea65ccb6b914bd5c48f2c9b23cbb400b"},
+    {file = "pyrefly-0.23.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8f3d65dec08f2d79f9abd5ecef43174f44c48766d66d81dfbfae04e4041add93"},
+    {file = "pyrefly-0.23.0-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:bbeee7932a4423dfe6033e85eb35318d018d2183c9a51da1ba75f34c35891b16"},
+    {file = "pyrefly-0.23.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d0b95eaaa5fc02d6d8f0c7d0aee1979388be877a12d99ae5d18bcb2cb04ae32c"},
+    {file = "pyrefly-0.23.0-py3-none-win32.whl", hash = "sha256:74bdc981c61cf22def7d2948bc212be515e1990148e3a770893f417a142bb597"},
+    {file = "pyrefly-0.23.0-py3-none-win_amd64.whl", hash = "sha256:749e4c2617dd6d8013d4bd9da79a967333c82f6f29f2be48dc803b78f319d95c"},
+    {file = "pyrefly-0.23.0-py3-none-win_arm64.whl", hash = "sha256:cb0c37be317bf998f5a6e6cd422a753f8929490b6525cb3b2da0b6d468538c39"},
+    {file = "pyrefly-0.23.0.tar.gz", hash = "sha256:a03776652940ca79c4ed616c12d0f1b5da341ce470ec4adc29fbe4618c6f4ea5"},
 ]
 
 [[package]]
@@ -2810,6 +2812,18 @@ files = [
 ]
 
 [[package]]
+name = "tomli-w"
+version = "1.2.0"
+description = "A lil' TOML writer"
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "tomli_w-1.2.0-py3-none-any.whl", hash = "sha256:188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90"},
+    {file = "tomli_w-1.2.0.tar.gz", hash = "sha256:2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021"},
+]
+
+[[package]]
 name = "tomlkit"
 version = "0.13.3"
 description = "Style preserving TOML library"
@@ -3014,14 +3028,14 @@ typing-extensions = ">=4.5.0"
 
 [[package]]
 name = "typing-extensions"
-version = "4.14.0"
+version = "4.14.1"
 description = "Backported and Experimental Type Hints for Python 3.9+"
 optional = false
 python-versions = ">=3.9"
 groups = ["main", "dev"]
 files = [
-    {file = "typing_extensions-4.14.0-py3-none-any.whl", hash = "sha256:a1514509136dd0b477638fc68d6a91497af5076466ad0fa6c338e44e359944af"},
-    {file = "typing_extensions-4.14.0.tar.gz", hash = "sha256:8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4"},
+    {file = "typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76"},
+    {file = "typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36"},
 ]
 
 [[package]]
