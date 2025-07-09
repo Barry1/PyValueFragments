@@ -179,6 +179,8 @@ ufmt = ">=2.8"
 uv = ">=0.7.8,<0.8.0"
 vermin = ">=1.5"
 yapf = ">=0.43"
+clang = "^20.1.5"
+cython = "^3.1.2"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
