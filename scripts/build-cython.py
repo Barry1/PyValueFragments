@@ -1,4 +1,8 @@
-"""Build module for Cython compilation."""
+"""Build module for Cython compilation.
+More details could be read and found under
+<https://python-poetry.org/docs/building-extension-modules/#cython>
+Happy Reading!
+"""
 
 
 def build() -> None:
