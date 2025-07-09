@@ -40,9 +40,10 @@ terminal.output-format = "full"
 #.color = "always"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.0", "cython"]
 build-backend = "poetry.core.masonry.api"
-
+[tool.poetry.build]
+script = "scripts/build-cython.py"
 # ...
 # By default, include-package-data is true in pyproject.toml, so you do
 # NOT have to specify this line.
@@ -181,6 +182,7 @@ vermin = ">=1.5"
 yapf = ">=0.43"
 clang = "^20.1.5"
 cython = "^3.1.2"
+cython-lint = "^0.16.7"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
