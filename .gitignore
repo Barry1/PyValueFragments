@@ -9,3 +9,6 @@ valuefragments.egg-info/
 /typings/
 __pycache__
 megalinter-reports/
+src/**/*.c
+src/**/*.html
+src/**/*.cpython*

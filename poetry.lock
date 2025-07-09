@@ -585,6 +585,23 @@ files = [
 ]
 
 [[package]]
+name = "cython-lint"
+version = "0.16.7"
+description = "Lint Cython files"
+optional = false
+python-versions = ">=3.8"
+groups = ["dev"]
+files = [
+    {file = "cython_lint-0.16.7-py3-none-any.whl", hash = "sha256:b60207c60b66cb504949c9a754a623d41b5be9f5bf45b097066a91b746da2609"},
+    {file = "cython_lint-0.16.7.tar.gz", hash = "sha256:dea72b81fd7635733080c67f1c8258cff498a4ef5664e010f894585a7290d6ad"},
+]
+
+[package.dependencies]
+cython = ">=0.29.32"
+pycodestyle = "*"
+tokenize-rt = ">=3.2.0"
+
+[[package]]
 name = "darker"
 version = "2.1.1"
 description = "Apply Black formatting only in regions changed since last commit"
@@ -2842,6 +2859,18 @@ typeguard = "<3.0"
 build = ["black", "coverage", "coveralls", "flake8", "ipython", "isort (>=5.1,<6.0)", "mypy (==0.991)", "sphinx", "sphinx-autobuild", "sphinx-kr-theme", "twine"]
 
 [[package]]
+name = "tokenize-rt"
+version = "6.2.0"
+description = "A wrapper around the stdlib `tokenize` which roundtrips."
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "tokenize_rt-6.2.0-py2.py3-none-any.whl", hash = "sha256:a152bf4f249c847a66497a4a95f63376ed68ac6abf092a2f7cfb29d044ecff44"},
+    {file = "tokenize_rt-6.2.0.tar.gz", hash = "sha256:8439c042b330c553fdbe1758e4a05c0ed460dbbbb24a606f11f0dee75da4cad6"},
+]
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -3299,4 +3328,4 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "4fe8fd9be92c743e364f99957639e73994cea8a95fe4c13510356585fbc8382d"
+content-hash = "548eb262c32d0c8a0616db8bf7c8206cd9005183ca66df6abb4f2529e5744942"
