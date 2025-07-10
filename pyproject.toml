@@ -14,9 +14,10 @@ dependencies = [
   "requests",
   "typing-extensions",
   "cython",
-  "setuptools",
-  "wheel",
+  #  "setuptools",
+  #  "wheel",
 ]
+#include = ["src/valuefragments/*cpython*"]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
@@ -62,13 +63,18 @@ script = "scripts/build-cython.py"
 #[tool.setuptools.ext-modules]
 #name = "mathhelpers"
 #sources = ["src/valuefragments/mathhelpers.py"]
+[tool.poetry]
+include = [{ path = "src/**/*cpython*", format = "wheel" }]
+
+[tool.setuptools]
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 #mypkg = ["*.txt", "*.rst"]
-"*" = ["py.typed"]
+"*" = ["py.typed", "*cpython*"]
 
 [tool.ruff]
 line-length = 99
