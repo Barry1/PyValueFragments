@@ -117,7 +117,7 @@ def easybisect(  # pylint: disable=too-many-arguments
 
 
 @moduleexport
-def probneeds_rec(probs: list[float], needs: list[int], avails: None | float = None) -> float:
+def probneeds_rec(probs: list[float], needs: list[int], avails: None | int = None) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if (lenneeds := len(needs)) != (lenprobs := len(probs)):
         thelogger.error(
