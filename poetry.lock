@@ -2702,7 +2702,7 @@ version = "80.9.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.9"
-groups = ["main", "dev"]
+groups = ["dev"]
 files = [
     {file = "setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"},
     {file = "setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"},
@@ -3328,4 +3328,4 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "f2def8dae119be0b956eda6c2962bcf61f3c9bfe5bc3d769f487af50c42827da"
+content-hash = "60a4b0952eee1094ab8c0edceba789ac6404ad4e1a10173d055ea99cf48b4663"
