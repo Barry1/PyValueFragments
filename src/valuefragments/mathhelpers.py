@@ -5,13 +5,15 @@ from __future__ import annotations
 from logging import Logger, getLogger
 from math import log
 
-# import cython
-from cython import float, int
-
 from .moduletools import moduleexport
 from .valuetyping import Callable
 
 thelogger: Logger = getLogger(__name__)
+# import cython
+try:
+    from cython import float, int
+except ImportError:
+    thelogger.info("No cython here")
 # <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
 
