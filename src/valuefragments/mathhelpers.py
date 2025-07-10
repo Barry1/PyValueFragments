@@ -120,7 +120,9 @@ def easybisect(  # pylint: disable=too-many-arguments
 
 @moduleexport
 def probneeds_rec(
-    probs: list[cython.float], needs: list[cython.int], avails: None | cython.int = None
+    probs: list[cython.float],
+    needs: list[cython.int],
+    avails: cython.int | cython.float = 0,
 ) -> cython.float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if (lenneeds := len(needs)) != (lenprobs := len(probs)):
@@ -130,8 +132,8 @@ def probneeds_rec(
         raise ValueError("needs and probs must have the same length")
     if not needs:
         return 1
-    if avails is None:
-        avails = sum(n * p for n, p in zip(needs, probs))
+    if avails == 0:
+        avails = sum(p * n for n, p in zip(needs, probs))
         thelogger.debug("avails set to expectation value %f", avails)
     thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
     if lenneeds == 1:
@@ -146,12 +148,14 @@ def probneeds_rec(
 
 @moduleexport
 def probneeds(
-    probs: list[cython.float], needs: list[cython.int], avails: None | cython.int = None
+    probs: list[cython.float],
+    needs: list[cython.int],
+    avails: cython.int = 0,
 ) -> cython.float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
-    if avails is None:
+    if avails == 0:
         avails = sum(needs)
         thelogger.debug("avails set to overall need value %i", avails)
     stock: dict[cython.int, cython.float] = {avails: 1}
