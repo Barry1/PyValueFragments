@@ -19,7 +19,7 @@ lint:
     - actionlint@1.7.7
     - autopep8@2.3.2
     - black@25.1.0
-    - checkov@3.2.447
+    - checkov@3.2.450
     - flake8@7.3.0
     - git-diff-check
     - gitleaks@8.27.2

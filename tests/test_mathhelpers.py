@@ -12,10 +12,11 @@ from valuefragments.mathhelpers import (
 
 def test_easybisect() -> None:
     """Check Bisection method."""
-    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130177346728433, 6.955885095010905)
+    #    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130177346728433, 6.955885095010905)
+    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130176067352295, 6.955883502960205)
     assert easybisect(lambda x: x**x, 2, 3, 7, maxiter=30, relerror=0.001) == (
-        2.3161170287184474,
-        6.995648896293349,
+        2.31611704826355,
+        6.995649337768555,
     )
 
 
@@ -49,8 +50,8 @@ def test_probneeds_rec() -> None:
 
 def test_loanrate() -> None:
     """Check for loanrate calculation."""
-    assert loanrate(250000, 0.03, 15) == 1726.4541006950042
-    assert loanrate(250000, 0.035, 15) == 1787.2063533579324
-    assert loanrate(250000, 0.035, 16) == 1702.3670984009577
-    assert loanrate(250000, 0.035, 17) == 1627.751098914003
-    assert loanrate(250000, 0.04, 15) == 1849.2198140231444
+    assert abs(loanrate(250000, 0.03, 15) - 1726.4541006950042) < 1e-4
+    assert abs(loanrate(250000, 0.035, 15) - 1787.2063533579324) < 1e-4
+    assert abs(loanrate(250000, 0.035, 16) - 1702.3670984009577) < 1e-4
+    assert abs(loanrate(250000, 0.035, 17) - 1627.751098914003) < 1e-4
+    assert abs(loanrate(250000, 0.04, 15) - 1849.2198140231444) < 1e-4

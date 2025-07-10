@@ -5,7 +5,8 @@ from __future__ import annotations
 from logging import Logger, getLogger
 from math import log
 
-import cython
+# import cython
+from cython import float, int
 
 from .moduletools import moduleexport
 from .valuetyping import Callable
@@ -120,10 +121,10 @@ def easybisect(  # pylint: disable=too-many-arguments
 
 @moduleexport
 def probneeds_rec(
-    probs: list[cython.float],
-    needs: list[cython.int],
-    avails: cython.int | cython.float = 0,
-) -> cython.float:
+    probs: list[float],
+    needs: list[int],
+    avails: int | float = 0,
+) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if (lenneeds := len(needs)) != (lenprobs := len(probs)):
         thelogger.error(
@@ -148,19 +149,19 @@ def probneeds_rec(
 
 @moduleexport
 def probneeds(
-    probs: list[cython.float],
-    needs: list[cython.int],
-    avails: cython.int = 0,
-) -> cython.float:
+    probs: list[float],
+    needs: list[int],
+    avails: int = 0,
+) -> float:
     """Returns the probability for an available number beein sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
     if avails == 0:
         avails = sum(needs)
         thelogger.debug("avails set to overall need value %i", avails)
-    stock: dict[cython.int, cython.float] = {avails: 1}
+    stock: dict[int, float] = {avails: 1}
     for need, prob in zip(needs, probs):
-        stocktemp: dict[cython.int, cython.float] = {}
+        stocktemp: dict[int, float] = {}
         for stockcount, stockprob in stock.items():
             if stockcount - need >= 0:
                 stocktemp[stockcount - need] = (
