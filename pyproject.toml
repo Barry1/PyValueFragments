@@ -5,7 +5,7 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.5.19"
+version = "0.5.20"
 readme = "README.md"
 requires-python = ">=3.12,<4.0"                                                #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
