@@ -7,9 +7,16 @@ description = "Testing installation of Package"
 name = "valuefragments"
 version = "0.5.20"
 readme = "README.md"
-requires-python = ">=3.12,<4.0"                                                #">=3.12,<4.0"
+requires-python = ">=3.12,<4.0" #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
-dependencies = ["lxml", "requests", "typing-extensions", "cython"]
+dependencies = [
+  "lxml",
+  "requests",
+  "typing-extensions",
+  "cython",
+  "setuptools",
+  "wheel",
+]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
@@ -51,6 +58,11 @@ script = "scripts/build-cython.py"
 #packages = "find:"
 #package_dir = "src"
 #### explicitly not coverred
+
+#[tool.setuptools.ext-modules]
+#name = "mathhelpers"
+#sources = ["src/valuefragments/mathhelpers.py"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
