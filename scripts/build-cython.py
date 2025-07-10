@@ -12,12 +12,12 @@ from setuptools import setup
 
 def build() -> None:
     """Dummy Build function to run Cython."""
-    print("Before setup.")
     setup(
         name="valuefragments",
-        ext_modules=cythonize("src/valuefragments/mathhelpers.py"),  # , show_all_warnings=True),
+        # , show_all_warnings=True),
+        ext_modules=cythonize(module_list="src/valuefragments/mathhelpers.py"),
+        script_args=["build_ext", "--inplace"],
     )
-    print("After setup.")
 
 
 if __name__ == "__main__":
