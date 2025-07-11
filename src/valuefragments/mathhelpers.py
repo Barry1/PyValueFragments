@@ -6,14 +6,15 @@ from logging import Logger, getLogger
 from math import log
 
 from .moduletools import moduleexport
-from .valuetyping import Callable
+from .valuetyping import TYPE_CHECKING, Callable
 
 thelogger: Logger = getLogger(__name__)
-# import cython
-try:
-    from cython import float, int
-except ImportError:
-    thelogger.info("No cython here")
+if not TYPE_CHECKING:
+    # import cython
+    try:
+        from cython import float, int
+    except ImportError:
+        thelogger.info("No cython here")
 # <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
 
