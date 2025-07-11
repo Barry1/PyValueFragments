@@ -12,7 +12,7 @@ thelogger: Logger = getLogger(__name__)
 if not TYPE_CHECKING:
     # import cython
     try:
-        from cython import float, int
+        from cython import float, int  # pylint: disable=redefined-builtin
     except ImportError:
         thelogger.info("No cython here")
 # <https://stackoverflow.com/a/50928627>
