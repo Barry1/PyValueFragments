@@ -24,7 +24,17 @@ Repository = "https://github.com/Barry1/PyValueFragments"
 
 [project.optional-dependencies]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
+[tool.pyflow]
+name = "test"
+py_version = "3.13"
+version = "0.1.0"
+authors = ["Dr. Bastian Ebeling <>"]
 
+[tool.pyflow.scripts]
+
+[tool.pyflow.dependencies]
+
+[tool.pyflow.dev-dependencies]
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]
 env_list = ["py312", "py313", "py314-dev", "bastipytest"]

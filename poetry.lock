@@ -192,14 +192,14 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "basedpyright"
-version = "1.30.1"
+version = "1.31.0"
 description = "static type checking for Python (but based)"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "basedpyright-1.30.1-py3-none-any.whl", hash = "sha256:5afdf6e2ab94f098cd0004a4e3b198a5e176b8eb8e08049542729a7f5beb0dcd"},
-    {file = "basedpyright-1.30.1.tar.gz", hash = "sha256:fe33afd16200202fff4aa3f91ac2c2958af35461c801cb8bbff60ca29093a2cb"},
+    {file = "basedpyright-1.31.0-py3-none-any.whl", hash = "sha256:d7460ddcd3a2332b1c3fd738735d18bf2966d49aed67237efa1f19635199d414"},
+    {file = "basedpyright-1.31.0.tar.gz", hash = "sha256:900a573a525a0f66f884075c2a98711bb9478e44dc60ffdf182ef681bf8e2c76"},
 ]
 
 [package.dependencies]
@@ -2256,21 +2256,21 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyrefly"
-version = "0.24.0"
+version = "0.24.2"
 description = "A fast Python type checker written in Rust"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pyrefly-0.24.0-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:8c1b99186283b45e8340fec4f7309d8422a86ce283a3387fac37f3b3ad8af8d8"},
-    {file = "pyrefly-0.24.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:a104c4ccae40202d8166ec83d561109f934f51fecdb63b4979dafbdb869b1a59"},
-    {file = "pyrefly-0.24.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:31b9ed2d8fbff0065983e028f6b18d621b8e3cab7d198b4e3b3b1d70b04eb4c2"},
-    {file = "pyrefly-0.24.0-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:401484b9a9ff9aea37653956b1652a36c46192a26ab6b9a492bb0a5fccce92e9"},
-    {file = "pyrefly-0.24.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3732273f5cfa9655e73072b493246b6d834cc57a5180a63c159c08e5c4f0f21a"},
-    {file = "pyrefly-0.24.0-py3-none-win32.whl", hash = "sha256:1ae735394a5bc598085f5c7b410011d39d7ecd56c7b865d42d6125a5c26ab458"},
-    {file = "pyrefly-0.24.0-py3-none-win_amd64.whl", hash = "sha256:24a6e827b9cc8d74416030e193bd7a185d388529fd3e4460c9355a86db11e852"},
-    {file = "pyrefly-0.24.0-py3-none-win_arm64.whl", hash = "sha256:d34f6453d82efabf4cc24abda50039ea7b0fd52dbffc1d3108a5305d49018139"},
-    {file = "pyrefly-0.24.0.tar.gz", hash = "sha256:2db1ae4593b765bf67ee04990a08ddc5bd170f1772e09d93475757de63451c2a"},
+    {file = "pyrefly-0.24.2-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:7e6bd1b88ec53b3f1ce2ece844016d7e7f0848a77022857a7fa6674a49abcc13"},
+    {file = "pyrefly-0.24.2-py3-none-macosx_11_0_arm64.whl", hash = "sha256:83aa9013f2299dfc8ce11adec30a63be71528484c45e603375efe7496cb0538e"},
+    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3bf1689032b78f8f653244cd323ee1e06a0efb6192c4d7a415d1e85aedd37905"},
+    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8404b804a5a1bc4a54cc8e58bceacdf49d7221531843c068547241d8f476af24"},
+    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:14d09f166a46e43655ea812611887ca16a0c54386296f4c9333f3f5fc7236709"},
+    {file = "pyrefly-0.24.2-py3-none-win32.whl", hash = "sha256:6c602df48dcfa3240f9076c7d1e9cf9dc2d94c90ee5b4c6745f3734125a2cf3a"},
+    {file = "pyrefly-0.24.2-py3-none-win_amd64.whl", hash = "sha256:9ed4690716eb47077082d4e99624e0a1165b9ac93300c8d823f42cae12ec1ef4"},
+    {file = "pyrefly-0.24.2-py3-none-win_arm64.whl", hash = "sha256:96ba49c02f374d716b8674409aa653093dad5263cf4e429a1d5ec603064db715"},
+    {file = "pyrefly-0.24.2.tar.gz", hash = "sha256:671b9933c2a3f646983de68bc0422736f7ce364c4f645f742559423b0b9b5150"},
 ]
 
 [[package]]
@@ -2296,14 +2296,14 @@ nodejs = ["nodejs-wheel-binaries"]
 
 [[package]]
 name = "pyroma"
-version = "4.3.3"
+version = "5.0"
 description = "Test your project's packaging friendliness"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "pyroma-4.3.3-py3-none-any.whl", hash = "sha256:6b3e0aca92450914b240c1905b1030fa51446a1dbdf186fea055a778da506155"},
-    {file = "pyroma-4.3.3.tar.gz", hash = "sha256:62c6af3a8da038e924644dd9c0b5da5f720818c67d914eb48bbfa3ce3d95439b"},
+    {file = "pyroma-5.0-py3-none-any.whl", hash = "sha256:dabe6ad75e362b56ba189982510fd928ca8aecb8cb21ee18e927c2acf6dbf167"},
+    {file = "pyroma-5.0.tar.gz", hash = "sha256:20b28f5ad08d2588618ac3a2f0a7ba7a4febe6aa514963e4211cfa6d2ad81eb5"},
 ]
 
 [package.dependencies]
@@ -2312,11 +2312,11 @@ docutils = "*"
 packaging = "*"
 pygments = "*"
 requests = "*"
-setuptools = ">=42"
+setuptools = ">=61"
 trove-classifiers = ">=2022.6.26"
 
 [package.extras]
-test = ["pytest", "setuptools (>=60)", "zest.releaser[recommended]"]
+test = ["flit-core (>=3.4,<4)", "pytest", "setuptools (>=60)", "zest.releaser[recommended]"]
 
 [[package]]
 name = "pysocks"
@@ -2355,14 +2355,14 @@ dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "requests
 
 [[package]]
 name = "pytest-asyncio"
-version = "1.0.0"
+version = "1.1.0"
 description = "Pytest support for asyncio"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "pytest_asyncio-1.0.0-py3-none-any.whl", hash = "sha256:4f024da9f1ef945e680dc68610b52550e36590a67fd31bb3b4943979a1f90ef3"},
-    {file = "pytest_asyncio-1.0.0.tar.gz", hash = "sha256:d15463d13f4456e1ead2594520216b225a16f781e144f8fdf6c5bb4667c48b3f"},
+    {file = "pytest_asyncio-1.1.0-py3-none-any.whl", hash = "sha256:5fe2d69607b0bd75c656d1211f969cadba035030156745ee09e7d71740e58ecf"},
+    {file = "pytest_asyncio-1.1.0.tar.gz", hash = "sha256:796aa822981e01b68c12e4827b8697108f7205020f24b5793b3c41555dab68ea"},
 ]
 
 [package.dependencies]
@@ -3125,18 +3125,18 @@ urllib3 = ">=2"
 
 [[package]]
 name = "typeshed-client"
-version = "2.7.0"
+version = "2.8.2"
 description = "A library for accessing stubs in typeshed."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "typeshed_client-2.7.0-py3-none-any.whl", hash = "sha256:97084e5abc58a76ace2c4618ecaebd625f2d19bbd85aa1b3fb86216bf174bbea"},
-    {file = "typeshed_client-2.7.0.tar.gz", hash = "sha256:e63df1e738588ad39f1226de042f4407ab6a99c456f0837063afd83b1415447c"},
+    {file = "typeshed_client-2.8.2-py3-none-any.whl", hash = "sha256:4cf886d976c777689cd31889f13abf5bfb7797c82519b07e5969e541380c75ee"},
+    {file = "typeshed_client-2.8.2.tar.gz", hash = "sha256:9d8e29fb74574d87bf9a719f77131dc40f2aeea20e97d25d4a3dc2cc30debd31"},
 ]
 
 [package.dependencies]
-importlib-resources = ">=1.4.0"
+importlib_resources = ">=1.4.0"
 typing-extensions = ">=4.5.0"
 
 [[package]]
