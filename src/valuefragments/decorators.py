@@ -380,7 +380,9 @@ if os.name == "posix":
                     sys_time,
                     "[s]",
                 )
-                print(f"real: {wall_time:.3} [s]\t {(user_time + sys_time) / wall_time} % load")
+                print(
+                    f"real: {wall_time:.3} [s]\t {100 * (user_time + sys_time) / wall_time} % load"
+                )
             return retval
 
         return wrapped
