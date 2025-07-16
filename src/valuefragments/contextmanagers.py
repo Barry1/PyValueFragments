@@ -137,7 +137,14 @@ class NoOutput(TextIO):
 __all__.append("NoOutput")
 
 
+def _printwallsummary(user_time: float, sys_time: float, wall_time: float) -> None:
+    """Summarize Usage by User, Sys and Wall time."""
+    print("real: ", wall_time, "[s] beeing", 100 * (user_time + sys_time) / wall_time, "% load")
+
+
 # @moduleexport
+
+
 class LinuxTimeCM:
     """
     Use this as a context manager for getting timing details like with linux time.
@@ -201,13 +208,7 @@ class LinuxTimeCM:
                 sys_time,
                 "[s]",
             )
-            print(
-                "Real: ",
-                wall_time,
-                "[s] beeing",
-                100 * (user_time + sys_time) / wall_time,
-                "% load",
-            )
+            _printwallsummary(user_time, sys_time, wall_time)
         ic("Ended to run with Timing -> __exit__")
         return True
 
@@ -300,13 +301,7 @@ else:
                     sys_time,
                     "[s]",
                 )
-                print(
-                    "real: ",
-                    wall_time,
-                    "[s] beeing",
-                    100 * (user_time + sys_time) / wall_time,
-                    "% load",
-                )
+                _printwallsummary(user_time, sys_time, wall_time)
             ic("Ended to run with Timing -> __exit__")
             return True
 
