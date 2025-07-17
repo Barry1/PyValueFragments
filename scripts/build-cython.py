@@ -16,7 +16,6 @@ def build() -> None:
     """Dummy Build function to run Cython."""
     setup(
         name="valuefragments",
-        # , show_all_warnings=True),
         ext_modules=cythonize(
             module_list="src/valuefragments/mathhelpers.py",
             exclude_failures=True,
