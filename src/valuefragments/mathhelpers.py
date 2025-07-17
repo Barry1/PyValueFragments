@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from logging import Logger, getLogger
 from math import log
 
@@ -151,6 +152,34 @@ def probneeds_rec(
 
 
 @moduleexport
+def add_dict(
+    dict1: dict[int, float],
+    dict2: dict[int, float],
+) -> dict[int, float]:
+    """Adds two dictionaries with int keys and float values."""
+    result: dict[int, float] = {}
+    for key in set(dict1.keys()).union(dict2.keys()):
+        result[key] = dict1.get(key, 0) + dict2.get(key, 0)
+    return result
+
+
+@moduleexport
+def probneeds_new(probs: list[float], needs: list[int], avails: int = 0) -> dict[int, float]:
+    """Returns the probability for an available number beein sufficient for bernoulli cases."""
+    resultdict: dict[int, float] = {0: 1 - probs[0], needs[0]: probs[0]}
+    for need, theprob in zip(needs[1:], probs[1:]):
+        resultdict = add_dict(
+            {count: prob * (1 - theprob) for count, prob in resultdict.items()},
+            {count + need: prob * theprob for count, prob in resultdict.items()},
+        )
+    thelogger.debug(resultdict)
+    return sum([prob for count, prob in resultdict.items() if count <= avails])
+
+
+# it differs ([.8,.3,.4,.5,.6]*2,[7,5,1,2,3]*2,170)
+
+
+@moduleexport
 def probneeds(
     probs: list[float],
     needs: list[int],
@@ -173,9 +202,10 @@ def probneeds(
             stocktemp[stockcount] = stocktemp.get(stockcount, 0) + stockprob * (1 - prob)
         stock = stocktemp
     thelogger.debug(stock)
+    availprob = sum(stock.values())
     thelogger.info(
         "%i will be sufficient in %f%% of all cases",
         avails,
-        (availprob := sum(stock.values())) * 100,
+        (availprob) * 100,
     )
     return availprob
