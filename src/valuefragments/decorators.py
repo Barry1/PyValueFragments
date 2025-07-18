@@ -13,6 +13,7 @@ from types import FunctionType  # , CoroutineType
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (  # pylint: disable=relative-beyond-top-level
     ic,
+    print_time_result,
     thread_native_id_filter,
 )
 from .moduletools import moduleexport
@@ -198,17 +199,6 @@ def timing_wall[**_fun_param_type, _FunCallResultT](
         return retval
 
     return wrapped  # cast(FunctionTypeVar, wrapped)
-
-
-def print_time_result(wall: float, user: float, system: float) -> None:
-    """Print Time Result."""
-    print(
-        f"{wall:8.3f} [s]",
-        f"(User: {user:8.3f} [s]",
-        "System: {system:8.3f} [s])",
-        f"{100 * (user + system) / wall:6.2f}% Load",
-        sep="\t",
-    )
 
 
 @moduleexport

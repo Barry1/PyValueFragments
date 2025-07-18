@@ -10,7 +10,7 @@ from typing import AnyStr, BinaryIO, Iterable, Optional, TextIO
 
 from typing_extensions import Literal, Type
 
-from .helpers import closeifrunningloky, ic
+from .helpers import closeifrunningloky, ic, print_time_result
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 
@@ -137,14 +137,6 @@ class NoOutput(TextIO):
 __all__.append("NoOutput")
 
 
-def _printwallsummary(user_time: float, sys_time: float, wall_time: float) -> None:
-    """Summarize Usage by User, Sys and Wall time."""
-    print("real: ", wall_time, "[s] beeing", 100 * (user_time + sys_time) / wall_time, "% load")
-
-
-# @moduleexport
-
-
 class LinuxTimeCM:
     """
     Use this as a context manager for getting timing details like with linux time.
@@ -177,38 +169,17 @@ class LinuxTimeCM:
         closeifrunningloky()
         self.after = os.times()
         if self.before and self.after:
-            wall_time: float = self.after.elapsed - self.before.elapsed
-            user_time: float = (
-                self.after.user
+            print_time_result(
+                wall=self.after.elapsed - self.before.elapsed,
+                user=self.after.user
                 - self.before.user
                 + self.after.children_user
-                - self.before.children_user
-            )
-            sys_time: float = (
-                self.after.system
+                - self.before.children_user,
+                system=self.after.system
                 - self.before.system
                 + self.after.children_system
-                - self.before.children_system
+                - self.before.children_system,
             )
-            print(
-                "User: ",
-                self.after.user - self.before.user,
-                "+",
-                self.after.children_user - self.before.children_user,
-                "=",
-                user_time,
-                "[s]",
-            )
-            print(
-                "System: ",
-                self.after.system - self.before.system,
-                "+",
-                self.after.children_system - self.before.children_system,
-                "=",
-                sys_time,
-                "[s]",
-            )
-            _printwallsummary(user_time, sys_time, wall_time)
         ic("Ended to run with Timing -> __exit__")
         return True
 
@@ -270,38 +241,17 @@ else:
                     self.after,
                 )
             ):
-                wall_time: float = self.after - self.before
-                user_time: float = (
-                    self.selfafter.ru_utime
+                print_time_result(
+                    wall=self.after - self.before,
+                    user=self.selfafter.ru_utime
                     - self.selfbefore.ru_utime
                     + self.childafter.ru_utime
-                    - self.childbefore.ru_utime
-                )
-                sys_time: float = (
-                    self.selfafter.ru_stime
+                    - self.childbefore.ru_utime,
+                    system=self.selfafter.ru_stime
                     - self.selfbefore.ru_stime
                     + self.childafter.ru_stime
-                    - self.childbefore.ru_stime
+                    - self.childbefore.ru_stime,
                 )
-                print(
-                    "user: ",
-                    self.selfafter.ru_utime - self.selfbefore.ru_utime,
-                    "+",
-                    self.childafter.ru_utime - self.childbefore.ru_utime,
-                    "=",
-                    user_time,
-                    "[s]",
-                )
-                print(
-                    "system",
-                    self.selfafter.ru_stime - self.selfbefore.ru_stime,
-                    "+",
-                    self.childafter.ru_stime - self.childbefore.ru_stime,
-                    "=",
-                    sys_time,
-                    "[s]",
-                )
-                _printwallsummary(user_time, sys_time, wall_time)
             ic("Ended to run with Timing -> __exit__")
             return True
 
