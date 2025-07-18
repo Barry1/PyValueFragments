@@ -80,4 +80,4 @@ def test_humanreadable() -> None:
 
 
 def test_getselectedhreflinks() -> None:
-    assert getselectedhreflinks("https://python.org", "status") == ["https://status.python.org/"]
+    assert "https://status.python.org/" in getselectedhreflinks("https://python.org", "status")

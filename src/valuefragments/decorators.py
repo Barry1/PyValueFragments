@@ -263,11 +263,11 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
         retval: _FunCallResultT = func(*args, **kwargs)
         after: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
         if before and after:
-            wall_diff = (after[0] - before[0]) / 1e9
-            user_diff = (
+            wall_diff: float = (after[0] - before[0]) / 1e9
+            user_diff: float = (
                 after[1].user - before[1].user + after[1].children_user - before[1].children_user
             )
-            system_diff = (
+            system_diff: float = (
                 after[1].system
                 - before[1].system
                 + after[1].children_system

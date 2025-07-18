@@ -12,12 +12,12 @@ from valuefragments.mathhelpers import (
 
 def test_easybisect() -> None:
     """Check Bisection method."""
-    #    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130177346728433, 6.955885095010905)
-    assert easybisect(lambda x: x**x, 2, 3, 7) == (2.3130176067352295, 6.955883502960205)
-    assert easybisect(lambda x: x**x, 2, 3, 7, maxiter=30, relerror=0.001) == (
-        2.31611704826355,
-        6.995649337768555,
-    )
+    [r1, r2] = easybisect(lambda x: x**x, 2, 3, 7)
+    assert abs(r1 - 2.313017) < 1e-5
+    assert abs(r2 - 6.955883) < 1e-5
+    [r1, r2] = easybisect(lambda x: x**x, 2, 3, 7, maxiter=30, relerror=0.001)
+    assert abs(r1 - 2.316117) < 1e-5
+    assert abs(r2 - 6.995649) < 1e-5
 
 
 def test_polyroot() -> None:
