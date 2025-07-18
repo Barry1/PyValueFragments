@@ -110,8 +110,8 @@ def pi_for_cpu_load(
     n_all: int = 0
     n_in: int = 0
     for _ in range(numiter):
-        _x: float = random.uniform(0, 1)
-        _y: float = random.uniform(0, 1)
+        _x: float = random.uniform(0, 1)  # nosec: B311
+        _y: float = random.uniform(0, 1)  # nosec: B311
         n_all += 1
         if _x**2 + _y**2 < 1:
             n_in += 1

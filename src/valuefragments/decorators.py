@@ -200,6 +200,17 @@ def timing_wall[**_fun_param_type, _FunCallResultT](
     return wrapped  # cast(FunctionTypeVar, wrapped)
 
 
+def print_time_result(wall: float, user: float, system: float) -> None:
+    """Print Time Result."""
+    print(
+        f"{wall:8.3f} [s]",
+        f"(User: {user:8.3f} [s]",
+        "System: {system:8.3f} [s])",
+        f"{100 * (user + system) / wall:6.2f}% Load",
+        sep="\t",
+    )
+
+
 @moduleexport
 def portable_timing[**_fun_param_type, _FunCallResultT](
     func: (
@@ -237,11 +248,7 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
                     - before[1].children_system
                 )
                 print(f"{func.__name__:10} {args} {kwargs}")
-                print(
-                    f"{wall_diff:8.3f} [s]",
-                    f"\t(User: {user_diff:8.3f} [s],\tSystem: {system_diff:8.3f} [s])",
-                    f"{100 * (user_diff + system_diff) / wall_diff:6.2f}% Load",
-                )
+                print_time_result(wall_diff, user_diff, system_diff)
             return retval
 
         return awrapped
@@ -267,11 +274,7 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
                 - before[1].children_system
             )
             print(f"{func.__name__:10} {args} {kwargs}")
-            print(
-                f"{wall_diff:8.3f} [s]",
-                f"\t(User: {user_diff:8.3f} [s],\tSystem {system_diff:8.3f} [s])",
-                f"{100 * (user_diff + system_diff) / wall_diff:6.2f}% Load",
-            )
+            print_time_result(wall_diff, user_diff, system_diff)
         return retval
 
     return wrapped

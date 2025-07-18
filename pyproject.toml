@@ -224,6 +224,10 @@ version = "^1"
 version = "*"
 extras = ["colors"]
 
+[tool.bandit.assert_used]
+skips = ["tests/*.py"]
+
+
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
