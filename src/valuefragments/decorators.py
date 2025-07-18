@@ -287,32 +287,14 @@ def linuxtime[**_fun_param_type, _FunCallResultT](
         after: os.times_result = os.times()
         if before and after:
             print("time function\t", func.__name__)
-            wall_time: float = after.elapsed - before.elapsed
-            user_time: float = (
-                after.user - before.user + after.children_user - before.children_user
+            print_time_result(
+                wall=after.elapsed - before.elapsed,
+                user=after.user - before.user + after.children_user - before.children_user,
+                system=after.system
+                - before.system
+                + after.children_system
+                - before.children_system,
             )
-            sys_time: float = (
-                after.system - before.system + after.children_system - before.children_system
-            )
-            print(
-                "user: ",
-                after.user - before.user,
-                "+",
-                after.children_user - before.children_user,
-                "=",
-                user_time,
-                "[s]",
-            )
-            print(
-                "system",
-                after.system - before.system,
-                "+",
-                after.children_system - before.children_system,
-                "=",
-                sys_time,
-                "[s]",
-            )
-            print(f"real: {wall_time:.3} [s]\t {(user_time + sys_time) / wall_time} % load")
         return retval
 
     return wrapped
@@ -342,39 +324,16 @@ if os.name == "posix":
             after: float | Literal[0] = time.monotonic()
             if all((childbefore, selfbefore, selfafter, childafter, before, after)):
                 print("time function\t", func.__name__)
-                wall_time: float = after - before
-                user_time: float = (
-                    selfafter.ru_utime
+                print_time_result(
+                    wall=after - before,
+                    user=selfafter.ru_utime
                     - selfbefore.ru_utime
                     + childafter.ru_utime
-                    - childbefore.ru_utime
-                )
-                sys_time: float = (
-                    selfafter.ru_stime
+                    - childbefore.ru_utime,
+                    system=selfafter.ru_stime
                     - selfbefore.ru_stime
                     + childafter.ru_stime
-                    - childbefore.ru_stime
-                )
-                print(
-                    "user: ",
-                    selfafter.ru_utime - selfbefore.ru_utime,
-                    "+",
-                    childafter.ru_utime - childbefore.ru_utime,
-                    "=",
-                    user_time,
-                    "[s]",
-                )
-                print(
-                    "system",
-                    selfafter.ru_stime - selfbefore.ru_stime,
-                    "+",
-                    childafter.ru_stime - childbefore.ru_stime,
-                    "=",
-                    sys_time,
-                    "[s]",
-                )
-                print(
-                    f"real: {wall_time:.3} [s]\t {100 * (user_time + sys_time) / wall_time} % load"
+                    - childbefore.ru_stime,
                 )
             return retval
 
