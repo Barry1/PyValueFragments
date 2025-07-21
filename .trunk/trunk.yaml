@@ -22,16 +22,16 @@ lint:
     - checkov@3.2.451
     - flake8@7.3.0
     - git-diff-check
-    - gitleaks@8.27.2
+    - gitleaks@8.28.0
     - isort@6.0.1
     - markdownlint@0.45.0
     - mypy@1.17.0
     - osv-scanner@2.0.3
     - prettier@3.6.2
-    - ruff@0.12.3
+    - ruff@0.12.4
     - taplo@0.9.3
     - trivy@0.64.1
-    - trufflehog@3.90.0
+    - trufflehog@3.90.1
     - yamllint@1.37.1
 runtimes:
   enabled:
