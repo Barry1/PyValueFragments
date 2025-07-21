@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Never, Self
+from typing import Self
 
 __all__: list[str] = []
 import asyncio
