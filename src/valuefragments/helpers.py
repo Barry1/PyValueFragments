@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Self
+from typing import Never, Self
 
 __all__: list[str] = []
 import asyncio
@@ -141,8 +141,10 @@ def basic_auth(
 class HumanReadAble(int):
     """int like with print in human-readable scales."""
 
+    __slots__: tuple[()] = ()
     # <https://pypi.python.org/pypi/humanize>
     # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
+
     def __new__(
         cls,
         __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
