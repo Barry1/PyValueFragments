@@ -4,6 +4,22 @@ from __future__ import annotations
 
 from typing import Self
 
+import requests
+
+from .moduletools import moduleexport
+from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
+    IO,
+    TYPE_CHECKING,
+    Callable,
+    Generator,
+    Literal,
+    Protocol,
+    SupportsIndex,
+    SupportsInt,
+    TypedDict,
+    reveal_type,
+)
+
 __all__: list[str] = []
 import asyncio
 import concurrent.futures
@@ -19,29 +35,17 @@ from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
 
-import requests
+fromstring = __import__(name="lxml.html", fromlist="fromstring").fromstring
 
 # noinspection PyProtectedMember
 # pylint: disable-next=no-name-in-module
 # pyright: ignore[reportAttributeAccessIssue,reportUnknownVariableType]
-from lxml.html import fromstring
+# from lxml.html import fromstring
+
 
 # https://docs.python.org/3/library/__future__.html
 # https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
 # found on https://stackoverflow.com/a/14981125
-from .moduletools import moduleexport
-from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
-    IO,
-    TYPE_CHECKING,
-    Callable,
-    Generator,
-    Literal,
-    Protocol,
-    SupportsIndex,
-    SupportsInt,
-    TypedDict,
-    reveal_type,
-)
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
@@ -97,7 +101,7 @@ def filecache[_FunCallResultT](
 @moduleexport
 def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
-    setattr(record, "thread_native", __import__("threading").get_native_id())
+    setattr(record, "thread_native", __import__(name="threading").get_native_id())
     return True
 
 
@@ -134,14 +138,17 @@ def basic_auth(
     """Build String for Basic AUTH."""
     # Authorization token: we need to base 64 encode (utf-8) it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + __import__("base64").b64encode(f"{user}:{passw}".encode()).decode("ascii")
+    return "Basic " + __import__(name="base64").b64encode(f"{user}:{passw}".encode()).decode(
+        "ascii"
+    )
 
 
 @moduleexport
 class HumanReadAble(int):
     """int like with print in human-readable scales."""
 
-    __slots__: tuple[()] = ()
+    # __slots__: dict[str, str]={"unit":"the base unit", "scaler":"the scaling integer"}
+    # HumanReadAble is a subclass of int, __slots__ not allowed
     # <https://pypi.python.org/pypi/humanize>
     # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
 
@@ -204,10 +211,12 @@ KwargsForPrint = TypedDict(
 def closeifrunningloky() -> None:
     """Check if any (loky) backend is still open and if, close."""
     try:
+        # OLD
         # pylint: disable=import-outside-toplevel
-        from joblib.externals.loky.reusable_executor import (
-            get_reusable_executor,  # type: ignore
-        )
+        # from joblib.externals.loky.reusable_executor import get_reusable_executor
+        get_reusable_executor = __import__(
+            "joblib.externals.loky.reusable_executor", fromlist=["get_reusable_executor"]
+        ).get_reusable_executor
     except ModuleNotFoundError:
         pass
     else:
@@ -298,8 +307,8 @@ def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
 
 
 try:
-    # noinspection PyUnresolvedReferences
-    from cpu_load_generator import load_all_cores, load_single_core
+    cpu_load_generator: ModuleType = __import__(name="cpu_load_generator")
+    # from cpu_load_generator import load_all_cores, load_single_core
 except ImportError:
     pass
 else:
@@ -307,7 +316,7 @@ else:
     @moduleexport
     def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
         """Generate load on one given core."""
-        load_single_core(
+        cpu_load_generator.load_single_core(
             core_num=loadedcore,
             duration_s=loadduration,
             target_load=theload,
@@ -316,7 +325,7 @@ else:
     @moduleexport
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        load_all_cores(duration_s=loadduration, target_load=theload)
+        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
 
 
 @moduleexport
