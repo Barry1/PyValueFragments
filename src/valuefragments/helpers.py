@@ -2,25 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Self
-
-import requests
-
-from .moduletools import moduleexport
-from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
-    IO,
-    TYPE_CHECKING,
-    Callable,
-    Generator,
-    Literal,
-    Protocol,
-    SupportsIndex,
-    SupportsInt,
-    TypedDict,
-    reveal_type,
-)
-
-__all__: list[str] = []
 import asyncio
 import concurrent.futures
 import hashlib
@@ -35,7 +16,25 @@ from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
 
+import requests
+
+from .moduletools import moduleexport
+from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
+    IO,
+    TYPE_CHECKING,
+    Callable,
+    Generator,
+    Literal,
+    Protocol,
+    Self,
+    SupportsIndex,
+    SupportsInt,
+    TypedDict,
+    reveal_type,
+)
+
 fromstring = __import__(name="lxml.html", fromlist="fromstring").fromstring
+__all__: list[str] = []
 
 # noinspection PyProtectedMember
 # pylint: disable-next=no-name-in-module
