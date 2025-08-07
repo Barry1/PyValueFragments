@@ -72,7 +72,9 @@ def int2bin(number: int, digits: int) -> str:
 
 
 @moduleexport
-def file_exists_current(filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7) -> bool:
+def file_exists_current(
+    filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7
+) -> bool:
     """Check if given file exists and is not older than max_age_seconds."""
     return (
         os.path.exists(filepathname)
@@ -99,13 +101,16 @@ def filecache[_FunCallResultT](
 @moduleexport
 def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
-    setattr(record, "thread_native", __import__(name="threading").get_native_id())
+    setattr(
+        record, "thread_native", __import__(name="threading").get_native_id()
+    )
     return True
 
 
 @moduleexport
 def pi_for_cpu_load(
-    numiter: int = 10**7, theseed: None | int | float | str | bytes | bytearray = None
+    numiter: int = 10**7,
+    theseed: None | int | float | str | bytes | bytearray = None,
 ) -> float:
     """Calculate pi by simulation just for CPU-load."""
     random.seed(theseed)
@@ -136,9 +141,9 @@ def basic_auth(
     """Build String for Basic AUTH."""
     # Authorization token: we need to base 64 encode (utf-8) it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + __import__(name="base64").b64encode(f"{user}:{passw}".encode()).decode(
-        "ascii"
-    )
+    return "Basic " + __import__(name="base64").b64encode(
+        f"{user}:{passw}".encode()
+    ).decode("ascii")
 
 
 @moduleexport
@@ -152,7 +157,9 @@ class HumanReadAble(int):
 
     def __new__(
         cls,
-        __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x: (
+            ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc
+        ),
         __baseunit: str = "B",
     ) -> Self:
         """Build an int object by the super class."""
@@ -160,14 +167,18 @@ class HumanReadAble(int):
 
     def __init__(
         self,
-        __x: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x: (
+            str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+        ),
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
         self.unit: str = __baseunit
         #        self.scaler: int = math.floor(math.log2(self) / 10)
         #        self.scaler: int = math.floor(math.log10(self) / 3)
-        self.scaler: int = 1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
+        self.scaler: int = (
+            1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
+        )
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
@@ -206,7 +217,8 @@ def closeifrunningloky() -> None:
         # pylint: disable=import-outside-toplevel
         # from joblib.externals.loky.reusable_executor import get_reusable_executor
         get_reusable_executor = __import__(
-            "joblib.externals.loky.reusable_executor", fromlist=["get_reusable_executor"]
+            "joblib.externals.loky.reusable_executor",
+            fromlist=["get_reusable_executor"],
         ).get_reusable_executor
     except ModuleNotFoundError:
         pass
@@ -219,7 +231,9 @@ async def to_inner_task[_FunCallResultT](
     the_executor: concurrent.futures.Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
-    return await asyncio.get_running_loop().run_in_executor(executor=the_executor, func=funcall)
+    return await asyncio.get_running_loop().run_in_executor(
+        executor=the_executor, func=funcall
+    )
 
 
 @moduleexport
@@ -274,7 +288,9 @@ else:
         if psutil.WINDOWS:
             try:
                 # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
-                psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
+                psutil.Process().nice(
+                    0x00100000
+                )  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
@@ -305,7 +321,9 @@ except ImportError:
 else:
 
     @moduleexport
-    def loadonecore(loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5) -> None:
+    def loadonecore(
+        loadduration: int = 10, loadedcore: int = 0, theload: float = 0.5
+    ) -> None:
         """Generate load on one given core."""
         cpu_load_generator.load_single_core(
             core_num=loadedcore,
@@ -316,7 +334,9 @@ else:
     @moduleexport
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
+        cpu_load_generator.load_all_cores(
+            duration_s=loadduration, target_load=theload
+        )
 
 
 @moduleexport
@@ -326,7 +346,9 @@ def stringtovalidfilename(inputstring: str) -> str:
     easy solution by exclusion of maybe strange or forbidden characters
     <https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#:~:text=Use%20any%20character,does%20not%20allow.>
     """
-    return "".join(thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$')
+    return "".join(
+        thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$'
+    )
 
 
 @moduleexport
@@ -361,7 +383,9 @@ if sys.version_info >= (3, 11):
                 with concurrent.futures.ProcessPoolExecutor() as executor:
                     async with asyncio.TaskGroup() as the_task_group:
                         all_tasks = [
-                            the_task_group.create_task(to_inner_task(funcall, executor))
+                            the_task_group.create_task(
+                                to_inner_task(funcall, executor)
+                            )
                             for funcall in the_functioncalls
                         ]
                 return [ready_task.result() for ready_task in all_tasks]
@@ -369,14 +393,22 @@ if sys.version_info >= (3, 11):
                 with concurrent.futures.ThreadPoolExecutor() as executor:
                     async with asyncio.TaskGroup() as the_task_group:
                         all_tasks = [
-                            the_task_group.create_task(to_inner_task(funcall, executor))
+                            the_task_group.create_task(
+                                to_inner_task(funcall, executor)
+                            )
                             for funcall in the_functioncalls
                         ]
                 return [ready_task.result() for ready_task in all_tasks]
             case _:  # pyright: ignore[reportUnnecessaryComparison]
-                print("how was '", how, "' but needs to be one of {'thread','tpe','ppe'}.")
+                print(
+                    "how was '",
+                    how,
+                    "' but needs to be one of {'thread','tpe','ppe'}.",
+                )
                 raise NotImplementedError(
-                    "how was '", how, "' but needs to be one of {'thread','tpe','ppe'}."
+                    "how was '",
+                    how,
+                    "' but needs to be one of {'thread','tpe','ppe'}.",
                 )
 
 
@@ -389,7 +421,9 @@ def getselectedhreflinks(
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
-        thesourcehtml: requests.Response = requests.get(url=thebaseurl, timeout=thetimeout)
+        thesourcehtml: requests.Response = requests.get(
+            url=thebaseurl, timeout=thetimeout
+        )
     except requests.exceptions.Timeout:
         thelogger.error("timeout exception while fetching %s", thebaseurl)
         return []

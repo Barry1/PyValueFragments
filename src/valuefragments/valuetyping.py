@@ -6,10 +6,12 @@ from typing import *  # pyright: ignore[reportWildcardImportFromLibrary] # noqa:
 from typing_extensions import *  # type: ignore[no-redef,assignment] # noqa: F401, F403
 
 
-class KwargsForPrint(TypedDict, total=False):
+class KwargsForPrint(TypedDict, total=False):  # noqa: F405
+    """Class for Type Checking Kwargs 2 Print"""
+
     sep: str
     end: str
-    file: IO[str]
+    file: IO[str]  # noqa: F405
     flush: bool
 
 

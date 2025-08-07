@@ -18,7 +18,9 @@ def moduleexport[_FunCallResultT, **_fun_param_t](
 ) -> Callable[_fun_param_t, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
-    module: ModuleType = __import__(name="sys").modules[class_or_function.__module__]
+    module: ModuleType = __import__(name="sys").modules[
+        class_or_function.__module__
+    ]
     if hasattr(module, "__all__"):
         if class_or_function.__name__ not in module.__all__:
             module.__all__.append(class_or_function.__name__)

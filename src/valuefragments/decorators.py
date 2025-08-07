@@ -83,7 +83,9 @@ def logdecorate[T, **param](
 
     def setuplogger(funcname: str) -> logging.Logger:
         """Set up a new Logger for my needs"""
-        thenewlogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
+        thenewlogger: logging.Logger = logging.getLogger(
+            f"logdecorate.{funcname}"
+        )
         the_format: str = "|".join(
             [
                 "%(asctime)s",
@@ -99,7 +101,9 @@ def logdecorate[T, **param](
             ]
         )
         logformatter: logging.Formatter = logging.Formatter(the_format)
-        logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
+        logfilehandler: logging.FileHandler = logging.FileHandler(
+            "decorated.log"
+        )
         logfilehandler.setFormatter(logformatter)
         logfilehandler.addFilter(thread_native_id_filter)
         thenewlogger.addHandler(logfilehandler)
@@ -107,12 +111,16 @@ def logdecorate[T, **param](
         return thenewlogger
 
     def logtiminglines(
-        begintimings: os.times_result, endtimings: os.times_result, theloggertouse: logging.Logger
+        begintimings: os.times_result,
+        endtimings: os.times_result,
+        theloggertouse: logging.Logger,
     ) -> None:
         """log details from timings"""
         title_line_format: str = "%11.11s|" * 5 + "%8.8s|"
         info_line_format: str = "%7.2f [s]|" * 5 + "%7.2f%%|"
-        timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
+        timingdiffs: tuple[float, ...] = tuple(
+            b - a for (a, b) in zip(begintimings, endtimings)
+        )
         theloggertouse.info(
             title_line_format,
             "user",
@@ -125,7 +133,11 @@ def logdecorate[T, **param](
         theloggertouse.info(
             info_line_format,
             *timingdiffs,
-            100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0,
+            (
+                100 * sum(timingdiffs[:4]) / timingdiffs[4]
+                if timingdiffs[4]
+                else 0
+            ),
         )
 
     # https://docs.python.org/3/library/logging.html#levels
@@ -151,7 +163,9 @@ def logdecorate[T, **param](
             # Post-Execution
             endtimings: os.times_result = os.times()
             logtiminglines(
-                begintimings=begintimings, endtimings=endtimings, theloggertouse=thelogger
+                begintimings=begintimings,
+                endtimings=endtimings,
+                theloggertouse=thelogger,
             )
             thelogger.debug(msg="LogDecorated ASYNC End")
             return res
@@ -159,7 +173,9 @@ def logdecorate[T, **param](
         return awrapped
     assert_type(func, Callable[param, T])
     # assert isinstance(func, Callable[param, T])
-    thelogger.debug("%s is a synchronous function (no coro): %s", func, reveal_type(func))
+    thelogger.debug(
+        "%s is a synchronous function (no coro): %s", func, reveal_type(func)
+    )
 
     # @wraps(wrapped=func)
     def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:
@@ -168,7 +184,11 @@ def logdecorate[T, **param](
         begintimings: os.times_result = os.times()
         res: T = func(*args, **kwargs)
         endtimings: os.times_result = os.times()
-        logtiminglines(begintimings=begintimings, endtimings=endtimings, theloggertouse=thelogger)
+        logtiminglines(
+            begintimings=begintimings,
+            endtimings=endtimings,
+            theloggertouse=thelogger,
+        )
         thelogger.debug(msg="LogDecorated End")
         return res
 
@@ -219,9 +239,15 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
             **kwargs: _fun_param_type.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
-            before: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+            before: tuple[int, os.times_result] = (
+                time.perf_counter_ns(),
+                os.times(),
+            )
             retval: _FunCallResultT = await func(*args, **kwargs)
-            after: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+            after: tuple[int, os.times_result] = (
+                time.perf_counter_ns(),
+                os.times(),
+            )
             if before and after:
                 wall_diff: float = (after[0] - before[0]) / 1e9
                 user_diff: float = (
@@ -248,13 +274,22 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
         **kwargs: _fun_param_type.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
-        before: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+        before: tuple[int, os.times_result] = (
+            time.perf_counter_ns(),
+            os.times(),
+        )
         retval: _FunCallResultT = func(*args, **kwargs)
-        after: tuple[int, os.times_result] = (time.perf_counter_ns(), os.times())
+        after: tuple[int, os.times_result] = (
+            time.perf_counter_ns(),
+            os.times(),
+        )
         if before and after:
             wall_diff: float = (after[0] - before[0]) / 1e9
             user_diff: float = (
-                after[1].user - before[1].user + after[1].children_user - before[1].children_user
+                after[1].user
+                - before[1].user
+                + after[1].children_user
+                - before[1].children_user
             )
             system_diff: float = (
                 after[1].system
@@ -288,7 +323,10 @@ def linuxtime[**_fun_param_type, _FunCallResultT](
             print("time function\t", func.__name__)
             print_time_result(
                 wall=after.elapsed - before.elapsed,
-                user=after.user - before.user + after.children_user - before.children_user,
+                user=after.user
+                - before.user
+                + after.children_user
+                - before.children_user,
                 system=after.system
                 - before.system
                 + after.children_system
@@ -315,13 +353,23 @@ if os.name == "posix":
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
-            childbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
-            selfbefore: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
+            childbefore: resource.struct_rusage = resource.getrusage(
+                resource.RUSAGE_CHILDREN
+            )
+            selfbefore: resource.struct_rusage = resource.getrusage(
+                resource.RUSAGE_SELF
+            )
             retval: _FunCallResultT = func(*args, **kwargs)
-            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
-            childafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_CHILDREN)
+            selfafter: resource.struct_rusage = resource.getrusage(
+                resource.RUSAGE_SELF
+            )
+            childafter: resource.struct_rusage = resource.getrusage(
+                resource.RUSAGE_CHILDREN
+            )
             after: float | Literal[0] = time.monotonic()
-            if all((childbefore, selfbefore, selfafter, childafter, before, after)):
+            if all(
+                (childbefore, selfbefore, selfafter, childafter, before, after)
+            ):
                 print("time function\t", func.__name__)
                 print_time_result(
                     wall=after - before,
@@ -350,9 +398,13 @@ if os.name == "posix":
             **kwargs: _fun_param_type.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
-            before: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            before: float | Literal[0] = sum(
+                resource.getrusage(resource.RUSAGE_SELF)[:2]
+            )
             retval: _FunCallResultT = func(*args, **kwargs)
-            after: float | Literal[0] = sum(resource.getrusage(resource.RUSAGE_SELF)[:2])
+            after: float | Literal[0] = sum(
+                resource.getrusage(resource.RUSAGE_SELF)[:2]
+            )
             if before and after:
                 print(func.__name__, float(after) - before)
             return retval
@@ -382,7 +434,9 @@ else:
             before: NamedTuple = psutil.Process().cpu_times()
             retval: _FunCallResultT = func(*args, **kwargs)
             after: NamedTuple = psutil.Process().cpu_times()
-            delta: list[float] = [end - start for start, end in zip(before, after)]
+            delta: list[float] = [
+                end - start for start, end in zip(before, after)
+            ]
             print(func.__name__, delta, sum(delta))
             return retval
 
@@ -417,7 +471,9 @@ def timing_process_time[**_fun_param_type, _FunCallResultT](
     """Measures execution times by time (process)."""
 
     @wraps(func)
-    def wrapped(*args: _fun_param_type.args, **kwargs: _fun_param_type.kwargs) -> _FunCallResultT:
+    def wrapped(
+        *args: _fun_param_type.args, **kwargs: _fun_param_type.kwargs
+    ) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.process_time()
         retval: _FunCallResultT = func(*args, **kwargs)
@@ -451,7 +507,9 @@ class LazyProperty[InstanceObjectT, _FunCallResultT](property):
         """Initialize special attribute and rest from super."""
         attr_name: str = f"_lazy_{getterfunction.__name__}"
 
-        def _lazy_getterfunction(instanceobj: InstanceObjectT) -> _FunCallResultT:
+        def _lazy_getterfunction(
+            instanceobj: InstanceObjectT,
+        ) -> _FunCallResultT:
             """Check if value present, if not calculate."""
             if not hasattr(instanceobj, attr_name):
                 setattr(instanceobj, attr_name, getterfunction(instanceobj))

@@ -40,7 +40,9 @@ class NoOutput(TextIO):
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: NoOutput, s: str, /) -> int:  # pylint: disable=invalid-name,unused-argument
+    def write(
+        self: NoOutput, s: str, /
+    ) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
@@ -293,7 +295,9 @@ class TimingCM:
         """Retrieve end timing information and print."""
         closeifrunningloky()
         self.endtimes = os.times()
-        timedelta: list[float] = [e - a for (a, e) in zip(self.starttimes, self.endtimes)]
+        timedelta: list[float] = [
+            e - a for (a, e) in zip(self.starttimes, self.endtimes)
+        ]
         print(
             f"{timedelta[0] + timedelta[2]:8.2f} [s] User",
             f"{timedelta[1] + timedelta[3]:8.2f} [s] System",
