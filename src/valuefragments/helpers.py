@@ -20,7 +20,6 @@ import requests
 
 from .moduletools import moduleexport
 from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
-    IO,
     TYPE_CHECKING,
     Callable,
     Generator,
@@ -30,7 +29,6 @@ from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; Type
     Self,
     SupportsIndex,
     SupportsInt,
-    TypedDict,
     reveal_type,
 )
 
