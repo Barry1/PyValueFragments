@@ -5,8 +5,18 @@ from typing import *  # pyright: ignore[reportWildcardImportFromLibrary] # noqa:
 
 from typing_extensions import *  # type: ignore[no-redef,assignment] # noqa: F401, F403
 
-KwargsForPrint = TypedDict(  # noqa: F405
-    "KwargsForPrint",
-    {"sep": str, "end": str, "file": IO[str], "flush": bool},  # noqa: F405
-    total=False,
-)
+
+class KwargsForPrint(TypedDict, total=False):
+    sep: str
+    end: str
+    file: IO[str]
+    flush: bool
+
+
+# for python<=3.5,2.7
+# https://typing.python.org/en/latest/spec/typeddict.html#alternative-syntax
+# KwargsForPrint = TypedDict(  # noqa: F405
+#    "KwargsForPrint",
+#    {"sep": str, "end": str, "file": IO[str], "flush": bool},  # noqa: F405
+#    total=False,
+# )

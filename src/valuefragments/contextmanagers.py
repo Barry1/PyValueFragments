@@ -7,10 +7,8 @@ import sys
 from time import monotonic
 from types import TracebackType
 
-from typing_extensions import Literal, Type
-from valuetyping import BinaryIO, Iterable, Optional, TextIO
-
 from .helpers import closeifrunningloky, ic, print_time_result
+from .valuetyping import BinaryIO, Iterable, Literal, Optional, TextIO, Type
 
 # from .moduletools import moduleexport # only working for functions - problem with classes
 

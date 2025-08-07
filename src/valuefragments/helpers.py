@@ -24,6 +24,7 @@ from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; Type
     TYPE_CHECKING,
     Callable,
     Generator,
+    KwargsForPrint,
     Literal,
     Protocol,
     Self,
@@ -197,13 +198,6 @@ class HumanReadAble(int):
     def __repr__(self) -> str:
         """Show how to recreate object."""
         return f"{self.__class__.__name__}({super().__repr__()})"
-
-
-KwargsForPrint = TypedDict(
-    "KwargsForPrint",
-    {"sep": str, "end": str, "file": IO[str], "flush": bool},
-    total=False,
-)
 
 
 @moduleexport
