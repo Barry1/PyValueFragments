@@ -111,8 +111,8 @@ def logdecorate[T, **param](
         begintimings: os.times_result, endtimings: os.times_result, theloggertouse: logging.Logger
     ) -> None:
         """log details from timings"""
-        title_line_format: LiteralString = "%11.11s|" * 5 + "%8.8s|"
-        info_line_format: LiteralString = "%7.2f [s]|" * 5 + "%7.2f%%|"
+        title_line_format: str = "%11.11s|" * 5 + "%8.8s|"
+        info_line_format: str = "%7.2f [s]|" * 5 + "%7.2f%%|"
         timingdiffs: tuple[float, ...] = tuple(b - a for (a, b) in zip(begintimings, endtimings))
         theloggertouse.info(
             title_line_format,

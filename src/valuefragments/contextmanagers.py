@@ -6,9 +6,9 @@ import os
 import sys
 from time import monotonic
 from types import TracebackType
-from typing import AnyStr, BinaryIO, Iterable, Optional, TextIO
 
 from typing_extensions import Literal, Type
+from valuetyping import BinaryIO, Iterable, Optional, TextIO
 
 from .helpers import closeifrunningloky, ic, print_time_result
 
@@ -20,10 +20,11 @@ __all__: list[str] = []
 class NoOutput(TextIO):
     """Contextmanager to suppress any output (stderr and stdout)."""
 
+    __slots__: tuple[str, str] = ("stdout", "stderr")
     stdout: TextIO
     stderr: TextIO
 
-    def __enter__(self: "NoOutput") -> "NoOutput":
+    def __enter__(self: NoOutput) -> NoOutput:
         """Enter/start context. Save and replace Streams."""
         self.stdout = sys.stdout
         self.stderr = sys.stderr
@@ -41,7 +42,7 @@ class NoOutput(TextIO):
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: NoOutput, s: AnyStr) -> int:  # pylint: disable=invalid-name,unused-argument
+    def write(self: NoOutput, s: str, /) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
@@ -113,7 +114,7 @@ class NoOutput(TextIO):
         """Only needed for mypy."""
         return 0
 
-    def writelines(self: NoOutput, lines: Iterable[str]) -> None:
+    def writelines(self: NoOutput, lines: Iterable[str], /) -> None:
         """Only needed for mypy."""
         # pass
 
