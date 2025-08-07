@@ -58,7 +58,8 @@ from .valuetyping import (  # Coroutine,; TypeGuard,
 def istypedcoroutinefunction[T, **param](
     func: Callable[param, Coroutine[Any, Any, T]] | Callable[param, T],
 ) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
-    """Is the argument an awaitable function with given return type following PEP-0742?"""
+    """Is the argument an awaitable function?"""
+    # with given return type following PEP-0742?"""
     # https://rednafi.com/python/typeguard_vs_typeis/
     # https://peps.python.org/pep-0742/
     return iscoroutinefunction(func)
@@ -67,7 +68,8 @@ def istypedcoroutinefunction[T, **param](
 def is_coroutine_function[T, **param](
     func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
 ) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
-    """Is the argument an awaitable function with given return type following PEP-0742?"""
+    """Is the argument an awaitable function?"""
+    # with given return type following PEP-0742?"""
     return (
         isinstance(func, FunctionType)
         and hasattr(func, "__code__")
@@ -79,7 +81,7 @@ def is_coroutine_function[T, **param](
 def logdecorate[T, **param](
     func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
 ) -> Callable[param, Coroutine[Any, Any, T]] | Callable[param, T]:
-    """Decorator to log start and stop into file 'decorated.log' with logging."""
+    """Decorator: Log start and stop into 'decorated.log'"""
 
     def setuplogger(funcname: str) -> logging.Logger:
         """Set up a new Logger for my needs"""

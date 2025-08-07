@@ -59,7 +59,7 @@ def determinant(
 
 @moduleexport
 def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
-    """Returns coefficients for interpolation by second order polynom along three given pairs."""
+    """2nd order polynom interpolation coefficients."""
     xpowtwo: Tfloatthreevec = (
         x_values[0] ** 2,
         x_values[1] ** 2,
@@ -144,7 +144,8 @@ def probneeds_rec(
     needs: list[int],
     avails: int | float = 0,
 ) -> float:
-    """Returns the probability for an available number beein sufficient for bernoulli cases."""
+    """Returns the probability for an available number beeing
+    sufficient for bernoulli cases."""
     if (lenneeds := len(needs)) != (lenprobs := len(probs)):
         thelogger.error(
             "len of needs is %i und len of props is %i but it needs to match.",
@@ -189,7 +190,8 @@ def add_dict(
 def probneeds_new(
     probs: list[float], needs: list[int], avails: int = 0
 ) -> float:
-    """Return the probability for an available number beeing sufficient for bernoulli cases."""
+    """Return the probability for an available number beeing
+    sufficient for bernoulli cases."""
     resultdict: dict[int, float] = {0: 1 - probs[0], needs[0]: probs[0]}
     for need, theprob in zip(needs[1:], probs[1:]):
         resultdict = add_dict(
@@ -215,7 +217,8 @@ def probneeds(
     needs: list[int],
     avails: int = 0,
 ) -> float:
-    """Return the probability for an available number beeing sufficient for bernoulli cases."""
+    """Return the probability for an available number beeing
+    sufficient for bernoulli cases."""
     if len(needs) != len(probs):
         raise ValueError("needs and probs must have the same length")
     if avails == 0:

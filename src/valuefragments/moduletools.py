@@ -17,7 +17,8 @@ def moduleexport[_FunCallResultT, **_fun_param_t](
     class_or_function: Callable[_fun_param_t, _FunCallResultT],
 ) -> Callable[_fun_param_t, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
-    # Following the idea from <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
+    # Following the idea from
+    # <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>
     module: ModuleType = __import__(name="sys").modules[
         class_or_function.__module__
     ]

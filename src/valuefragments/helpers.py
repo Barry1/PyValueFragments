@@ -19,7 +19,7 @@ from types import ModuleType
 import requests
 
 from .moduletools import moduleexport
-from .valuetyping import (  # LastElementT,; OtherElementsT,; SupportsAbs,; TypeVar,
+from .valuetyping import (
     TYPE_CHECKING,
     Callable,
     Generator,
@@ -89,7 +89,9 @@ def filecache[_FunCallResultT](
     procmeth: Callable[[str], _FunCallResultT],
     max_age_seconds: int = 60 * 60 * 24 * 7,
 ) -> _FunCallResultT:
-    """Check if cachefile exists and current. Updates if neccesary. Returns processed content."""
+    """Check if cachefile exists and current.
+    Updates if neccesary.
+    Returns processed content."""
     if not file_exists_current(filepathname, max_age_seconds):
         with open(filepathname, "wb") as thefile:
             with genupdmeth() as thesrc:
@@ -150,7 +152,9 @@ def basic_auth(
 class HumanReadAble(int):
     """int like with print in human-readable scales."""
 
-    # __slots__: dict[str, str]={"unit":"the base unit", "scaler":"the scaling integer"}
+    # __slots__: dict[str, str]={
+    # "unit":"the base unit",
+    # "scaler":"the scaling integer"}
     # HumanReadAble is a subclass of int, __slots__ not allowed
     # <https://pypi.python.org/pypi/humanize>
     # <https://typing.python.org/en/latest/spec/constructors.html#new-method>
@@ -194,7 +198,6 @@ class HumanReadAble(int):
             7: "Zi",
             8: "Yi",
         }
-        #        return '{val:{fmt}} {suf}'.format(val=val, fmt=format_spec, suf=suffix)
         return (
             f"{self / (1024**self.scaler):{format_spec}} "
             f"{scalerdict.get(self.scaler, '')}{self.unit}"
@@ -215,7 +218,8 @@ def closeifrunningloky() -> None:
     try:
         # OLD
         # pylint: disable=import-outside-toplevel
-        # from joblib.externals.loky.reusable_executor import get_reusable_executor
+        # from joblib.externals.loky.reusable_executor
+        # import get_reusable_executor
         get_reusable_executor = __import__(
             "joblib.externals.loky.reusable_executor",
             fromlist=["get_reusable_executor"],
@@ -255,8 +259,10 @@ try:
 except (AttributeError, ImportError):
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
-    #    def ic(  # pylint: disable=invalid-name
-    #        *firsts: *OtherElementsT, last: LastElementT | None = None, **_kwargs: KwargsForPrint
+    # def ic(  # pylint: disable=invalid-name
+    # *firsts: *OtherElementsT,
+    # last: LastElementT | None = None,
+    # **_kwargs: KwargsForPrint
     #    ) -> tuple[*OtherElementsT, LastElementT] | LastElementT | None:
     def ic[*OthersT, LastT](
         *firsts: *OthersT, last: LastT | None = None, **_kwargs: KwargsForPrint
@@ -293,7 +299,6 @@ else:
                 )  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
-                    # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
                     ic("Prozess was already in background mode.")
                 else:
                     print(theerr)
