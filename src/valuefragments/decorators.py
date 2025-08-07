@@ -225,6 +225,7 @@ def timing_wall[**_fun_param_type, _FunCallResultT](
 def calcdiffs(
     before: tuple[int, os.times_result], after: tuple[int, os.times_result]
 ) -> tuple[float, float, float]:
+    """Evaluate Timing-Diffs."""
     wall_diff: float = (after[0] - before[0]) / 1e9
     user_diff: float = (
         after[1].user
