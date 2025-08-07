@@ -41,11 +41,10 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
 
 
 @moduleexport
-def determinant(
-    cola: Tfloatthreevec,
-    colb: Tfloatthreevec,
-    colc: Tfloatthreevec,
-) -> float:
+def determinant[T: (
+    int,
+    float,
+)](cola: tuple[T, T, T], colb: tuple[T, T, T], colc: tuple[T, T, T],) -> T:
     """Returns Determinant of 3x3-Matrix given in ColumnTuples"""
     a1, a2, a3 = cola
     b1, b2, b3 = colb
@@ -74,7 +73,9 @@ def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
 
 
 @moduleexport
-def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
+def polyroot(
+    coeffs: tuple[float, float, float], val: float = 0
+) -> tuple[float, float]:
     """Returns root of second order polynom given in its coefficients."""
     a, b, c = coeffs
     c -= val
