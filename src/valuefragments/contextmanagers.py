@@ -10,7 +10,8 @@ from types import TracebackType
 from .helpers import closeifrunningloky, ic, print_time_result
 from .valuetyping import BinaryIO, Iterable, Literal, Optional, TextIO, Type
 
-# from .moduletools import moduleexport # only working for functions - problem with classes
+# only working for functions - problem with classes
+# from .moduletools import moduleexport
 
 __all__: list[str] = []
 
@@ -41,7 +42,7 @@ class NoOutput(TextIO):
         sys.stdout = self.stdout
 
     def write(
-        self: NoOutput, s: str, /
+        self: NoOutput, _s: str, /
     ) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
@@ -140,13 +141,14 @@ __all__.append("NoOutput")
 
 class LinuxTimeCM:
     """
-    Use this as a context manager for getting timing details like with linux time.
-
-    at the moment it is needed to be instantiated with parenthesis as in
+    Use this as a context manager for getting timing details
+    like with linux time.
+    At the moment it is needed to be instantiated with parenthesis as in
     with LinuxTimeCM():
-    hopefully I can remove that for further simplification
+    hopefully I can remove that for further simplification.
     """
 
+    __slots__: tuple[str, str] = ("after", "before")
     before: os.times_result
     after: os.times_result
 
@@ -195,13 +197,21 @@ else:
 
     class LinuxTimeResourceCM:
         """
-        Use this as a context manager for getting timing details like with linux time.
-
-        at the moment it is needed to be instantiated with parenthesis as in
-        with LinuxTimeCM():
-        hopefully I can remove that for further simplification
+        Use this as a context manager for getting timing details
+        like with linux time.
+        At the moment it is needed to be instantiated with parenthesis as in
+        with LinuxTimeResourceCM():
+        hopefully I can remove that for further simplification.
         """
 
+        __slots__: tuple[str, str, str, str, str, str] = (
+            "after",
+            "before",
+            "childafter",
+            "childbefore",
+            "selfafter",
+            "selfbefore",
+        )
         before: float | Literal[0]
         childbefore: resource.struct_rusage
         selfbefore: resource.struct_rusage
@@ -272,6 +282,7 @@ class TimingCM:
     # <https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations>
     # pseudo private instance variables with single underscore
     # https://adamj.eu/tech/2021/07/04/python-type-hints-how-to-type-a-context-manager/
+    __slots__: tuple[str, str] = ("starttimes", "endtimes")
     starttimes: os.times_result
     endtimes: os.times_result
 
