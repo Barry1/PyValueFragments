@@ -1,9 +1,9 @@
 """Module for typing information from typing and typing_extensions."""
 
 # pylint: disable=wildcard-import,unused-wildcard-import
-from typing import *  # pyright: ignore[reportWildcardImportFromLibrary] # noqa: F401, F403
+from typing import *  # type: ignore # noqa
 
-from typing_extensions import *  # type: ignore[no-redef,assignment] # noqa: F401, F403
+from typing_extensions import *  # type: ignore # noqa
 
 
 class KwargsForPrint(TypedDict, total=False):  # noqa: F405
@@ -16,7 +16,8 @@ class KwargsForPrint(TypedDict, total=False):  # noqa: F405
 
 
 # for python<=3.5,2.7
-# https://typing.python.org/en/latest/spec/typeddict.html#alternative-syntax
+# https://typing.python.org/en/latest/...
+# ...spec/typeddict.html#alternative-syntax
 # KwargsForPrint = TypedDict(  # noqa: F405
 #    "KwargsForPrint",
 #    {"sep": str, "end": str, "file": IO[str], "flush": bool},  # noqa: F405
