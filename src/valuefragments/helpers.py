@@ -419,7 +419,7 @@ if sys.version_info >= (3, 11):
 
 @moduleexport
 def getselectedhreflinks(
-    thebaseurl: str = "https://www.goc-stuttgart.de/event-guide/ergebnisarchiv",
+    thebaseurl: str = "https://goc-stuttgart.de/event-guide/ergebnisarchiv",
     thesubstring: str = "fileadmin/ergebnisse/2024",
     thetimeout: int | tuple[int, int] = (5, 10),
 ) -> list[str]:
