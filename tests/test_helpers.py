@@ -53,13 +53,17 @@ def test_int2bin() -> None:
 def test_stringtovalidfilename() -> None:
     """Test function for filename validity of strings."""
     assert (
-        stringtovalidfilename("a:/xäü\\?*1__x&%&$§§)§(§/$<>-_,.;:;:)") == "axäü1__x§§)§(§-_,.;;)"
+        stringtovalidfilename("a:/xäü\\?*1__x&%&$§§)§(§/$<>-_,.;:;:)")
+        == "axäü1__x§§)§(§-_,.;;)"
     )
 
 
 def test_basic_auth() -> None:
     """Test if basic_auth does what is expected."""
-    assert basic_auth("Aladdin", "open sesame")[6:] == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+    assert (
+        basic_auth("Aladdin", "open sesame")[6:]
+        == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+    )
 
 
 def test_hashfile() -> None:
@@ -80,4 +84,6 @@ def test_humanreadable() -> None:
 
 
 def test_getselectedhreflinks() -> None:
-    assert "https://status.python.org/" in getselectedhreflinks("https://python.org", "status")
+    assert "https://status.python.org/" in getselectedhreflinks(
+        "https://python.org", "status"
+    )

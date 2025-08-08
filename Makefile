@@ -71,7 +71,7 @@ bandit:
 
 pytest:
 	@echo "==========" "$@" "=========="
-	poetry run pytest
+	poetry run pytest --cov=valuefragments
 # --pylama
 
 pyroma:

@@ -5,7 +5,7 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.6.8"
+version = "0.6.9"
 readme = "README.md"
 requires-python = ">=3.12,<4.0" #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
@@ -210,6 +210,7 @@ vermin = ">=1.5"
 yapf = ">=0.43"
 clang = "^20.1.5"
 cython-lint = "^0.16.7"
+pytest-cov = "^6.2.1"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
@@ -302,8 +303,11 @@ addopts = [
   "--cache-clear",
   "--color=yes",
   #    "--typeguard-packages=valuefragments",
-
+  "--cov=valuefragments",
+  "--cov-report=term",
+  "--cov-report=html",
 ]
+required_plugins = ["pytest-cov", "pytest-sugar", "pytest-asyncio"]
 #required_plugins = ["typeguard", "pylama"]
 [tool.pyrefly]
 python_version = "3.12.10"
