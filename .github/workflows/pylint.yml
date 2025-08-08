@@ -34,4 +34,4 @@ jobs:
         run: |
           # shellcheck disable=SC2035,SC2046
           # pylint --verbose --jobs 0 $(git ls-files *.py *.pyi)
-          pylint --verbose --jobs 0 src/valuefragments/[cdhm]*.py
+          pylint --verbose --jobs 0 src/valuefragments/*.py
