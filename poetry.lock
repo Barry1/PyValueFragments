@@ -805,18 +805,6 @@ files = [
 ]
 
 [[package]]
-name = "eradicate"
-version = "3.0.0"
-description = "Removes commented-out code."
-optional = false
-python-versions = "*"
-groups = ["dev"]
-files = [
-    {file = "eradicate-3.0.0-py3-none-any.whl", hash = "sha256:935af46a483c0d69baf155a9435ad847319389ba1c47cf2ee7196ca66dc586a2"},
-    {file = "eradicate-3.0.0.tar.gz", hash = "sha256:b237d9f2309b181035d2a87b24385b4f11ab7bb858b75bff496964b5f453aa77"},
-]
-
-[[package]]
 name = "executing"
 version = "2.2.0"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -2137,39 +2125,6 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
-name = "pylama"
-version = "8.4.1"
-description = "Code audit tool for python"
-optional = false
-python-versions = ">=3.7"
-groups = ["dev"]
-files = [
-    {file = "pylama-8.4.1-py3-none-any.whl", hash = "sha256:5bbdbf5b620aba7206d688ed9fc917ecd3d73e15ec1a89647037a09fa3a86e60"},
-    {file = "pylama-8.4.1.tar.gz", hash = "sha256:2d4f7aecfb5b7466216d48610c7d6bad1c3990c29cdd392ad08259b161e486f6"},
-]
-
-[package.dependencies]
-eradicate = {version = "*", optional = true, markers = "extra == \"all\""}
-mccabe = ">=0.7.0"
-mypy = {version = "*", optional = true, markers = "extra == \"all\""}
-pycodestyle = ">=2.9.1"
-pydocstyle = ">=6.1.1"
-pyflakes = ">=2.5.0"
-pylint = {version = "*", optional = true, markers = "extra == \"all\""}
-radon = {version = "*", optional = true, markers = "extra == \"all\""}
-vulture = {version = "*", optional = true, markers = "extra == \"all\""}
-
-[package.extras]
-all = ["eradicate", "mypy", "pylint", "radon", "vulture"]
-eradicate = ["eradicate"]
-mypy = ["mypy"]
-pylint = ["pylint"]
-radon = ["radon"]
-tests = ["eradicate (>=2.0.0)", "mypy", "pylama-quotes", "pylint (>=2.11.1)", "pytest (>=7.1.2)", "pytest-mypy", "radon (>=5.1.0)", "toml", "types-setuptools", "types-toml", "vulture"]
-toml = ["toml (>=0.10.2)"]
-vulture = ["vulture"]
-
-[[package]]
 name = "pyleft"
 version = "1.2.2"
 description = "Python type annotation existence checker"
@@ -3455,4 +3410,4 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "3590ae75650fd53dbd61586efe3bf0773530c35c0b25b0eb155765504407c1c1"
+content-hash = "fca3584e6e7753f92eb17b2f567ad0acafdccc96a96c3ba00477bfc7ab280199"
