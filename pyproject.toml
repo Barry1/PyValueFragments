@@ -211,6 +211,15 @@ yapf = ">=0.43"
 clang = "^20.1.5"
 cython-lint = "^0.16.7"
 pytest-cov = "^6.2.1"
+pytest-pyright = "^0.0.6"
+pytest-black = "^0.6.0"
+pytest-colordots = "^1.1"
+pytest-mypy = "^1.0.1"
+typeguard = "^4.4.4"
+pytest-monkeytype = "^1.1.0"
+pytest-bandit = "^0.6.1"
+pytest-beartype = "^0.2.0"
+beartype = "^0.21.0"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
