@@ -192,14 +192,14 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "basedpyright"
-version = "1.31.2"
+version = "1.31.3"
 description = "static type checking for Python (but based)"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "basedpyright-1.31.2-py3-none-any.whl", hash = "sha256:b3541fba56a69de826f77a15f8b864648d1cfbcb11a3ca530d82982e65e78d19"},
-    {file = "basedpyright-1.31.2.tar.gz", hash = "sha256:dd18ed85770f80723d4378b0a0f05f24ef205b71ba4b525242abf1782ed16d8f"},
+    {file = "basedpyright-1.31.3-py3-none-any.whl", hash = "sha256:bdb0b5a9abe287a023d330fc71eaed181aaffd48f1dec59567f912cf716f38ff"},
+    {file = "basedpyright-1.31.3.tar.gz", hash = "sha256:c77bff2dc7df4fe09c0ee198589d8d24faaf8bfd883ee9e0af770b1a275a58f8"},
 ]
 
 [package.dependencies]
@@ -2480,33 +2480,33 @@ typing-inspect = "*"
 
 [[package]]
 name = "pyrefly"
-version = "0.29.0"
+version = "0.29.1"
 description = "A fast Python type checker written in Rust"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pyrefly-0.29.0-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:c24352a669577aed9593f6e09390d288984e175a7d51c05e93ae53ea80842ad0"},
-    {file = "pyrefly-0.29.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:a5daf99fe367b308684eff2b47b42ced997a6f018cf0f33a3dd9b8e0c4efedb5"},
-    {file = "pyrefly-0.29.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6f2a43edb3a4a3826515cd2f9fcad6066bcbff1e5d9962f262cc77127d517613"},
-    {file = "pyrefly-0.29.0-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f1b7bb81d060be4954746b2957e9b760f60b03461b780bb25423e2256c301166"},
-    {file = "pyrefly-0.29.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e48d28a200d4fdd5cd781bbd9c753ee8e0a40a3e54aa508b384888d38ee7c78a"},
-    {file = "pyrefly-0.29.0-py3-none-win32.whl", hash = "sha256:cc140ad8d91d09e05a4913178c2db2312e66730d77cfae3abd0e02e41f0a3278"},
-    {file = "pyrefly-0.29.0-py3-none-win_amd64.whl", hash = "sha256:9764d8c0050a83fec28e76f5f444e0bcbf968ae0642c42b3f37d6ff90c504fd3"},
-    {file = "pyrefly-0.29.0-py3-none-win_arm64.whl", hash = "sha256:bdf74ceb44a579beb56c9f96b12d74c784269a41f4637285f4acf65b42eb62c4"},
-    {file = "pyrefly-0.29.0.tar.gz", hash = "sha256:51915f21080ccd0cbd031138af7714bc873562fca095d52af7d6f424badf90d8"},
+    {file = "pyrefly-0.29.1-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:b5c7f21f505f13a2c220281ba8d9b73487a07b924d556f1f2a89ab28aea35d03"},
+    {file = "pyrefly-0.29.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:5489b9db2c6b6ed70c0b693cbce3f87c7732c52a1ef78c6de1881b5151eb6c5f"},
+    {file = "pyrefly-0.29.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8a4ba319e18c0d4ce82ee6aa3eb2c167d9144bb1f99ce991cc946314112929ec"},
+    {file = "pyrefly-0.29.1-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:0dacbdbb6fabcbd82bb21307cdcfd8c7f267956ef171fc9d0f9f8ed5d7be7bfa"},
+    {file = "pyrefly-0.29.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:75d458031ef97d37f911219cba549a05614435739bf14e2ca23d2db3a0e2d639"},
+    {file = "pyrefly-0.29.1-py3-none-win32.whl", hash = "sha256:a23d49a2c0eb69b09602e37c8bc5d1b14ba5ab223d92fb6dbacbd5d7b92347fa"},
+    {file = "pyrefly-0.29.1-py3-none-win_amd64.whl", hash = "sha256:980fd71425122c813cb5ea7b4e35c9978b76cc938616c49de2e4df9243a45ab7"},
+    {file = "pyrefly-0.29.1-py3-none-win_arm64.whl", hash = "sha256:7935d416989747214cb5bbd1f9564001ba4d5bf49df9deb56816a7328df51178"},
+    {file = "pyrefly-0.29.1.tar.gz", hash = "sha256:21e96584a475efcfb33c8bae240b8ad0b49505461f725e936031cf7cf2cd091d"},
 ]
 
 [[package]]
 name = "pyright"
-version = "1.1.403"
+version = "1.1.404"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
 files = [
-    {file = "pyright-1.1.403-py3-none-any.whl", hash = "sha256:c0eeca5aa76cbef3fcc271259bbd785753c7ad7bcac99a9162b4c4c7daed23b3"},
-    {file = "pyright-1.1.403.tar.gz", hash = "sha256:3ab69b9f41c67fb5bbb4d7a36243256f0d549ed3608678d381d5f51863921104"},
+    {file = "pyright-1.1.404-py3-none-any.whl", hash = "sha256:c7b7ff1fdb7219c643079e4c3e7d4125f0dafcc19d253b47e898d130ea426419"},
+    {file = "pyright-1.1.404.tar.gz", hash = "sha256:455e881a558ca6be9ecca0b30ce08aa78343ecc031d37a198ffa9a7a1abeb63e"},
 ]
 
 [package.dependencies]
