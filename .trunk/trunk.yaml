@@ -50,7 +50,7 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.32638
+    - circleci@0.1.33163
     - gh@2.76.2
     - pylint@3.3.8
     - pyright@1.1.403
