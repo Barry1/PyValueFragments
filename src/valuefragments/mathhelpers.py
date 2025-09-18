@@ -242,6 +242,6 @@ def probneeds(
     thelogger.info(
         "%i will be sufficient in %f%% of all cases",
         avails,
-        (availprob) * 100,
+        availprob * 100,
     )
     return availprob

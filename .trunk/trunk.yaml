@@ -15,23 +15,23 @@ lint:
     - pyright@1.1.405
     - hadolint@2.13.1
     - sourcery@1.37.0
-    - sql-formatter@15.6.7
+    - sql-formatter@15.6.9
     - actionlint@1.7.7
     - autopep8@2.3.2
     - black@25.1.0
-    - checkov@3.2.469
+    - checkov@3.2.471
     - flake8@7.3.0
     - git-diff-check
     - gitleaks@8.28.0
     - isort@6.0.1
     - markdownlint@0.45.0
-    - mypy@1.17.1
+    - mypy@1.18.1
     - osv-scanner@2.2.2
     - prettier@3.6.2
-    - ruff@0.12.11
+    - ruff@0.13.0
     - taplo@0.10.0
     - trivy@0.66.0
-    - trufflehog@3.90.5
+    - trufflehog@3.90.6
     - yamllint@1.37.1
 runtimes:
   enabled:
@@ -51,11 +51,11 @@ tools:
     - python
   enabled:
     - circleci@0.1.33163
-    - gh@2.78.0
+    - gh@2.79.0
     - pylint@3.3.8
     - pyright@1.1.405
     - shellcheck@0.11.0
-    - poetry@2.1.4
+    - poetry@2.2.0
   definitions:
     - name: mypy
       runtime: python
