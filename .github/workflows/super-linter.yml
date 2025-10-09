@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13", "3.13", 3.15-dev]
+        python-version: ["3.11", "3.12", "3.13", "3.14", 3.15-dev]
     steps:
       # https://github.com/marketplace/actions/checkout
       - name: Checkout code
