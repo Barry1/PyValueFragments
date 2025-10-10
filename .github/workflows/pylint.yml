@@ -13,8 +13,9 @@ jobs:
     permissions: read-all
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.12", "3.13", "3.14"]#, 3.15-dev
+        python-version: ["3.12", "3.13", "3.14", 3.15-dev] # 3.15-rc
         # 3.11 no longer compatible
     steps:
       - uses: actions/checkout@v4
