@@ -36,8 +36,8 @@ authors = ["Dr. Bastian Ebeling <>"]
 
 [tool.pyflow.dev-dependencies]
 [tool.tox]
-requires = ["tox>4", "virtualenv>20.2"]
-env_list = ["py312", "py313", "py314-dev", "bastipytest"]
+requires = ["tox>4", "virtualenv>20.2"]               #, "pytest-cov"
+env_list = ["py312", "py313", "py314", "bastipytest"] #, "py314-dev"
 minversion = "4.22.0"
 
 [tool.tox.env.bastipytest]
@@ -46,7 +46,7 @@ package = "wheel"
 wheel_build_env = ".pkg"
 parallel_show_output = true
 platform = "linux"
-deps = ["pytest>=6", "pytest-sugar", "pytest-asyncio"]
+deps = ["pytest>=6", "pytest-sugar", "pytest-asyncio", "pytest-cov"]
 commands = [["pytest", "{tty:--color=yes}", "{posargs}"]]
 
 [tool.ty]
