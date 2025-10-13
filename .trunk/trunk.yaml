@@ -5,33 +5,33 @@ cli:
 plugins:
   sources:
     - id: trunk
-      ref: v1.7.2
+      ref: v1.7.3
       uri: https://github.com/trunk-io/plugins
 lint:
   disabled:
     - ty
   enabled:
     - bandit@1.8.6
-    - pyright@1.1.405
-    - hadolint@2.13.1
+    - pyright@1.1.406
+    - hadolint@2.14.0
     - sourcery@1.37.0
-    - sql-formatter@15.6.9
+    - sql-formatter@15.6.10
     - actionlint@1.7.7
     - autopep8@2.3.2
-    - black@25.1.0
-    - checkov@3.2.471
+    - black@25.9.0
+    - checkov@3.2.477
     - flake8@7.3.0
     - git-diff-check
     - gitleaks@8.28.0
-    - isort@6.0.1
+    - isort@6.1.0
     - markdownlint@0.45.0
-    - mypy@1.18.1
-    - osv-scanner@2.2.2
+    - mypy@1.18.2
+    - osv-scanner@2.2.3
     - prettier@3.6.2
-    - ruff@0.13.0
+    - ruff@0.14.0
     - taplo@0.10.0
-    - trivy@0.66.0
-    - trufflehog@3.90.6
+    - trivy@0.67.1
+    - trufflehog@3.90.8
     - yamllint@1.37.1
 runtimes:
   enabled:
@@ -50,12 +50,12 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.33163
-    - gh@2.79.0
-    - pylint@3.3.8
-    - pyright@1.1.405
+    - circleci@0.1.33494
+    - gh@2.81.0
+    - pylint@4.0.0
+    - pyright@1.1.406
     - shellcheck@0.11.0
-    - poetry@2.2.0
+    - poetry@2.2.1
   definitions:
     - name: mypy
       runtime: python

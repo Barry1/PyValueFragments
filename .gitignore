@@ -12,3 +12,4 @@ megalinter-reports/
 src/**/*.c
 src/**/*.html
 src/**/*.cpython*
+*,cover
