@@ -13,3 +13,5 @@ src/**/*.c
 src/**/*.html
 src/**/*.cpython*
 *,cover
+.coverage
+.tox/
