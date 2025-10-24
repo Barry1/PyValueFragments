@@ -3559,14 +3559,14 @@ pyright = ["pyright (>=1.1.351)"]
 
 [[package]]
 name = "types-psutil"
-version = "5.9.5.20240516"
+version = "7.0.0.20251001"
 description = "Typing stubs for psutil"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "types-psutil-5.9.5.20240516.tar.gz", hash = "sha256:bb296f59fc56458891d0feb1994717e548a1bcf89936a2877df8792b822b4696"},
-    {file = "types_psutil-5.9.5.20240516-py3-none-any.whl", hash = "sha256:83146ded949a10167d9895e567b3b71e53ebc5e23fd8363eab62b3c76cce7b89"},
+    {file = "types_psutil-7.0.0.20251001-py3-none-any.whl", hash = "sha256:adc31de8386d31c61bd4123112fd51e2c700c7502a001cad72a3d56ba6b463d1"},
+    {file = "types_psutil-7.0.0.20251001.tar.gz", hash = "sha256:60d696200ddae28677e7d88cdebd6e960294e85adefbaafe0f6e5d0e7b4c1963"},
 ]
 
 [[package]]
@@ -3816,4 +3816,4 @@ allfeatures = ["cpu_load_generator", "hashlib", "icecream", "psutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "a741cf5c700625f4eb6a585c0ef1028551d9cf1ff205ef47e3006a5ae7e40c15"
+content-hash = "a945af7bb838d96c012b69a556f2e131b387f668e39920a129aa26d2ae498ddc"
