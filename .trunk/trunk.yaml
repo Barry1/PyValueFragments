@@ -11,28 +11,28 @@ lint:
   disabled:
     - ty
   enabled:
-    - bandit@1.9.1
-    - pyright@1.1.407
+    - bandit@1.9.3
+    - pyright@1.1.408
     - hadolint@2.14.0
-    - sourcery@1.41.1
-    - sql-formatter@15.6.10
-    - actionlint@1.7.8
+    - sourcery@1.43.0
+    - sql-formatter@15.7.0
+    - actionlint@1.7.10
     - autopep8@2.3.2
-    - black@25.11.0
-    - checkov@3.2.494
+    - black@26.1.0
+    - checkov@3.2.497
     - flake8@7.3.0
     - git-diff-check
-    - gitleaks@8.29.0
+    - gitleaks@8.30.0
     - isort@7.0.0
-    - markdownlint@0.45.0
-    - mypy@1.18.2
-    - osv-scanner@2.2.4
-    - prettier@3.6.2
-    - ruff@0.14.5
+    - markdownlint@0.47.0
+    - mypy@1.19.1
+    - osv-scanner@2.3.2
+    - prettier@3.8.1
+    - ruff@0.14.14
     - taplo@0.10.0
-    - trivy@0.67.2
-    - trufflehog@3.90.13
-    - yamllint@1.37.1
+    - trivy@0.68.2
+    - trufflehog@3.92.5
+    - yamllint@1.38.0
 runtimes:
   enabled:
     - go@1.21.0
@@ -50,12 +50,12 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.33494
-    - gh@2.83.1
-    - pylint@4.0.3
-    - pyright@1.1.407
+    - circleci@0.1.34038
+    - gh@2.86.0
+    - pylint@4.0.4
+    - pyright@1.1.408
     - shellcheck@0.11.0
-    - poetry@2.2.1
+    - poetry@2.3.1
   definitions:
     - name: mypy
       runtime: python

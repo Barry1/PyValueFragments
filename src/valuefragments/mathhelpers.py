@@ -41,10 +41,16 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
 
 
 @moduleexport
-def determinant[T: (
-    int,
-    float,
-)](cola: tuple[T, T, T], colb: tuple[T, T, T], colc: tuple[T, T, T],) -> T:
+def determinant[
+    T: (
+        int,
+        float,
+    )
+](
+    cola: tuple[T, T, T],
+    colb: tuple[T, T, T],
+    colc: tuple[T, T, T],
+) -> T:
     """Returns Determinant of 3x3-Matrix given in ColumnTuples"""
     a1, a2, a3 = cola
     b1, b2, b3 = colb
