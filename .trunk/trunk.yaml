@@ -19,7 +19,7 @@ lint:
     - actionlint@1.7.10
     - autopep8@2.3.2
     - black@26.1.0
-    - checkov@3.2.497
+    - checkov@3.2.500
     - flake8@7.3.0
     - git-diff-check
     - gitleaks@8.30.0
@@ -30,7 +30,7 @@ lint:
     - prettier@3.8.1
     - ruff@0.14.14
     - taplo@0.10.0
-    - trivy@0.68.2
+    - trivy@0.69.0
     - trufflehog@3.92.5
     - yamllint@1.38.0
 runtimes:
@@ -55,7 +55,7 @@ tools:
     - pylint@4.0.4
     - pyright@1.1.408
     - shellcheck@0.11.0
-    - poetry@2.3.1
+    - poetry@2.3.2
   definitions:
     - name: mypy
       runtime: python
