@@ -220,6 +220,7 @@ pytest-monkeytype = "^1.1.0"
 pytest-bandit = "^0.6.1"
 pytest-beartype = "^0.2.0"
 beartype = "^0.21.0"
+pyupgrade = "^3.21.2"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]

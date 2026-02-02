@@ -367,54 +367,54 @@ def stringtovalidfilename2(inputstring: str) -> str:
     )
 
 
-if sys.version_info >= (3, 11):
-    HowType = Literal["tpe", "ppe", "thread"]
+HowType = Literal["tpe", "ppe", "thread"]
 
-    @moduleexport
-    async def run_grouped[_FunCallResultT](
-        the_functioncalls: list[Callable[[], _FunCallResultT]],
-        how: HowType = "thread",
-    ) -> list[_FunCallResultT]:
-        """Execute funcalls async by given method."""
-        match how:
-            case "thread":
+
+@moduleexport
+async def run_grouped[_FunCallResultT](
+    the_functioncalls: list[Callable[[], _FunCallResultT]],
+    how: HowType = "thread",
+) -> list[_FunCallResultT]:
+    """Execute funcalls async by given method."""
+    match how:
+        case "thread":
+            async with asyncio.TaskGroup() as the_task_group:
+                all_tasks: list[asyncio.Task[_FunCallResultT]] = [
+                    the_task_group.create_task(asyncio.to_thread(funcall))
+                    for funcall in the_functioncalls
+                ]
+            return [ready_task.result() for ready_task in all_tasks]
+        case "ppe":
+            with concurrent.futures.ProcessPoolExecutor() as executor:
                 async with asyncio.TaskGroup() as the_task_group:
-                    all_tasks: list[asyncio.Task[_FunCallResultT]] = [
-                        the_task_group.create_task(asyncio.to_thread(funcall))
+                    all_tasks = [
+                        the_task_group.create_task(
+                            to_inner_task(funcall, executor)
+                        )
                         for funcall in the_functioncalls
                     ]
-                return [ready_task.result() for ready_task in all_tasks]
-            case "ppe":
-                with concurrent.futures.ProcessPoolExecutor() as executor:
-                    async with asyncio.TaskGroup() as the_task_group:
-                        all_tasks = [
-                            the_task_group.create_task(
-                                to_inner_task(funcall, executor)
-                            )
-                            for funcall in the_functioncalls
-                        ]
-                return [ready_task.result() for ready_task in all_tasks]
-            case "tpe":
-                with concurrent.futures.ThreadPoolExecutor() as executor:
-                    async with asyncio.TaskGroup() as the_task_group:
-                        all_tasks = [
-                            the_task_group.create_task(
-                                to_inner_task(funcall, executor)
-                            )
-                            for funcall in the_functioncalls
-                        ]
-                return [ready_task.result() for ready_task in all_tasks]
-            case _:  # pyright: ignore[reportUnnecessaryComparison]
-                print(
-                    "how was '",
-                    how,
-                    "' but needs to be one of {'thread','tpe','ppe'}.",
-                )
-                raise NotImplementedError(
-                    "how was '",
-                    how,
-                    "' but needs to be one of {'thread','tpe','ppe'}.",
-                )
+            return [ready_task.result() for ready_task in all_tasks]
+        case "tpe":
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                async with asyncio.TaskGroup() as the_task_group:
+                    all_tasks = [
+                        the_task_group.create_task(
+                            to_inner_task(funcall, executor)
+                        )
+                        for funcall in the_functioncalls
+                    ]
+            return [ready_task.result() for ready_task in all_tasks]
+        case _:  # pyright: ignore[reportUnnecessaryComparison]
+            print(
+                "how was '",
+                how,
+                "' but needs to be one of {'thread','tpe','ppe'}.",
+            )
+            raise NotImplementedError(
+                "how was '",
+                how,
+                "' but needs to be one of {'thread','tpe','ppe'}.",
+            )
 
 
 @moduleexport
