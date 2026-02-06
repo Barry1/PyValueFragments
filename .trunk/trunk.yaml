@@ -11,8 +11,8 @@ lint:
   disabled:
     - ty
     - prettier
+    - pyright
   enabled:
-    - pyright@1.1.408
     - bandit@1.9.3
     - hadolint@2.14.0
     - sourcery@1.43.0
