@@ -5,7 +5,10 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #PYOBJS = $(wildcard *.py)
 #pyobjs:= $(shell tree -if | egrep .pyi?$$)
 #pyobjs:= $(shell find src -regex .*pyi?$$)
-pyobjs!= find src -regex .*\.pyi?$$
+pyobjs!= find src -regex .*\.pyi?$$ -type f
+
+pyupgrade:
+	poetry run pyupgrade --py312-plus $(pyobjs)
 
 pyrefly:
 	poetry run pyrefly check
