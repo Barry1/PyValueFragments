@@ -10,7 +10,6 @@ from .valuetyping import TYPE_CHECKING, Callable, TypeVar
 
 thelogger: Logger = getLogger(__name__)
 if not TYPE_CHECKING:
-    # import cython
     try:
         from cython import float, int  # pylint: disable=redefined-builtin
     except ImportError:

@@ -131,5 +131,5 @@ ruff:
 cythontest:
 	-rm src/valuefragments/mathhelpers.cpython*
 	cd src; poetry run python -m timeit -s "from valuefragments.mathhelpers import loanrate" "loanrate(250000,0.03,15)"
-	cd src/valuefragments; poetry run cythonize -a -i mathhelpers.py
+	cd src/valuefragments; poetry run cythonize -X cpow=True -a -i mathhelpers.py
 	cd src; poetry run python -m timeit -s "from valuefragments.mathhelpers import loanrate" "loanrate(250000,0.03,15)"

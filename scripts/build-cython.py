@@ -20,6 +20,7 @@ def build() -> None:
             module_list="src/valuefragments/mathhelpers.py",
             exclude_failures=True,
             show_all_warnings=True,
+            compiler_directives={"cpow": True},
         ),
         # https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#Cython.Build.cythonize
         script_args=["build_ext", "--inplace"],
