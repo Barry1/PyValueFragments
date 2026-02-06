@@ -5,7 +5,7 @@
 [project]
 description = "Testing installation of Package"
 name = "valuefragments"
-version = "0.6.10"
+version = "0.6.11"
 readme = "README.md"
 requires-python = ">=3.12,<4.0" #">=3.12,<4.0"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
@@ -221,6 +221,8 @@ pytest-bandit = "^0.6.1"
 pytest-beartype = "^0.2.0"
 beartype = "^0.21.0"
 pyupgrade = "^3.21.2"
+pytest-pep8 = "^1.0.6"
+pytest-flakes = "^4.0.5"
 
 [tool.poetry.group.dev.dependencies.pylama]
 extras = ["all"]
