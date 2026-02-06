@@ -10,9 +10,10 @@ plugins:
 lint:
   disabled:
     - ty
+    - prettier
   enabled:
-    - bandit@1.9.3
     - pyright@1.1.408
+    - bandit@1.9.3
     - hadolint@2.14.0
     - sourcery@1.43.0
     - sql-formatter@15.7.0
@@ -27,17 +28,16 @@ lint:
     - markdownlint@0.47.0
     - mypy@1.19.1
     - osv-scanner@2.3.2
-    - prettier@3.8.1
-    - ruff@0.14.14
+    - ruff@0.15.0
     - taplo@0.10.0
-    - trivy@0.69.0
-    - trufflehog@3.92.5
+    - trivy@0.69.1
+    - trufflehog@3.93.0
     - yamllint@1.38.0
 runtimes:
   enabled:
     - go@1.21.0
     - node@22.16.0
-    - python@3.12.10
+    - python@3.12.12
 actions:
   enabled:
     - trunk-check-pre-push
@@ -50,10 +50,9 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.34038
+    - circleci@0.1.34283
     - gh@2.86.0
     - pylint@4.0.4
-    - pyright@1.1.408
     - shellcheck@0.11.0
     - poetry@2.3.2
   definitions:
@@ -77,8 +76,8 @@ downloads:
         cpu:
           x86_64: x86_64
           arm_64: aarch64
-        url: https://github.com/astral-sh/python-build-standalone/releases/download/20250517/cpython-${version}+20250517-${cpu}-${os}-install_only.tar.gz
-        version: 3.10.17
+        url: https://github.com/astral-sh/python-build-standalone/releases/download/20260203/cpython-${version}+20260203-${cpu}-${os}-install_only.tar.gz
+        version: 3.10.19
         strip_components: 1
       - os:
           macos: apple-darwin
@@ -86,8 +85,8 @@ downloads:
         cpu:
           x86_64: x86_64
           arm_64: aarch64
-        url: https://github.com/astral-sh/python-build-standalone/releases/download/20250517/cpython-${version}+20250517-${cpu}-${os}-install_only.tar.gz
-        version: 3.11.12
+        url: https://github.com/astral-sh/python-build-standalone/releases/download/20260203/cpython-${version}+20260203-${cpu}-${os}-install_only.tar.gz
+        version: 3.11.14
         strip_components: 1
       - os:
           macos: apple-darwin
@@ -95,8 +94,8 @@ downloads:
         cpu:
           x86_64: x86_64
           arm_64: aarch64
-        url: https://github.com/astral-sh/python-build-standalone/releases/download/20250517/cpython-${version}+20250517-${cpu}-${os}-install_only.tar.gz
-        version: 3.12.10
+        url: https://github.com/astral-sh/python-build-standalone/releases/download/20260203/cpython-${version}+20260203-${cpu}-${os}-install_only.tar.gz
+        version: 3.12.12
         strip_components: 1
       - os:
           macos: apple-darwin
@@ -104,6 +103,15 @@ downloads:
         cpu:
           x86_64: x86_64
           arm_64: aarch64
-        url: https://github.com/astral-sh/python-build-standalone/releases/download/20250517/cpython-${version}+20250517-${cpu}-${os}-install_only.tar.gz
-        version: 3.13.3
+        url: https://github.com/astral-sh/python-build-standalone/releases/download/20260203/cpython-${version}+20260203-${cpu}-${os}-install_only.tar.gz
+        version: 3.13.12
+        strip_components: 1
+      - os:
+          macos: apple-darwin
+          linux: unknown-linux-gnu
+        cpu:
+          x86_64: x86_64
+          arm_64: aarch64
+        url: https://github.com/astral-sh/python-build-standalone/releases/download/20260203/cpython-${version}+20260203-${cpu}-${os}-install_only.tar.gz
+        version: 3.14.3
         strip_components: 1
