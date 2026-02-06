@@ -6,7 +6,7 @@ from logging import Logger, getLogger
 from math import log
 
 from .moduletools import moduleexport
-from .valuetyping import TYPE_CHECKING, Callable
+from .valuetyping import TYPE_CHECKING, Callable, TypeVar
 
 thelogger: Logger = getLogger(__name__)
 if not TYPE_CHECKING:
@@ -40,13 +40,14 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
     )
 
 
+# leider unterstützt cython noch keine <https://docs.python.org/3/reference/compound_stmts.html#type-params>
+
+
+T = TypeVar("T", float, int)
+
+
 @moduleexport
-def determinant[
-    T: (
-        int,
-        float,
-    )
-](
+def determinant(
     cola: tuple[T, T, T],
     colb: tuple[T, T, T],
     colc: tuple[T, T, T],
@@ -79,9 +80,7 @@ def intp(x_values: Tfloatthreevec, y_values: Tfloatthreevec) -> Tfloatthreevec:
 
 
 @moduleexport
-def polyroot(
-    coeffs: tuple[float, float, float], val: float = 0
-) -> tuple[float, float]:
+def polyroot(coeffs: Tfloatthreevec, val: float = 0) -> tuple[float, float]:
     """Returns root of second order polynom given in its coefficients."""
     a, b, c = coeffs
     c -= val
@@ -99,7 +98,7 @@ def easybisect(  # pylint: disable=too-many-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,
-    targetval: float,
+    targefloat: float,
     *,
     maxiter: int = 20,
     relerror: float = 0.01,
@@ -110,7 +109,7 @@ def easybisect(  # pylint: disable=too-many-arguments
         "Maximum %i iterations for relative error %f", maxiter, relerror
     )
     data: list[tuple[float, float]] = []
-    if lowerbound >= upperbound:
+    if upperbound < lowerbound:
         [lowerbound, upperbound] = [upperbound, lowerbound]
     # assert lowerbound < upperbound
     lowind: int = len(data)
@@ -118,27 +117,27 @@ def easybisect(  # pylint: disable=too-many-arguments
     highind: int = len(data)
     data.append((upperbound, fun(upperbound)))
     for actiter in range(maxiter):
-        candidate: float = data[lowind][0] + (targetval - data[lowind][1]) / (
+        candidate: float = data[lowind][0] + (targefloat - data[lowind][1]) / (
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
         candidateval: float = fun(candidate)
-        candidatediff: float = candidateval - targetval
+        candidatediff: float = candidateval - targefloat
         if candidatediff < 0:
             lowind = len(data)
         else:
             highind = len(data)
         data.append((candidate, candidateval))
-        if abs(candidatediff) <= relerror * targetval:
+        if abs(candidatediff) <= relerror * targefloat:
             thelogger.info(
                 "Early end of loop at iteration %i with relerr %6.3f%%.",
                 actiter,
-                candidatediff * 100 / targetval,
+                candidatediff * 100 / targefloat,
             )
             break
         thelogger.debug(
             "Iteration %i with relative error %6.3f%%",
             actiter,
-            candidatediff * 100 / targetval,
+            candidatediff * 100 / targefloat,
         )
     for entry in data:
         thelogger.debug(entry)
@@ -158,6 +157,7 @@ def probneeds_rec(
             "len of needs is %i und len of props is %i but it needs to match.",
             lenneeds,
             lenprobs,
+            exc_info=True,
         )
         raise ValueError("needs and probs must have the same length")
     if not needs:
