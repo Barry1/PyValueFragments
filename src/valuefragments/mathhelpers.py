@@ -39,8 +39,10 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
     )
 
 
-# leider unterstützt cython noch keine <https://docs.python.org/3/reference/compound_stmts.html#type-params>
-# following <https://docs.python.org/3/reference/compound_stmts.html#generic-functions>
+# leider unterstützt cython noch keine
+# <https://docs.python.org/3/reference/compound_stmts.html#type-params>
+# following
+# <https://docs.python.org/3/reference/compound_stmts.html#generic-functions>
 
 T = TypeVar("T", float, int)
 
