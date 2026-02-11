@@ -5,8 +5,10 @@ from __future__ import annotations
 import logging
 import os
 import time
-from asyncio import iscoroutinefunction
 from functools import wraps
+
+# no longer use that from asyncio as deprecated from 3.14
+from inspect import iscoroutinefunction
 from types import FunctionType  # , CoroutineType
 
 # typing with the help of
