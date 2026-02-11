@@ -12,6 +12,11 @@ on: workflow_dispatch # yamllint disable-line rule:truthy
 #    branches: ["main", "master"]
 #  pull_request:
 #    branches: ["main", "master"]
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  # Add only what is strictly needed for the workflow
 jobs:
   run-lint:
     runs-on: ubuntu-latest

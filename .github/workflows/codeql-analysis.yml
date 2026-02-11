@@ -8,6 +8,11 @@ on: # yamllint disable-line rule:truthy
   #    branches: ["main", "master"]
   schedule:
     - cron: 42 19 * * 1
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  # Add only what is strictly needed for the workflow
 jobs:
   analyze:
     name: Analyze
