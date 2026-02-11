@@ -7,6 +7,9 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$
 
+flake8:
+	poetry run flake8 src/valuefragments
+
 pyflakes:
 	poetry run pyflakes src/valuefragments
 
