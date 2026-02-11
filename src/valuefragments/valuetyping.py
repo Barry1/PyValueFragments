@@ -5,34 +5,33 @@ from typing import *  # type: ignore # noqa
 
 from typing_extensions import *  # type: ignore # noqa
 
-# Example without StarImports
+# Preparation without StarImports
 
-try:
-    # Sentinel=__import__(name="typing", fromlist="Sentinel").Sentinel
-    # from typing import Sentinel
-    globals().update(
-        {
-            "Sentinel": getattr(
-                __import__(name="typing", fromlist="Sentinel"), "Sentinel"
-            )
-        }
-    )
-except (ImportError, AttributeError):
-    # Sentinel=__import__(name="typing_extensions", fromlist="Sentinel").Sentinel
+
+def typing_or_typing_extensions_import(modulename: str):
     try:
         globals().update(
-            {
-                "Sentinel": getattr(
-                    __import__(name="typing_extensions", fromlist="Sentinel"),
-                    "Sentinel",
-                )
-            }
+            {modulename: getattr(__import__(name="typing"), modulename)}
         )
     except (ImportError, AttributeError):
-        print(
-            "Sentinel is not available in typing or typing_extensions. Please upgrade to Python 3.8+ or install typing_extensions."
-        )
-# globals().update({"Sentinel":getattr(__import__(name="typing_extensions", fromlist="Sentinel"),"Sentinel")})
+        try:
+            globals().update(
+                {
+                    modulename: getattr(
+                        __import__(name="typing_extensions"),
+                        modulename,
+                    )
+                }
+            )
+        except (ImportError, AttributeError):
+            print(
+                f"{modulename} is not available in typing or typing_extensions. Please upgrade to Python 3.8+ or install typing_extensions."
+            )
+
+
+needed: list[str] = ["Sentinel", "TypedDict", "IO"]
+for neededel in needed:
+    typing_or_typing_extensions_import(neededel)
 
 
 class KwargsForPrint(TypedDict, total=False):  # noqa: F405
