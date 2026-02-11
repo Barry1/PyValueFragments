@@ -1,6 +1,7 @@
 """Module for typing information from typing and typing_extensions."""
 
 # pylint: disable=wildcard-import,unused-wildcard-import
+import sys
 from typing import *  # type: ignore # noqa
 
 from typing_extensions import *  # type: ignore # noqa
@@ -10,18 +11,15 @@ from typing_extensions import *  # type: ignore # noqa
 
 def typing_or_typing_extensions_import(modulename: str):
     try:
-        globals().update(
-            {modulename: getattr(__import__(name="typing"), modulename)}
+        sys._getframe(1).f_globals[modulename] = getattr(
+            __import__(name="typing"),
+            modulename,
         )
     except (ImportError, AttributeError):
         try:
-            globals().update(
-                {
-                    modulename: getattr(
-                        __import__(name="typing_extensions"),
-                        modulename,
-                    )
-                }
+            sys._getframe(1).f_globals[modulename] = getattr(
+                __import__(name="typing_extensions"),
+                modulename,
             )
         except (ImportError, AttributeError):
             print(
