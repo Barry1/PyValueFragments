@@ -40,12 +40,12 @@ def importallfromtypingandtypingextensions() -> None:
 importallfromtypingandtypingextensions()
 
 
-class KwargsForPrint(TypedDict, total=False):  # noqa: F821
+class KwargsForPrint(TypedDict, total=False):  # type: ignore[name-defined,call-arg]  # noqa: F405
     """Class for Type Checking Kwargs 2 Print"""
 
     sep: str
     end: str
-    file: IO[str]  # noqa: F821
+    file: IO[str]  # type: ignore[name-defined]  # noqa: F821
     flush: bool
 
 
