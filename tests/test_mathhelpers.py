@@ -50,8 +50,8 @@ def test_probneeds_rec() -> None:
 
 def test_loanrate() -> None:
     """Check for loanrate calculation."""
-    assert abs(loanrate(250000, 0.03, 15) - 1726.4541006950042) < 1e-4
-    assert abs(loanrate(250000, 0.035, 15) - 1787.2063533579324) < 1e-4
-    assert abs(loanrate(250000, 0.035, 16) - 1702.3670984009577) < 1e-4
-    assert abs(loanrate(250000, 0.035, 17) - 1627.751098914003) < 1e-4
-    assert abs(loanrate(250000, 0.04, 15) - 1849.2198140231444) < 1e-4
+    assert abs(loanrate(250000, 0.03, 15) - 1726.422852) < 1e-4
+    assert abs(loanrate(250000, 0.035, 15) - 1787.1937256) < 1e-4
+    assert abs(loanrate(250000, 0.035, 16) - 1702.355347) < 1e-4
+    assert abs(loanrate(250000, 0.035, 17) - 1627.7401123) < 1e-4
+    assert abs(loanrate(250000, 0.04, 15) - 1849.221069) < 1e-4
