@@ -2,34 +2,42 @@
 
 # pylint: disable=wildcard-import,unused-wildcard-import
 import sys
-from typing import *  # type: ignore # noqa
 
-from typing_extensions import *  # type: ignore # noqa
-
-# Preparation without StarImports
+__all__: list[str] = []
 
 
-def typing_or_typing_extensions_import(modulename: str):
-    try:
-        sys._getframe(1).f_globals[modulename] = getattr(
+def importallfromtypingandtypingextensions() -> None:
+    # This function is used to import all attributes from typing
+    # and typing_extensions into the global namespace of the caller.
+    # use instead of
+    # from typing import *  # type: ignore # noqa
+    # from typing_extensions import *  # type: ignore # noqa
+    _typing = __import__(name="typing")
+    _typing_extensions = __import__(name="typing_extensions")
+    for singleattr in [
+        item for item in dir(_typing) if not item.startswith("_")
+    ]:
+        # print(singleattr)
+        sys._getframe(1).f_globals[singleattr] = getattr(
             __import__(name="typing"),
-            modulename,
+            singleattr,
         )
-    except (ImportError, AttributeError):
-        try:
-            sys._getframe(1).f_globals[modulename] = getattr(
-                __import__(name="typing_extensions"),
-                modulename,
-            )
-        except (ImportError, AttributeError):
-            print(
-                f"{modulename} is not available in typing or typing_extensions. Please upgrade to Python 3.8+ or install typing_extensions."
-            )
+        sys._getframe(1).f_globals["__all__"].append(singleattr)
+    #    for singleattr in [item for item in dir(_typing_extensions) if item not in dir(_typing)]:
+    for singleattr in [
+        item
+        for item in dir(_typing_extensions)
+        if item not in dir(_typing) and not item.startswith("_")
+    ]:
+        # print(singleattr)
+        sys._getframe(1).f_globals[singleattr] = getattr(
+            __import__(name="typing_extensions"),
+            singleattr,
+        )
+        sys._getframe(1).f_globals["__all__"].append(singleattr)
 
 
-needed: list[str] = ["Sentinel", "TypedDict", "IO"]
-for neededel in needed:
-    typing_or_typing_extensions_import(neededel)
+importallfromtypingandtypingextensions()
 
 
 class KwargsForPrint(TypedDict, total=False):  # noqa: F405
