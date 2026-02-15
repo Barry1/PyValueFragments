@@ -31,8 +31,12 @@ jobs:
           pip install --upgrade poetry poetry-plugin-export
           poetry export --without-hashes --output=requirements.txt
           pip install --upgrade pylint --requirement requirements.txt
+      - name: debug
+        run: |
+          find src/valuefragments -name \*.py
+          echo pylint --verbose --jobs 0 $(find src/valuefragments -name \*.py)
       - name: Analysing the code with pylint
         run: |
           # shellcheck disable=SC2035,SC2046
           # pylint --verbose --jobs 0 $(git ls-files *.py *.pyi)
-          pylint --verbose --jobs 0 src/valuefragments/*.py
+          pylint src/valuefragments --verbose --jobs 0 

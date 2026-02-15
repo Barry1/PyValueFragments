@@ -8,14 +8,14 @@ from .valuetyping import Callable
 
 # from .helpers import ic
 # _FunCallResultT = TypeVar("_FunCallResultT")
-# _fun_param_t = ParamSpec("_fun_param_t")
+# _FunParamP = ParamSpec("_FunParamP")
 # replaced by Type parameter lists
 # <https://docs.python.org/3/reference/compound_stmts.html#type-parameter-lists>
 
 
-def moduleexport[_FunCallResultT, **_fun_param_t](
-    class_or_function: Callable[_fun_param_t, _FunCallResultT],
-) -> Callable[_fun_param_t, _FunCallResultT]:
+def moduleexport[_FunCallResultT, **_FunParamP](
+    class_or_function: Callable[_FunParamP, _FunCallResultT],
+) -> Callable[_FunParamP, _FunCallResultT]:
     """Adds function or class magical to module's __all__."""
     # Following the idea from
     # <https://stackoverflow.com/a/35710527/#:~:text=export%20decorator>

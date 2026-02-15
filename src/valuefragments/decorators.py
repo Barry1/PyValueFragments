@@ -5,8 +5,10 @@ from __future__ import annotations
 import logging
 import os
 import time
-from asyncio import iscoroutinefunction
 from functools import wraps
+
+# no longer use that from asyncio as deprecated from 3.14
+from inspect import iscoroutinefunction
 from types import FunctionType  # , CoroutineType
 
 # typing with the help of
@@ -44,20 +46,20 @@ from .valuetyping import (  # Coroutine,; TypeGuard,
 # @overload
 # def logdecorate(
 #    func: Callable[_fun_param_T, Awaitable[_FunCallResultT]]
-# ) -> Callable[_fun_param_type, Awaitable[_FunCallResultT]]: ...
+# ) -> Callable[_FunParamP, Awaitable[_FunCallResultT]]: ...
 #
 #
 # @overload
 # def logdecorate(
-#    func: Callable[_fun_param_type, _FunCallResultT]
-# ) -> Callable[_fun_param_type, _FunCallResultT]: ...
+#    func: Callable[_FunParamP, _FunCallResultT]
+# ) -> Callable[_FunParamP, _FunCallResultT]: ...
 
 # <https://stackoverflow.com/q/78206137>
 
 
-def istypedcoroutinefunction[T, **param](
-    func: Callable[param, Coroutine[Any, Any, T]] | Callable[param, T],
-) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
+def istypedcoroutinefunction[T, **ParamP](
+    func: Callable[ParamP, Coroutine[Any, Any, T]] | Callable[ParamP, T],
+) -> TypeIs[Callable[ParamP, Coroutine[Any, Any, T]]]:
     """Is the argument an awaitable function?"""
     # with given return type following PEP-0742?"""
     # https://rednafi.com/python/typeguard_vs_typeis/
@@ -65,9 +67,9 @@ def istypedcoroutinefunction[T, **param](
     return iscoroutinefunction(func)
 
 
-def is_coroutine_function[T, **param](
-    func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
-) -> TypeIs[Callable[param, Coroutine[Any, Any, T]]]:
+def is_coroutine_function[T, **ParamP](
+    func: Callable[ParamP, T] | Callable[ParamP, Coroutine[Any, Any, T]],
+) -> TypeIs[Callable[ParamP, Coroutine[Any, Any, T]]]:
     """Is the argument an awaitable function?"""
     # with given return type following PEP-0742?"""
     return (
@@ -78,9 +80,9 @@ def is_coroutine_function[T, **param](
 
 
 @moduleexport
-def logdecorate[T, **param](
-    func: Callable[param, T] | Callable[param, Coroutine[Any, Any, T]],
-) -> Callable[param, Coroutine[Any, Any, T]] | Callable[param, T]:
+def logdecorate[T, **ParamP](
+    func: Callable[ParamP, T] | Callable[ParamP, Coroutine[Any, Any, T]],
+) -> Callable[ParamP, Coroutine[Any, Any, T]] | Callable[ParamP, T]:
     """Decorator: Log start and stop into 'decorated.log'"""
 
     def setuplogger(funcname: str) -> logging.Logger:
@@ -147,15 +149,15 @@ def logdecorate[T, **param](
     thelogger.debug("%s %s %s", type(func), dir(func), func.__annotations__)
     if istypedcoroutinefunction(func=func):
         #    if is_coroutine_function(func=func):
-        assert_type(func, Callable[param, Coroutine[Any, Any, T]])
-        # assert isinstance(func, Callable[param, Coroutine[Any, Any, T]])
+        assert_type(func, Callable[ParamP, Coroutine[Any, Any, T]])
+        # assert isinstance(func, Callable[ParamP, Coroutine[Any, Any, T]])
         thelogger.debug("%s is a coro: %s", func, reveal_type(func))
         #        thelogger.info("%s",type(func))
         #        thelogger.info("%s",dir(func))
         #        thelogger.info("%s",func.__annotations__)
         # @wraps(wrapped=func)
 
-        async def awrapped(*args: param.args, **kwargs: param.kwargs) -> T:
+        async def awrapped(*args: ParamP.args, **kwargs: ParamP.kwargs) -> T:
             """Wrapped function for the async case."""
             # Pre-Execution
             thelogger.debug(msg="LogDecorated ASYNC Start")
@@ -173,14 +175,14 @@ def logdecorate[T, **param](
             return res
 
         return awrapped
-    assert_type(func, Callable[param, T])
-    # assert isinstance(func, Callable[param, T])
+    assert_type(func, Callable[ParamP, T])
+    # assert isinstance(func, Callable[ParamP, T])
     thelogger.debug(
         "%s is a synchronous function (no coro): %s", func, reveal_type(func)
     )
 
     # @wraps(wrapped=func)
-    def wrapped(*args: param.args, **kwargs: param.kwargs) -> T:
+    def wrapped(*args: ParamP.args, **kwargs: ParamP.kwargs) -> T:
         """ """
         thelogger.debug(msg="LogDecorated Start")
         begintimings: os.times_result = os.times()
@@ -201,15 +203,15 @@ def logdecorate[T, **param](
 
 
 @moduleexport
-def timing_wall[**_fun_param_type, _FunCallResultT](
-    func: Callable[_fun_param_type, _FunCallResultT],
-) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_wall[**_FunParamP, _FunCallResultT](
+    func: Callable[_FunParamP, _FunCallResultT],
+) -> Callable[_FunParamP, _FunCallResultT]:
     """Measure WALL-Clock monotonic."""
 
     @wraps(func)
     def wrapped(
-        *args: _fun_param_type.args,
-        **kwargs: _fun_param_type.kwargs,
+        *args: _FunParamP.args,
+        **kwargs: _FunParamP.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: float | Literal[0] = time.monotonic()
@@ -243,22 +245,22 @@ def calcdiffs(
 
 
 @moduleexport
-def portable_timing[**_fun_param_type, _FunCallResultT](
+def portable_timing[**_FunParamP, _FunCallResultT](
     func: (
-        Callable[_fun_param_type, _FunCallResultT]
-        | Callable[_fun_param_type, Coroutine[Any, Any, _FunCallResultT]]
+        Callable[_FunParamP, _FunCallResultT]
+        | Callable[_FunParamP, Coroutine[Any, Any, _FunCallResultT]]
     ),
 ) -> (
-    Callable[_fun_param_type, _FunCallResultT]
-    | Callable[_fun_param_type, Coroutine[Any, Any, _FunCallResultT]]
+    Callable[_FunParamP, _FunCallResultT]
+    | Callable[_FunParamP, Coroutine[Any, Any, _FunCallResultT]]
 ):
     """Like LINUX-TIME Command."""
     if istypedcoroutinefunction(func):
 
         @wraps(func)
         async def awrapped(
-            *args: _fun_param_type.args,
-            **kwargs: _fun_param_type.kwargs,
+            *args: _FunParamP.args,
+            **kwargs: _FunParamP.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: tuple[int, os.times_result] = (
@@ -280,8 +282,8 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
 
     @wraps(func)
     def wrapped(
-        *args: _fun_param_type.args,
-        **kwargs: _fun_param_type.kwargs,
+        *args: _FunParamP.args,
+        **kwargs: _FunParamP.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: tuple[int, os.times_result] = (
@@ -303,15 +305,15 @@ def portable_timing[**_fun_param_type, _FunCallResultT](
 
 
 @moduleexport
-def linuxtime[**_fun_param_type, _FunCallResultT](
-    func: Callable[_fun_param_type, _FunCallResultT],
-) -> Callable[_fun_param_type, _FunCallResultT]:
+def linuxtime[**_FunParamP, _FunCallResultT](
+    func: Callable[_FunParamP, _FunCallResultT],
+) -> Callable[_FunParamP, _FunCallResultT]:
     """Measure like unix/linux time command."""
 
     @wraps(func)
     def wrapped(
-        *args: _fun_param_type.args,
-        **kwargs: _fun_param_type.kwargs,
+        *args: _FunParamP.args,
+        **kwargs: _FunParamP.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: os.times_result = os.times()
@@ -339,15 +341,15 @@ if os.name == "posix":
     import resource  # pylint:disable=import-error
 
     @moduleexport
-    def linuxtime_resource[**_fun_param_type, _FunCallResultT](
-        func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[_fun_param_type, _FunCallResultT]:
+    def linuxtime_resource[**_FunParamP, _FunCallResultT](
+        func: Callable[_FunParamP, _FunCallResultT],
+    ) -> Callable[_FunParamP, _FunCallResultT]:
         """Measure like unix/linux time command."""
 
         @wraps(func)
         def wrapped(
-            *args: _fun_param_type.args,
-            **kwargs: _fun_param_type.kwargs,
+            *args: _FunParamP.args,
+            **kwargs: _FunParamP.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = time.monotonic()
@@ -385,15 +387,15 @@ if os.name == "posix":
         return wrapped
 
     @moduleexport
-    def timing_resource[**_fun_param_type, _FunCallResultT](
-        func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[_fun_param_type, _FunCallResultT]:
+    def timing_resource[**_FunParamP, _FunCallResultT](
+        func: Callable[_FunParamP, _FunCallResultT],
+    ) -> Callable[_FunParamP, _FunCallResultT]:
         """Measure execution times by resource."""
 
         @wraps(func)
         def wrapped(
-            *args: _fun_param_type.args,
-            **kwargs: _fun_param_type.kwargs,
+            *args: _FunParamP.args,
+            **kwargs: _FunParamP.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: float | Literal[0] = sum(
@@ -418,15 +420,15 @@ except ImportError:
 else:
 
     @moduleexport
-    def timing_psutil[**_fun_param_type, _FunCallResultT](
-        func: Callable[_fun_param_type, _FunCallResultT],
-    ) -> Callable[_fun_param_type, _FunCallResultT]:
+    def timing_psutil[**_FunParamP, _FunCallResultT](
+        func: Callable[_FunParamP, _FunCallResultT],
+    ) -> Callable[_FunParamP, _FunCallResultT]:
         """Measures execution times by psutil."""
 
         @wraps(func)
         def wrapped(
-            *args: _fun_param_type.args,
-            **kwargs: _fun_param_type.kwargs,
+            *args: _FunParamP.args,
+            **kwargs: _FunParamP.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
             before: NamedTuple = psutil.Process().cpu_times()
@@ -442,15 +444,15 @@ else:
 
 
 @moduleexport
-def timing_thread_time[**_fun_param_type, _FunCallResultT](
-    func: Callable[_fun_param_type, _FunCallResultT],
-) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_thread_time[**_FunParamP, _FunCallResultT](
+    func: Callable[_FunParamP, _FunCallResultT],
+) -> Callable[_FunParamP, _FunCallResultT]:
     """Measures execution times by time (thread)."""
 
     @wraps(func)
     def wrapped(
-        *args: _fun_param_type.args,
-        **kwargs: _fun_param_type.kwargs,
+        *args: _FunParamP.args,
+        **kwargs: _FunParamP.kwargs,
     ) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.thread_time()
@@ -463,14 +465,14 @@ def timing_thread_time[**_fun_param_type, _FunCallResultT](
 
 
 @moduleexport
-def timing_process_time[**_fun_param_type, _FunCallResultT](
-    func: Callable[_fun_param_type, _FunCallResultT],
-) -> Callable[_fun_param_type, _FunCallResultT]:
+def timing_process_time[**_FunParamP, _FunCallResultT](
+    func: Callable[_FunParamP, _FunCallResultT],
+) -> Callable[_FunParamP, _FunCallResultT]:
     """Measures execution times by time (process)."""
 
     @wraps(func)
     def wrapped(
-        *args: _fun_param_type.args, **kwargs: _fun_param_type.kwargs
+        *args: _FunParamP.args, **kwargs: _FunParamP.kwargs
     ) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.process_time()
@@ -517,18 +519,18 @@ class LazyProperty[InstanceObjectT, _FunCallResultT](property):
 
 
 @moduleexport
-def memoize[*_parameter_tuple_type, _FunCallResultT](
-    func: Callable[[*_parameter_tuple_type], _FunCallResultT],
-) -> Callable[[*_parameter_tuple_type], _FunCallResultT]:
+def memoize[*_ParamTupleTs, _FunCallResultT](
+    func: Callable[[*_ParamTupleTs], _FunCallResultT],
+) -> Callable[[*_ParamTupleTs], _FunCallResultT]:
     """decorater for caching calls
     thanks to
     <https://towardsdatascience.com/python-decorators-for-data-science-6913f717669a#879f>
     <https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99>
     """
-    cache: dict[tuple[*_parameter_tuple_type], _FunCallResultT] = {}
+    cache: dict[tuple[*_ParamTupleTs], _FunCallResultT] = {}
 
     # @wraps(func)
-    def wrapper(*args: *_parameter_tuple_type) -> _FunCallResultT:
+    def wrapper(*args: *_ParamTupleTs) -> _FunCallResultT:
         """ """
         if args in cache:
             return cache[args]

@@ -10,6 +10,12 @@ pyobjs!= find src -regex .*\.pyi?$$ -type f
 pyupgrade:
 	poetry run pyupgrade --py312-plus $(pyobjs)
 
+flake8:
+	poetry run flake8 src/valuefragments
+
+pyflakes:
+	poetry run pyflakes src/valuefragments
+
 pyrefly:
 	poetry run pyrefly check
 

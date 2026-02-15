@@ -20,7 +20,7 @@ lint:
     - actionlint@1.7.10
     - autopep8@2.3.2
     - black@26.1.0
-    - checkov@3.2.500
+    - checkov@3.2.501
     - flake8@7.3.0
     - git-diff-check
     - gitleaks@8.30.0
@@ -31,7 +31,7 @@ lint:
     - ruff@0.15.0
     - taplo@0.10.0
     - trivy@0.69.1
-    - trufflehog@3.93.0
+    - trufflehog@3.93.3
     - yamllint@1.38.0
 runtimes:
   enabled:
@@ -50,7 +50,7 @@ tools:
   runtimes:
     - python
   enabled:
-    - circleci@0.1.34283
+    - circleci@0.1.34422
     - gh@2.86.0
     - pylint@4.0.4
     - shellcheck@0.11.0
