@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from fractions import Fraction
 from logging import Logger, getLogger
 from math import log
 
@@ -16,6 +17,27 @@ if not TYPE_CHECKING:
         thelogger.info("No cython here")
 # <https://stackoverflow.com/a/50928627>
 Tfloatthreevec = tuple[float, float, float]
+
+T = TypeVar("T", float, int)
+
+TT = TypeVar("TT")
+
+
+@moduleexport
+def is_exact_float(rational) -> bool:
+    """
+    Prüft, ob die rationale Zahl 'rational' exakt als float darstellbar ist
+    (endliche binäre Expansion in IEEE-754).
+    Unterstützt: int, float, str (z.B. '0.5', '1/3'), tuple (zähler, nenner).
+
+    :param rational: Die zu prüfende rationale Zahl
+    :return: True, wenn exakt darstellbar (Nenner nur Potenz von 2), sonst False
+    """
+    f = Fraction(rational)
+    denom: int = f.denominator
+    while denom % 2 == 0:
+        denom //= 2
+    return denom == 1
 
 
 @moduleexport
@@ -43,8 +65,6 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
 # <https://docs.python.org/3/reference/compound_stmts.html#type-params>
 # following
 # <https://docs.python.org/3/reference/compound_stmts.html#generic-functions>
-
-T = TypeVar("T", float, int)
 
 
 @moduleexport
