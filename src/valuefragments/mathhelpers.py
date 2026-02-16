@@ -33,11 +33,12 @@ def is_exact_float(rational) -> bool:
     :param rational: Die zu prüfende rationale Zahl
     :return: True, wenn exakt darstellbar (Nenner nur Potenz von 2), sonst False
     """
-    f = Fraction(rational)
-    denom: int = f.denominator
-    while denom % 2 == 0:
-        denom //= 2
-    return denom == 1
+    # f = Fraction(rational)
+    # denom: int = f.denominator
+    # while denom % 2 == 0:
+    #    denom //= 2
+    # return denom == 1
+    return Fraction(str(rational)).denominator.bit_count() == 1
 
 
 @moduleexport
