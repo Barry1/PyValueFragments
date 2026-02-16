@@ -3,7 +3,48 @@
 import sys
 
 __all__: list[str] = []
-easy = False
+_typing = __import__(name="typing")
+_typing_extensions = __import__(name="typing_extensions")
+for singleattr in [item for item in dir(_typing) if not item.startswith("_")]:
+    # print(singleattr) ==> logging?
+    sys._getframe(0).f_globals[singleattr] = getattr(
+        __import__(name="typing"),
+        singleattr,
+    )
+    __all__.append(singleattr)  # pyright: ignore[reportUnsupportedDunderAll]
+#    for singleattr in [item for item in dir(_typing_extensions) if item not in dir(_typing)]:
+for singleattr in [
+    item
+    for item in dir(_typing_extensions)
+    if item not in dir(_typing) and not item.startswith("_")
+]:
+    # print(singleattr) ==> logging?
+    sys._getframe(0).f_globals[singleattr] = getattr(
+        __import__(name="typing_extensions"),
+        singleattr,
+    )
+    __all__.append(singleattr)  # pyright: ignore[reportUnsupportedDunderAll]
+
+
+class KwargsForPrint(TypedDict, total=False):  # type: ignore[name-defined,call-arg]  # noqa: F821
+    """Class for Type Checking Kwargs 2 Print"""
+
+    sep: str
+    end: str
+    file: IO[str]  # type: ignore[name-defined]  # noqa: F821
+    flush: bool
+
+
+# for python<=3.5,2.7
+# https://typing.python.org/en/latest/...
+# ...spec/typeddict.html#alternative-syntax
+# KwargsForPrint = TypedDict(  # noqa: F405
+#    "KwargsForPrint",
+#    {"sep": str, "end": str, "file": IO[str], "flush": bool},  # noqa: F405
+#    total=False,
+# )
+
+""" easy = False
 
 if easy:
     # prefilled from python 3.14.3
@@ -443,9 +484,7 @@ else:
         _typing = __import__(name="typing")
         _typing_extensions = __import__(name="typing_extensions")
         global __all__
-        for singleattr in [
-            item for item in dir(_typing) if not item.startswith("_")
-        ]:
+        for singleattr in [item for item in dir(_typing) if not item.startswith("_")]:
             # print(singleattr)
             sys._getframe(1).f_globals[singleattr] = getattr(
                 __import__(name="typing"),
@@ -466,22 +505,4 @@ else:
             __all__.append(singleattr)
 
     importallfromtypingandtypingextensions()
-
-
-class KwargsForPrint(TypedDict, total=False):  # type: ignore[name-defined,call-arg]  # noqa: F821
-    """Class for Type Checking Kwargs 2 Print"""
-
-    sep: str
-    end: str
-    file: IO[str]  # type: ignore[name-defined]  # noqa: F821
-    flush: bool
-
-
-# for python<=3.5,2.7
-# https://typing.python.org/en/latest/...
-# ...spec/typeddict.html#alternative-syntax
-# KwargsForPrint = TypedDict(  # noqa: F405
-#    "KwargsForPrint",
-#    {"sep": str, "end": str, "file": IO[str], "flush": bool},  # noqa: F405
-#    total=False,
-# )
+ """
