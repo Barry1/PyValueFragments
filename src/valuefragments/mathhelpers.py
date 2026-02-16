@@ -20,8 +20,6 @@ Tfloatthreevec = tuple[float, float, float]
 
 T = TypeVar("T", float, int)
 
-TT = TypeVar("TT")
-
 
 @moduleexport
 def is_exact_float(rational) -> bool:
