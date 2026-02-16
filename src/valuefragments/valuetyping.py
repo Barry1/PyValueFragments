@@ -7,7 +7,7 @@ _typing = __import__(name="typing")
 _typing_extensions = __import__(name="typing_extensions")
 for singleattr in [item for item in dir(_typing) if not item.startswith("_")]:
     # print(singleattr) ==> logging?
-    sys._getframe(1).f_globals[singleattr] = getattr(
+    sys._getframe(0).f_globals[singleattr] = getattr(
         __import__(name="typing"),
         singleattr,
     )
@@ -19,7 +19,7 @@ for singleattr in [
     if item not in dir(_typing) and not item.startswith("_")
 ]:
     # print(singleattr) ==> logging?
-    sys._getframe(1).f_globals[singleattr] = getattr(
+    sys._getframe(0).f_globals[singleattr] = getattr(
         __import__(name="typing_extensions"),
         singleattr,
     )
