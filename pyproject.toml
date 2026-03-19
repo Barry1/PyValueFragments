@@ -224,11 +224,6 @@ pyupgrade = "^3.21.2"
 pytest-pep8 = "^1.0.6"
 pytest-flakes = "^4.0.5"
 
-[tool.poetry.group.dev.dependencies.pylama]
-extras = ["all"]
-version = ">8.4"
-python = "<3.11"
-
 [tool.poetry.group.dev.dependencies.mypy]
 # git = "https://github.com/python/mypy.git"
 version = "^1"
@@ -272,9 +267,6 @@ version = ">=2022.09.27"
 python = "^3.11,<3.13"
 markers = 'sys_platform != "win32"'
 
-#[pylama.pep8]
-#max_line_length = 79
-
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
 typeCheckingMode = "strict"
@@ -293,15 +285,6 @@ stubPath = "src"
 venvPath = '.'
 venv = ".venv"
 
-[tool.pylama]
-# only up to py3.10 - see <https://pypi.org/project/pylama/>
-linters = [""] # means all
-#linters = ["mypy,pycodestyle,pydocstyle,pyflakes,pylint,isort"]
-#linters = ["eradicate"]#,"mccabe","mypy","pycodestyle","pydocstyle","pyflakes","pylint","radon","vulture","isort"]
-verbose = true
-concurrent = true
-max_line_length = 79
-
 [tool.pytest.ini_options]
 log_cli = true
 log_date_format = "%Y-%m-%d %H:%M:%S"
@@ -314,7 +297,6 @@ pythonpath = ["src"]
 addopts = [
   "--verbose",
   "--strict-config",
-  #    "--pylama",
   "--cache-clear",
   "--color=yes",
   #    "--typeguard-packages=valuefragments",
@@ -323,7 +305,7 @@ addopts = [
   "--cov-report=html",
 ]
 required_plugins = ["pytest-cov", "pytest-sugar", "pytest-asyncio"]
-#required_plugins = ["typeguard", "pylama"]
+#required_plugins = ["typeguard"]
 [tool.pyrefly]
 python_version = "3.13.3"
 search_path = ["src/valuefragments"]
