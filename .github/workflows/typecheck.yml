@@ -17,7 +17,8 @@ jobs:
       # Install Python dependencies and create environment
       - name: Create dependencies.txt from poetry.lock
         run: |
-          python -m pip install --upgrade pip poetry poetry-export-plugin
+          python -m pip install --upgrade pip poetry 
+          # poetry-export-plugin
           poetry export -f requirements.txt --output dependencies.txt --without-hashes
       - name: Install dependencies and run type checking
         run: |
