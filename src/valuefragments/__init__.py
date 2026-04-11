@@ -39,7 +39,7 @@ from .moduletools import moduleexport
 # <https://docs.python.org/3/howto/logging.html#library-config>
 thevaluefragmentslogger: logging.Logger = logging.getLogger(name=__name__)
 thevaluefragmentslogger.addHandler(hdlr=logging.NullHandler())
-thevaluefragmentslogger.info(msg="valuefragments __init__")
+thevaluefragmentslogger.debug(msg="valuefragments __init__")
 __all__: list[str] = [
     #    "backgroundme",
     "basic_auth",
