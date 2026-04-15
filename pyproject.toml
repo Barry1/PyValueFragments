@@ -1,29 +1,105 @@
-# Learn more at <https://github.com/carlosperate/awesome-pyprojevaluefragmentsct>
-# Cool info <https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/>
-#https://setuptools.readthedocs.io/en/latest/build_meta.html
-#https://peps.python.org/pep-0621/
 [project]
-description = "Testing installation of Package"
 name = "valuefragments"
 version = "0.6.17"
-readme = "README.md"
-requires-python = ">=3.12,<4.0" #">=3.12,<4.0"
+description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
-dependencies = [
-  "lxml",
-  "requests",
-  "typing-extensions",
-  "cython",
-  #  "setuptools",
-  #  "wheel",
+requires-python = ">=3.12,<4.0"
+readme = "README.md"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
 ]
-#include = ["src/valuefragments/*cpython*"]
+dependencies = ["lxml", "requests", "typing-extensions", "cython"]
+
+[project.optional-dependencies]
+allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
 
-[project.optional-dependencies]
-allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
+[dependency-groups]
+dev = [
+  "autopep8>=2.3",
+  "bandit>=1.8",
+  "basedpyright>=1.29",
+  "black>=25",
+  "build>=1.2.2",
+  "cpu-load-generator>=1.2",
+  "darker>=2.1.1",
+  "flake8>=7.2",
+  "flynt>=1.0.2",
+  "icecream>=2.1",
+  "infer-types>=1.0.0,<2",
+  "interrogate>=1.7",
+  "joblib>=1.5",
+  "lxml-stubs>=0.5.1",
+  "mccabe>=0.7",
+  "pandas-stubs>=2.2.3.250527",
+  "pep257>=0.7",
+  "pep8>=1.7.1",
+  "pyanalyze>=0.13.1",
+  "pyannotate>=1.2.0",
+  "pycodestyle>=2.13",
+  "pydocstyle>=6.3",
+  "pyflakes>=3.3",
+  "pyleft>=1.2.2",
+  "pylint>=3.3.7",
+  "pylyzer>=0.0.82",
+  "pyre-check>=0.9.23",
+  "pyrefly>=0.19",
+  "pyright>=1.1.401",
+  "pyroma>=4.2",
+  "PySocks>=1.7.1",
+  "pytest>=8.4",
+  "pytest-asyncio>=1",
+  "pytest-sugar>=1",
+  "radon>=6",
+  "ruff>=0.3.7,<0.4",
+  "setuptools>=80,<81",
+  "sourcery>=1.37",
+  "toml>=0.10",
+  "tox>=4.26",
+  "ty>=0.0.1a8",
+  "types-lxml>=2025.3",
+  "types-psutil>=5.9.5.11,<6",
+  "types-requests>=2.32.0.20240905,<3",
+  "ufmt>=2.8",
+  "uv>=0.10",
+  "vermin>=1.5",
+  "yapf>=0.43",
+  "clang>=20.1.5,<21",
+  "cython-lint>=0.16.7,<0.17",
+  "pytest-cov>=6.2.1,<7",
+  "pytest-pyright>=0.0.6,<0.0.7",
+  "pytest-black>=0.6.0,<0.7",
+  "pytest-colordots>=1.1,<2",
+  "pytest-mypy>=1.0.1,<2",
+  "typeguard>=4.4.4,<5",
+  "pytest-monkeytype>=1.1.0,<2",
+  "pytest-bandit>=0.6.1,<0.7",
+  "pytest-beartype>=0.2.0,<0.3",
+  "beartype>=0.21.0,<0.22",
+  "pyupgrade>=3.21.2,<4",
+  "pytest-pep8>=1.0.6,<2",
+  "pytest-flakes>=4.0.5,<5",
+  "mypy>=1,<2",
+  "isort[colors]",
+  "prospector[with_pyroma, with_vulture, with_frosted, with_mypy, with_bandit]>1.5 ; python_full_version >= '3.12' and python_full_version < '4'",
+  "pylint-django ; python_full_version >= '3.9' and python_full_version < '4'",
+  """pytype>=2022.09.27 ; python_full_version >= '3.11' and python_full_version < '3.13' and python_full_version < '4' and sys_platform != "win32"""",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/**/*cpython*" = "src/**/*cpython*"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 [tool.pyflow]
 name = "test"
 py_version = "3.13"
@@ -54,12 +130,6 @@ commands = [["pytest", "{tty:--color=yes}", "{posargs}"]]
 #output-format = "full"
 #environment.color= "always"
 terminal.output-format = "full"
-#.color = "always"
-#.color = "always"
-
-[build-system]
-requires = ["poetry-core>=1.0.0", "cython", "setuptools"]
-build-backend = "poetry.core.masonry.api"
 [tool.poetry.build]
 script = "scripts/build-cython.py"
 # ...
