@@ -98,8 +98,9 @@ default-groups = "all"
 "src/**/*cpython*" = "src/**/*cpython*"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["poetry-core>=1.0.0", "cython", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.pyflow]
 name = "test"
 py_version = "3.13"
