@@ -23,16 +23,7 @@ T = TypeVar("T", float, int)
 
 @moduleexport
 def is_exact_float(
-    rational: (
-        Fraction
-        | int
-        | float
-        | str
-        | tuple[float, float]
-        | tuple[float, int]
-        | tuple[int, float]
-        | tuple[int, int]
-    ),
+    rational: (int | float | str | tuple[int, int]),
 ) -> bool:
     """
     Prüft, ob die rationale Zahl 'rational' exakt als float darstellbar ist
@@ -47,7 +38,16 @@ def is_exact_float(
     # while denom % 2 == 0:
     #    denom //= 2
     # return denom == 1
+    if isinstance(rational, tuple):
+        return Fraction(*rational).denominator.bit_count() == 1
     return Fraction(str(rational)).denominator.bit_count() == 1
+
+
+#   return (
+#       Fraction(*rational).denominator.bit_count()
+#       if isinstance(rational, tuple)
+#       else Fraction(str(rational)).denominator.bit_count()
+#   ) == 1
 
 
 @moduleexport
