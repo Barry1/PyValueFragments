@@ -23,7 +23,7 @@ T = TypeVar("T", float, int)
 
 @moduleexport
 def is_exact_float(
-    rational: (int | float | str | tuple[int, int]),
+    rational: int | float | str | tuple[int, int],
 ) -> bool:
     """
     Prüft, ob die rationale Zahl 'rational' exakt als float darstellbar ist

@@ -41,7 +41,9 @@ class NoOutput(TextIO):
         sys.stderr = self.stderr
         sys.stdout = self.stdout
 
-    def write(self: NoOutput, _s: str, /) -> int:  # pylint: disable=invalid-name,unused-argument
+    def write(
+        self: NoOutput, _s: str, /
+    ) -> int:  # pylint: disable=invalid-name,unused-argument
         """Write method: Needed but does nothing."""
         return 0
 
