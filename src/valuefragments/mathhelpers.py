@@ -7,7 +7,7 @@ from logging import Logger, getLogger
 from math import log
 
 from .moduletools import moduleexport
-from .valuetyping import TYPE_CHECKING, Callable, TypeVar
+from .valuetyping import TYPE_CHECKING, Callable, TypeVar, SupportsFloat
 
 thelogger: Logger = getLogger(__name__)
 if not TYPE_CHECKING:
@@ -23,7 +23,7 @@ T = TypeVar("T", float, int)
 
 @moduleexport
 def is_exact_float(
-    rational: int | float | str | tuple[int, int],
+    rational: SupportsFloat | str | tuple[int, int],
 ) -> bool:
     """
     Prüft, ob die rationale Zahl 'rational' exakt als float darstellbar ist
