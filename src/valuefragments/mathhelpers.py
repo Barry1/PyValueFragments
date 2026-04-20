@@ -7,7 +7,7 @@ from logging import Logger, getLogger
 from math import log
 
 from .moduletools import moduleexport
-from .valuetyping import TYPE_CHECKING, Callable, TypeVar, SupportsFloat
+from typing_extensions import TYPE_CHECKING, Callable, TypeVar, SupportsFloat
 
 thelogger: Logger = getLogger(__name__)
 if not TYPE_CHECKING:
