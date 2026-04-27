@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from types import ModuleType
 
-from .valuetyping import Callable
+from typing_extensions import Callable
 
 # from .helpers import ic
 # _FunCallResultT = TypeVar("_FunCallResultT")
