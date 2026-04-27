@@ -11,7 +11,10 @@ The implementation uses the modern __getattr__ + __dir__ pattern
 """
 
 from __future__ import annotations
+from sys import version_info, set_lazy_imports
 
+if version_info >= (3, 15):
+    set_lazy_imports("all")
 import typing as _typing
 from types import ModuleType
 from typing import (
