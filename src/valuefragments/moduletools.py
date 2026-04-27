@@ -1,10 +1,8 @@
 """Just a module for tools around module usage."""
 
 from __future__ import annotations
-
 from types import ModuleType
-
-from typing_extensions import Callable
+from .valuetyping import Callable
 
 # from .helpers import ic
 # _FunCallResultT = TypeVar("_FunCallResultT")

@@ -16,57 +16,15 @@ import sys
 
 if sys.version_info >= (3, 15):
     sys.set_lazy_imports("all")
-if sys.version_info >= (3, 5, 3):
-    from typing import ClassVar
-else:
-    from typing_extensions import ClassVar
-if sys.version_info >= (3, 6, 2):
-    from typing import NoReturn
-else:
-    from typing_extensions import NoReturn
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    from typing import Final
-else:
-    from typing_extensions import Concatenate
-    from typing_extensions import Final
-if sys.version_info >= (3, 9):
-    from typing import Annotated
-else:
-    from typing_extensions import Annotated
-if sys.version_info >= (3, 10):
-    from typing import Literal
-    from typing import TypeGuard
-else:
-    from typing_extensions import Concatenate
-    from typing_extensions import TypeGuard
-if sys.version_info >= (3, 11):
-    from typing import LiteralString
-    from typing import Never
-    from typing import Self
-    from typing import Unpack
-    from typing import Required, NotRequired
-else:
-    from typing_extensions import LiteralString
-    from typing_extensions import Self
-    from typing_extensions import Never
-    from typing_extensions import Unpack
-    from typing_extensions import Required, NotRequired
-if sys.version_info >= (3, 13):
-    from typing import ReadOnly
-    from typing import TypeIs
-else:
-    from typing_extensions import ReadOnly
-    from typing_extensions import TypeIs
-import typing as _typing
+# https://docs.python.org/3/library/typing.html
 from types import ModuleType
-from typing import (
+from typing import (  # für KwargsForPrint + Type-Hints
     IO,
     TYPE_CHECKING,
     Any,
     TypedDict,
-)  # für KwargsForPrint + Typ-Hints
-
+)
+import typing as _typing
 import typing_extensions as _typing_extensions
 
 
@@ -79,7 +37,6 @@ def _public_names(module: ModuleType) -> set[str]:
 
 _typing_names: set[str] = _public_names(module=_typing)
 _typing_ext_names: set[str] = _public_names(module=_typing_extensions)
-
 # Bevorzugt die stdlib-Version, wenn ein Name in beiden vorkommt
 _all_names: list[str] = sorted(_typing_names | _typing_ext_names)
 
@@ -104,7 +61,7 @@ def __getattr__(name: str) -> Any:
 
 
 # Öffentliche API für `from valuetyping import *` und IDE-Autocomplete
-__all__ = _all_names
+__all__: list[str] = _all_names
 
 
 # ----------------------------------------------------------------------
@@ -129,4 +86,6 @@ def __dir__() -> list[str]:
 if TYPE_CHECKING:
     # pyright: ignore[reportUnusedImport]
     # noqa: F401
-    from typing import Any
+    from typing import *
+
+    from typing_extensions import *

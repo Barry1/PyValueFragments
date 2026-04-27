@@ -1,6 +1,6 @@
 [project]
 name = "valuefragments"
-version = "0.6.18"
+version = "0.6.19"
 description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.12,<4.0"
@@ -314,6 +314,8 @@ skips = ["tests/*.py"]
 
 
 
+
+
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -329,6 +331,8 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
+
+
 
 
 
