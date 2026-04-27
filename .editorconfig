@@ -6,7 +6,7 @@ root = true
 # Unix-style newlines with a newline ending every file
 [*]
 insert_final_newline = true
-spelling_language = EN
+spelling_language = en
 
 [*.{py,pyi}]
 indent_style = space
