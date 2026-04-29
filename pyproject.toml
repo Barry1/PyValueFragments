@@ -1,6 +1,6 @@
 [project]
 name = "valuefragments"
-version = "0.7.0"
+version = "0.7.1"
 description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.12,<4.0"
@@ -95,24 +95,13 @@ dev = [
 [tool.uv]
 default-groups = "all"
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/**/*cpython*" = "src/**/*cpython*"
+#[tool.hatch.build.targets.wheel.force-include]
+#"src/**/*cpython*" = "src/**/*cpython*"
 
 [build-system]
 requires = ["wheel", "cython>=3.0", "setuptools>=80"]
-build-backend = "setuptools.build.meta"
+build-backend = "setuptools.build_meta"
 
-[tool.pyflow]
-name = "test"
-py_version = "3.13"
-version = "0.1.0"
-authors = ["Dr. Bastian Ebeling <>"]
-
-[tool.pyflow.scripts]
-
-[tool.pyflow.dependencies]
-
-[tool.pyflow.dev-dependencies]
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]               #, "pytest-cov"
 env_list = ["py312", "py313", "py314", "bastipytest"] #, "py314-dev"
