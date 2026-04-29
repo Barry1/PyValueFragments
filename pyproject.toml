@@ -14,7 +14,7 @@ classifiers = [
 dependencies = ["lxml", "requests", "typing-extensions"]
 
 [project.optional-dependencies]
-allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
+allfeatures = ["psutil", "icecream", "cpu_load_generator"]
 
 [project.urls]
 Repository = "https://github.com/Barry1/PyValueFragments"
