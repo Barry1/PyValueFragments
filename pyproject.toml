@@ -1,6 +1,6 @@
 [project]
 name = "valuefragments"
-version = "0.6.19"
+version = "0.7.0"
 description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.12,<4.0"
@@ -11,7 +11,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dependencies = ["lxml", "requests", "typing-extensions", "cython"]
+dependencies = ["lxml", "requests", "typing-extensions"]
 
 [project.optional-dependencies]
 allfeatures = ["psutil", "hashlib", "icecream", "cpu_load_generator"]
@@ -89,6 +89,7 @@ dev = [
   "prospector[with_pyroma, with_vulture, with_frosted, with_mypy, with_bandit]>1.5 ; python_full_version >= '3.12' and python_full_version < '4'",
   "pylint-django ; python_full_version >= '3.9' and python_full_version < '4'",
   """pytype>=2022.09.27 ; python_full_version >= '3.11' and python_full_version < '3.13' and python_full_version < '4' and sys_platform != "win32"""",
+  "asv (>=0.6.5,<0.7.0)",
 ]
 
 [tool.uv]
@@ -98,8 +99,8 @@ default-groups = "all"
 "src/**/*cpython*" = "src/**/*cpython*"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "cython", "setuptools"]
-build-backend = "poetry.core.masonry.api"
+requires = ["wheel", "cython>=3.0", "setuptools>=80"]
+build-backend = "setuptools.build.meta"
 
 [tool.pyflow]
 name = "test"
@@ -141,20 +142,19 @@ script = "scripts/build-cython.py"
 #package_dir = "src"
 #### explicitly not coverred
 
-#[tool.setuptools.ext-modules]
-#name = "mathhelpers"
-#sources = ["src/valuefragments/mathhelpers.py"]
 [tool.poetry]
 include = [{ path = "src/**/*cpython*", format = "wheel" }]
 
 [tool.setuptools]
 include-package-data = true
-
-[tool.setuptools.packages.find]
-where = ["src"]
+packages.find = { where = ["src"] }
+ext-modules = [
+  { name = "valuefragments.mathhelpers", sources = [
+    "src/valuefragments/mathhelpers.py",
+  ] },
+]
 
 [tool.setuptools.package-data]
-#mypkg = ["*.txt", "*.rst"]
 "*" = ["py.typed", "*cpython*"]
 
 [tool.ruff]
@@ -312,10 +312,6 @@ exclude_dirs = ["tests"]
 skips = ["tests/*.py"]
 
 
-
-
-
-
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -331,10 +327,6 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
-
-
-
-
 
 
 [tool.poetry.group.dev.dependencies.pylint-django]

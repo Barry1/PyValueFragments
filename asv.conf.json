@@ -34,6 +34,7 @@
 
     // Customizable commands for installing and uninstalling the project.
     // See asv.conf.json documentation.
+    // {wheel_file}
     // "install_command": ["in-dir={env_dir} python -m pip install {wheel_file}"],
     // "uninstall_command": ["return-code=any python -m pip uninstall -y {project}"],
 
