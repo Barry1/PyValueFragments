@@ -1,6 +1,6 @@
 [project]
 name = "valuefragments"
-version = "0.7.2"
+version = "0.7.1"
 description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.12,<4.0"
@@ -63,7 +63,7 @@ ext-modules = [
     "src/valuefragments/mathhelpers.py",
   ] },
 ]
-# following not working
+# following not working, see
 #[tool.setuptools.ext-modules]
 #valuefragments.mathhelpers = { sources = ["src/valuefragments/mathhelpers.py"] }
 
