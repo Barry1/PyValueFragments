@@ -11,17 +11,42 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dependencies = ["lxml", "requests", "typing-extensions"]
+dependencies = ["lxml>=5", "requests>=2.32", "typing-extensions>=4.12"]
 
+# 🚧 ÄNDERUNG: Optional Dependencies als PEP 621 Extras
 [project.optional-dependencies]
-allfeatures = ["psutil", "icecream", "cpu_load_generator"]
+allfeatures = ["psutil>=6.0.0", "icecream>=2.1.0", "cpu_load_generator>=1.0.0"]
+
+dev = [
+  "pytest>=8.4.0",
+  "pytest-cov>=5.0.0",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.8.0",
+  "mypy>=1.14.0",
+  "black>=25.0.0",
+  "isort>=5.13.0",
+  "cython>=3.0.0",
+  "asv>=0.6.4",
+]
 
 [project.urls]
+Homepage = "https://github.com/Barry1/PyValueFragments"
 Repository = "https://github.com/Barry1/PyValueFragments"
+Documentation = "https://github.com/Barry1/PyValueFragments"
+Issues = "https://github.com/Barry1/PyValueFragments/issues"
 
+# 🚧 KERNÄNDERUNG: Build-System Konfiguration
+# Wir nutzen poetry-core als Backend, ABER wir fügen setuptools und Cython als
+# Build-Zwangsabhängigkeiten hinzu, damit das Build-Skript laufen kann.
+# Ohne setuptools hier wird der Import "from setuptools import Extension" im Skript fehlschlagen.
 [build-system]
-requires = ["wheel", "cython>=3.0", "setuptools>=80"]
-build-backend = "setuptools.build_meta"
+requires = [
+  "poetry-core>=2.0.0",
+  "Cython>=3.0.0",
+  "setuptools>=80",     # 🚧 NOTWENDIG für das Build-Skript
+  "numpy>=1.26.0",      # 🚧 NOTWENDIG falls mathhelpers numpy nutzt
+]
+build-backend = "poetry.core.masonry.api"
 
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]               #, "pytest-cov"
@@ -53,7 +78,12 @@ script = "scripts/build-cython.py"
 #### explicitly not coverred
 
 [tool.poetry]
-include = [{ path = "src/**/*cpython*", format = "wheel" }]
+# src-Layout erzwingen: Paket liegt in src/valuefragments
+packages = [{ include = "valuefragments", from = "src" }]
+include = [
+  "src/valuefragments/py.typed",
+  { path = "src/**/*cpython*", format = "wheel" },
+]
 
 [tool.setuptools]
 include-package-data = true

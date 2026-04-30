@@ -12,10 +12,13 @@ The implementation uses the modern __getattr__ + __dir__ pattern
 """
 
 from __future__ import annotations
+
 import sys
 
 if sys.version_info >= (3, 15):
     sys.set_lazy_imports("all")
+import typing as _typing
+
 # https://docs.python.org/3/library/typing.html
 from types import ModuleType
 from typing import (  # für KwargsForPrint + Type-Hints
@@ -24,7 +27,7 @@ from typing import (  # für KwargsForPrint + Type-Hints
     Any,
     TypedDict,
 )
-import typing as _typing
+
 import typing_extensions as _typing_extensions
 
 

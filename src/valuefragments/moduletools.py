@@ -1,7 +1,9 @@
 """Just a module for tools around module usage."""
 
 from __future__ import annotations
+
 from types import ModuleType
+
 from .valuetyping import Callable
 
 # from .helpers import ic

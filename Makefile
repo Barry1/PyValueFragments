@@ -7,6 +7,14 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$ -type f
 
+buildtest: localbuildtest userbuildtest
+
+localbuildtest:
+	pip install --no-build-isolation .
+
+userbuildtest:
+	pip install dist/*.whl --user
+
 pyupgrade:
 	poetry run pyupgrade --py312-plus $(pyobjs)
 
