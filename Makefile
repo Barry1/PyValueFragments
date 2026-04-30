@@ -7,13 +7,18 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #pyobjs:= $(shell find src -regex .*pyi?$$)
 pyobjs!= find src -regex .*\.pyi?$$ -type f
 
-buildtest: localbuildtest userbuildtest
+buildclean:
+	rm -rf build/ dist/ *.egg-info .eggs __pycache__ src/valuefragments/__pycache__ src/valuefragments/*.so src/valuefragments/*.pyd
 
-localbuildtest:
-	pip install --no-build-isolation .
+buildpoetry:
+	poetry lock
+	poetry install --with dev
+	poetry build
 
 userbuildtest:
-	pip install dist/*.whl --user
+	pip install dist/valuefragments-*.whl --user
+
+buildtest: buildclean buildpoetry userbuildtest
 
 pyupgrade:
 	poetry run pyupgrade --py312-plus $(pyobjs)
