@@ -1,7 +1,6 @@
 """Identifier file for package and building namespace."""
 
 import logging
-
 from .contextmanagers import LinuxTimeCM, NoOutput, TimingCM
 from .decorators import (
     linuxtime,
@@ -71,4 +70,5 @@ __all__: list[str] = [
     "timing_wall",
     "TimingCM",
     "thread_native_id_filter",
+    "valuetyping",
 ]

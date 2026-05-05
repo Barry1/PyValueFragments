@@ -1,6 +1,6 @@
 [project]
 name = "valuefragments"
-version = "0.7.1"
+version = "0.8.0"
 description = "Testing installation of Package"
 authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 requires-python = ">=3.12,<4.0"
@@ -204,7 +204,7 @@ pytest = ">=8.4"
 pytest-asyncio = ">=1"
 pytest-sugar = ">=1"
 radon = ">=6"
-ruff = "^0.3.7"
+ruff = ">=0.8"
 setuptools = ">=80,<81"
 sourcery = ">=1.37"
 toml = ">=0.10"
@@ -250,6 +250,7 @@ exclude_dirs = ["tests"]
 skips = ["tests/*.py"]
 
 
+
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -265,6 +266,7 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
+
 
 
 [tool.poetry.group.dev.dependencies.pylint-django]
