@@ -1,75 +1,36 @@
-# valuetyping.py
-# pyright: reportUnusedImport=false, reportUnknownVariableType=false, reportAttributeAccessIssue=false
-"""Convenient re‑export of public typing‑symbols.
-
-This module re‑exports the public names from ``typing`` and
-``typing_extensions`` so they can be imported from a single place:
-
-    from valuetyping import List, TypedDict, Any, ...
-
-The implementation uses the modern __getattr__ + __dir__ pattern
-→ perfect for type checkers and minimal runtime overhead.
-"""
-
-from __future__ import annotations
-
-import sys
-
-if sys.version_info >= (3, 15):
-    sys.set_lazy_imports("all")
-import typing as _typing
-
-# https://docs.python.org/3/library/typing.html
 from types import ModuleType
-from typing import (  # für KwargsForPrint + Type-Hints
-    IO,
-    TYPE_CHECKING,
-    Any,
-    TypedDict,
-)
+from typing import TYPE_CHECKING, TypedDict, IO
 
-import typing_extensions as _typing_extensions
-
-
-# ----------------------------------------------------------------------
-# 1️⃣ Öffentliche Namen berechnen (genau wie vorher)
-# ----------------------------------------------------------------------
-def _public_names(module: ModuleType) -> set[str]:
-    return {name for name in dir(module) if not name.startswith("_")}
+if TYPE_CHECKING:
+    # pyright: ignore[reportUnusedImport]
+    # noqa: F401
+    from typing import *
+    from typing_extensions import *
 
 
-_typing_names: set[str] = _public_names(module=_typing)
-_typing_ext_names: set[str] = _public_names(module=_typing_extensions)
-# Bevorzugt die stdlib-Version, wenn ein Name in beiden vorkommt
-_all_names: list[str] = sorted(_typing_names | _typing_ext_names)
+class metatyping(type):
+    _typingmodule = __import__("typing")
+    _typing_extensionsmodule = __import__("typing_extensions")
+
+    def __getattr__(self, name: str):
+        if hasattr(self._typingmodule, name):
+            setattr(self, name, getattr(self._typingmodule, name))
+            return getattr(self._typingmodule, name)
+        elif hasattr(self._typing_extensionsmodule, name):
+            setattr(self, name, getattr(self._typing_extensionsmodule, name))
+            return getattr(self._typing_extensionsmodule, name)
+        else:
+            raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
 
 
-# ----------------------------------------------------------------------
-# 2️⃣ Lazy Re-Export via __getattr__ (TypeChecker-freundlich)
-# ----------------------------------------------------------------------
-def __getattr__(name: str) -> Any:
-    """Wird nur aufgerufen, wenn ein nicht-definiertes Attribut angefragt wird."""
-    if name in _all_names:
-        # Bevorzugt typing, sonst typing_extensions
-        obj = (
-            getattr(_typing, name)
-            if hasattr(_typing, name)
-            else getattr(_typing_extensions, name)
-        )
-        # Cachen im Modul-Namensraum (verhindert wiederholte Aufrufe)
-        globals()[name] = obj
-        return obj
-
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+class valuetyping(ModuleType, metaclass=metatyping):
+    pass
 
 
-# Öffentliche API für `from valuetyping import *` und IDE-Autocomplete
-__all__: list[str] = _all_names
+def __getattr__(theattribute: str):
+    return getattr(valuetyping, theattribute)
 
 
-# ----------------------------------------------------------------------
-# 3️⃣ Deine benutzerdefinierte TypedDict (ohne ignores)
-# ----------------------------------------------------------------------
 class KwargsForPrint(TypedDict, total=False):
     """Kwargs für print() – nur für Type Checking"""
 
@@ -77,18 +38,3 @@ class KwargsForPrint(TypedDict, total=False):
     end: str
     file: IO[str]
     flush: bool
-
-
-# Optional: __dir__ für vollständiges `dir(valuetyping)` und bessere IDE-Unterstützung
-def __dir__() -> list[str]:
-    """Alle öffentlichen Namen (inkl. der eigenen Klasse)."""
-    return sorted(_all_names + ["KwargsForPrint"])
-
-
-##########################################################################################################################################
-if TYPE_CHECKING:
-    # pyright: ignore[reportUnusedImport]
-    # noqa: F401
-    from typing import *
-
-    from typing_extensions import *
