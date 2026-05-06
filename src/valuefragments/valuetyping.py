@@ -2,8 +2,8 @@ from types import ModuleType
 from typing import IO, TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
-    from typing import *
-    from typing_extensions import *
+    from typing import *  # pyright: ignore[reportWildcardImportFromLibrary]  # noqa: F403
+    from typing_extensions import *  # pyright: ignore[reportWildcardImportFromLibrary]  # noqa: F403
 
 
 class metatyping(type):
