@@ -2,9 +2,8 @@ from types import ModuleType
 from typing import IO, TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
-    from typing import *  #  pyright: ignore[reportUnusedImport,reportWildcardImportFromLibrary] # noqa: F401,F403
-
-    from typing_extensions import *  #  pyright: ignore[reportUnusedImport,reportWildcardImportFromLibrary] # noqa: F401,F403
+    from typing import *
+    from typing_extensions import *
 
 
 class metatyping(type):
@@ -20,6 +19,13 @@ class metatyping(type):
             return getattr(self._typing_extensionsmodule, name)
         raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
 
+    def __dir__(self) -> list[str]:
+        return list(
+            set(self._typingmodule.__dir__()).union(
+                self._typing_extensionsmodule.__dir__()
+            )
+        )
+
 
 class valuetyping(ModuleType, metaclass=metatyping):
     pass
@@ -28,6 +34,11 @@ class valuetyping(ModuleType, metaclass=metatyping):
 def __getattr__(theattribute: str):
     """Ermöglicht Imports auf Modulebene, Umleitung in die Klasse valuetyping und metaklasse metatyping."""
     return getattr(valuetyping, theattribute)
+
+
+def __dir__() -> list[str]:
+    """Ermöglicht dir() auf Modulebene, Umleitung in die Klasse valuetyping und metaklasse metatyping."""
+    return dir(valuetyping)
 
 
 class KwargsForPrint(TypedDict, total=False):
