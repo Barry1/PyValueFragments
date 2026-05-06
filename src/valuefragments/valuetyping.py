@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import *  # pyright: ignore[reportWildcardImportFromLibrary]  # noqa: F403
 
 
-class metatyping(type):
+class MetaTyping(type):
     _typingmodule = __import__("typing")
     _typing_extensionsmodule = __import__("typing_extensions")
 
@@ -26,8 +26,11 @@ class metatyping(type):
             )
         )
 
+    def __repr__(self) -> str:
+        return f"<valuetyping proxy metaclass {self.__name__}>"
 
-class valuetyping(ModuleType, metaclass=metatyping):
+
+class valuetyping(ModuleType, metaclass=MetaTyping):
     pass
 
 
@@ -38,7 +41,7 @@ def __getattr__(theattribute: str):
 
 def __dir__() -> list[str]:
     """Ermöglicht dir() auf Modulebene, Umleitung in die Klasse valuetyping und metaklasse metatyping."""
-    return dir(valuetyping)
+    return list({"KwargsForPrint"}.union(dir(valuetyping)))
 
 
 class KwargsForPrint(TypedDict, total=False):
