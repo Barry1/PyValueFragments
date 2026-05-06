@@ -250,7 +250,6 @@ exclude_dirs = ["tests"]
 skips = ["tests/*.py"]
 
 
-
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -266,7 +265,6 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
-
 
 
 [tool.poetry.group.dev.dependencies.pylint-django]

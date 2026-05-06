@@ -1,11 +1,12 @@
 from types import ModuleType
-from typing import TYPE_CHECKING, TypedDict, IO
+from typing import IO, TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
     # pyright: ignore[reportUnusedImport]
-    # noqa: F401
-    from typing import *
-    from typing_extensions import *
+
+    from typing import *  # noqa: F401,F403
+
+    from typing_extensions import *  # noqa: F401,F403
 
 
 class metatyping(type):
@@ -16,11 +17,10 @@ class metatyping(type):
         if hasattr(self._typingmodule, name):
             setattr(self, name, getattr(self._typingmodule, name))
             return getattr(self._typingmodule, name)
-        elif hasattr(self._typing_extensionsmodule, name):
+        if hasattr(self._typing_extensionsmodule, name):
             setattr(self, name, getattr(self._typing_extensionsmodule, name))
             return getattr(self._typing_extensionsmodule, name)
-        else:
-            raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
+        raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
 
 
 class valuetyping(ModuleType, metaclass=metatyping):
@@ -28,6 +28,7 @@ class valuetyping(ModuleType, metaclass=metatyping):
 
 
 def __getattr__(theattribute: str):
+    """Ermöglicht Imports auf Modulebene, Umleitung in die Klasse valuetyping und metaklasse metatyping."""
     return getattr(valuetyping, theattribute)
 
 
