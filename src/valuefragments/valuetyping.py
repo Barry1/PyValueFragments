@@ -1,13 +1,14 @@
-from typing import IO, TYPE_CHECKING, TypedDict
+from typing import IO, TYPE_CHECKING, Any, TypedDict
 
 if TYPE_CHECKING:
     from typing import *  # pyright: ignore[reportWildcardImportFromLibrary]  # noqa: F403
+
     from typing_extensions import *  # pyright: ignore[reportWildcardImportFromLibrary]  # noqa: F403
 _typingmodule = __import__("typing")
 _typing_extensionsmodule = __import__("typing_extensions")
 
 
-def _setattr(name, value):
+def _setattr(name: str, value: Any):
     # 'globals()' bezieht sich hier auf das Modul selbst, simuliert __setattr__ auf Modulebene
     globals()[name] = value
 
