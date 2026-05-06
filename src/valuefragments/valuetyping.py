@@ -2,11 +2,9 @@ from types import ModuleType
 from typing import IO, TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
-    # pyright: ignore[reportUnusedImport]
+    from typing import *  #  pyright: ignore[reportUnusedImport,reportWildcardImportFromLibrary] # noqa: F401,F403
 
-    from typing import *  # noqa: F401,F403
-
-    from typing_extensions import *  # noqa: F401,F403
+    from typing_extensions import *  #  pyright: ignore[reportUnusedImport,reportWildcardImportFromLibrary] # noqa: F401,F403
 
 
 class metatyping(type):
