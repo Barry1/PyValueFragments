@@ -13,7 +13,6 @@ from .decorators import (
     timing_wall,
 )
 from .helpers import (  # pylint: disable=E0401,E0402 # noqa: W0401,W0611
-    backgroundme,
     basic_auth,
     closeifrunningloky,
     eprint,
