@@ -8,6 +8,7 @@ import hashlib
 import logging
 import math
 import os
+import threading
 import random
 import string
 import sys
@@ -455,3 +456,32 @@ def print_time_result(wall: float, user: float, system: float) -> None:
         f"{100 * (user + system) / wall:6.2f}% Load",
         sep="\t",
     )
+
+
+@moduleexport
+def setuplogger(LOGGERNAME: str) -> logging.Logger:
+    """Setup Logging environment."""
+    thelogger: logging.Logger = logging.getLogger(LOGGERNAME)
+    # https://docs.python.org/3/library/logging.html#logrecord-attributes
+    if not thelogger.hasHandlers():
+        logformatter: logging.Formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        logfilehandler: logging.FileHandler = logging.FileHandler(
+            f"{LOGGERNAME}.log"
+        )
+        logfilehandler.setFormatter(logformatter)
+        thelogger.addHandler(logfilehandler)
+        if __debug__:
+            thelogger.setLevel(logging.DEBUG)
+        else:
+            thelogger.setLevel(logging.INFO)
+        # thelogger.log(logging.INFO,thelogger.getEffectiveLevel())
+        thelogger.info(
+            "Logging handler configured in process %i / thread %i",
+            os.getpid(),
+            threading.get_native_id(),
+            # __import__("threading").get_native_id(),
+        )
+        thelogger.debug("%s", __import__("traceback").format_stack())
+    return thelogger

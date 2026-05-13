@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import IO, TYPE_CHECKING, Any, TypedDict
 
 if TYPE_CHECKING:
@@ -34,8 +35,14 @@ class KwargsForPrint(TypedDict, total=False):
 
 def __dir__() -> list[str]:
     """Ermöglicht dir() auf Modulebene, Umleitung in die Klasse valuetyping und metaklasse metatyping."""
-    return list(
-        {"KwargsForPrint"}.union(dir(_typingmodule)).union(
-            dir(_typing_extensionsmodule)
-        )
+    # return list({"KwargsForPrint"}.union(dir(_typingmodule)).union(dir(_typing_extensionsmodule)))
+    return sorted(
+        [
+            typingorextended
+            for typingorextended in set(dir(_typingmodule)).union(
+                dir(_typing_extensionsmodule)
+            )
+            if not typingorextended.startswith("_")
+        ]
+        + ["KwargsForPrint"]
     )
