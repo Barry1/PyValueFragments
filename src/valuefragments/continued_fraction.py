@@ -1,5 +1,8 @@
 """Continued fraction methods."""
 
+from math import floor, ceil, pi, e, tau
+from typing import reveal_type
+
 
 def continued_fraction_val(chain: list[int]) -> float:
     """Returns the value of a continued fraction."""
@@ -29,7 +32,21 @@ def continued_fraction(initialvalue: float, maxlen: int = 8) -> list[int]:
     return result
 
 
-def continued_fraction_show(initialvalue: float, maxlen: int = 8):
+def continued_fraction_interval(
+    initialvalue: float, maxlen: int = 8
+) -> list[int | tuple[int, int]]:
+    """Returns the continued fraction representation of a number."""
+    result = []
+    residuum: float = initialvalue
+    while len(result) < maxlen - 1 and residuum != 0:
+        _x = int(residuum)
+        result.append(_x)
+        residuum = 1 / (residuum - _x)
+    result.append((floor(residuum), ceil(residuum)))
+    return result
+
+
+def continued_fraction_show(initialvalue: float, maxlen: int = 8) -> None:
     print(initialvalue, "\t=>", end=" ")
     chainfracresult: list[int] = continued_fraction(initialvalue, maxlen)
     print(chainfracresult, "\t~", end=" ")
@@ -39,8 +56,9 @@ def continued_fraction_show(initialvalue: float, maxlen: int = 8):
 
 
 if __name__ == "__main__":
-    from math import pi, e, tau
-
     continued_fraction_show(e, 3)
+    print(continued_fraction_interval(e, 3))
     continued_fraction_show(pi, 3)
+    print(continued_fraction_interval(pi, 3))
     continued_fraction_show(tau, 3)
+    print(continued_fraction_interval(tau, 3))
