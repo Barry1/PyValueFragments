@@ -36,6 +36,11 @@ from .mathhelpers import (
     probneeds_rec,
 )
 from .moduletools import moduleexport
+from .continued_fraction import (
+    continued_fraction,
+    continued_fraction_show,
+    continued_fraction_val,
+)
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
 thevaluefragmentslogger: logging.Logger = logging.getLogger(name=__name__)
@@ -45,6 +50,9 @@ __all__: list[str] = [
     #    "backgroundme",
     "basic_auth",
     "closeifrunningloky",
+    "continued_fraction",
+    "continued_fraction_show",
+    "continued_fraction_val",
     "easybisect",
     "eprint",
     "file_exists_current",

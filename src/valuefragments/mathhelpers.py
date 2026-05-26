@@ -129,7 +129,7 @@ def easybisect(  # pylint: disable=too-many-arguments
     fun: Callable[[float], float],
     lowerbound: float,
     upperbound: float,
-    targefloat: float,
+    targetval: float,
     *,
     maxiter: int = 20,
     relerror: float = 0.01,
@@ -148,27 +148,27 @@ def easybisect(  # pylint: disable=too-many-arguments
     highind: int = len(data)
     data.append((upperbound, fun(upperbound)))
     for actiter in range(maxiter):
-        candidate: float = data[lowind][0] + (targefloat - data[lowind][1]) / (
+        candidate: float = data[lowind][0] + (targetval - data[lowind][1]) / (
             data[highind][1] - data[lowind][1]
         ) * (data[highind][0] - data[lowind][0])
         candidateval: float = fun(candidate)
-        candidatediff: float = candidateval - targefloat
+        candidatediff: float = candidateval - targetval
         if candidatediff < 0:
             lowind = len(data)
         else:
             highind = len(data)
         data.append((candidate, candidateval))
-        if abs(candidatediff) <= relerror * targefloat:
+        if abs(candidatediff) <= relerror * targetval:
             thelogger.info(
                 "Early end of loop at iteration %i with relerr %6.3f%%.",
                 actiter,
-                candidatediff * 100 / targefloat,
+                candidatediff * 100 / targetval,
             )
             break
         thelogger.debug(
             "Iteration %i with relative error %6.3f%%",
             actiter,
-            candidatediff * 100 / targefloat,
+            candidatediff * 100 / targetval,
         )
     for entry in data:
         thelogger.debug(entry)
