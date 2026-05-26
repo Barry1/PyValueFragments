@@ -40,6 +40,7 @@ from .continued_fraction import (
     continued_fraction,
     continued_fraction_show,
     continued_fraction_val,
+    ContinuedFraction,
 )
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
