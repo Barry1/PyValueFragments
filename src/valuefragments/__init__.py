@@ -54,6 +54,7 @@ __all__: list[str] = [
     "continued_fraction",
     "continued_fraction_show",
     "continued_fraction_val",
+    "ContinuedFraction",
     "easybisect",
     "eprint",
     "file_exists_current",
