@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from typing import IO, TYPE_CHECKING, Any, TypedDict
 
 if TYPE_CHECKING:

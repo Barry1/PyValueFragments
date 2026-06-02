@@ -1,6 +1,6 @@
 """Continued fraction methods."""
 
-from math import floor, ceil, pi, e, tau
+from math import ceil, e, floor, pi, tau
 from typing import reveal_type
 
 

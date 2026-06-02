@@ -1,8 +1,24 @@
 """Identifier file for package and building namespace."""
 
+__lazy_imports__: list[str] = [
+    "logging",
+    "valuetyping",
+    ".contextmanagers",
+    ".decorators",
+    ".helpers",
+    ".mathhelpers",
+    ".moduletools",
+    ".continued_fraction",
+]
 import logging
 
 from .contextmanagers import LinuxTimeCM, NoOutput, TimingCM
+from .continued_fraction import (
+    ContinuedFraction,
+    continued_fraction,
+    continued_fraction_show,
+    continued_fraction_val,
+)
 from .decorators import (
     linuxtime,
     logdecorate,
@@ -36,12 +52,6 @@ from .mathhelpers import (
     probneeds_rec,
 )
 from .moduletools import moduleexport
-from .continued_fraction import (
-    continued_fraction,
-    continued_fraction_show,
-    continued_fraction_val,
-    ContinuedFraction,
-)
 
 # <https://docs.python.org/3/howto/logging.html#library-config>
 thevaluefragmentslogger: logging.Logger = logging.getLogger(name=__name__)

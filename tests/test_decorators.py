@@ -1,6 +1,6 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for decorators module."""
-
+__lazy_modules__: list[str] = ["time","valuefragments.decorators"]
 import time
 
 from valuefragments.decorators import (
