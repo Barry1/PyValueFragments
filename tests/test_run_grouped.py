@@ -3,6 +3,14 @@ Attention: Only with PPE (ProcessPoolExecutor) randoms will be reproducible,
 as within threads (tpe and thread) it could not be guaranteed.
 """
 
+__lazy_modules__: list[str] = [
+    "asyncio",
+    "collections.abc",
+    "functools",
+    "math",
+    "pytest",
+    "valuefragments.helpers",
+]
 from collections.abc import Callable
 from functools import partial
 from math import pi
