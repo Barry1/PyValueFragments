@@ -1,7 +1,6 @@
 """Continued fraction methods."""
 
 from math import ceil, e, floor, pi, tau
-from typing import reveal_type
 
 
 def continued_fraction_val(chain: list[int]) -> float:
@@ -23,12 +22,14 @@ def continued_fraction_val(chain: list[int]) -> float:
 def continued_fraction(initialvalue: float, maxlen: int = 8) -> list[int]:
     """Returns the continued fraction representation of a number."""
     result: list[int] = []
-    residuum: float = initialvalue
-    while len(result) < maxlen - 1 and residuum != 0:
-        _x = floor(residuum)
-        result.append(_x)
-        residuum = 1 / (residuum - _x)
-    result.append(round(residuum))
+    result.append(floor(initialvalue))
+    residuum: float = initialvalue - result[-1]
+    while len(result) < maxlen - 1 and residuum:
+        residuum = 1 / residuum
+        result.append(floor(residuum))
+        residuum = residuum - result[-1]
+    if residuum:
+        result.append(round(1 / residuum))
     return result
 
 
