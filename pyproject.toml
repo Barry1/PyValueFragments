@@ -41,12 +41,14 @@ Issues = "https://github.com/Barry1/PyValueFragments/issues"
 # Ohne setuptools hier wird der Import "from setuptools import Extension" im Skript fehlschlagen.
 [build-system]
 requires = [
-  "poetry-core>=2.0.0",
+#  "poetry-core>=2.0.0",
   "Cython>=3.0.0",
   "setuptools>=80",     # 🚧 NOTWENDIG für das Build-Skript
   "numpy>=1.26.0",      # 🚧 NOTWENDIG falls mathhelpers numpy nutzt
+  "wheel>=0.38.0",     # 🚧 NOTWENDIG für das Build-Skript
 ]
-build-backend = "poetry.core.masonry.api"
+#build-backend = "poetry.core.masonry.api"
+build-backend = "setuptools.build_meta"
 
 [tool.tox]
 requires = ["tox>4", "virtualenv>20.2"]               #, "pytest-cov"
@@ -87,6 +89,7 @@ include = [
 
 [tool.setuptools]
 include-package-data = true
+package-dir = { "" = "src" }
 packages.find = { where = ["src"] }
 ext-modules = [
   { name = "valuefragments.mathhelpers", sources = [
