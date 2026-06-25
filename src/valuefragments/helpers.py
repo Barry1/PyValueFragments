@@ -295,15 +295,19 @@ else:
         if psutil.WINDOWS:
             try:
                 # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
-                psutil.Process().nice(
-                    0x00100000
-                )  # PROCESS_MODE_BACKGROUND_BEGIN
+                # Attention <https://github.com/Barry1/PyValueFragments/issues/251>
+                # <https://randomascii.wordpress.com/2023/10/01/32-mib-working-sets-on-a-64-gib-machine/#:~:text=Resolution>
+                # <https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setpriorityclass>
+                # https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadpriority
+                # PROCESS_MODE_BACKGROUND_BEGIN = 0x00100000
+                # THREAD_MODE_BACKGROUND_BEGIN = 0x00010000
+                psutil.Process().nice(value=0x00010000)
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     ic("Prozess was already in background mode.")
                 else:
                     print(theerr)
-        else:
+        else:  # Linux, MacOS, ...
             psutil.Process().nice(19)
 
 
