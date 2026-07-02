@@ -41,11 +41,11 @@ Issues = "https://github.com/Barry1/PyValueFragments/issues"
 # Ohne setuptools hier wird der Import "from setuptools import Extension" im Skript fehlschlagen.
 [build-system]
 requires = [
-#  "poetry-core>=2.0.0",
+  #  "poetry-core>=2.0.0",
   "Cython>=3.0.0",
-  "setuptools>=80",     # 🚧 NOTWENDIG für das Build-Skript
-  "numpy>=1.26.0",      # 🚧 NOTWENDIG falls mathhelpers numpy nutzt
-  "wheel>=0.38.0",     # 🚧 NOTWENDIG für das Build-Skript
+  "setuptools>=80", # 🚧 NOTWENDIG für das Build-Skript
+  "numpy>=1.26.0",  # 🚧 NOTWENDIG falls mathhelpers numpy nutzt
+  "wheel>=0.38.0",  # 🚧 NOTWENDIG für das Build-Skript
 ]
 #build-backend = "poetry.core.masonry.api"
 build-backend = "setuptools.build_meta"
@@ -90,7 +90,15 @@ include = [
 [tool.setuptools]
 include-package-data = true
 package-dir = { "" = "src" }
-packages.find = { where = ["src"] }
+packages.find = { where = [
+  "src",
+], include = [
+  "valuefragments*",
+], exclude = [
+  "joblib*",
+  "icecream*",
+  "cpu_load_generator*",
+] }
 ext-modules = [
   { name = "valuefragments.mathhelpers", sources = [
     "src/valuefragments/mathhelpers.py",
@@ -253,14 +261,6 @@ exclude_dirs = ["tests"]
 skips = ["tests/*.py"]
 
 
-
-
-
-
-
-
-
-
 [tool.poetry.group.dev.dependencies.prospector]
 version = ">1.5"
 # extras = ["with_everything"]
@@ -276,14 +276,6 @@ python = "^3.12"
 
 [tool.prospector]
 without_tool = "django"
-
-
-
-
-
-
-
-
 
 
 [tool.poetry.group.dev.dependencies.pylint-django]
