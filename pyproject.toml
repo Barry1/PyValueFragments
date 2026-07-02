@@ -59,7 +59,8 @@ allfeatures = [
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-
+[tool.setuptools.package-data]
+"valuefragments" = ["py.typed"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
