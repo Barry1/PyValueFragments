@@ -14,11 +14,11 @@ class TimeSuite:
             self.d[x] = None
 
     def time_keys(self):
-        for key in self.d.keys():
+        for _key in self.d.keys():
             pass
 
     def time_values(self):
-        for value in self.d.values():
+        for _value in self.d.values():
             pass
 
     def time_range(self):

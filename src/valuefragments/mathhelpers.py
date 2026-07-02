@@ -194,7 +194,7 @@ def probneeds_rec(
     if not needs:
         return 1
     if avails == 0:
-        avails = sum(p * n for n, p in zip(needs, probs))
+        avails = sum(p * n for n, p in zip(needs, probs, strict=False))
         thelogger.debug("avails set to expectation value %f", avails)
     thelogger.debug("needs=%s , probs=%s, avails=%i", needs, probs, avails)
     if lenneeds == 1:
@@ -231,7 +231,7 @@ def probneeds_new(
     """Return the probability for an available number beeing
     sufficient for bernoulli cases."""
     resultdict: dict[int, float] = {0: 1 - probs[0], needs[0]: probs[0]}
-    for need, theprob in zip(needs[1:], probs[1:]):
+    for need, theprob in zip(needs[1:], probs[1:], strict=False):
         resultdict = add_dict(
             {
                 count: prob * (1 - theprob)
@@ -263,7 +263,7 @@ def probneeds(
         avails = sum(needs)
         thelogger.debug("avails set to overall need value %i", avails)
     stock: dict[int, float] = {avails: 1}
-    for need, prob in zip(needs, probs):
+    for need, prob in zip(needs, probs, strict=False):
         stocktemp: dict[int, float] = {}
         for stockcount, stockprob in stock.items():
             if stockcount - need >= 0:

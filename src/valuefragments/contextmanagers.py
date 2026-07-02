@@ -305,7 +305,7 @@ class TimingCM:
         closeifrunningloky()
         self.endtimes = os.times()
         timedelta: list[float] = [
-            e - a for (a, e) in zip(self.starttimes, self.endtimes)
+            e - a for (a, e) in zip(self.starttimes, self.endtimes, strict=False)
         ]
         print(
             f"{timedelta[0] + timedelta[2]:8.2f} [s] User",

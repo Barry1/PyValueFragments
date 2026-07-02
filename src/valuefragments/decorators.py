@@ -123,7 +123,7 @@ def logdecorate[T, **ParamP](
         title_line_format: str = "%11.11s|" * 5 + "%8.8s|"
         info_line_format: str = "%7.2f [s]|" * 5 + "%7.2f%%|"
         timingdiffs: tuple[float, ...] = tuple(
-            b - a for (a, b) in zip(begintimings, endtimings)
+            b - a for (a, b) in zip(begintimings, endtimings, strict=False)
         )
         theloggertouse.info(
             title_line_format,
@@ -435,7 +435,7 @@ else:
             retval: _FunCallResultT = func(*args, **kwargs)
             after: NamedTuple = psutil.Process().cpu_times()
             delta: list[float] = [
-                end - start for start, end in zip(before, after)
+                end - start for start, end in zip(before, after, strict=False)
             ]
             print(func.__name__, delta, sum(delta))
             return retval
