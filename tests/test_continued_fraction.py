@@ -1,8 +1,9 @@
 #!/usr/bin/env -S poetry run pytest
 """Test functions for mathhelpers module."""
 
-from valuefragments.continued_fraction import continued_fraction
 import math
+
+from valuefragments.continued_fraction import continued_fraction
 
 
 def test_continued_fraction_int() -> None:

@@ -104,9 +104,7 @@ def filecache[_FunCallResultT](
 @moduleexport
 def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
-    setattr(
-        record, "thread_native", __import__(name="threading").get_native_id()
-    )
+    record.thread_native = __import__(name="threading").get_native_id()
     return True
 
 
@@ -277,7 +275,7 @@ else:
         if "ic" not in module.__all__:
             module.__all__.append("ic")
     else:
-        setattr(module, "__all__", ["ic"])
+        module.__all__ = ["ic"]
 finally:
     __all__.append("ic")
 

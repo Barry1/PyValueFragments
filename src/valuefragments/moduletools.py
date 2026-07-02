@@ -26,7 +26,7 @@ def moduleexport[_FunCallResultT, **_FunParamP](
         if class_or_function.__name__ not in module.__all__:
             module.__all__.append(class_or_function.__name__)
     else:
-        setattr(module, "__all__", [class_or_function.__name__])
+        module.__all__ = [class_or_function.__name__]
     # ic(dir(module))
     # ic(module)
     # ic(module.__all__)
