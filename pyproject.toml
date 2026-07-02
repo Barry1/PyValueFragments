@@ -9,9 +9,7 @@ description = "A library for handling value fragments with high precision and ef
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
 license = {text = "MIT"}
-authors = [
-    {name = "Barry", email = "your-email@example.com"} 
-]
+authors = [{ name = "Dr. Bastian Ebeling", email = "bastian.ebeling@web.de" }]
 dependencies = [
     "lxml",
     "requests",
