@@ -65,8 +65,8 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 # Erhalt der spezifischen C-Extension Konfiguration für mathhelpers
-[tool.setuptools.ext-modules]
-mathhelpers = { sources = ["src/valuefragments/mathhelpers.pyx"] }
+#[tool.setuptools.ext-modules]
+#mathhelpers = { sources = ["src/valuefragments/mathhelpers.pyx"] }
 
 # --- TOOLING KONFIGURATION ---
 
