@@ -31,24 +31,17 @@ tasklist: list[Callable[[], float]] = [
 async def test_run_grouped_thread() -> None:
     """Fake main routine for async processing."""
     assert (
-        abs(sum(await run_grouped(tasklist, "thread"), -COUNT * pi))
-        <= pi / 100 * COUNT
+        abs(sum(await run_grouped(tasklist, "thread"), -COUNT * pi)) <= pi / 100 * COUNT
     )
 
 
 @pytest.mark.asyncio
 async def test_run_grouped_ppe() -> None:
     """Fake main routine for async processing."""
-    assert (
-        abs(sum(await run_grouped(tasklist, "ppe"), -COUNT * pi))
-        <= pi / 100 * COUNT
-    )
+    assert abs(sum(await run_grouped(tasklist, "ppe"), -COUNT * pi)) <= pi / 100 * COUNT
 
 
 @pytest.mark.asyncio
 async def test_run_grouped_tpe() -> None:
     """Fake main routine for async processing."""
-    assert (
-        abs(sum(await run_grouped(tasklist, "tpe"), -COUNT * pi))
-        <= pi / 100 * COUNT
-    )
+    assert abs(sum(await run_grouped(tasklist, "tpe"), -COUNT * pi)) <= pi / 100 * COUNT

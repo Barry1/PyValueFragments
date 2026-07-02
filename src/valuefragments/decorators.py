@@ -87,9 +87,7 @@ def logdecorate[T, **ParamP](
 
     def setuplogger(funcname: str) -> logging.Logger:
         """Set up a new Logger for my needs"""
-        thenewlogger: logging.Logger = logging.getLogger(
-            f"logdecorate.{funcname}"
-        )
+        thenewlogger: logging.Logger = logging.getLogger(f"logdecorate.{funcname}")
         the_format: str = "|".join(
             [
                 "%(asctime)s",
@@ -105,9 +103,7 @@ def logdecorate[T, **ParamP](
             ]
         )
         logformatter: logging.Formatter = logging.Formatter(the_format)
-        logfilehandler: logging.FileHandler = logging.FileHandler(
-            "decorated.log"
-        )
+        logfilehandler: logging.FileHandler = logging.FileHandler("decorated.log")
         logfilehandler.setFormatter(logformatter)
         logfilehandler.addFilter(thread_native_id_filter)
         thenewlogger.addHandler(logfilehandler)
@@ -137,11 +133,7 @@ def logdecorate[T, **ParamP](
         theloggertouse.info(
             info_line_format,
             *timingdiffs,
-            (
-                100 * sum(timingdiffs[:4]) / timingdiffs[4]
-                if timingdiffs[4]
-                else 0
-            ),
+            (100 * sum(timingdiffs[:4]) / timingdiffs[4] if timingdiffs[4] else 0),
         )
 
     # https://docs.python.org/3/library/logging.html#levels
@@ -360,16 +352,12 @@ if os.name == "posix":
                 resource.RUSAGE_SELF
             )
             retval: _FunCallResultT = func(*args, **kwargs)
-            selfafter: resource.struct_rusage = resource.getrusage(
-                resource.RUSAGE_SELF
-            )
+            selfafter: resource.struct_rusage = resource.getrusage(resource.RUSAGE_SELF)
             childafter: resource.struct_rusage = resource.getrusage(
                 resource.RUSAGE_CHILDREN
             )
             after: float | Literal[0] = time.monotonic()
-            if all(
-                (childbefore, selfbefore, selfafter, childafter, before, after)
-            ):
+            if all((childbefore, selfbefore, selfafter, childafter, before, after)):
                 print("time function\t", func.__name__)
                 print_time_result(
                     wall=after - before,
@@ -471,9 +459,7 @@ def timing_process_time[**_FunParamP, _FunCallResultT](
     """Measures execution times by time (process)."""
 
     @wraps(func)
-    def wrapped(
-        *args: _FunParamP.args, **kwargs: _FunParamP.kwargs
-    ) -> _FunCallResultT:
+    def wrapped(*args: _FunParamP.args, **kwargs: _FunParamP.kwargs) -> _FunCallResultT:
         """Run with timing."""
         before: float = time.process_time()
         retval: _FunCallResultT = func(*args, **kwargs)

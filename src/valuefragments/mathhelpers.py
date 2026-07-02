@@ -66,9 +66,7 @@ def loanrate(loan: float, interest: float, duration: float) -> float:
     """Derives the monthly rate for a given loan, interest and duration."""
     monthinterest: float = interest / 12
     monthduration: float = duration * 12
-    return (
-        loan * monthinterest / (1 - 1 / (1 + monthinterest) ** monthduration)
-    )
+    return loan * monthinterest / (1 - 1 / (1 + monthinterest) ** monthduration)
 
 
 # leider unterstützt cython noch keine
@@ -88,9 +86,7 @@ def determinant(
     b1, b2, b3 = colb
     c1, c2, c3 = colc
     return (
-        a1 * (b2 * c3 - b3 * c2)
-        - a2 * (b1 * c3 - b3 * c1)
-        + a3 * (b1 * c2 - b2 * c1)
+        a1 * (b2 * c3 - b3 * c2) - a2 * (b1 * c3 - b3 * c1) + a3 * (b1 * c2 - b2 * c1)
     )
 
 
@@ -136,9 +132,7 @@ def easybisect(  # pylint: disable=too-many-arguments
 ) -> tuple[float, float]:
     """Simple Bisection for scalar functions."""
     thelogger.info("easybisect started")
-    thelogger.info(
-        "Maximum %i iterations for relative error %f", maxiter, relerror
-    )
+    thelogger.info("Maximum %i iterations for relative error %f", maxiter, relerror)
     data: list[tuple[float, float]] = []
     if upperbound < lowerbound:
         [lowerbound, upperbound] = [upperbound, lowerbound]
@@ -201,9 +195,7 @@ def probneeds_rec(
         return 1 if avails >= needs[0] else 1 - probs[0]
     return (
         probs[0]
-        * probneeds_rec(
-            needs=needs[1:], probs=probs[1:], avails=avails - needs[0]
-        )
+        * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails - needs[0])
         + (1 - probs[0])
         * probneeds_rec(needs=needs[1:], probs=probs[1:], avails=avails)
         if avails >= needs[0]
@@ -225,22 +217,14 @@ def add_dict(
 
 
 @moduleexport
-def probneeds_new(
-    probs: list[float], needs: list[int], avails: int = 0
-) -> float:
+def probneeds_new(probs: list[float], needs: list[int], avails: int = 0) -> float:
     """Return the probability for an available number beeing
     sufficient for bernoulli cases."""
     resultdict: dict[int, float] = {0: 1 - probs[0], needs[0]: probs[0]}
     for need, theprob in zip(needs[1:], probs[1:], strict=False):
         resultdict = add_dict(
-            {
-                count: prob * (1 - theprob)
-                for count, prob in resultdict.items()
-            },
-            {
-                count + need: prob * theprob
-                for count, prob in resultdict.items()
-            },
+            {count: prob * (1 - theprob) for count, prob in resultdict.items()},
+            {count + need: prob * theprob for count, prob in resultdict.items()},
         )
     thelogger.debug(resultdict)
     return sum(prob for count, prob in resultdict.items() if count <= avails)
@@ -270,9 +254,9 @@ def probneeds(
                 stocktemp[stockcount - need] = (
                     stocktemp.get(stockcount - need, 0) + stockprob * prob
                 )
-            stocktemp[stockcount] = stocktemp.get(
-                stockcount, 0
-            ) + stockprob * (1 - prob)
+            stocktemp[stockcount] = stocktemp.get(stockcount, 0) + stockprob * (
+                1 - prob
+            )
         stock = stocktemp
     thelogger.debug(stock)
     availprob = sum(stock.values())

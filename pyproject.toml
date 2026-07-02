@@ -19,21 +19,42 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-asyncio",
+    "pytest-bandit",
+    "pytest-beartype",
+    #"pytest-black",
+    "pytest-colordots",
     "pytest-cov",
+    "pytest-monkeytype",
+    "pytest-mypy",
+    "pytest-pyright",
+    "pytest-sugar",
     "ruff",
     "mypy",
     "nox",
     "asv",
+    "typeguard",
 ]
+
 allfeatures = [
     "pytest",
+    "pytest-asyncio",
+    "pytest-bandit",
+    "pytest-beartype",
+    #"pytest-black",
+    "pytest-colordots",
     "pytest-cov",
+    "pytest-monkeytype",
+    "pytest-mypy",
+    "pytest-pyright",
+    "pytest-sugar",
     "ruff",
     "mypy",
     "nox",
     "asv",
     "lxml",
     "requests",
+    "typeguard",
 ]
 
 [tool.setuptools]
@@ -72,8 +93,17 @@ warn_return_any = true
 warn_unused_configs = true
 
 [tool.pytest.ini_options]
+pythonpath = ["src"]
 testpaths = ["tests"]
-addopts = "--strict-markers"
+addopts = ["--strict-markers",
+  "--verbose",
+  "--cov=src/pyvaluefragments",
+  "--cov-report=term-missing",
+  "--typeguard-packages=pyvaluefragments",
+  "--color=yes",
+#  "--ignore=src/tests/test_numpy_scalar_interval.py"
+  ]
+required_plugins = ["pytest-cov", "typeguard", "pytest-sugar","pytest-mypy","pytest-pyright"]
 
 [tool.coverage.run]
 source = ["src"]

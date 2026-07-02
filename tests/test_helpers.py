@@ -60,10 +60,7 @@ def test_stringtovalidfilename() -> None:
 
 def test_basic_auth() -> None:
     """Test if basic_auth does what is expected."""
-    assert (
-        basic_auth("Aladdin", "open sesame")[6:]
-        == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
-    )
+    assert basic_auth("Aladdin", "open sesame")[6:] == "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
 
 
 def test_hashfile() -> None:

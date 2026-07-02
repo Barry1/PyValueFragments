@@ -160,9 +160,7 @@ class HumanReadAble(int):
 
     def __new__(
         cls,
-        __x: (
-            ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc
-        ),
+        __x: (ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc),
         __baseunit: str = "B",
     ) -> Self:
         """Build an int object by the super class."""
@@ -170,9 +168,7 @@ class HumanReadAble(int):
 
     def __init__(
         self,
-        __x: (
-            str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
-        ),
+        __x: (str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc),
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
@@ -342,9 +338,7 @@ else:
     @moduleexport
     def loadallcores(loadduration: int = 10, theload: float = 0.5) -> None:
         """Just a helper function to generate load on all cores."""
-        cpu_load_generator.load_all_cores(
-            duration_s=loadduration, target_load=theload
-        )
+        cpu_load_generator.load_all_cores(duration_s=loadduration, target_load=theload)
 
 
 @moduleexport
@@ -354,9 +348,7 @@ def stringtovalidfilename(inputstring: str) -> str:
     easy solution by exclusion of maybe strange or forbidden characters
     <https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#:~:text=Use%20any%20character,does%20not%20allow.>
     """
-    return "".join(
-        thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$'
-    )
+    return "".join(thechar for thechar in inputstring if thechar not in '<>&:"\\/|?*%$')
 
 
 @moduleexport
@@ -391,9 +383,7 @@ async def run_grouped[_FunCallResultT](
             with concurrent.futures.ProcessPoolExecutor() as executor:
                 async with asyncio.TaskGroup() as the_task_group:
                     all_tasks = [
-                        the_task_group.create_task(
-                            to_inner_task(funcall, executor)
-                        )
+                        the_task_group.create_task(to_inner_task(funcall, executor))
                         for funcall in the_functioncalls
                     ]
             return [ready_task.result() for ready_task in all_tasks]
@@ -401,9 +391,7 @@ async def run_grouped[_FunCallResultT](
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 async with asyncio.TaskGroup() as the_task_group:
                     all_tasks = [
-                        the_task_group.create_task(
-                            to_inner_task(funcall, executor)
-                        )
+                        the_task_group.create_task(to_inner_task(funcall, executor))
                         for funcall in the_functioncalls
                     ]
             return [ready_task.result() for ready_task in all_tasks]
@@ -469,9 +457,7 @@ def setuplogger(LOGGERNAME: str) -> logging.Logger:
         logformatter: logging.Formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        logfilehandler: logging.FileHandler = logging.FileHandler(
-            f"{LOGGERNAME}.log"
-        )
+        logfilehandler: logging.FileHandler = logging.FileHandler(f"{LOGGERNAME}.log")
         logfilehandler.setFormatter(logformatter)
         thelogger.addHandler(logfilehandler)
         if __debug__:
