@@ -5,7 +5,7 @@ MAKEFLAGS += --jobs --max-load=2 --output-sync=target
 #PYOBJS = $(wildcard *.py)
 #pyobjs:= $(shell tree -if | egrep .pyi?$$)
 #pyobjs:= $(shell find src -regex .*pyi?$$)
-pyobjs!= find src -regex .*\.pyi?$$ -type f
+pyobjs != find src -regex .*\.pyi?$$ -type f
 
 buildclean:
 	rm -rf build/ dist/ *.egg-info .eggs __pycache__ src/valuefragments/__pycache__ src/valuefragments/*.so src/valuefragments/*.pyd
@@ -49,7 +49,7 @@ typings/joblib/joblib/externals/loky/process_executor.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py --createstub joblib.externals.loky.process_executor
 
 typings/joblib/joblib/externals/loky/reusable_executor.pyi:
-	poetry run pyright src/valuefragments/contextmanagers.py --createstub joblib.externals.loky.reusable_executor 
+	poetry run pyright src/valuefragments/contextmanagers.py --createstub joblib.externals.loky.reusable_executor
 
 typings/cpu_load_generator/_interface.pyi:
 	poetry run pyright src/valuefragments/contextmanagers.py --createstub cpu_load_generator
@@ -137,7 +137,7 @@ pyreanalyse:
 # Run Pysa, the inter-procedural static analysis tool.
 	mkdir -p pyreanalysis
 	poetry run pyre analyze --save-results-to pyreanalysis
-	
+
 pyrecheck:
 	poetry run pyre --no-sequential --number-of-workers=3 --noninteractive --show-error-traces
 
