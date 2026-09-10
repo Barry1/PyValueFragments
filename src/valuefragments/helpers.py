@@ -13,6 +13,7 @@ import string
 import sys
 import threading
 import time
+from _hashlib import HASH
 from io import IOBase
 from shutil import copyfileobj
 from types import ModuleType
@@ -306,14 +307,19 @@ else:
 
 
 @moduleexport
-def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
+# def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
+#    """Return md5 hash for file."""
+#    with open(filename, "rb") as thefile:
+#        # nosec  # Compliant
+#        file_hash = hashlib.md5(usedforsecurity=False)
+#        while chunk := thefile.read(chunklen):
+#            file_hash.update(chunk)
+#    # deepcode ignore InsecureHash: for file identification
+#    return file_hash.hexdigest()
+def hashfile(filename: str) -> str:
     """Return md5 hash for file."""
     with open(filename, "rb") as thefile:
-        # nosec  # Compliant
-        file_hash = hashlib.md5(usedforsecurity=False)
-        while chunk := thefile.read(chunklen):
-            file_hash.update(chunk)
-    # deepcode ignore InsecureHash: for file identification
+        file_hash: HASH = hashlib.file_digest(thefile, "md5")
     return file_hash.hexdigest()
 
 
