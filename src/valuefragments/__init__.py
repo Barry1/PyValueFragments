@@ -1,6 +1,6 @@
 """Identifier file for package and building namespace."""
 
-__lazy_imports__: list[str] = [
+__lazy_modules__: list[str] = [
     "logging",
     "valuetyping",
     ".contextmanagers",
