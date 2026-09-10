@@ -15,14 +15,27 @@ def _setattr(name: str, value: Any):
     globals()[name] = value
 
 
+### Idee von grok unten besser?
+# def __getattr__(name: str):
+#    if hasattr(_typingmodule, name):
+#        _setattr(name, getattr(_typingmodule, name))
+#        return getattr(_typingmodule, name)
+#    if hasattr(_typing_extensionsmodule, name):
+#        _setattr(name, getattr(_typing_extensionsmodule, name))
+#        return getattr(_typing_extensionsmodule, name)
+#    raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
 def __getattr__(name: str):
-    if hasattr(_typingmodule, name):
-        _setattr(name, getattr(_typingmodule, name))
-        return getattr(_typingmodule, name)
-    if hasattr(_typing_extensionsmodule, name):
-        _setattr(name, getattr(_typing_extensionsmodule, name))
-        return getattr(_typing_extensionsmodule, name)
-    raise AttributeError(f"{name!r} ist kein bekanntes Typ‑Alias")
+    try:
+        val = getattr(_typingmodule, name)
+    except AttributeError:
+        try:
+            val = getattr(_typing_extensionsmodule, name)
+        except AttributeError:
+            raise AttributeError(
+                f"{name!r} ist kein bekanntes Typ‑Alias aus typing oder typing_extensions"
+            ) from None
+    _setattr(name, val)
+    return val
 
 
 class KwargsForPrint(TypedDict, total=False):
