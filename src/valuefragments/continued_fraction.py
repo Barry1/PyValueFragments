@@ -21,13 +21,12 @@ def continued_fraction_val(chain: list[int]) -> float:
 
 def continued_fraction(initialvalue: float, maxlen: int = 8) -> list[int]:
     """Returns the continued fraction representation of a number."""
-    result: list[int] = []
-    result.append(floor(initialvalue))
+    result: list[int] = [floor(initialvalue)]
     residuum: float = initialvalue - result[-1]
     while len(result) < maxlen - 1 and residuum:
         residuum = 1 / residuum
         result.append(floor(residuum))
-        residuum = residuum - result[-1]
+        residuum -= result[-1]
     if residuum:
         result.append(round(1 / residuum))
     return result
