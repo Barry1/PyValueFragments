@@ -40,6 +40,9 @@ def is_exact_float(
     # return denom == 1
     if isinstance(rational, tuple):
         return Fraction(*rational).denominator.bit_count() == 1
+    if isinstance(rational, float):
+        # Schnellerer Pfad für echte floats
+        return Fraction(rational).denominator.bit_count() == 1
     return Fraction(str(rational)).denominator.bit_count() == 1
 
 
