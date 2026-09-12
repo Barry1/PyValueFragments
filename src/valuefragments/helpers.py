@@ -4,18 +4,39 @@ from __future__ import annotations
 
 import asyncio
 import concurrent.futures
-import hashlib
-import logging
-import math
 import os
-import random
-import string
 import sys
-import threading
 import time
 from _hashlib import HASH
+from hashlib import file_digest
 from io import IOBase
+from logging import (
+    DEBUG as logging_DEBUG,
+)
+from logging import (
+    INFO as logging_INFO,
+)
+from logging import (
+    FileHandler as logging_FileHandler,
+)
+from logging import (
+    Formatter as logging_Formatter,
+)
+from logging import (
+    Logger as logging_Logger,
+)
+from logging import (
+    LogRecord as logging_LogRecord,
+)
+from logging import (
+    getLogger as logging_getLogger,
+)
+from math import floor, log2
+from random import seed, uniform
 from shutil import copyfileobj
+from string import ascii_letters as string_ascii_letters
+from string import digits as string_digits
+from threading import get_native_id
 from types import ModuleType
 
 import requests
@@ -49,7 +70,7 @@ __all__: list[str] = []
 
 if TYPE_CHECKING:
     from _typeshed import ReadableBuffer, SupportsTrunc
-thelogger: logging.Logger = logging.getLogger(__name__)
+thelogger: logging_Logger = logging_getLogger(__name__)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -103,7 +124,7 @@ def filecache[_FunCallResultT](
 
 
 @moduleexport
-def thread_native_id_filter(record: logging.LogRecord) -> bool:
+def thread_native_id_filter(record: logging_LogRecord) -> bool:
     """Inject thread_id to log records"""
     record.thread_native = __import__(name="threading").get_native_id()
     return True
@@ -115,12 +136,12 @@ def pi_for_cpu_load(
     theseed: None | int | float | str | bytes | bytearray = None,
 ) -> float:
     """Calculate pi by simulation just for CPU-load."""
-    random.seed(theseed)
+    seed(theseed)
     n_all: int = 0
     n_in: int = 0
     for _ in range(numiter):
-        _x: float = random.uniform(0, 1)  # nosec: B311
-        _y: float = random.uniform(0, 1)  # nosec: B311
+        _x: float = uniform(0, 1)  # nosec: B311
+        _y: float = uniform(0, 1)  # nosec: B311
         n_all += 1
         if _x**2 + _y**2 < 1:
             n_in += 1
@@ -176,9 +197,7 @@ class HumanReadAble(int):
         self.unit: str = __baseunit
         #        self.scaler: int = math.floor(math.log2(self) / 10)
         #        self.scaler: int = math.floor(math.log10(self) / 3)
-        self.scaler: int = (
-            1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
-        )
+        self.scaler: int = 1 + floor(log2(self / 1000) / 10) if self > 0 else 0
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
@@ -319,7 +338,7 @@ else:
 def hashfile(filename: str) -> str:
     """Return md5 hash for file."""
     with open(filename, "rb") as thefile:
-        file_hash: HASH = hashlib.file_digest(thefile, "md5")
+        file_hash: HASH = file_digest(thefile, "md5")
     return file_hash.hexdigest()
 
 
@@ -364,7 +383,7 @@ def stringtovalidfilename2(inputstring: str) -> str:
     return "".join(
         thechar
         for thechar in inputstring
-        if thechar in f"-_.{string.ascii_letters}{string.digits}"
+        if thechar in f"-_.{string_ascii_letters}{string_digits}"
     )
 
 
@@ -455,26 +474,26 @@ def print_time_result(wall: float, user: float, system: float) -> None:
 
 
 @moduleexport
-def setuplogger(LOGGERNAME: str) -> logging.Logger:
+def setuplogger(LOGGERNAME: str) -> logging_Logger:
     """Setup Logging environment."""
-    thelogger: logging.Logger = logging.getLogger(LOGGERNAME)
-    # https://docs.python.org/3/library/logging.html#logrecord-attributes
+    thelogger: logging_Logger = logging_getLogger(LOGGERNAME)
+    # https://docs.python.org/3/library/logging_html#logrecord-attributes
     if not thelogger.hasHandlers():
-        logformatter: logging.Formatter = logging.Formatter(
+        logformatter: logging_Formatter = logging_Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        logfilehandler: logging.FileHandler = logging.FileHandler(f"{LOGGERNAME}.log")
+        logfilehandler: logging_FileHandler = logging_FileHandler(f"{LOGGERNAME}.log")
         logfilehandler.setFormatter(logformatter)
         thelogger.addHandler(logfilehandler)
         if __debug__:
-            thelogger.setLevel(logging.DEBUG)
+            thelogger.setLevel(logging_DEBUG)
         else:
-            thelogger.setLevel(logging.INFO)
-        # thelogger.log(logging.INFO,thelogger.getEffectiveLevel())
+            thelogger.setLevel(logging_INFO)
+        # thelogger.log(logging_INFO,thelogger.getEffectiveLevel())
         thelogger.info(
             "Logging handler configured in process %i / thread %i",
             os.getpid(),
-            threading.get_native_id(),
+            get_native_id(),
             # __import__("threading").get_native_id(),
         )
         thelogger.debug("%s", __import__("traceback").format_stack())
