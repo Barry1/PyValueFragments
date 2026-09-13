@@ -4,12 +4,6 @@ from __future__ import annotations
 
 __all__: list[str] = []
 
-_LAZY_IMPORTS: dict[str, str] = {
-    "my_heavy_function": "submodule.heavy_processing",
-    "another_function": "submodule.utils",
-}
-
-
 import asyncio
 import logging
 import math
@@ -19,20 +13,19 @@ import sys
 import time
 from concurrent.futures import Executor, ProcessPoolExecutor, ThreadPoolExecutor
 from io import IOBase
+from logging import DEBUG as logging_DEBUG
+from logging import INFO as logging_INFO
+from logging import FileHandler as logging_FileHandler
+from logging import Formatter as logging_Formatter
+from logging import Logger as logging_Logger
+from logging import getLogger as logging_getLogger
 from shutil import copyfileobj
 from types import ModuleType
 from warnings import warn
 
 import requests
-
-# noinspection PyProtectedMember
-# pylint: disable-next=no-name-in-module
-# pyright: ignore[reportAttributeAccessIssue,reportUnknownVariableType]
 from lxml.html import fromstring
 
-# https://docs.python.org/3/library/__future__.html
-# https://github.com/microsoft/pyright/issues/3002#issuecomment-1046100462
-# found on https://stackoverflow.com/a/14981125
 from .moduletools import moduleexport
 from .valuetyping import (  # LastElementT,; OtherElementsT,
     IO,
@@ -50,8 +43,16 @@ from .valuetyping import (  # LastElementT,; OtherElementsT,
     reveal_type,
 )
 
+_LAZY_IMPORTS: dict[str, str] = {
+    "my_heavy_function": "submodule.heavy_processing",
+    "another_function": "submodule.utils",
+}
+
 if TYPE_CHECKING:
-    from _typeshed import ReadableBuffer, SupportsTrunc
+    from _typeshed import (  # pylint: disable=import-outside-toplevel
+        ReadableBuffer,
+        SupportsTrunc,
+    )
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 thelogger: logging.Logger = logging.getLogger(__name__)
@@ -108,7 +109,7 @@ def filecache(
 @moduleexport
 def thread_native_id_filter(record: logging.LogRecord) -> bool:
     """Inject thread_id to log records"""
-    record.thread_native = __import__("threading").get_native_id()
+    record.thread_native = __import__("threading").get_native_id()  # pylint: disable=import-outside-toplevel
     return True
 
 
@@ -117,7 +118,7 @@ def pi_for_cpu_load(
     numiter: int = 10**7, theseed: None | int | float | str | bytes | bytearray = None
 ) -> float:
     """Calculate pi by simulation just for CPU-load."""
-    from random import seed, uniform
+    from random import seed, uniform  # pylint: disable=import-outside-toplevel
 
     seed(theseed)
     n_all: int = 0
@@ -147,7 +148,7 @@ def basic_auth(
     """Build String for Basic AUTH."""
     # Authorization token: we need to base 64 encode it
     # and then decode it to acsii as python 3 stores it as a byte string
-    return "Basic " + __import__("base64").b64encode(
+    return "Basic " + __import__("base64").b64encode(  # pylint: disable=import-outside-toplevel
         f"{user}:{passw}".encode("utf-8")
     ).decode("ascii")
 
@@ -247,7 +248,7 @@ def exists_variable(varname: str) -> bool:
 
 
 try:
-    from icecream import ic
+    from icecream import ic  # pylint: disable=import-outside-toplevel
 except ImportError:
     # <https://stackoverflow.com/a/73738408>
     # pylint: disable-next=keyword-arg-before-vararg
@@ -271,7 +272,7 @@ finally:
 
 try:
     # noinspection PyUnresolvedReferences
-    import psutil
+    import psutil  # pylint: disable=import-outside-toplevel
 except ImportError:
     ic("psutil is not available")
 else:
@@ -308,7 +309,10 @@ def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
 
 try:
     # noinspection PyUnresolvedReferences
-    from cpu_load_generator import load_all_cores, load_single_core
+    from cpu_load_generator import (  # pylint: disable=import-outside-toplevel
+        load_all_cores,
+        load_single_core,
+    )
 except ImportError:
     pass
 else:
@@ -401,6 +405,7 @@ if sys.version_info >= (3, 11):
         warn(
             "Will be removed from v0.4 on, use valuefragments.run_grouped",
             DeprecationWarning,
+            stacklevel=2,
         )
         async with asyncio.TaskGroup() as the_task_group:
             return [
@@ -420,6 +425,7 @@ if sys.version_info >= (3, 11):
         warn(
             "Will be removed from v0.4 on, use valuefragments.run_grouped",
             DeprecationWarning,
+            stacklevel=2,
         )
         with ThreadPoolExecutor() as pool_executor:
             return [
@@ -441,6 +447,7 @@ if sys.version_info >= (3, 11):
         warn(
             "Will be removed from v0.4 on, use valuefragments.run_grouped",
             DeprecationWarning,
+            stacklevel=2,
         )
         with ProcessPoolExecutor() as pool_executor:
             return [
@@ -511,8 +518,8 @@ def setuplogger(LOGGERNAME: str) -> logging_Logger:
         thelogger.info(
             "Logging handler configured in process %i / thread %i",
             os.getpid(),
-            get_native_id(),
-            # __import__("threading").get_native_id(),
+            # get_native_id(),
+            __import__("threading").get_native_id(),  # pylint: disable=import-outside-toplevel
         )
         thelogger.debug("%s", __import__("traceback").format_stack())
     return thelogger
