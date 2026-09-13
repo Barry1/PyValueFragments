@@ -7,30 +7,14 @@ import concurrent.futures
 import os
 import sys
 import time
-from _hashlib import HASH
-from hashlib import file_digest
 from io import IOBase
-from logging import (
-    DEBUG as logging_DEBUG,
-)
-from logging import (
-    INFO as logging_INFO,
-)
-from logging import (
-    FileHandler as logging_FileHandler,
-)
-from logging import (
-    Formatter as logging_Formatter,
-)
-from logging import (
-    Logger as logging_Logger,
-)
-from logging import (
-    LogRecord as logging_LogRecord,
-)
-from logging import (
-    getLogger as logging_getLogger,
-)
+from logging import DEBUG as logging_DEBUG
+from logging import INFO as logging_INFO
+from logging import FileHandler as logging_FileHandler
+from logging import Formatter as logging_Formatter
+from logging import Logger as logging_Logger
+from logging import LogRecord as logging_LogRecord
+from logging import getLogger as logging_getLogger
 from math import floor, log2
 from random import seed, uniform
 from shutil import copyfileobj
@@ -338,6 +322,8 @@ else:
 def hashfile(filename: str) -> str:
     """Return md5 hash for file."""
     with open(filename, "rb") as thefile:
+        from _hashlib import HASH
+        from hashlib import file_digest
         file_hash: HASH = file_digest(thefile, "md5")
     return file_hash.hexdigest()
 
