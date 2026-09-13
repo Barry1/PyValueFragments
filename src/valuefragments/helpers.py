@@ -11,7 +11,6 @@ _LAZY_IMPORTS: dict[str, str] = {
 
 
 import asyncio
-import hashlib
 import logging
 import math
 import os
@@ -297,13 +296,12 @@ else:
 @moduleexport
 def hashfile(filename: str, chunklen: int = 128 * 2**12) -> str:
     """Return md5 hash for file."""
+    from _hashlib import HASH  # pylint: disable=import-outside-toplevel
+    from hashlib import file_digest  # pylint: disable=import-outside-toplevel
+
     with open(filename, "rb") as thefile:
         # nosec  # Compliant
-        from _hashlib import HASH  # pylint: disable=import-outside-toplevel
-
-        file_hash: HASH = hashlib.md5(usedforsecurity=False)
-        while chunk := thefile.read(chunklen):
-            file_hash.update(chunk)
+        file_hash: HASH = file_digest(thefile, "md5")
     # deepcode ignore InsecureHash: for file identification
     return file_hash.hexdigest()
 
@@ -480,3 +478,41 @@ def getselectedhreflinks(
             f'//a/@href[contains(string(), "{thesubstring}")]'
         )
     )
+
+
+def print_time_result(wall: float, user: float, system: float) -> None:
+    """Print Time Result."""
+    print(
+        f"{wall:8.3f} [s]",
+        f"(User: {user:8.3f} [s]",
+        "System: {system:8.3f} [s])",
+        f"{100 * (user + system) / wall:6.2f}% Load",
+        sep="\t",
+    )
+
+
+@moduleexport
+def setuplogger(LOGGERNAME: str) -> logging_Logger:
+    """Setup Logging environment."""
+    thelogger: logging_Logger = logging_getLogger(LOGGERNAME)
+    # https://docs.python.org/3/library/logging_html#logrecord-attributes
+    if not thelogger.hasHandlers():
+        logformatter: logging_Formatter = logging_Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        logfilehandler: logging_FileHandler = logging_FileHandler(f"{LOGGERNAME}.log")
+        logfilehandler.setFormatter(logformatter)
+        thelogger.addHandler(logfilehandler)
+        if __debug__:
+            thelogger.setLevel(logging_DEBUG)
+        else:
+            thelogger.setLevel(logging_INFO)
+        # thelogger.log(logging_INFO,thelogger.getEffectiveLevel())
+        thelogger.info(
+            "Logging handler configured in process %i / thread %i",
+            os.getpid(),
+            get_native_id(),
+            # __import__("threading").get_native_id(),
+        )
+        thelogger.debug("%s", __import__("traceback").format_stack())
+    return thelogger
