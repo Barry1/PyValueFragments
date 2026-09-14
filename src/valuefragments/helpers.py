@@ -36,8 +36,6 @@ from .valuetyping import (  # LastElementT,; OtherElementsT,
     Literal,
     Protocol,
     SupportsAbs,
-    SupportsIndex,
-    SupportsInt,
     TypedDict,
     TypeVar,
     reveal_type,
@@ -161,7 +159,7 @@ class HumanReadAble(int):
     # <https://pypi.python.org/pypi/humanize>
     def __new__(
         cls,
-        __x,#: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x,  #: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> HumanReadAble:
         """Build an int object by the super class."""
@@ -169,7 +167,7 @@ class HumanReadAble(int):
 
     def __init__(
         self,
-        __x,#: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x,  #: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
