@@ -20,12 +20,12 @@ python3 -OO -m timeit --process 'getattr(__import__("importlib.util",fromlist=["
 echo "====================================================================== time ======================================================================"
 echo "Importlib"
 #time python3 -OO -c 'from importlib.util import find_spec; find_spec("typing")'
-time for i in {1..50}; do python3 -OO -c 'from importlib.util import find_spec; find_spec("typing")'; done
+time for _ in {1..50}; do python3 -OO -c 'from importlib.util import find_spec; find_spec("typing")'; done
 echo "__import__"
-time for i in {1..50}; do python3 -OO -c '__import__("importlib.util",fromlist=["util"]).find_spec("typing")'; done
+time for _ in {1..50}; do python3 -OO -c '__import__("importlib.util",fromlist=["util"]).find_spec("typing")'; done
 echo "__import__ getattr"
 #time python3 -OO -c 'getattr(__import__("importlib.util",fromlist=["util"]),"find_spec")("typing")'
-time for i in {1..50}; do python3 -OO -c 'getattr(__import__("importlib.util",fromlist=["util"]),"find_spec")("typing")'; done
+time for _ in {1..50}; do python3 -OO -c 'getattr(__import__("importlib.util",fromlist=["util"]),"find_spec")("typing")'; done
 echo "====================================================================== importtime ======================================================================"
 echo "Importlib"
 python3 -OO -X importtime -c 'from importlib.util import find_spec; find_spec("typing")' 2>&1 | grep importlib\.util
