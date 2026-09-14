@@ -54,6 +54,14 @@ Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 thelogger: logging_Logger = logging_getLogger(__name__)
 
 
+def module_exists(module_name:str) -> bool:
+    """Return True if the module can be found, False otherwise."""
+    #https://codemia.io/knowledge-hub/path/how_to_check_if_a_python_module_exists_without_importing_it
+    #from importlib.util import find_spec
+    #return find_spec(module_name) is not None
+    return __import__("importlib.util",fromlist=["find_spec"]).find_spec(module_name) is not None
+
+
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
     """Typing Protocol for objects with __str__ method."""
 
@@ -275,21 +283,16 @@ else:
 finally:
     __all__.append("ic")
 
-
-try:
-    # noinspection PyUnresolvedReferences
-    import psutil  # pylint: disable=import-outside-toplevel
-except ImportError:
-    ic("psutil is not available")
-else:
+if module_exists("psutil"):
+    from psutil import WINDOWS, Process  # pylint: disable=import-outside-toplevel
 
     @moduleexport
     def backgroundme() -> None:
         """Give this process background priority."""
-        if psutil.WINDOWS:
+        if WINDOWS:
             try:
                 # <https://archive.is/peWej#PROCESS_MODE_BACKGROUND_BEGIN>
-                psutil.Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
+                Process().nice(0x00100000)  # PROCESS_MODE_BACKGROUND_BEGIN
             except OSError as theerr:
                 if theerr.winerror == 402:  # type: ignore # pylint: disable=no-member
                     # pyright: ignore [reportGeneralTypeIssues,reportUnknownMemberType]
@@ -297,7 +300,9 @@ else:
                 else:
                     print(theerr)
         else:
-            psutil.Process().nice(19)
+            Process().nice(19)
+else:
+    ic("psutil is not available")
 
 
 @moduleexport
@@ -486,6 +491,7 @@ def getselectedhreflinks(
         thesourcehtml.reason,
     )
     from lxml.html import fromstring  # pylint: disable=import-outside-toplevel
+
     return reveal_type(
         fromstring(html=thesourcehtml.content).xpath(
             f'//a/@href[contains(string(), "{thesubstring}")]'

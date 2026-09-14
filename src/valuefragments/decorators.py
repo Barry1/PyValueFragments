@@ -15,6 +15,7 @@ from types import FunctionType  # , CoroutineType
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
 from .helpers import (
     ic,  # pylint: disable=relative-beyond-top-level
+    module_exists,
     print_time_result,
     thread_native_id_filter,
 )
@@ -400,12 +401,8 @@ if os.name == "posix":
         return wrapped
 
 
-try:
-    # noinspection PyUnresolvedReferences
-    import psutil
-except ImportError:
-    ic("psutil is not available")
-else:
+if module_exists("psutil"):
+    from psutil import Process  # pylint: disable=import-outside-toplevel
 
     @moduleexport
     def timing_psutil[**_FunParamP, _FunCallResultT](
@@ -419,9 +416,9 @@ else:
             **kwargs: _FunParamP.kwargs,
         ) -> _FunCallResultT:
             """Run with timing."""
-            before: NamedTuple = psutil.Process().cpu_times()
+            before: NamedTuple = Process().cpu_times()
             retval: _FunCallResultT = func(*args, **kwargs)
-            after: NamedTuple = psutil.Process().cpu_times()
+            after: NamedTuple = Process().cpu_times()
             delta: list[float] = [
                 end - start for start, end in zip(before, after, strict=False)
             ]
@@ -429,6 +426,9 @@ else:
             return retval
 
         return wrapped  # cast(FunctionTypeVar, wrapped)
+
+else:
+    ic("psutil is not available")
 
 
 @moduleexport
