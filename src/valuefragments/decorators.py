@@ -13,18 +13,18 @@ from types import FunctionType  # , CoroutineType
 
 # typing with the help of
 # <https://mypy.readthedocs.io/en/stable/generics.html#declaring-decorators>
-from .helpers import (  # pylint: disable=relative-beyond-top-level
-    ic,
+from .helpers import (
+    ic,  # pylint: disable=relative-beyond-top-level
     print_time_result,
     thread_native_id_filter,
 )
 from .moduletools import moduleexport
 
 # noinspection PyUnresolvedReferences
-from .valuetyping import (  # Coroutine,; TypeGuard,
+from .valuetyping import (
     Any,
     Callable,
-    Coroutine,
+    Coroutine,  # Coroutine,; TypeGuard,
     Literal,
     NamedTuple,
     TypeIs,

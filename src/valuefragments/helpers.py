@@ -4,9 +4,6 @@ from __future__ import annotations
 
 __all__: list[str] = []
 
-import math
-import string
-import time
 from asyncio import Task as asyncio_Task
 from asyncio import TaskGroup as asyncio_TaskGroup
 from asyncio import get_running_loop as asyncio_get_running_loop
@@ -20,10 +17,12 @@ from logging import Formatter as logging_Formatter
 from logging import Logger as logging_Logger
 from logging import LogRecord as logging_LogRecord
 from logging import getLogger as logging_getLogger
+from math import floor, log2
 from os import getpid as os_getpid
 from os import path as os_path
 from os import walk as os_walk
 from shutil import copyfileobj
+from string import ascii_letters, digits
 from types import ModuleType
 from warnings import warn
 
@@ -33,10 +32,10 @@ from requests import exceptions as requests_exceptions
 from requests import get as requests_get
 
 from .moduletools import moduleexport
-from .valuetyping import (  # LastElementT,; OtherElementsT,
+from .valuetyping import (
     IO,
     Any,
-    Callable,
+    Callable,  # LastElementT,; OtherElementsT,
     Generator,
     Literal,
     Protocol,
@@ -82,9 +81,11 @@ def file_exists_current(
     filepathname: str, max_age_seconds: int = 60 * 60 * 24 * 7
 ) -> bool:
     """Check if given file exists and is not older than max_age_seconds."""
+    from time import time  # pylint: disable=import-outside-toplevel
+
     return (
         os_path.exists(filepathname)
-        and time.time() - os_path.getmtime(filepathname) < max_age_seconds
+        and time() - os_path.getmtime(filepathname) < max_age_seconds
     )
 
 
@@ -179,9 +180,7 @@ class HumanReadAble(int):
         self.unit: str = __baseunit
         #        self.scaler: int = math.floor(math.log2(self) / 10)
         #        self.scaler: int = math.floor(math.log10(self) / 3)
-        self.scaler: int = (
-            1 + math.floor(math.log2(self / 1000) / 10) if self > 0 else 0
-        )
+        self.scaler: int = 1 + floor(log2(self / 1000) / 10) if self > 0 else 0
         super().__init__()
 
     def __format__(self, format_spec: str = ".3f") -> str:
@@ -357,9 +356,7 @@ def stringtovalidfilename2(inputstring: str) -> str:
     """Return only valid characters of string for use in filenames."""
 
     return "".join(
-        thechar
-        for thechar in inputstring
-        if thechar in f"-_.{string.ascii_letters}{string.digits}"
+        thechar for thechar in inputstring if thechar in f"-_.{ascii_letters}{digits}"
     )
 
 
