@@ -98,9 +98,9 @@ pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = ["--strict-markers",
   "--verbose",
-  "--cov=src/pyvaluefragments",
+  "--cov=src/valuefragments",
   "--cov-report=term-missing",
-  "--typeguard-packages=pyvaluefragments",
+  "--typeguard-packages=valuefragments",
   "--color=yes",
 #  "--ignore=src/tests/test_numpy_scalar_interval.py"
   ]

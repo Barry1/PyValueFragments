@@ -48,11 +48,6 @@ _LAZY_IMPORTS: dict[str, str] = {
     "another_function": "submodule.utils",
 }
 
-if TYPE_CHECKING:
-    from _typeshed import (  # pylint: disable=import-outside-toplevel
-        ReadableBuffer,
-        SupportsTrunc,
-    )
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
 thelogger: logging.Logger = logging.getLogger(__name__)
@@ -157,10 +152,16 @@ def basic_auth(
 class HumanReadAble(int):
     """int like with print in human readable scales."""
 
+    if TYPE_CHECKING:  # _typesched only available in type checking context
+        from _typeshed import (  # pylint: disable=import-outside-toplevel
+            ReadableBuffer,
+            SupportsTrunc,
+        )
+
     # <https://pypi.python.org/pypi/humanize>
     def __new__(
         cls,
-        __x: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x,#: ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> HumanReadAble:
         """Build an int object by the super class."""
@@ -168,7 +169,7 @@ class HumanReadAble(int):
 
     def __init__(
         self,
-        __x: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
+        __x,#: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc,
         __baseunit: str = "B",
     ) -> None:
         """Take int value, optional unit and prepare scaling."""
