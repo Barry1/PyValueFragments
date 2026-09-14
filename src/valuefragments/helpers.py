@@ -26,7 +26,6 @@ from string import ascii_letters, digits
 from types import ModuleType
 from warnings import warn
 
-from lxml.html import fromstring
 from requests import Response as requests_Response
 from requests import exceptions as requests_exceptions
 from requests import get as requests_get
@@ -486,6 +485,7 @@ def getselectedhreflinks(
         thesourcehtml.status_code,
         thesourcehtml.reason,
     )
+    from lxml.html import fromstring  # pylint: disable=import-outside-toplevel
     return reveal_type(
         fromstring(html=thesourcehtml.content).xpath(
             f'//a/@href[contains(string(), "{thesubstring}")]'
