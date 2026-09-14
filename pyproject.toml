@@ -104,7 +104,7 @@ addopts = ["--strict-markers",
   "--color=yes",
 #  "--ignore=src/tests/test_numpy_scalar_interval.py"
   ]
-required_plugins = ["pytest-cov", "typeguard", "pytest-sugar","pytest-mypy","pytest-pyright"]
+required_plugins = ["pytest-colordots", "pytest-asyncio", "pytest-cov", "typeguard", "pytest-sugar","pytest-mypy","pytest-pyright","pytest-beartype","pytest-bandit","pytest-monkeytype"]
 
 [tool.coverage.run]
 source = ["src"]
