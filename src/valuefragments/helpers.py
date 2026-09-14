@@ -5,7 +5,6 @@ from __future__ import annotations
 __all__: list[str] = []
 
 import math
-import os
 import string
 import time
 from asyncio import Task as asyncio_Task
@@ -21,6 +20,9 @@ from logging import Formatter as logging_Formatter
 from logging import Logger as logging_Logger
 from logging import LogRecord as logging_LogRecord
 from logging import getLogger as logging_getLogger
+from os import getpid as os_getpid
+from os import path as os_path
+from os import walk as os_walk
 from shutil import copyfileobj
 from types import ModuleType
 from warnings import warn
@@ -81,8 +83,8 @@ def file_exists_current(
 ) -> bool:
     """Check if given file exists and is not older than max_age_seconds."""
     return (
-        os.path.exists(filepathname)
-        and time.time() - os.path.getmtime(filepathname) < max_age_seconds
+        os_path.exists(filepathname)
+        and time.time() - os_path.getmtime(filepathname) < max_age_seconds
     )
 
 
@@ -131,9 +133,9 @@ def pi_for_cpu_load(
 @moduleexport
 def recurse_files_in_folder(thebasepath: str) -> Generator[str, None, None]:
     """Recursivly return paths for all files in basepath."""
-    for root, _dirs, files in os.walk(thebasepath, topdown=False):
+    for root, _dirs, files in os_walk(thebasepath, topdown=False):
         for filename in files:
-            yield os.path.join(root, filename)
+            yield os_path.join(root, filename)
 
 
 @moduleexport
@@ -524,7 +526,7 @@ def setuplogger(LOGGERNAME: str) -> logging_Logger:
         # thelogger.log(logging_INFO,thelogger.getEffectiveLevel())
         thelogger.info(
             "Logging handler configured in process %i / thread %i",
-            os.getpid(),
+            os_getpid(),
             # get_native_id(),
             __import__("threading").get_native_id(),  # pylint: disable=import-outside-toplevel
         )
