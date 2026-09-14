@@ -4,13 +4,14 @@ from __future__ import annotations
 
 __all__: list[str] = []
 
-import asyncio
-import logging
 import math
 import os
 import string
-import sys
 import time
+from asyncio import Task as asyncio_Task
+from asyncio import TaskGroup as asyncio_TaskGroup
+from asyncio import get_running_loop as asyncio_get_running_loop
+from asyncio import to_thread as asyncio_to_thread
 from concurrent.futures import Executor, ProcessPoolExecutor, ThreadPoolExecutor
 from io import IOBase
 from logging import DEBUG as logging_DEBUG
@@ -18,18 +19,20 @@ from logging import INFO as logging_INFO
 from logging import FileHandler as logging_FileHandler
 from logging import Formatter as logging_Formatter
 from logging import Logger as logging_Logger
+from logging import LogRecord as logging_LogRecord
 from logging import getLogger as logging_getLogger
 from shutil import copyfileobj
 from types import ModuleType
 from warnings import warn
 
-import requests
 from lxml.html import fromstring
+from requests import Response as requests_Response
+from requests import exceptions as requests_exceptions
+from requests import get as requests_get
 
 from .moduletools import moduleexport
 from .valuetyping import (  # LastElementT,; OtherElementsT,
     IO,
-    TYPE_CHECKING,
     Any,
     Callable,
     Generator,
@@ -48,7 +51,7 @@ _LAZY_IMPORTS: dict[str, str] = {
 
 Tinput = TypeVar("Tinput")
 Toutput = TypeVar("Toutput", bound=SupportsAbs[Any])
-thelogger: logging.Logger = logging.getLogger(__name__)
+thelogger: logging_Logger = logging_getLogger(__name__)
 
 
 class Printable(Protocol):  # pylint: disable=too-few-public-methods
@@ -100,7 +103,7 @@ def filecache(
 
 
 @moduleexport
-def thread_native_id_filter(record: logging.LogRecord) -> bool:
+def thread_native_id_filter(record: logging_LogRecord) -> bool:
     """Inject thread_id to log records"""
     record.thread_native = __import__("threading").get_native_id()  # pylint: disable=import-outside-toplevel
     return True
@@ -150,11 +153,11 @@ def basic_auth(
 class HumanReadAble(int):
     """int like with print in human readable scales."""
 
-    if TYPE_CHECKING:  # _typesched only available in type checking context
-        from _typeshed import (  # pylint: disable=import-outside-toplevel
-            ReadableBuffer,
-            SupportsTrunc,
-        )
+    # if TYPE_CHECKING:  # _typesched only available in type checking context
+    #    from _typeshed import (  # pylint: disable=import-outside-toplevel
+    #        ReadableBuffer,
+    #        SupportsTrunc,
+    #    )
 
     # <https://pypi.python.org/pypi/humanize>
     def __new__(
@@ -231,13 +234,15 @@ async def to_inner_task(
     the_executor: Executor | None = None,
 ) -> _FunCallResultT:
     """Build FUTURE from funcall and convert to CORO."""
-    return await asyncio.get_running_loop().run_in_executor(the_executor, funcall)
+    return await asyncio_get_running_loop().run_in_executor(the_executor, funcall)
 
 
 @moduleexport
 def eprint(*args: Printable, **_kwargs: KwargsForPrint) -> None:
     """Print to stderr and ignores kwargs."""
-    print(*args, file=sys.stderr)
+    from sys import stderr  # pylint: disable=import-outside-toplevel
+
+    print(*args, file=stderr)
 
 
 @moduleexport
@@ -259,7 +264,9 @@ except ImportError:
         return (*firsts, last) if last and firsts else last
 
 else:
-    module: ModuleType = sys.modules["valuefragments.helpers"]
+    from sys import modules as sys_modules  # pylint: disable=import-outside-toplevel
+
+    module: ModuleType = sys_modules["valuefragments.helpers"]
     if hasattr(module, "__all__"):
         if "ic" not in module.__all__:
             module.__all__.append("ic")
@@ -365,15 +372,15 @@ async def run_grouped(
     """Execute funcalls async by given method."""
     match how:
         case "thread":
-            async with asyncio.TaskGroup() as the_task_group:
-                all_tasks: list[asyncio.Task[_FunCallResultT]] = [
-                    the_task_group.create_task(asyncio.to_thread(funcall))
+            async with asyncio_TaskGroup() as the_task_group:
+                all_tasks: list[asyncio_Task[_FunCallResultT]] = [
+                    the_task_group.create_task(asyncio_to_thread(funcall))
                     for funcall in the_functioncalls
                 ]
             return [ready_task.result() for ready_task in all_tasks]
         case "ppe":
             with ProcessPoolExecutor() as executor:
-                async with asyncio.TaskGroup() as the_task_group:
+                async with asyncio_TaskGroup() as the_task_group:
                     all_tasks = [
                         the_task_group.create_task(to_inner_task(funcall, executor))
                         for funcall in the_functioncalls
@@ -381,7 +388,7 @@ async def run_grouped(
             return [ready_task.result() for ready_task in all_tasks]
         case "tpe":
             with ThreadPoolExecutor() as executor:
-                async with asyncio.TaskGroup() as the_task_group:
+                async with asyncio_TaskGroup() as the_task_group:
                     all_tasks = [
                         the_task_group.create_task(to_inner_task(funcall, executor))
                         for funcall in the_functioncalls
@@ -398,14 +405,14 @@ async def run_grouped(
 async def run_calls_in_executor(
     the_functioncalls: list[Callable[[], _FunCallResultT]],
     the_executor: Executor,
-) -> list[asyncio.Task[_FunCallResultT]]:
+) -> list[asyncio_Task[_FunCallResultT]]:
     """place functioncalls in given executor"""
     warn(
         "Will be removed from v0.4 on, use valuefragments.run_grouped",
         DeprecationWarning,
         stacklevel=2,
     )
-    async with asyncio.TaskGroup() as the_task_group:
+    async with asyncio_TaskGroup() as the_task_group:
         return [
             the_task_group.create_task(to_inner_task(funcall, the_executor))
             for funcall in the_functioncalls
@@ -416,7 +423,7 @@ async def run_grouped_in_tpe(
     the_functioncalls: list[Callable[[], _FunCallResultT]],
 ) -> list[_FunCallResultT]:
     """
-    Run functions grouped (asyncio.TaskGroup) in ThreadPoolExecutor.
+    Run functions grouped (asyncio_TaskGroup) in ThreadPoolExecutor.
 
     as for now the functions needs to be without parameters, prepare your calls
     with functools.partial
@@ -439,7 +446,7 @@ async def run_grouped_in_ppe(
     the_functioncalls: list[Callable[[], _FunCallResultT]],
 ) -> list[_FunCallResultT]:
     """
-    Run functions grouped (asyncio.TaskGroup) in ProcessPoolExecutor.
+    Run functions grouped (asyncio_TaskGroup) in ProcessPoolExecutor.
 
     as for now the functions needs to be without parameters, prepare your calls
     with functools.partial
@@ -467,10 +474,10 @@ def getselectedhreflinks(
     """Parse HTML from URL for anachor-tag href matches by XPATH"""
     # <https://devhints.io/xpath> <https://stackoverflow.com/q/78877951>
     try:
-        thesourcehtml: requests.Response = requests.get(
+        thesourcehtml: requests_Response = requests_get(
             url=thebaseurl, timeout=thetimeout
         )
-    except requests.exceptions.Timeout:
+    except requests_exceptions.Timeout:
         thelogger.error("timeout exception while fetching %s", thebaseurl)
         return []
     # Connect Timeout 5s, 10s for transmission
