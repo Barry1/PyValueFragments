@@ -4,7 +4,7 @@ echo ========== SETUP ==========
 #chrt -p $$
 #sudo chrt -r -p 70 $$
 #chrt -p $$
-repetitions=4
+repetitions=12
 echo ========== import ==========
 for _ in $(seq 1 $repetitions)
 do python3 << EOF
@@ -15,7 +15,7 @@ find_spec("typing")
 duration+=time.process_time_ns();
 print(duration)
 EOF
-done
+done | python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
 echo ========== __import__ ==========
 for _ in $(seq 1 $repetitions)
 do python3 << EOF
@@ -25,7 +25,7 @@ __import__("importlib.util",globals(),locals(),fromlist=["util"]).find_spec("typ
 duration+=time.process_time_ns();
 print(duration)
 EOF
-done
+done | python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
 echo ========== __import__ + getattr ==========
 for _ in $(seq 1 $repetitions)
 do python3 << EOF
@@ -35,4 +35,4 @@ getattr(__import__("importlib.util",globals(),locals(),fromlist=["util"]),"find_
 duration+=time.process_time_ns();
 print(duration)
 EOF
-done
+done | python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
