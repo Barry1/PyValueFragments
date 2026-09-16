@@ -1,10 +1,10 @@
 #!/bin/bash
 echo ========== SETUP ==========
-#sudo renice -20 $$
+sudo renice -18 $$
 #chrt -p $$
 #sudo chrt -r -p 70 $$
 #chrt -p $$
-repetitions=12
+repetitions=1234
 echo ========== import ==========
 for _ in $(seq 1 $repetitions)
 do python3 << EOF
