@@ -3,8 +3,8 @@ echo ========== SETUP ==========
 repetitions=12345
 echo $repetitions repetitions
 #evalcmd = python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
-#evalcmd="awk '{sum+=$1; ssq+=$1^2} END {mean=sum/NR; sd=(ssq/NR - mean^2)^0.5; print \"Mean: \" mean \"\tStd Dev: \" sd}'"
-#echo $evalcmd
+#alias evalcmd="awk '{sum+=$1; ssq+=$1^2} END {mean=sum/NR; sd=(ssq/NR - mean^2)^0.5; print \"Mean: \" mean \"\tStd Dev: \" sd}'"
+#alias evalcmd
 #sudo renice -18 $$
 #chrt -p $$
 #sudo chrt -r -p 70 $$
