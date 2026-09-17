@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://linuxize.com/cheatsheet/bash/
 echo ========== SETUP ==========
-repetitions=1234
+repetitions=12345
 nicelevel=-5
 echo $repetitions repetitions
 #evalcmd = python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
