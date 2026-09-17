@@ -2,7 +2,7 @@
 #https://linuxize.com/cheatsheet/bash/
 echo ========== SETUP ==========
 repetitions=1234
-nicelevel=-7
+nicelevel=-5
 echo $repetitions repetitions
 #evalcmd = python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
 #alias evalcmd="awk '{sum+=$1; ssq+=$1^2} END {mean=sum/NR; sd=(ssq/NR - mean^2)^0.5; print \"Mean: \" mean \"\tStd Dev: \" sd}'"
@@ -14,7 +14,7 @@ sudo renice $nicelevel $$
 echo ========== import ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $HOSTNAME,$nicelevel,"import", >> importoptim.csv
+echo -n "$HOSTNAME",$nicelevel,"import", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
@@ -27,7 +27,7 @@ done
 echo ========== __import__ ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $HOSTNAME,$nicelevel,"__import__", >> importoptim.csv
+echo -n "$HOSTNAME",$nicelevel,"__import__", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
@@ -39,7 +39,7 @@ done
 echo ========== __import__ + getattr ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $HOSTNAME,$nicelevel,"__import__ + getattr", >> importoptim.csv
+echo -n "$HOSTNAME",$nicelevel,"__import__ + getattr", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
