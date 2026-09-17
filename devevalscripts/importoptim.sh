@@ -1,7 +1,8 @@
 #!/bin/bash
+#https://linuxize.com/cheatsheet/bash/
 echo ========== SETUP ==========
 repetitions=1234
-nicelevel=-10
+nicelevel=-7
 echo $repetitions repetitions
 #evalcmd = python3 -c"from fileinput import input; print(sum(map(int, input()))/$repetitions)"
 #alias evalcmd="awk '{sum+=$1; ssq+=$1^2} END {mean=sum/NR; sd=(ssq/NR - mean^2)^0.5; print \"Mean: \" mean \"\tStd Dev: \" sd}'"
