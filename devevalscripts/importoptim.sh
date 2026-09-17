@@ -14,7 +14,7 @@ sudo renice $nicelevel $$
 echo ========== import ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $NAME,$nicelevel,"import", >> importoptim.csv
+echo -n $HOSTNAME,$nicelevel,"import", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
@@ -27,7 +27,7 @@ done
 echo ========== __import__ ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $NAME,$nicelevel,"__import__", >> importoptim.csv
+echo -n $HOSTNAME,$nicelevel,"__import__", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
@@ -39,7 +39,7 @@ done
 echo ========== __import__ + getattr ==========
 for _ in $(seq 1 $repetitions)
 do 
-echo -n $NAME,$nicelevel,"__import__ + getattr", >> importoptim.csv
+echo -n $HOSTNAME,$nicelevel,"__import__ + getattr", >> importoptim.csv
 python3 << EOF >> importoptim.csv
 import time
 duration=-time.process_time_ns();
