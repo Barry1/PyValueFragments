@@ -504,8 +504,8 @@ def print_time_result(wall: float, user: float, system: float) -> None:
     print(
         f"{wall:8.3f} [s]",
         f"(User: {user:8.3f} [s]",
-        "System: {system:8.3f} [s])",
-        f"{100 * (user + system) / wall:6.2f}% Load",
+        f"System: {system:8.3f} [s])",
+        f"{100 * (user + system) / wall:6.2f}% Load" if wall else "",
         sep="\t",
     )
 
